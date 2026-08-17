@@ -1,0 +1,1566 @@
+/* ==========================================================================
+   Refa Defanda Witanto — Portfolio
+   assets/css/styles.css
+
+   STATUS: PHASE 5 — Animations & Interactions.
+   Design tokens (Phase 2) are unchanged. Phase 4 built the full visual
+   system on top of them, per DESIGN.md. Phase 5 (block 11 below) adds the
+   JS-driven layer: scroll reveal, hero entrance, the certificate/project
+   lightbox, and the interaction states that blocks 6–10 already declared
+   hooks for (body.is-scrolled, .nav-toggle[aria-expanded], .nav-link.is-active).
+   The JS that drives these states lives in assets/js/ (nav.js, reveal.js,
+   modal.js, main.js) — this file only defines what each state looks like.
+
+   FILE STRUCTURE (top to bottom):
+     1. Design tokens (:root)                — Phase 2, unchanged
+     2. Reset / base                          — Phase 3, lightly extended
+     3. Layout utilities (container, section rhythm, eyebrows)
+     4. Typography helpers
+     5. Buttons
+     6. Cards (shared shell used by every card variant)
+     7. Chips / tags
+     8. Shared link, image & embed treatment
+     9. Section-by-section styles (Nav → Footer, in page order)
+     10. Responsive media queries (768 / 1024 / 1440), grouped at the end,
+         organized internally in the same page order as block 9.
+     11. Phase 5 — scroll reveal, hero entrance, hover polish, modal/lightbox
+
+   Mobile-first: unqualified rules below target small screens by default;
+   the media-query block at the end progressively enhances for larger ones.
+   ========================================================================== */
+
+:root {
+  /* Color — neutral */
+  --color-bg: #F6F7F9;
+  --color-surface: #FFFFFF;
+  --color-surface-alt: #EEF1F5;
+  --color-border: #E2E5EB;
+  --color-border-interactive: #848CA3;
+
+  /* Color — text */
+  --color-ink: #12151C;
+  --color-ink-soft: #4A5063;
+  --color-ink-faint: #666C80;
+
+  /* Color — primary (Signal Blue) */
+  --color-primary: #2A46C0;
+  --color-primary-hover: #22379C;
+  --color-primary-tint: #E7ECFB;
+  --color-primary-on-dark: #5B7CF0;
+
+  /* Color — secondary (Credential Gold) */
+  --color-gold: #B07C2C;
+  --color-gold-deep: #8C6423;
+  --color-gold-tint: #F5EDDC;
+  --color-gold-on-dark: #D4A544;
+
+  /* Color — dark section (footer only) */
+  --color-dark-bg: #0D111A;
+  --color-dark-surface: #161B26;
+  --color-dark-text: #E7E9EE;
+  --color-dark-text-soft: #9AA1B4;
+
+  /* Type */
+  --font-display: 'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Public Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+
+  /* Spacing (4px base) */
+  --space-1: 4px;  --space-2: 8px;   --space-3: 12px;  --space-4: 16px;  --space-5: 24px;
+  --space-6: 32px; --space-7: 48px;  --space-8: 64px;  --space-9: 96px;  --space-10: 128px;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 999px;
+
+  /* Shadow */
+  --shadow-sm: 0 1px 2px rgba(18,21,28,.04), 0 1px 3px rgba(18,21,28,.06);
+  --shadow-md: 0 8px 24px rgba(18,21,28,.10), 0 2px 6px rgba(18,21,28,.06);
+  --shadow-lg: 0 24px 48px rgba(18,21,28,.16), 0 8px 20px rgba(18,21,28,.08);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 500ms;
+  --duration-entrance: 600ms;
+
+  /* Container */
+  --container-max: 1240px;
+  --container-pad: clamp(1.25rem, 5vw, 4rem);
+}
+
+/* ---- Minimal reset (normalizing defaults, not "styling") ---- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-ink-soft);
+  background: var(--color-bg);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; }
+ul, ol { padding-left: 1.2em; margin: 0; }
+li { list-style: none; }
+ul, ol { padding-left: 0; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--color-ink);
+  line-height: 1.2;
+  margin: 0;
+  font-weight: 600;
+}
+
+p { margin: 0; }
+
+/* Visible keyboard focus everywhere, removed only for mouse/touch users */
+:focus {
+  outline: none;
+}
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ==========================================================================
+   3. LAYOUT UTILITIES
+   ========================================================================== */
+
+.container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+/* Skip link — hidden until focused, per accessibility spec */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-4);
+  z-index: 100;
+  background: var(--color-ink);
+  color: var(--color-dark-text);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-weight: 600;
+  transition: top var(--duration-base) var(--ease-out);
+}
+.skip-link:focus-visible {
+  top: var(--space-4);
+  outline-offset: 4px;
+}
+
+/* Every top-level page section shares this rhythm: consistent block padding,
+   and a container to cap line length / align with the nav + hero. */
+main > section {
+  padding-block: var(--space-8);
+}
+main > section > * {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+/* Subtle alternating band, per DESIGN.md §2 (--color-surface-alt).
+   Hero keeps the base bg; content sections alternate from About onward. */
+main > section:nth-of-type(even) {
+  background: var(--color-surface-alt);
+}
+
+.hero {
+  padding-block: var(--space-9) var(--space-8);
+}
+
+/* Section heading: small mono index eyebrow + large title, stacked.
+   Only Expertise → Contact carry a numbered eyebrow (see index.html);
+   About intentionally has none, matching Hero. */
+.section-heading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-7);
+}
+
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.section-title {
+  font-size: clamp(2rem, 1.7rem + 1.4vw, 3rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+}
+
+/* ==========================================================================
+   4. TYPOGRAPHY HELPERS
+   ========================================================================== */
+
+/* Body copy: paragraphs inside prose-bearing sections get a comfortable
+   measure and the "Body" scale from DESIGN.md §3. */
+.about__body p,
+.hero__tagline {
+  line-height: 1.65;
+}
+
+.hero__tagline {
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--color-ink-soft);
+  max-width: 55ch;
+}
+
+.about__body p {
+  font-size: 1rem;
+  color: var(--color-ink-soft);
+  max-width: 65ch;
+}
+.about__body p + p {
+  margin-top: var(--space-5);
+}
+
+/* Shared "data figure" treatment: every real metric on the site uses this.
+   Used by .stat-value wherever it appears (hero / project / education). */
+.stat-value {
+  display: block;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--color-ink);
+  line-height: 1.1;
+}
+
+.stat-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+}
+
+.stat-unit {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  color: var(--color-ink-faint);
+}
+
+/* ==========================================================================
+   5. BUTTONS
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-fast) var(--ease-out),
+              transform var(--duration-fast) var(--ease-out);
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+}
+.btn--primary:hover {
+  background: var(--color-primary-hover);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.btn--secondary {
+  background: transparent;
+  border-color: var(--color-border-interactive);
+  color: var(--color-ink);
+}
+.btn--secondary:hover {
+  background: var(--color-primary-tint);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--color-primary);
+  padding-inline: var(--space-2);
+  min-height: auto;
+}
+.btn--ghost:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn--primary:hover { transform: none; }
+}
+
+/* ==========================================================================
+   6. CARDS (shared shell — reused by every card-like component)
+   ========================================================================== */
+
+.card,
+.skill-group {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-5);
+}
+
+/* Interactive cards (contain a real link/CTA) get the hover lift.
+   Non-interactive cards (expertise, publication, education, skills)
+   deliberately skip it — see DESIGN.md §5, "so they don't visually
+   promise a click that isn't there." */
+.card--project,
+.card--certification {
+  transition: transform var(--duration-base) var(--ease-out),
+              box-shadow var(--duration-base) var(--ease-out),
+              border-color var(--duration-base) var(--ease-out);
+}
+.card--project:hover,
+.card--certification:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-border-interactive);
+}
+
+@media (hover: hover) {
+  .card--project:hover { transform: translateY(-6px); }
+  .card--certification:hover { transform: translateY(-4px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card--project:hover,
+  .card--certification:hover { transform: none; }
+}
+
+/* ==========================================================================
+   7. CHIPS / TAGS
+   ========================================================================== */
+
+/* Base chip: general-purpose pill (skills inventory, "open to" tags).
+   Body-Small sans, not mono — long labels like "Digital & Business
+   Internships" stay legible; the pill shape already reads as a tag. */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  background: var(--color-surface-alt);
+  color: var(--color-ink-soft);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.3;
+  text-align: center;
+  /* deliberately no white-space:nowrap — long labels like "Quantitative
+     Research Methods" need to wrap to a second line rather than
+     overflow a narrow column (see the 4-column Skills grid) */
+}
+
+/* Data-like badge chips: tool tags, publication tier/author badges.
+   These get the mono "Label" treatment per DESIGN.md's type scale —
+   short, structured, reads as measured data rather than prose. */
+.tool-chips .chip,
+.chip--tier,
+.chip--author {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--color-primary-tint);
+  color: var(--color-primary);
+  white-space: normal;
+}
+
+.chip--gold {
+  background: var(--color-gold-tint);
+  color: var(--color-gold-deep);
+}
+
+/* ==========================================================================
+   8. SHARED LINK, IMAGE & EMBED TREATMENT
+   ========================================================================== */
+
+figure { margin: 0; }
+figcaption {
+  font-size: 0.8125rem;
+  color: var(--color-ink-faint);
+  margin-top: var(--space-3);
+}
+
+/* Generic inline links inside prose (not .btn) */
+main a:not(.btn) {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-decoration-color: var(--color-primary-tint);
+  text-underline-offset: 3px;
+  transition: text-decoration-color var(--duration-fast) var(--ease-out);
+}
+main a:not(.btn):hover {
+  text-decoration-color: currentColor;
+}
+
+/* ==========================================================================
+   9. SECTIONS — in page order
+   ========================================================================== */
+
+/* ---- Navbar ---- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: transparent;
+  transition: background-color var(--duration-base) var(--ease-in-out),
+              box-shadow var(--duration-base) var(--ease-in-out);
+}
+
+/* "Scrolled" state — toggled by Phase 5 JS adding this class to <body>.
+   Declared now so Phase 5 only has to add the class, not new CSS. */
+body.is-scrolled .site-header {
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: var(--space-4) var(--container-pad);
+}
+
+.navbar__wordmark {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.nav-toggle {
+  position: relative;
+  z-index: 41; /* must stay above .nav-panel (fixed, z-index:40) so the
+                  close (X) action is reachable while the mobile menu
+                  is open — a non-positioned element paints below any
+                  positioned one in the same stacking context regardless
+                  of z-index or DOM order, so this needs its own. */
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+.nav-toggle__bar {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--color-ink);
+  border-radius: 1px;
+  transition: transform var(--duration-base) var(--ease-out),
+              opacity var(--duration-base) var(--ease-out);
+}
+/* Open state (Phase 5 will toggle aria-expanded via JS) — bars form an X */
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(2) {
+  opacity: 0;
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile default: a hidden full-screen overlay panel. Phase 5 JS will
+   toggle `aria-expanded` on .nav-toggle; this selector reacts to that
+   with zero JS changes needed for the show/hide + slide transition. */
+.nav-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-content: safe center; /* landscape phones: 8 links + the CTA can be
+    taller than the viewport. Plain `center` clips the first item off the
+    top with no way to scroll to it — `safe` keeps centering when everything
+    fits, and falls back to start-alignment (so nothing is ever unreachable)
+    only when it doesn't. Browsers that don't understand `safe center` as a
+    value ignore this whole line and keep the plain `center` above. */
+  gap: var(--space-7);
+  padding: var(--space-8);
+  background: var(--color-surface);
+  overflow-y: auto; /* belt-and-suspenders: lets the panel itself scroll if content still exceeds the viewport */
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform var(--duration-base) var(--ease-in-out),
+              visibility 0s linear var(--duration-base);
+}
+.nav-toggle[aria-expanded="true"] ~ .nav-panel {
+  transform: translateX(0);
+  visibility: visible;
+  transition: transform var(--duration-base) var(--ease-in-out);
+}
+
+.nav-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.nav-link {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-ink-soft);
+  padding-block: var(--space-2);
+  position: relative;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 2px;
+  background: var(--color-primary);
+  transition: right var(--duration-base) var(--ease-out);
+}
+.nav-link:hover {
+  color: var(--color-ink);
+}
+.nav-link:hover::after {
+  right: 0;
+}
+/* Active-section state — Phase 5 JS will add this class via scroll tracking */
+.nav-link.is-active {
+  color: var(--color-primary);
+}
+.nav-link.is-active::after {
+  right: 0;
+}
+
+.nav-cta {
+  flex-shrink: 0;
+}
+
+/* ---- Hero ---- */
+
+.hero {
+  display: flex;
+  flex-direction: column;
+}
+.hero > * {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+  width: 100%;
+}
+
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-5);
+  order: 2;
+}
+
+.hero__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--color-primary);
+}
+
+.hero__name {
+  font-size: clamp(2.75rem, 2.1rem + 2.8vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+}
+
+.hero__cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-3) var(--space-4);
+}
+
+.hero__stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-5) var(--space-7);
+  margin-top: var(--space-3);
+}
+.hero__stats .stat {
+  text-align: center;
+}
+.hero__stats .stat-value {
+  font-size: clamp(1.75rem, 1.5rem + 1.2vw, 2.5rem);
+}
+
+.hero__photo-frame {
+  order: 1;
+  position: relative;
+  width: min(320px, 70vw);
+  max-width: none; /* override the generic section-child max-width (1240px) — irrelevant here */
+  padding-inline: 0; /* override the generic section-child padding — this element is sized by
+                         its own `width` above, not by the container's padding rhythm */
+  margin-inline: auto;
+  isolation: isolate;
+}
+.hero__photo-frame::before {
+  content: "";
+  position: absolute;
+  inset: var(--space-4) calc(-1 * var(--space-4)) calc(-1 * var(--space-4)) var(--space-4);
+  background: linear-gradient(135deg, var(--color-primary-tint), transparent 70%);
+  border-radius: var(--radius-lg);
+  z-index: -1;
+}
+.hero__photo {
+  width: 100%;
+  aspect-ratio: 900 / 1281;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+/* ---- About ---- */
+
+.about__credentials {
+  margin-top: var(--space-5);
+  font-size: 0.875rem;
+  color: var(--color-ink-faint);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+/* ---- Expertise ---- */
+
+.expertise-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-5);
+}
+
+.card--expertise h3 {
+  font-size: 1.125rem;
+  margin-bottom: var(--space-3);
+}
+.card--expertise p {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--color-ink-soft);
+}
+
+/* Icon badge — shared by Expertise cards and Skill category headers (both
+   are "showcase" content per DESIGN.md, so they get the more visually
+   present treatment vs. Certifications' bare small icon below). Reuses
+   the same tint/accent pair as chips and buttons rather than introducing
+   a new color, per DESIGN.md's "one card system" principle. */
+.icon-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary-tint);
+  color: var(--color-primary);
+  margin-bottom: var(--space-4);
+}
+.icon-badge svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ---- Skills & Tools ---- */
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-5);
+}
+
+.skill-group h3 {
+  font-size: 1.125rem;
+  margin-bottom: var(--space-4);
+}
+
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* ---- Featured Projects ---- */
+
+.projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+}
+
+.card--project {
+  padding: 0; /* media needs to reach the card edges; content gets its own padding below */
+  overflow: hidden;
+}
+
+.project__media {
+  background: var(--color-surface-alt);
+}
+.project__media img {
+  width: 100%;
+  height: auto;
+}
+.project__media figcaption {
+  padding: var(--space-3) var(--space-5);
+  margin-top: 0;
+}
+
+.project__content {
+  padding: var(--space-6) var(--space-5);
+}
+.project__content h3 {
+  font-size: 1.25rem;
+  margin-bottom: var(--space-2);
+}
+
+.project__meta {
+  font-size: 0.8125rem;
+  color: var(--color-ink-faint);
+  margin-bottom: var(--space-5);
+}
+
+.project__content p {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--color-ink-soft);
+  margin-bottom: var(--space-4);
+}
+.project__content strong {
+  color: var(--color-ink);
+}
+
+.tool-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+}
+
+/* The project stats are this card's proof — visually the heaviest element,
+   per DESIGN.md Part C. */
+.project__stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4) var(--space-5);
+  margin: 0 0 var(--space-5);
+  padding: var(--space-5) 0;
+  border-block: 1px solid var(--color-border);
+}
+.project__stats .stat-value {
+  font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem);
+}
+
+.project__link {
+  padding-inline: 0;
+}
+
+/* ---- Education ---- */
+
+.education__card {
+  max-width: 46rem; /* a single summary card reads better contained than
+                        stretched across the full 1240px container */
+}
+.education__card h3 {
+  font-size: 1.25rem;
+  margin-bottom: var(--space-2);
+}
+.education__institution {
+  font-size: 0.9375rem;
+  color: var(--color-ink-soft);
+}
+.education__dates {
+  font-size: 0.875rem;
+  color: var(--color-ink-faint);
+  margin-top: var(--space-1);
+}
+
+.education__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  margin: var(--space-5) 0;
+  padding: var(--space-5) 0;
+  border-block: 1px solid var(--color-border);
+}
+.education__stats .stat-value {
+  font-size: 1.5rem;
+}
+
+.education__honors {
+  background: var(--color-gold-tint);
+  color: var(--color-gold-deep);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-sm);
+}
+.education__honors strong {
+  color: inherit;
+}
+
+/* ---- Research & Publications ---- */
+
+.publications-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.card--publication {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.card--publication-lead {
+  border-color: var(--color-gold);
+}
+
+.publication__content h3 {
+  font-size: 1.0625rem;
+  line-height: 1.4;
+  margin-bottom: var(--space-2);
+}
+
+.publication__meta {
+  font-size: 0.8125rem;
+  color: var(--color-ink-faint);
+}
+
+/* The "View all on Google Scholar" link is a 3rd direct child of the
+   section (alongside the heading and the list) — it still gets the
+   container's padding/alignment from the generic rule, but must not
+   stretch to the container's full width. */
+.research > .btn {
+  width: fit-content;
+}
+
+/* ---- Certifications ---- */
+
+.cert-group {
+  margin-bottom: var(--space-7);
+}
+.cert-group:last-child {
+  margin-bottom: 0;
+}
+
+.cert-group__title {
+  font-size: clamp(1.375rem, 1.25rem + 0.6vw, 1.75rem);
+  font-weight: 600;
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.certs-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+}
+
+.card--certification h4 {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--color-ink);
+  margin-bottom: var(--space-2);
+}
+
+/* Certification icon — deliberately lighter than .icon-badge above: no
+   tint background, muted color. DESIGN.md calls for a "small line icon"
+   here specifically, and certifications are a dense, scannable list
+   rather than a showcase section, so the icon stays quiet. */
+.cert-icon {
+  display: block;
+  width: 18px;
+  height: 18px;
+  color: var(--color-ink-faint);
+  margin-bottom: var(--space-2);
+}
+.cert-issuer {
+  font-size: 0.875rem;
+  color: var(--color-ink-soft);
+}
+.cert-date {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--color-ink-faint);
+  margin-top: var(--space-1);
+}
+.cert-date.placeholder {
+  font-style: italic;
+}
+.cert-credential {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-ink-faint);
+  margin-top: var(--space-2);
+  word-break: break-word;
+}
+.cert-link {
+  margin-top: var(--space-4);
+  padding-inline: 0;
+}
+
+/* ---- Resume / CV ---- */
+
+.resume__block {
+  max-width: 46rem;
+  margin-inline: auto;
+  text-align: center;
+}
+.resume__updated {
+  font-size: 0.875rem;
+  color: var(--color-ink-faint);
+  margin-bottom: var(--space-5);
+}
+.resume__block > .btn {
+  margin-inline: auto;
+}
+
+.resume__preview {
+  margin-top: var(--space-6);
+  text-align: left;
+}
+.resume__preview iframe {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+.resume__preview-fallback {
+  font-size: 0.8125rem;
+  color: var(--color-ink-faint);
+  margin-top: var(--space-3);
+  text-align: center;
+}
+
+/* ---- Contact ---- */
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-7);
+}
+
+.contact__row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+.contact__row:first-child {
+  padding-top: 0;
+}
+.contact__label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+}
+.contact__row a {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.contact__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+}
+/* Unlike Skills chips (which sit inside a white .skill-group card and
+   contrast fine against the default chip fill), these tags sit directly
+   on the section background — and Contact happens to land on the
+   alternating alt-band (§ Layout utilities), the exact same color as
+   the chip's default fill. White + a border keeps them visible on
+   either band. */
+.contact__tags .chip {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.contact__platforms {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+.contact__platforms .btn {
+  width: 100%;
+}
+
+/* ---- Footer ---- */
+
+.site-footer {
+  background: var(--color-dark-bg);
+  color: var(--color-dark-text-soft);
+  padding-block: var(--space-8);
+}
+.site-footer > * {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.footer__wordmark {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-dark-text);
+  margin-bottom: var(--space-2);
+}
+.footer__tagline {
+  font-size: 0.9375rem;
+  max-width: 45ch;
+}
+
+.footer__nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  margin-top: var(--space-7);
+}
+.footer__nav a {
+  font-size: 0.9375rem;
+  color: var(--color-dark-text-soft);
+}
+.footer__nav a:hover {
+  color: var(--color-dark-text);
+}
+
+.footer__social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  margin-top: var(--space-6);
+}
+.footer__social a {
+  font-size: 0.9375rem;
+  color: var(--color-primary-on-dark);
+}
+.footer__social a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer__copyright {
+  font-size: 0.8125rem;
+  color: var(--color-dark-text-soft);
+  margin-top: var(--space-7);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-dark-surface);
+}
+
+/* Footer links use the dark-surface palette, not the light-mode link rule
+   defined in block 8 above. */
+.site-footer a:not(.btn) {
+  text-decoration: none;
+}
+.site-footer a:not(.btn):hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   10. RESPONSIVE
+   Mobile-first: base rules above target small screens. Each block below
+   progressively enhances for a wider viewport. Organized by breakpoint,
+   then internally by section in page order — matches block 9 above.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------
+   768px — tablet
+   Nav stays compact (hamburger). Hero/Projects stay stacked. Card grids
+   move from 1 to 2 columns. Publication cards go from a stacked block
+   to a left/center/right row.
+   -------------------------------------------------------------------- */
+@media (min-width: 768px) {
+  .hero__cta-row { justify-content: center; }
+
+  .expertise-grid,
+  .skills-grid,
+  .certs-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Publication card: badge | title+meta | author tag, in a row */
+  .card--publication {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-5);
+  }
+  .publication__content { flex: 1; }
+  .card--publication > .chip--tier { flex-shrink: 0; }
+  .card--publication > .chip--author { flex-shrink: 0; margin-left: auto; }
+
+  .contact__platforms {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .contact__platforms .btn { width: auto; }
+}
+
+/* --------------------------------------------------------------------
+   1024px — small desktop
+   Hero and Featured Projects switch to their two-column split layouts.
+   Section padding grows. (Nav stays in its compact hamburger form a
+   little longer — see the 1280px block below. With 8 links plus a CTA
+   button, the full horizontal nav needs more room than 1024px actually
+   gives it once real fonts are loaded; DESIGN.md ties the *content*
+   breakpoints to 1024, but never ties the nav specifically to that same
+   number, so it gets its own threshold rather than being cramped.)
+   -------------------------------------------------------------------- */
+@media (min-width: 1024px) {
+
+  main > section { padding-block: var(--space-9); }
+  .hero { padding-block: var(--space-10) var(--space-9); }
+
+  .card--expertise h3,
+  .skill-group h3,
+  .project__content h3,
+  .publication__content h3,
+  .education__card h3,
+  .card--certification h4 {
+    font-size: 1.25rem;
+  }
+
+  /* ---- Hero: stacked → two-column split (text left, photo right) ---- */
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    align-items: center;
+    gap: var(--space-8);
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--container-pad);
+  }
+  .hero > * {
+    max-width: none;
+    margin-inline: 0;
+    padding-inline: 0;
+    width: auto;
+  }
+  .hero__content {
+    order: 1;
+    align-items: flex-start;
+    text-align: left;
+  }
+  .hero__tagline { max-width: 52ch; }
+  .hero__cta-row,
+  .hero__stats { justify-content: flex-start; }
+  .hero__stats .stat { text-align: left; }
+  .hero__photo-frame {
+    order: 2;
+    width: 100%;
+    max-width: 420px;
+    margin-inline: 0 0 0 auto;
+  }
+
+  /* ---- Grids: one more column each (Expertise/Certs 2→2 stays here,
+         Skills 2→3 — see DESIGN.md §8, "3→2, 4→3" at this tier) ---- */
+  .expertise-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .skills-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .certs-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  /* ---- Featured Projects: stacked → alternating split card ---- */
+  .card--project {
+    display: grid;
+    grid-template-columns: minmax(0, 48fr) minmax(0, 52fr);
+    align-items: stretch;
+  }
+  .project__media {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .project__media img {
+    flex: 1;
+    height: 100%;
+    object-fit: cover;
+  }
+  .project__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--space-7);
+  }
+  /* Alternate sides via CSS order (not HTML order) — keeps screen-reader
+     reading order as image → content on every card, per DESIGN.md §9. */
+  .card--project:nth-of-type(even) .project__media { order: 2; }
+  .card--project:nth-of-type(even) .project__content { order: 1; }
+
+  /* ---- Education: card can breathe a little more ---- */
+  .education__card { padding: var(--space-6); }
+
+  /* ---- Contact: stacked → two-column ---- */
+  .contact__grid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: var(--space-8);
+  }
+}
+
+/* --------------------------------------------------------------------
+   1280px — nav-specific threshold
+   Switches the navbar from the compact hamburger/overlay pattern to a
+   full horizontal bar. Kept separate from the 1024px content tier above
+   because 8 nav links + a CTA button genuinely need this much room —
+   see the comment on the 1024px block. Gaps are a touch tighter than
+   the rest of the site's rhythm specifically to keep this fitting
+   comfortably once the real webfonts (wider than this preview's
+   fallback fonts) are loaded.
+   -------------------------------------------------------------------- */
+@media (min-width: 1280px) {
+  .nav-toggle { display: none; }
+  .nav-panel {
+    position: static;
+    inset: auto;
+    z-index: auto;
+    transform: none;
+    visibility: visible;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-6);
+    padding: 0;
+    background: transparent;
+  }
+  .nav-list {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-5);
+  }
+  .nav-link { font-size: 0.9375rem; }
+}
+
+/* --------------------------------------------------------------------
+   1440px — large desktop
+   Grids reach their widest column counts. Container is already capped
+   at --container-max (1240px) via the container rules, so extra width
+   beyond this becomes flanking whitespace automatically.
+   -------------------------------------------------------------------- */
+@media (min-width: 1440px) {
+  .expertise-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .skills-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .certs-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ==========================================================================
+   11. PHASE 5 — SCROLL REVEAL, HERO ENTRANCE & INTERACTIVE COMPONENTS
+   ========================================================================== */
+
+/* ---- Scroll reveal ---------------------------------------------------
+   `.reveal` is added to ~40 elements in index.html (section headings,
+   cards, the resume/contact blocks). Default state is fully visible — a
+   safety net so content is never stuck hidden if JS fails to load. Only
+   once main.js confirms it's running (adding `.js` to <html>) does the
+   hidden "ready to animate in" state apply; reveal.js then adds
+   `.is-visible` per element as it scrolls into view. */
+.reveal {
+  opacity: 1;
+  transform: none;
+}
+.js .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity var(--duration-slow) var(--ease-out),
+              transform var(--duration-slow) var(--ease-out);
+}
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Grid/list stagger: direct .reveal children of these containers get a
+   small delay per position, capped at the 5th item so a long list (e.g.
+   11 certifications) doesn't make the last card wait 800ms+ to appear.
+   Cards that cross into view together (a full row in a grid) still read
+   as a deliberate cascade rather than popping in as one block. */
+.expertise-grid > .reveal:nth-child(2),
+.skills-grid > .reveal:nth-child(2),
+.certs-grid > .reveal:nth-child(2),
+.publications-list > .reveal:nth-child(2),
+.projects-list > .reveal:nth-child(2) {
+  transition-delay: 70ms;
+}
+.expertise-grid > .reveal:nth-child(3),
+.skills-grid > .reveal:nth-child(3),
+.certs-grid > .reveal:nth-child(3),
+.publications-list > .reveal:nth-child(3),
+.projects-list > .reveal:nth-child(3) {
+  transition-delay: 140ms;
+}
+.expertise-grid > .reveal:nth-child(4),
+.skills-grid > .reveal:nth-child(4),
+.certs-grid > .reveal:nth-child(4),
+.publications-list > .reveal:nth-child(4),
+.projects-list > .reveal:nth-child(4) {
+  transition-delay: 210ms;
+}
+.expertise-grid > .reveal:nth-child(n+5),
+.skills-grid > .reveal:nth-child(n+5),
+.certs-grid > .reveal:nth-child(n+5),
+.publications-list > .reveal:nth-child(n+5),
+.projects-list > .reveal:nth-child(n+5) {
+  transition-delay: 280ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .expertise-grid > .reveal,
+  .skills-grid > .reveal,
+  .certs-grid > .reveal,
+  .publications-list > .reveal,
+  .projects-list > .reveal {
+    transition-delay: 0ms !important;
+  }
+}
+
+/* ---- Hero entrance -----------------------------------------------------
+   The one entrance animation that's pure CSS, no JS involved: Hero is
+   always in the initial viewport, so it needs no scroll detection, and
+   keeping it JS-free means it still plays even if a script fails to load.
+   Sequence follows DESIGN.md §7 (name → tagline → CTA row → photo, ~100ms
+   apart); eyebrow leads the text column in and stats close it out. */
+@keyframes heroReveal {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero__eyebrow,
+.hero__name,
+.hero__tagline,
+.hero__cta-row,
+.hero__stats,
+.hero__photo-frame {
+  animation: heroReveal var(--duration-entrance) var(--ease-out) both;
+}
+.hero__eyebrow      { animation-delay: 0ms; }
+.hero__name         { animation-delay: 100ms; }
+.hero__photo-frame  { animation-delay: 150ms; }
+.hero__tagline      { animation-delay: 200ms; }
+.hero__cta-row      { animation-delay: 300ms; }
+.hero__stats        { animation-delay: 380ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__eyebrow,
+  .hero__name,
+  .hero__tagline,
+  .hero__cta-row,
+  .hero__stats,
+  .hero__photo-frame {
+    animation-delay: 0ms !important;
+  }
+}
+
+/* ---- Project screenshot: hover zoom + modal trigger ---------------------
+   DESIGN.md §7: "image zoom on hover (subtle, not dramatic)". The trigger
+   button carries no default button chrome — visually it's still just the
+   dashboard screenshot, now with a click/keyboard affordance. */
+.project__media {
+  overflow: hidden; /* clips the zoom below so it can't spill into .project__content */
+}
+.project__media-trigger {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+.project__media-trigger:focus-visible {
+  outline-offset: -2px; /* positive offset would be clipped by the overflow:hidden above */
+}
+.project__media-trigger img {
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+@media (hover: hover) {
+  .project__media-trigger:hover img {
+    transform: scale(1.03);
+  }
+}
+.project__media-trigger:focus-visible img {
+  transform: scale(1.03);
+}
+@media (prefers-reduced-motion: reduce) {
+  .project__media-trigger:hover img,
+  .project__media-trigger:focus-visible img {
+    transform: none;
+  }
+}
+
+/* ---- Background scroll lock ---------------------------------------------
+   Shared by the mobile menu (nav.js) and the lightbox (modal.js) — both
+   are full-viewport overlays where the page underneath shouldn't scroll. */
+body.menu-open,
+body.modal-open {
+  overflow: hidden;
+}
+
+/* ---- Modal / lightbox ----------------------------------------------------
+   One reusable dialog (#lightbox in index.html) for both certificate and
+   project-screenshot previews. Uses the same visibility+opacity pattern
+   as .nav-panel above (block 9) rather than `display`, so it stays
+   animatable and keyboard-focusable exactly when it should be. */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 60; /* above .site-header (50) / .nav-toggle (41) / .nav-panel (40); below .skip-link (100) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+  background: rgba(13, 17, 26, 0.72);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-out),
+              visibility 0s linear var(--duration-base);
+}
+.modal.is-open {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.modal__dialog {
+  position: relative;
+  width: 100%;
+  max-width: min(90vw, 900px);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-6) var(--space-5) var(--space-5);
+  transform: scale(0.96);
+  transition: transform var(--duration-base) var(--ease-out);
+}
+.modal.is-open .modal__dialog {
+  transform: scale(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .modal__dialog,
+  .modal.is-open .modal__dialog {
+    transform: none;
+  }
+}
+
+.modal__close {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-ink-soft);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out);
+}
+.modal__close:hover {
+  background: var(--color-primary-tint);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.modal__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+}
+
+.modal__caption {
+  margin-top: var(--space-4);
+  font-size: 0.875rem;
+  color: var(--color-ink-faint);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .modal__dialog {
+    padding: var(--space-7) var(--space-6) var(--space-6);
+  }
+}

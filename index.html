@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Refa Defanda Witanto | Data &amp; Business Analytics Portfolio</title>
+  <meta name="description" content="Portfolio of Refa Defanda Witanto — International Relations student at Universitas Brawijaya building a second track in data analytics, business intelligence, and research.">
+  <meta name="theme-color" content="#2A46C0">
+
+  <!-- Favicon — "RD" monogram in Signal Blue, matches the navbar wordmark's
+       text-only treatment (see DESIGN.md's Navbar component spec). favicon.ico
+       stays at the site root since some browsers/crawlers look for it there
+       directly, regardless of the <link> tags below. -->
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="assets/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="assets/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Refa Defanda Witanto | Data & Business Analytics Portfolio">
+  <meta property="og:description" content="International Relations student at Universitas Brawijaya building a second track in data analytics, business intelligence, and research.">
+
+  <!-- Fonts (Phase 2 approved system: Schibsted Grotesk / Public Sans / IBM Plex Mono) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ==================================================================
+       NAVIGATION
+       ================================================================== -->
+  <header class="site-header">
+    <nav class="navbar" aria-label="Primary">
+      <a class="navbar__wordmark" href="#hero">Refa Defanda</a>
+
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="primary-navigation" aria-label="Open menu">
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+      </button>
+
+      <div id="primary-navigation" class="nav-panel">
+        <ul class="nav-list">
+          <li><a class="nav-link" href="#about">About</a></li>
+          <li><a class="nav-link" href="#expertise">Expertise</a></li>
+          <li><a class="nav-link" href="#skills">Skills</a></li>
+          <li><a class="nav-link" href="#projects">Projects</a></li>
+          <li><a class="nav-link" href="#education">Education</a></li>
+          <li><a class="nav-link" href="#research">Research</a></li>
+          <li><a class="nav-link" href="#certifications">Certifications</a></li>
+          <li><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+        <a class="nav-cta btn btn--primary" href="#resume">Resume</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ==================================================================
+         HERO
+         ================================================================== -->
+    <section id="hero" class="hero" aria-label="Introduction">
+      <div class="hero__content">
+        <p class="hero__eyebrow">7th Semester · International Relations → Data &amp; Business Analytics</p>
+
+        <h1 class="hero__name">Refa Defanda Witanto</h1>
+
+        <p class="hero__tagline">
+          I'm an International Relations student at Universitas Brawijaya building a second track in
+          data and business analytics — turning multi-source datasets into BigQuery pipelines, Looker
+          Studio dashboards, and statistical analysis that support real decisions, evidenced across
+          pharmaceutical and banking case studies.
+        </p>
+
+        <div class="hero__cta-row">
+          <a class="btn btn--primary" href="#projects">View Projects</a>
+          <a class="btn btn--secondary" href="assets/documents/Refa_Defanda_Witanto_CV.pdf" download>Download Resume</a>
+          <a class="btn btn--ghost" href="#contact">Contact Me →</a>
+        </div>
+
+        <ul class="hero__stats" aria-label="Quick stats">
+          <li class="stat">
+            <span class="stat-value">5</span>
+            <span class="stat-label">SINTA-Indexed Publications</span>
+          </li>
+          <li class="stat">
+            <span class="stat-value">2</span>
+            <span class="stat-label">Data Analytics Projects</span>
+          </li>
+          <li class="stat">
+            <span class="stat-value">11</span>
+            <span class="stat-label">Certifications</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="hero__photo-frame">
+        <img
+          class="hero__photo"
+          src="assets/images/profile/refa-defanda-witanto.jpg"
+          alt="Portrait of Refa Defanda Witanto"
+          width="900" height="1281">
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         ABOUT ME
+         ================================================================== -->
+    <section id="about" class="about" aria-labelledby="about-heading">
+      <div class="section-heading reveal">
+        <h2 id="about-heading" class="section-title">About Me</h2>
+      </div>
+
+      <div class="about__body reveal">
+        <p>
+          I'm an International Relations undergraduate at Universitas Brawijaya (GPA 3.53/4.00),
+          currently in my 7th semester and expecting to graduate in August 2027. Alongside my IR
+          coursework, I've built hands-on experience in data analytics, SQL, and business
+          intelligence — applied through two Rakamin Academy virtual internships with Kimia Farma
+          and Bank Muamalat.
+        </p>
+        <p>
+          I also serve as a Research Fellow in the Social Sciences &amp; Humanities Department at
+          Veritas Institute of Politics, where I collaborate with International Relations and
+          Political Science lecturers at Universitas Brawijaya on research projects and have
+          authored 5+ policy and socio-political articles for the platform. That research training
+          carries into my peer-reviewed academic work — five SINTA-indexed publications, including
+          one as first author.
+        </p>
+        <p>
+          I'm drawn to the space where social science and data meet: using statistical methods and
+          dashboards to turn qualitative and quantitative evidence into insights that support real
+          decisions.
+        </p>
+
+        <p class="about__credentials">
+          Universitas Brawijaya · Research Fellow, Veritas Institute of Politics · Malang, East Java, Indonesia
+        </p>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         EXPERTISE / WHAT I DO
+         ================================================================== -->
+    <section id="expertise" class="expertise" aria-labelledby="expertise-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">01</span>
+        <h2 id="expertise-heading" class="section-title">Expertise / What I Do</h2>
+      </div>
+
+      <div class="expertise-grid">
+        <article class="card card--expertise reveal">
+          <span class="icon-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <ellipse cx="12" cy="5" rx="9" ry="3" />
+              <path d="M3 5V19A9 3 0 0 0 21 19V5" />
+              <path d="M3 12A9 3 0 0 0 21 12" />
+            </svg>
+          </span>
+          <h3>Data Analysis &amp; SQL</h3>
+          <p>
+            Cleaning, joining, and querying multi-source datasets in Google BigQuery — from CTEs and
+            LEFT JOINs to CASE WHEN logic — to turn raw transaction data into analysis-ready tables.
+          </p>
+        </article>
+
+        <article class="card card--expertise reveal">
+          <span class="icon-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="7" height="9" x="3" y="3" rx="1" />
+              <rect width="7" height="5" x="14" y="3" rx="1" />
+              <rect width="7" height="9" x="14" y="12" rx="1" />
+              <rect width="7" height="5" x="3" y="16" rx="1" />
+            </svg>
+          </span>
+          <h3>Dashboards &amp; Reporting</h3>
+          <p>
+            Building interactive Looker Studio dashboards that surface sales, profitability, and
+            performance metrics in a way non-technical stakeholders can act on.
+          </p>
+        </article>
+
+        <article class="card card--expertise reveal">
+          <span class="icon-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2" />
+            </svg>
+          </span>
+          <h3>Statistical Analysis</h3>
+          <p>
+            Applying parametric and non-parametric hypothesis testing — t-test, ANOVA, chi-square,
+            Wilcoxon, Kruskal-Wallis — to analyze data distributions and support evidence-based
+            conclusions.
+          </p>
+        </article>
+
+        <article class="card card--expertise reveal">
+          <span class="icon-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m21 21-4.34-4.34" />
+              <circle cx="11" cy="11" r="8" />
+            </svg>
+          </span>
+          <h3>Research &amp; Qualitative Methods</h3>
+          <p>
+            Literature review, thematic analysis, and academic writing, developed through
+            peer-reviewed publishing and a Research Fellow role at Veritas Institute of Politics.
+          </p>
+        </article>
+
+        <article class="card card--expertise reveal">
+          <span class="icon-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" />
+              <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+              <path d="M8 13h2" />
+              <path d="M14 13h2" />
+              <path d="M8 17h2" />
+              <path d="M14 17h2" />
+            </svg>
+          </span>
+          <h3>Business &amp; Excel Analysis</h3>
+          <p>
+            Advanced Excel (Index-Match, concatenation, database functions) and business-acumen
+            skills applied to structure and analyze business data.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         SKILLS & TOOLS
+         ================================================================== -->
+    <section id="skills" class="skills" aria-labelledby="skills-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">02</span>
+        <h2 id="skills-heading" class="section-title">Skills &amp; Tools</h2>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-group reveal">
+          <span class="icon-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 3v16a2 2 0 0 0 2 2h16" />
+              <path d="M18 17V9" />
+              <path d="M13 17V5" />
+              <path d="M8 17v-3" />
+            </svg>
+          </span>
+          <h3>Data &amp; BI</h3>
+          <ul class="chip-list">
+            <li class="chip">Google BigQuery</li>
+            <li class="chip">SQL</li>
+            <li class="chip">Google Looker Studio</li>
+            <li class="chip">Microsoft Excel</li>
+            <li class="chip">Google Sheets</li>
+            <li class="chip">Data Visualization</li>
+            <li class="chip">Data Cleaning</li>
+          </ul>
+        </div>
+
+        <div class="skill-group reveal">
+          <span class="icon-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2" />
+            </svg>
+          </span>
+          <h3>Statistics</h3>
+          <ul class="chip-list">
+            <li class="chip">T-Test</li>
+            <li class="chip">ANOVA</li>
+            <li class="chip">Chi-Square Test</li>
+            <li class="chip">Wilcoxon Test</li>
+            <li class="chip">Kruskal-Wallis Test</li>
+            <li class="chip">Descriptive Statistics</li>
+          </ul>
+        </div>
+
+        <div class="skill-group reveal">
+          <span class="icon-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m16 18 6-6-6-6" />
+              <path d="m8 6-6 6 6 6" />
+            </svg>
+          </span>
+          <h3>Programming</h3>
+          <ul class="chip-list">
+            <li class="chip">Python (Basic)</li>
+            <li class="chip">HTML</li>
+          </ul>
+        </div>
+
+        <div class="skill-group reveal">
+          <span class="icon-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m21 21-4.34-4.34" />
+              <circle cx="11" cy="11" r="8" />
+            </svg>
+          </span>
+          <h3>Research</h3>
+          <ul class="chip-list">
+            <li class="chip">Qualitative Research Methods</li>
+            <li class="chip">Quantitative Research Methods</li>
+            <li class="chip">Literature Review</li>
+            <li class="chip">Thematic Analysis</li>
+            <li class="chip">Academic Writing</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         FEATURED PROJECTS
+         ================================================================== -->
+    <section id="projects" class="projects" aria-labelledby="projects-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">03</span>
+        <h2 id="projects-heading" class="section-title">Featured Projects</h2>
+      </div>
+
+      <div class="projects-list">
+
+        <!-- Project 1: Kimia Farma -->
+        <article class="card card--project reveal" id="project-kimia-farma">
+          <figure class="project__media">
+            <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size screenshot of the Kimia Farma dashboard">
+              <img
+                src="assets/images/projects/kimia-farma-dashboard.jpg"
+                alt="Looker Studio dashboard showing Kimia Farma total transactions, nett sales, nett profit, and top provinces by sales and transaction volume, 2020–2023"
+                width="924" height="843" loading="lazy">
+            </button>
+            <figcaption>Kimia Farma performance analytics dashboard, built in Looker Studio</figcaption>
+          </figure>
+
+          <div class="project__content">
+            <h3>Kimia Farma Performance Analytics (2020–2023)</h3>
+            <p class="project__meta">
+              Project-Based Virtual Internship — Big Data Analytics · Kimia Farma × Rakamin Academy ·
+              <time datetime="2025-04-17">Apr 17</time>–<time datetime="2025-05-15">May 15, 2025</time>
+            </p>
+
+            <p>
+              <strong>Context:</strong> Kimia Farma, one of Indonesia's largest pharmaceutical
+              companies, needed a data-driven way to evaluate business performance across its
+              branch network.
+            </p>
+            <p>
+              <strong>My contribution:</strong> I imported and integrated four datasets —
+              transactions, products, inventory, and branch offices — into Google BigQuery covering
+              2020–2023. I wrote SQL queries using CTEs, LEFT JOINs, and CASE WHEN logic to compute
+              nett sales and gross profit margins by product price tier, then built a Looker Studio
+              dashboard to surface the results.
+            </p>
+
+            <ul class="tool-chips" aria-label="Tools used">
+              <li class="chip">Google BigQuery</li>
+              <li class="chip">Google Looker Studio</li>
+              <li class="chip">SQL</li>
+            </ul>
+
+            <dl class="project__stats">
+              <div class="stat">
+                <dt class="stat-label">Total Transactions</dt>
+                <dd class="stat-value">672,500+</dd>
+              </div>
+              <div class="stat">
+                <dt class="stat-label">Nett Sales</dt>
+                <dd class="stat-value">Rp346.96M</dd>
+              </div>
+              <div class="stat">
+                <dt class="stat-label">Nett Profit</dt>
+                <dd class="stat-value">Rp98.54M</dd>
+              </div>
+              <div class="stat">
+                <dt class="stat-label">Customers</dt>
+                <dd class="stat-value">264,600+</dd>
+              </div>
+            </dl>
+
+            <p>
+              <strong>Key insight:</strong> Jawa Barat led every province in both nett sales
+              (Rp102.5M) and transaction volume (198,700) — and five branches with the highest
+              service ratings actually had the lowest transaction ratings, pointing to a gap
+              between perceived and actual service quality. Completed with an average score of
+              91.56 (Excellent).
+            </p>
+
+            <a class="btn btn--ghost project__link" href="https://github.com/Yaklut/KimiaFarma-Performance-Analytics" target="_blank" rel="noopener noreferrer">
+              View on GitHub →
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 2: Bank Muamalat / BMI -->
+        <article class="card card--project reveal" id="project-bmi">
+          <figure class="project__media">
+            <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size screenshot of the Bank Muamalat dashboard">
+              <img
+                src="assets/images/projects/bmi-dashboard.jpg"
+                alt="Looker Studio dashboard showing Bank Muamalat total sales, total orders, and top product categories and cities by sales"
+                width="924" height="838" loading="lazy">
+            </button>
+            <figcaption>Bank Muamalat (BMI) sales performance dashboard, built in Looker Studio</figcaption>
+          </figure>
+
+          <div class="project__content">
+            <h3>Bank Muamalat (BMI) Sales Performance Dashboard</h3>
+            <p class="project__meta">
+              Project-Based Virtual Internship — Business Intelligence Analyst · Bank Muamalat ×
+              Rakamin Academy ·
+              <time datetime="2025-10-06">Oct 6</time>–<time datetime="2025-11-03">Nov 3, 2025</time>
+            </p>
+
+            <p>
+              <strong>Context:</strong> Bank Muamalat needed a data-driven way to evaluate sales
+              performance across products, customer segments, and cities.
+            </p>
+            <p>
+              <strong>My contribution:</strong> I mapped entity relationships and identified primary
+              keys across four relational datasets (Customer, Orders, Product, Product Category),
+              then constructed a master table in BigQuery using multi-table SQL JOINs, and built a
+              sales performance dashboard with strategic recommendations on product portfolio
+              segmentation, geographic marketing, and data-driven customer retention via CRM.
+            </p>
+
+            <ul class="tool-chips" aria-label="Tools used">
+              <li class="chip">Google BigQuery</li>
+              <li class="chip">Google Looker Studio</li>
+              <li class="chip">SQL</li>
+            </ul>
+
+            <dl class="project__stats">
+              <div class="stat">
+                <dt class="stat-label">Total Sales</dt>
+                <dd class="stat-value">Rp1.75M</dd>
+              </div>
+              <div class="stat">
+                <dt class="stat-label">Total Orders</dt>
+                <dd class="stat-value">11,654</dd>
+              </div>
+              <div class="stat">
+                <dt class="stat-label">Customers</dt>
+                <dd class="stat-value">1,671</dd>
+              </div>
+            </dl>
+
+            <p>
+              <strong>Key insight:</strong> Robots and Drones were the top revenue categories
+              despite moderate order volume — a sign of high unit-price contribution — while
+              Washington was the highest-revenue city (55,382 in sales).
+            </p>
+
+            <a class="btn btn--ghost project__link" href="https://github.com/Yaklut/BMI-Sales-Performance-Dashboard" target="_blank" rel="noopener noreferrer">
+              View on GitHub →
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         EDUCATION
+         ================================================================== -->
+    <section id="education" class="education" aria-labelledby="education-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">04</span>
+        <h2 id="education-heading" class="section-title">Education</h2>
+      </div>
+
+      <article class="card education__card reveal">
+        <h3>Bachelor of International Relations</h3>
+        <p class="education__institution">Universitas Brawijaya, Malang, East Java, Indonesia</p>
+        <p class="education__dates">
+          <time datetime="2023-08">Aug 2023</time> – <time datetime="2027-08">Aug 2027</time> (Expected)
+        </p>
+
+        <dl class="education__stats">
+          <div class="stat">
+            <dt class="stat-label">GPA</dt>
+            <dd class="stat-value">3.53<span class="stat-unit">/4.00</span></dd>
+          </div>
+          <div class="stat">
+            <dt class="stat-label">Current Standing</dt>
+            <dd class="stat-value">7th<span class="stat-unit"> Semester</span></dd>
+          </div>
+        </dl>
+
+        <p class="education__honors">
+          <strong>Honors:</strong> 2nd Winner, ALSA Legal Essay Competition — English Competition
+          2024, for the essay “When Words Became Weapons: Hate Speech Laws and Limits of Free
+          Expressions,” ALSA English Competition 2024, Jember (Nov 2, 2024).
+        </p>
+      </article>
+    </section>
+
+    <!-- ==================================================================
+         RESEARCH & PUBLICATIONS
+         ================================================================== -->
+    <section id="research" class="research" aria-labelledby="research-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">05</span>
+        <h2 id="research-heading" class="section-title">Research &amp; Publications</h2>
+      </div>
+
+      <div class="publications-list">
+
+        <article class="card card--publication reveal">
+          <span class="chip chip--tier">SINTA 2</span>
+          <div class="publication__content">
+            <h3>Revisiting the Developmental State: Evidence from Vietnam’s Electric Mobility Strategy through VinFast</h3>
+            <p class="publication__meta">Indonesian Journal of Social Research (IJSR), Vol. 8 No. 1 · April 2026</p>
+          </div>
+          <span class="chip chip--author">3rd of 6 Authors</span>
+        </article>
+
+        <article class="card card--publication reveal">
+          <span class="chip chip--tier">SINTA 2</span>
+          <div class="publication__content">
+            <h3>Unravelling Indonesia’s Foreign Aid Interest Towards Fiji From a Multi-Frame Perspective</h3>
+            <p class="publication__meta">Journal of Public Power, Vol. 10 No. 1 · 2026</p>
+          </div>
+          <span class="chip chip--author">5th of 7 Authors</span>
+        </article>
+
+        <article class="card card--publication card--publication-lead reveal">
+          <span class="chip chip--tier chip--gold">SINTA 4</span>
+          <div class="publication__content">
+            <h3>Air Power and Regional Security: Assessing Indonesia’s Air Defense Strategy in the Context of ASEAN Regional Security</h3>
+            <p class="publication__meta">Indonesian Journal of International Relations (IJIR), Vol. 10 No. 1 · 2026</p>
+          </div>
+          <span class="chip chip--author chip--gold">1st of 2 Authors</span>
+        </article>
+
+        <article class="card card--publication reveal">
+          <span class="chip chip--tier">SINTA 4</span>
+          <div class="publication__content">
+            <h3>Localization of Sexual and Reproductive Health and Rights Norms in Indonesia: The Contestation between Global Norms and Domestic Morality</h3>
+            <p class="publication__meta">Teunuleh Scientific Journal — The International Journal of Social Sciences, Vol. 7 Issue 2 · June 2026</p>
+          </div>
+          <span class="chip chip--author">3rd of 7 Authors</span>
+        </article>
+
+        <article class="card card--publication reveal">
+          <span class="chip chip--tier">SINTA 4</span>
+          <div class="publication__content">
+            <h3>Untangling Small Arms and Transnational Organized Crime: Evidence from Abu Sayyaf in the Philippines 2014–2017</h3>
+            <p class="publication__meta">Jurnal Pena Wimaya, Vol. 6 No. 2 · July 2026</p>
+          </div>
+          <span class="chip chip--author">6th of 6 Authors</span>
+        </article>
+
+      </div>
+
+      <a class="btn btn--ghost" href="https://scholar.google.com/citations?user=X9B00VQAAAAJ&amp;hl=id&amp;oi=ao" target="_blank" rel="noopener noreferrer">
+        View all on Google Scholar →
+      </a>
+    </section>
+
+    <!-- ==================================================================
+         CERTIFICATIONS
+         ================================================================== -->
+    <section id="certifications" class="certifications" aria-labelledby="certifications-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">06</span>
+        <h2 id="certifications-heading" class="section-title">Certifications</h2>
+      </div>
+
+      <!-- Group 1: Applied & Virtual Internships -->
+      <div class="cert-group">
+        <h3 class="cert-group__title">Applied &amp; Virtual Internships</h3>
+        <div class="certs-grid">
+
+          <article class="card card--certification reveal">
+            <svg class="cert-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 12h.01" />
+              <path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+              <path d="M22 13a18.15 18.15 0 0 1-20 0" />
+              <rect width="20" height="14" x="2" y="6" rx="2" />
+            </svg>
+            <h4>Kimia Farma Big Data Analytics — Project-Based Virtual Internship</h4>
+            <p class="cert-issuer">Rakamin Academy × Kimia Farma</p>
+            <p class="cert-date"><time datetime="2025-05-15">May 2025</time></p>
+            <p class="cert-credential">Credential ID: 341459IAPRGIK1552025</p>
+            <a class="btn btn--ghost cert-link" href="assets/images/certificates/rakamin-kimia-farma-big-data-analytics.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
+              View Certificate →
+            </a>
+          </article>
+
+          <article class="card card--certification reveal">
+            <svg class="cert-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 12h.01" />
+              <path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+              <path d="M22 13a18.15 18.15 0 0 1-20 0" />
+              <rect width="20" height="14" x="2" y="6" rx="2" />
+            </svg>
+            <h4>Bank Muamalat Business Intelligence Analyst — Project-Based Virtual Internship</h4>
+            <p class="cert-issuer">Rakamin Academy × Bank Muamalat</p>
+            <p class="cert-date"><time datetime="2025-11-03">Nov 2025</time></p>
+            <p class="cert-credential">Credential ID: 341459IAPRGIB3112025</p>
+            <a class="btn btn--ghost cert-link" href="assets/images/certificates/rakamin-bank-muamalat-bi-analyst.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
+              View Certificate →
+            </a>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- Group 2: Data Analytics & Programming -->
+      <div class="cert-group">
+        <h3 class="cert-group__title">Data Analytics &amp; Programming</h3>
+        <div class="certs-grid">
+
+          <article class="card card--certification reveal">
+            <svg class="cert-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" />
+              <path d="M22 10v6" />
+              <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
+            </svg>
+            <h4>Guide to Learn Python with AI</h4>
+            <p class="cert-issuer">DQLab</p>
+            <p class="cert-date"><time datetime="2025-03-16">16 Mar 2025</time></p>
+            <p class="cert-credential">Credential ID: DQLABAI001NTNUUI</p>
+            <a class="btn btn--ghost cert-link" href="assets/images/certificates/dqlab-guide-learn-python-with-ai.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
+              View Certificate →
+            </a>
+          </article>
+
+          <article class="card card--certification reveal">
+            <svg class="cert-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" />
+              <path d="M22 10v6" />
+              <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
+            </svg>
+            <h4>Introduction to Data Science with Python</h4>
+            <p class="cert-issuer">DQLab</p>
+            <p class="cert-date"><time datetime="2025-03-16">16 Mar 2025</time></p>
+            <p class="cert-credential">Credential ID: DQLABINTP1RUIPOQ</p>
+            <a class="btn btn--ghost cert-link" href="assets/images/certificates/dqlab-intro-data-science-python.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
+              View Certificate →
+            </a>
+          </article>
+
+          <article class="card card--certification reveal">
+            <svg class="cert-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" />
+              <path d="M22 10v6" />
+              <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
+            </svg>
+            <h4>Python Fundamental for Data Science</h4>
+            <p class="cert-issuer">DQLab</p>
+            <p class="cert-date"><time datetime="2025-03-27">27 Mar 2025</time></p>
+            <p class="cert-credential">Credential ID: DQLABINTP1FBMWSQ</p>
+            <a class="btn btn--ghost cert-link" href="assets/images/certificates/dqlab-python-fundamental-data-science.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
+              View Certificate →
+            </a>
+          </article>
+
+          <article class="card card--certification reveal">
+            <svg class="cert-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" />
+              <path d="M22 10v6" />
+              <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
+            </svg>
+            <h4>Intro to Data Analytics (Mini Course)</h4>
+            <p class="cert-issuer">RevoU</p>
+            <p class="cert-date"><time datetime="2025-03-28">28 Mar 2025</time></p>
+            <p class="cert-credential">Credential ID: DAMC-17032025-01-1-00017</p>
+            <a class="btn btn--ghost cert-link" href="assets/images/certificates/revou-intro-to-data-analytics.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
+              View Certificate →
+            </a>
+          </article>
+
+          <article class="card card--certification reveal">
+            <svg class="cert-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" />
+              <path d="M22 10v6" />
+              <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
+            </svg>
+            <h4>Python for Data Professional Beginner – Part 1</h4>
+            <p class="cert-issuer">DQLab</p>
+            <p class="cert-date"><time datetime="2025-04-03">3 Apr 2025</time></p>
+            <p class="cert-credential">Credential ID: DQLABINTP1JRAROU</p>
+            <a class="btn btn--ghost cert-link" href="assets/images/certificates/dqlab-python-data-professional-beginner-1.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
+              View Certificate →
+            </a>
+          </article>
+
+          <article class="card card--certification reveal">
+            <svg class="cert-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" />
+              <path d="M22 10v6" />
+              <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
+            </svg>
+            <h4>Data Analyst</h4>
+            <p class="cert-issuer">DSAREA × JOBAREA</p>
+            <p class="cert-date"><time datetime="2025-04-07">Mar–Apr 2025</time></p>
+            <p class="cert-credential">Credential ID: 0052/DSA/DA/042025</p>
+            <a class="btn btn--ghost cert-link" href="assets/images/certificates/dsarea-jobarea-data-analyst.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
+              View Certificate →
+            </a>
+          </article>
+
+          <article class="card card--certification reveal">
+            <svg class="cert-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" />
+              <path d="M22 10v6" />
+              <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
+            </svg>
+            <h4>Data Analysis Fundamental</h4>
+            <p class="cert-issuer">MySkill</p>
+            <p class="cert-date"><time datetime="2025-06-05">5 Jun 2025</time></p>
+            <p class="cert-credential">Credential ID: MS-5/6/2025-H2IYUG9v5guV0Mi690Ph</p>
+            <a class="btn btn--ghost cert-link" href="assets/images/certificates/myskill-data-analysis-fundamental.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
+              View Certificate →
+            </a>
+          </article>
+
+          <article class="card card--certification reveal">
+            <svg class="cert-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" />
+              <path d="M22 10v6" />
+              <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
+            </svg>
+            <h4>Statistics</h4>
+            <p class="cert-issuer">MySkill</p>
+            <p class="cert-date"><time datetime="2025-06-05">5 Jun 2025</time></p>
+            <p class="cert-credential">Credential ID: MS-5/6/2025-howaZsODT8B9qyNq2R16</p>
+            <a class="btn btn--ghost cert-link" href="assets/images/certificates/myskill-statistics.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
+              View Certificate →
+            </a>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- Group 3: Other Technical Skills -->
+      <div class="cert-group">
+        <h3 class="cert-group__title">Other Technical Skills</h3>
+        <div class="certs-grid">
+
+          <article class="card card--certification reveal">
+            <svg class="cert-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m16 18 6-6-6-6" />
+              <path d="m8 6-6 6 6 6" />
+            </svg>
+            <h4>DSF 37 – Front End Developer</h4>
+            <p class="cert-issuer">Dibimbing.id</p>
+            <p class="cert-date placeholder">[Date not shown on certificate]</p>
+            <a class="btn btn--ghost cert-link" href="assets/images/certificates/dibimbing-frontend-developer.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
+              View Certificate →
+            </a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         RESUME / CV
+         ================================================================== -->
+    <section id="resume" class="resume" aria-labelledby="resume-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">07</span>
+        <h2 id="resume-heading" class="section-title">Resume / CV</h2>
+      </div>
+
+      <div class="resume__block reveal">
+        <p class="resume__updated">Last updated: <time datetime="2026-08-13">August 13, 2026</time></p>
+
+        <a class="btn btn--primary" href="assets/documents/Refa_Defanda_Witanto_CV.pdf" download>
+          Download CV (PDF)
+        </a>
+
+        <div class="resume__preview">
+          <iframe
+            src="assets/documents/Refa_Defanda_Witanto_CV.pdf"
+            title="Refa Defanda Witanto — CV preview"
+            loading="lazy"
+            height="600"></iframe>
+          <p class="resume__preview-fallback">
+            Preview not loading? <a href="assets/documents/Refa_Defanda_Witanto_CV.pdf">Open the CV directly</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         CONTACT
+         ================================================================== -->
+    <section id="contact" class="contact" aria-labelledby="contact-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">08</span>
+        <h2 id="contact-heading" class="section-title">Contact</h2>
+      </div>
+
+      <div class="contact__grid reveal">
+        <div class="contact__info">
+          <p class="contact__row">
+            <span class="contact__label">Email</span>
+            <a href="mailto:refadfnda@gmail.com">refadfnda@gmail.com</a>
+          </p>
+          <p class="contact__row">
+            <span class="contact__label">Phone / WhatsApp</span>
+            <a href="https://wa.me/6281336023700" target="_blank" rel="noopener noreferrer">+62 813-3602-3700</a>
+          </p>
+          <p class="contact__row">
+            <span class="contact__label">Location</span>
+            <span>Malang, East Java, Indonesia</span>
+          </p>
+
+          <ul class="contact__tags" aria-label="Currently open to">
+            <li class="chip">Data Analyst Roles</li>
+            <li class="chip">Business Analyst Roles</li>
+            <li class="chip">Research &amp; Data Roles</li>
+            <li class="chip">Digital &amp; Business Internships</li>
+          </ul>
+        </div>
+
+        <div class="contact__platforms">
+          <a class="btn btn--secondary" href="https://www.linkedin.com/in/refa-defanda/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a class="btn btn--secondary" href="https://wa.me/6281336023700" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          <a class="btn btn--secondary" href="mailto:refadfnda@gmail.com">Email</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================================================================
+       FOOTER
+       ================================================================== -->
+  <footer class="site-footer">
+    <div class="footer__top">
+      <p class="footer__wordmark">Refa Defanda Witanto</p>
+      <p class="footer__tagline">International Relations student building a second track in data &amp; business analytics.</p>
+    </div>
+
+    <nav class="footer__nav" aria-label="Footer">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#certifications">Certifications</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="footer__social" aria-label="Social links">
+      <a href="https://www.linkedin.com/in/refa-defanda/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://wa.me/6281336023700" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      <a href="mailto:refadfnda@gmail.com">Email</a>
+    </div>
+
+    <p class="footer__copyright">© 2026 Refa Defanda Witanto. All rights reserved.</p>
+  </footer>
+
+  <!-- ==================================================================
+       LIGHTBOX — reused for both certificate and project screenshots.
+       Populated per-click by assets/js/modal.js; see index.html's
+       data-modal="certificate" / data-modal="project" triggers above.
+       ================================================================== -->
+  <div class="modal" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-caption" aria-hidden="true">
+    <div class="modal__dialog">
+      <button type="button" class="modal__close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <img class="modal__image" id="lightbox-image" src="" alt="">
+      <p class="modal__caption" id="lightbox-caption"></p>
+    </div>
+  </div>
+
+  <script defer src="assets/js/nav.js"></script>
+  <script defer src="assets/js/reveal.js"></script>
+  <script defer src="assets/js/modal.js"></script>
+  <script defer src="assets/js/main.js"></script>
+
+</body>
+</html>
