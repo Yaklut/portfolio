@@ -106,7 +106,7 @@
           class="hero__photo"
           src="assets/images/profile/refa-defanda-witanto.jpg"
           alt="Portrait of Refa Defanda Witanto"
-          width="900" height="1281">
+          width="900" height="1281" fetchpriority="high">
       </div>
     </section>
 
@@ -332,9 +332,9 @@
           <figure class="project__media">
             <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size screenshot of the Kimia Farma dashboard">
               <img
-                src="assets/images/projects/kimia-farma-dashboard.png"
+                src="assets/images/projects/kimia-farma-dashboard.webp"
                 alt="Looker Studio dashboard showing Kimia Farma total transactions, nett sales, nett profit, and top provinces by sales and transaction volume, 2020–2023"
-                width="924" height="843" loading="lazy">
+                width="1326" height="1187" loading="lazy">
             </button>
             <figcaption>Kimia Farma performance analytics dashboard, built in Looker Studio</figcaption>
           </figure>
@@ -403,9 +403,9 @@
           <figure class="project__media">
             <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size screenshot of the Bank Muamalat dashboard">
               <img
-                src="assets/images/projects/bmi-dashboard.png"
+                src="assets/images/projects/bmi-dashboard.webp"
                 alt="Looker Studio dashboard showing Bank Muamalat total sales, total orders, and top product categories and cities by sales"
-                width="924" height="838" loading="lazy">
+                width="1323" height="1189" loading="lazy">
             </button>
             <figcaption>Bank Muamalat (BMI) sales performance dashboard, built in Looker Studio</figcaption>
           </figure>
@@ -853,7 +853,7 @@
       </ul>
     </nav>
 
-    <div class="footer__social" aria-label="Social links">
+    <div class="footer__social" role="group" aria-label="Social links">
       <a href="https://www.linkedin.com/in/refa-defanda/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       <a href="https://wa.me/6281336023700" target="_blank" rel="noopener noreferrer">WhatsApp</a>
       <a href="mailto:refadfnda@gmail.com">Email</a>
@@ -867,12 +867,15 @@
        Populated per-click by assets/js/modal.js; see index.html's
        data-modal="certificate" / data-modal="project" triggers above.
        ================================================================== -->
-  <div class="modal" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-caption" aria-hidden="true">
+  <div class="modal" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-caption" aria-hidden="true" inert>
     <div class="modal__dialog">
       <button type="button" class="modal__close" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
-      <img class="modal__image" id="lightbox-image" src="" alt="">
+      <!-- src is a 1x1 transparent placeholder (standard technique for JS-populated
+           images) — modal.js always overwrites it with the real image before the
+           dialog becomes visible. -->
+      <img class="modal__image" id="lightbox-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="">
       <p class="modal__caption" id="lightbox-caption"></p>
     </div>
   </div>

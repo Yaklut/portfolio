@@ -1,6 +1,6 @@
 # Current State — Refa's Portfolio Website
 
-**Last updated:** August 16, 2026 (Phase 5 complete; four same-day follow-ups: a landscape-mobile bug found and fixed, the favicon resolved, Lucide icons implemented, and a real-asset verification pass completed clean — see below)
+**Last updated:** August 18, 2026 (Phase 7 — Accessibility & Performance audit — complete)
 
 ## Completed
 - **Phase 1: Planning & Architecture** — ✅ complete. Full detail: `PHASE_1_PLANNING_ARCHITECTURE.md`
@@ -9,6 +9,7 @@
 - **Phase 4: Main Styling & Sections** — ✅ complete. Full visual implementation of `DESIGN.md`.
 - **Phase 5: Animations & Interactions** — ✅ complete. Scroll reveal, hero entrance, navbar scroll state, active-nav tracking, mobile menu, hover polish, and the certificate/project lightbox are all implemented and QA'd. Details below.
   - **Same-day follow-up:** a targeted landscape-mobile check (not a full Phase 6 — see that section below) found and fixed one real bug in the mobile menu. Details in "Landscape mobile follow-up" below.
+- **Phase 7: Accessibility & Performance** — ✅ complete. Real audit (not speculative), 7 issues found and fixed, all low-risk, zero visual/design changes. Full detail below. No visual redesign occurred — identity remains exactly as approved in `DESIGN.md`.
 
 ## Files created/modified in Phase 5
 - **`assets/js/nav.js`** *(new)* — navbar scrolled state, mobile menu (open/close, focus trap, Escape, outside/empty-space tap, close-on-link-click, auto-close on resize past desktop), active-section tracking.
@@ -150,11 +151,86 @@ No bugs found in either pass.
 - Cross-browser testing beyond Chromium — noted above, not treated as a defect.
 - The automated test scripts used for this phase's QA (jsdom + Playwright) live only in my working environment, not in your repo — they depend on Node packages this project deliberately doesn't otherwise use (per your "no unnecessary dependencies" brief). Happy to hand them over if you'd like a repeatable regression check for future phases; just say so.
 
-## Ready for Phase 7 (Accessibility & Performance)
-Most of the groundwork is already in place from how Phases 3–5 were built:
-- Semantic structure, heading hierarchy, and alt text were handled in Phase 3.
-- Focus states, `prefers-reduced-motion`, and keyboard accessibility were treated as Phase 5 requirements rather than deferred — see "Interactions implemented" above.
-- Likely remaining Phase 7 work: a real Lighthouse/axe pass and image optimization/compression once your production assets are in.
+## Phase 7: Accessibility & Performance (Aug 18, 2026) — ✅ complete
+
+### Methodology
+This environment has no GUI Chrome/Chromium available (confirmed by attempting an install — several required system packages 404'd from the mirror), so a live Lighthouse run wasn't possible this time, unlike the cached-Chromium Playwright testing Phase 5 had access to. To keep findings evidence-based rather than guessed, this audit used:
+- **axe-core**, run against the real `index.html` via a jsdom harness — structural/ARIA/semantic checks (0 violations found; a few "incomplete" items needing human judgment, all resolved below).
+- **html-validate** (standard + a11y rule presets) — HTML conformance, cross-checked against axe's findings.
+- **A custom WCAG 2.1 contrast calculator**, run against every color pairing actually used in `styles.css` — not just the pairs `DESIGN.md`'s own table happened to enumerate. Four real pairings weren't in that original table (chip/badge combinations added during Phase 3–4); all four independently verified to pass.
+- **ImageMagick / Pillow**, for real pixel dimensions, file sizes, and format inspection of every image asset — your real production files, not placeholders.
+- **Node's built-in syntax checker**, for all 4 JS files.
+- Manual line-by-line review of `index.html`, `styles.css`, and all 4 JS files, reasoned against Lighthouse's documented scoring heuristics and WCAG 2.1 AA success criteria directly, including tracing exact JS execution timing (e.g. focus-move-on-close) rather than assuming from a static read.
+
+### Initial findings, by priority
+
+**HIGH**
+1. `favicon.ico` is referenced at the site root (`href="favicon.ico"`) but the actual file only existed at `assets/images/icons/favicon.ico` — confirmed by listing the real repo tree. Browsers request `/favicon.ico` directly regardless of `<link>` tags, so this 404'd on every page load. *(The PNG favicon `<link>` tags still worked, so the tab icon itself wasn't broken — but this was a real, silent broken request.)*
+2. Two project dashboard screenshots were PNG — `kimia-farma-dashboard.png` (1.50MB) and `bmi-dashboard.png` (1.16MB), 2.65MB combined. Neither image uses transparency (confirmed: both are plain RGB, no alpha channel), so PNG bought nothing here — it's the wrong format for a full-color screenshot, and by far the single biggest weight on the page.
+
+**MEDIUM**
+3. `<div class="footer__social" aria-label="...">` — a plain `<div>` has no ARIA role that supports `aria-label`, so several browser/AT combinations silently drop it. Confirmed independently by both axe and html-validate.
+4. `#lightbox`'s static markup combines `aria-hidden="true"` with a focusable close button inside it. In the live browser this was never actually reachable while closed — `visibility: hidden` already removes it from the tab order, and `closeModal()` moves focus away synchronously before the fade-out even starts (traced the exact call order in `modal.js` to confirm). Still, two independent tools flag the static pattern, and there's a more robust fix available.
+5. `<img id="lightbox-image" src="">` — html-validate flags empty-string `src` as an invalid value (ambiguous URL-resolution edge case in some browsers). Removing it outright then trips a *different* rule (`src` is technically required on `<img>`).
+6. Project screenshot `width`/`height` attributes didn't match the real files' pixel dimensions (e.g. declared 924×843 vs. actual 1326×1187, ~2% off). Desktop (≥1024px) isn't affected — `object-fit: cover` there ignores the mismatch — but below 1024px, `height: auto` derives from the *declared* ratio until the image loads, then snaps to the *real* ratio, causing a small layout shift. The hero photo has a similar declared/real mismatch, but was **not** flagged — see "Reviewed, not changed" below for why.
+7. Dead CSS: `.container` was defined but never used anywhere in the real HTML (confirmed by cross-referencing every class in the CSS against every class in the HTML, and against every class the JS applies dynamically). The site actually uses the `main > section > *` descendant rule for the same job.
+8. Redundant CSS: two back-to-back `ul, ol` rules where the first's `padding-left: 1.2em` was always immediately overridden by the second's `padding-left: 0` — same final computed style, just two rules doing the job of one.
+9. Both the mobile-menu and lightbox keyboard focus-traps re-queried the DOM for focusable elements on **every single Tab keypress** rather than once when opened. Content inside both is static while open, so the repeated query was pure overhead — small in practice (1–9 elements), but it's exactly the "repeated DOM query" pattern this audit was asked to check for.
+10. Hero photo had no `fetchpriority` hint. It's the likely LCP element and was already eager-loaded (no `loading` attribute) — `fetchpriority="high"` is a standard, zero-risk hint that can help the browser prioritize it sooner.
+
+**Reviewed, verified fine, not flagged as issues:**
+- Color contrast — every real pairing in the shipped CSS passes AA (see Methodology). One pairing (`--color-gold-deep` on `--color-gold-tint`, used for the gold "1st Author" chip and Honors note) passes at 4.55:1 against a 4.5:1 requirement — a genuine pass, but tight enough to flag if either of those two tokens is ever adjusted later.
+- DOM size/complexity: 503 elements, max nesting depth 9 — comfortably within Lighthouse's healthy range.
+- Image `loading`/eager strategy: hero eager, project screenshots + CV iframe lazy — already exactly matches best practice.
+- All 4 scripts already `defer`, correctly ordered, no render-blocking JS.
+- No duplicate IDs anywhere in the document.
+- `justify-content: safe center` (landscape mobile-menu fix from Phase 5) has a correct, verified graceful-degradation path for browsers that don't support the `safe` keyword.
+- `prefers-reduced-motion` handling is comprehensive (global catch-all plus specific `transform: none` overrides where the global rule alone wouldn't fully neutralize an effect).
+
+### Fixes implemented (all 10 HIGH/MEDIUM findings above — all low-risk, zero visual change)
+| # | Fix | Files touched |
+|---|---|---|
+| 1 | Placed `favicon.ico` at the actual site root | *(new root file)* |
+| 2 | Converted both dashboard screenshots PNG → WebP at quality 88, same pixel dimensions | `assets/images/projects/*.webp` (new); old `.png` files removed |
+| 3 | Added `role="group"` to `.footer__social` | `index.html` |
+| 4 | Added `inert` to `#lightbox`, toggled in sync with `aria-hidden` in JS | `index.html`, `assets/js/modal.js` |
+| 5 | Replaced `src=""` with a 1×1 transparent GIF data-URI placeholder (standard technique; zero network cost) | `index.html` |
+| 6 | Corrected `width`/`height` on both project `<img>` tags to their real pixel dimensions | `index.html` |
+| 7 | Removed the dead `.container` rule | `assets/css/styles.css` |
+| 8 | Merged the redundant `ul, ol` rules into one | `assets/css/styles.css` |
+| 9 | Cached the focus-trap element list once per open instead of re-querying per keypress | `assets/js/nav.js`, `assets/js/modal.js` |
+| 10 | Added `fetchpriority="high"` to the hero photo | `index.html` |
+
+### Reviewed, deliberately NOT changed (trade-offs documented, per your Phase 7 brief)
+- **Hero photo's declared `900×1281` vs. the real file's `832×1248`.** Unlike the project screenshots, the hero photo's CSS sets an explicit fixed `aspect-ratio: 900/1281` (not derived from the HTML attributes at load time), so there's no layout-shift mechanism here regardless of the mismatch — and the resulting `object-fit: cover` crop is the one you already visually verified against your real photo in the "Real-asset verification pass" section above. Changing the declared dimensions would change *which* crop gets shown; since the current crop is already confirmed correct, I left it alone rather than risk it for zero measurable benefit.
+- **Self-hosting the Google Fonts** (removing the third-party origin dependency entirely) — `DESIGN.md` itself flagged this as a reasonable Phase 7 candidate "if load time needs trimming." Preconnect + `display=swap` (both already in place) cover the two standard, low-risk mitigations; self-hosting is a bigger, multi-file change (fetching the right WOFF2 weights, new `@font-face` rules, new asset folder) that clears the "worthwhile" bar but not the "low-risk-enough to do unprompted" bar this audit set. Flagging it as available if you want it explicitly.
+- **`:focus { outline: none }` paired with `:focus-visible`.** In browsers that don't understand `:focus-visible` (none realistically left in 2026 — Safari/Firefox/Chrome all shipped support 2020–2022), this would remove the focus ring entirely for keyboard users. Real risk today is negligible; a `@supports` fallback would add complexity for a gap that doesn't practically exist for this site's audience.
+- **`.btn--ghost`'s `min-height: auto`** (used by "View Certificate →", "View on GitHub →", etc.). Worked out the actual box model by hand: 12px padding (top+bottom) + ~18px line-box + 2px border ≈ 44px already, even without the explicit `min-height`. No real shortfall to fix.
+- **Certificate JPEGs** (100–200KB each, fetched only on click, not on page load) — already reasonably compressed; further gains would risk visible quality loss for an asset class you explicitly said not to degrade.
+- **CSS/JS minification** — current total is 44KB CSS + 20KB JS unminified; gzip/Brotli (applied automatically by GitHub Pages) already captures most of the realistic win, and unminified source stays easier for you to read and learn from.
+
+### Flagged for your review (not a code issue — a content note)
+While visually inspecting the re-compressed BMI dashboard screenshot for quality, the image itself reads **"Rp1,75 jt"** (Indonesian "juta" = million). Your live site's copy — "Rp1.75M" — already matches this. `PHASE_1_PLANNING_ARCHITECTURE.md`'s notes said "Rp1.75B," which doesn't match the real dashboard; that's a planning-doc mismatch, not a site bug, so nothing was changed. Worth a quick double-check on your end since I can only go on what's visible in the screenshot.
+
+Also noticed (not touched): two PDF files sit in `assets/images/` (`rakamin-bank-muamalat-bi-analyst.pdf`, `rakamin-kimia-farma-big-data-analytics.pdf`) that aren't referenced anywhere in `index.html`. They add no load-time cost since nothing links to them, but if they're leftovers you don't need in the repo, that's a cleanup call for you to make, not something I removed on my own.
+
+### Performance results (measured, not estimated)
+The only images that load automatically on a normal visit — hero photo + both project screenshots (certificates only load on click) — went from **2.82MB combined to 347KB combined, an 88% reduction**, purely from the WebP conversion (verified visually at full size afterward — no perceptible quality loss on either dashboard).
+
+### Regression testing (after fixes)
+- axe-core re-run: **0 violations** (unchanged), "incomplete" items dropped from 4 → 2, and both remaining ones are the expected, explained non-issues (jsdom can't compute real contrast/layout — verified separately by hand; and axe's standard "test iframe contents separately" boilerplate, not applicable to a native PDF viewer).
+- html-validate re-run: **0 problems** (down from 3).
+- All 4 JS files re-checked for syntax validity — pass.
+- DOM element count unchanged (503 → 503) — confirms the fixes were attribute-level only, no structural changes.
+- Every asset path referenced in the final `index.html` (images, PDF, JS, favicons) resolves to a real file — checked programmatically, not assumed.
+- No duplicate IDs.
+- CSS brace-balance verified (246 open / 246 close) after edits.
+- Nothing above touches layout, spacing, color, or breakpoint behavior, so the Phase 5/"landscape mobile follow-up" overflow testing and the Phase 6 breakpoint sign-off both still stand as-is — there's no plausible mechanism by which these specific fixes (image format/dimensions, two ARIA attributes, one data-URI, two dead CSS rules, cached JS lookups, one fetch-priority hint) could reintroduce overflow or shift a breakpoint. Re-verifying all 5 widths (390/768/1024/1440/1920) from scratch with real rendering is still worth doing once on your end, since this sandbox has no browser to confirm it visually.
+
+### Remaining limitations (need your environment, not more work here)
+- **No live Lighthouse/real-Chrome run.** Everything above is real tooling (axe-core, html-validate, exact WCAG math, real file inspection) run against your actual production files, not guesses — but a from-the-browser Lighthouse score is still worth pulling once, either via Chrome DevTools locally or PageSpeed Insights against the deployed GitHub Pages URL, mainly to confirm real-world LCP/CLS numbers now that the image fix is live.
+- **Firefox/Safari** — unchanged from Phase 5's note: still untested directly (no browser available in this environment either). Nothing in this pass used anything version-gated for those browsers beyond what Phase 5 already reasoned through, plus the newly-added `inert` attribute (supported in Safari 15.5+, Firefox 112+, Chrome 102+ — all safely old enough not to be a practical concern for this audience, but worth a glance if you happen to test on either).
+- **Physical devices** — same standing note as Phase 5/6; nothing here changes that.
 
 ## Next recommended task
-Start **Phase 7: Accessibility & Performance** — Lighthouse/axe audit, image optimization, and a final pass on anything the audit surfaces. Nothing else is blocking it.
+No blocking work remains. **Phase 8 (Testing & Debugging) is effectively covered** by this phase's own regression pass (see above) the same way Phase 6 folded into the landscape-mobile follow-up — there's no separate concrete task left that isn't either "final deployment prep" or "needs your physical hardware." Recommended next step: **Phase 9 — GitHub Pages Deployment**, plus the two optional items above (self-hosting fonts; a real Lighthouse pull post-deploy) whenever you want them.

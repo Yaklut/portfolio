@@ -22,6 +22,7 @@ window.Portfolio.initModal = function initModal() {
   const captionEl = document.getElementById('lightbox-caption');
 
   let lastFocused = null;
+  let trappedFocusable = []; // cached per-open; dialog content is static while open, so one query is enough
 
   function getFocusable() {
     return dialog.querySelectorAll('a[href], button:not([disabled])');
@@ -39,7 +40,9 @@ window.Portfolio.initModal = function initModal() {
 
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
+    modal.removeAttribute('inert');
     document.body.classList.add('modal-open');
+    trappedFocusable = Array.from(getFocusable());
     document.addEventListener('keydown', onKeydown);
 
     const closeBtn = modal.querySelector('.modal__close');
@@ -51,6 +54,7 @@ window.Portfolio.initModal = function initModal() {
 
     modal.classList.remove('is-open');
     modal.setAttribute('aria-hidden', 'true');
+    modal.setAttribute('inert', '');
     document.body.classList.remove('modal-open');
     document.removeEventListener('keydown', onKeydown);
 
@@ -67,10 +71,9 @@ window.Portfolio.initModal = function initModal() {
     }
     if (e.key !== 'Tab') return;
 
-    const focusable = Array.from(getFocusable());
-    if (focusable.length === 0) return;
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
+    if (trappedFocusable.length === 0) return;
+    const first = trappedFocusable[0];
+    const last = trappedFocusable[trappedFocusable.length - 1];
 
     if (e.shiftKey && document.activeElement === first) {
       e.preventDefault();

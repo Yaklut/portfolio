@@ -52,6 +52,7 @@ function initMobileMenu() {
 
   const DESKTOP_QUERY = '(min-width: 1280px)';
   let lastFocused = null;
+  let trappedFocusable = []; // cached per-open; panel content is static while open, so one query is enough
 
   function setExpanded(isOpen) {
     toggle.setAttribute('aria-expanded', String(isOpen));
@@ -62,6 +63,7 @@ function initMobileMenu() {
     lastFocused = document.activeElement;
     setExpanded(true);
     document.body.classList.add('menu-open');
+    trappedFocusable = Array.from(panel.querySelectorAll('a[href], button:not([disabled])'));
     document.addEventListener('keydown', onKeydown);
   }
 
@@ -85,10 +87,9 @@ function initMobileMenu() {
 
     // Focus trap: keep Tab cycling inside the open panel so keyboard users
     // never land on content sitting visually underneath the overlay.
-    const focusable = panel.querySelectorAll('a[href], button:not([disabled])');
-    if (focusable.length === 0) return;
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
+    if (trappedFocusable.length === 0) return;
+    const first = trappedFocusable[0];
+    const last = trappedFocusable[trappedFocusable.length - 1];
 
     if (e.shiftKey && document.activeElement === first) {
       e.preventDefault();
