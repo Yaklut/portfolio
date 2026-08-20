@@ -671,7 +671,10 @@ body.is-scrolled .site-header {
 }
 .hero__photo {
   width: 100%;
-  aspect-ratio: 900 / 1281;
+  height: auto; /* must be explicit — otherwise the <img> height="…" attribute
+                   wins as a fixed pixel value and aspect-ratio never gets a
+                   chance to run (it only fills in a dimension left `auto`) */
+  aspect-ratio: 4 / 5;
   object-fit: cover;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
@@ -894,11 +897,16 @@ body.is-scrolled .site-header {
 }
 
 /* The "View all on Google Scholar" link is a 3rd direct child of the
-   section (alongside the heading and the list) — it still gets the
-   container's padding/alignment from the generic rule, but must not
-   stretch to the container's full width. */
+   section (alongside the heading and the list). .btn is display:inline-flex,
+   and auto margins resolve to 0 on inline-level boxes — so the generic
+   rule's `margin-inline: auto` (which centers block-level children) was
+   silently doing nothing here, leaving the link flush to the page edge
+   instead of centered under the list. Switching to a block-level flex
+   box lets the auto margins actually take effect. */
 .research > .btn {
+  display: flex;
   width: fit-content;
+  margin-inline: auto;
 }
 
 /* ---- Certifications ---- */
@@ -1222,7 +1230,7 @@ body.is-scrolled .site-header {
   .hero__photo-frame {
     order: 2;
     width: 100%;
-    max-width: 420px;
+    max-width: 460px;
     margin-inline: 0 0 0 auto;
   }
 

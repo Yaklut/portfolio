@@ -232,5 +232,23 @@ The only images that load automatically on a normal visit — hero photo + both 
 - **Firefox/Safari** — unchanged from Phase 5's note: still untested directly (no browser available in this environment either). Nothing in this pass used anything version-gated for those browsers beyond what Phase 5 already reasoned through, plus the newly-added `inert` attribute (supported in Safari 15.5+, Firefox 112+, Chrome 102+ — all safely old enough not to be a practical concern for this audience, but worth a glance if you happen to test on either).
 - **Physical devices** — same standing note as Phase 5/6; nothing here changes that.
 
+## Post-launch fixes (Aug 19, 2026)
+Two visual bugs reported from the live site, both root-caused before fixing — not just patched at the symptom.
+
+**1. Hero photo rendering ~1281px tall on desktop (forcing a scroll to see all of it).**
+The real cause wasn't the aspect-ratio value — the `<img>`'s `height="1281"` HTML attribute was being read by the browser as a literal fixed CSS height. `.hero__photo` never set `height` explicitly, so that attribute-derived value won by default and blocked `aspect-ratio` entirely (it only fills in a dimension left `auto`). The photo was rendering at a hardcoded 1281px tall regardless of its actual responsive width.
+- Added `height: auto;` to `.hero__photo` so `aspect-ratio` can actually take effect.
+- Changed the ratio from `900 / 1281` (≈0.70, a very tall portrait) to `4 / 5` (0.8) — previewed several crop options against the real photo first to confirm nothing important (hairline, hands) gets cut off.
+- Widened the desktop frame slightly: `max-width: 420px → 460px`.
+- Updated the `<img>`'s `width`/`height` attributes to `900 / 1125` (same 4:5 ratio) so the pre-CSS layout reservation stays accurate.
+
+**2. "View all on Google Scholar" link sitting flush at the page edge instead of aligned under the publication cards.**
+`.btn` is `display: inline-flex`. Auto margins resolve to `0` on inline-level boxes, so the sitewide container rule's `margin-inline: auto` (which centers other section-level children) was silently doing nothing for this specific element — a genuine gap in the original Phase 4/5 implementation, not something that regressed later.
+- `.research > .btn` now also sets `display: flex` (block-level) alongside its existing `width: fit-content`, so the inherited `margin-inline: auto` can actually center it.
+
+**Verified, not assumed fine:** pulled the live repo fresh and checked both fixes with Playwright at 1920×1080, 1440×900, and 1366×768 (desktop) plus 375×812 (mobile). Hero photo fits without scrolling at all three desktop sizes. The Scholar link renders centered under all 5 publication cards — confirmed after walking the scroll position down the full page so every `.reveal` card had actually triggered first, not just the top two (an early check nearly missed this: an element screenshot taken without scrolling first only shows whatever has already faded in). Mobile hero re-checked too since the aspect-ratio change is shared across breakpoints — still renders cleanly there.
+
+**Files changed:** `assets/css/styles.css` (3 rules: `.hero__photo`, the `.hero__photo-frame` desktop breakpoint, `.research > .btn`) and `index.html` (`width`/`height` attributes on the hero `<img>` only). No HTML structure, JS, or other CSS touched.
+
 ## Next recommended task
 No blocking work remains. **Phase 8 (Testing & Debugging) is effectively covered** by this phase's own regression pass (see above) the same way Phase 6 folded into the landscape-mobile follow-up — there's no separate concrete task left that isn't either "final deployment prep" or "needs your physical hardware." Recommended next step: **Phase 9 — GitHub Pages Deployment**, plus the two optional items above (self-hosting fonts; a real Lighthouse pull post-deploy) whenever you want them.
