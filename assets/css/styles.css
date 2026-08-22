@@ -34,6 +34,7 @@
   --color-bg: #F6F7F9;
   --color-surface: #FFFFFF;
   --color-surface-alt: #EEF1F5;
+  --color-surface-translucent: rgba(255, 255, 255, 0.75); /* navbar glass on scroll — same white as --color-surface, just letting content bleed through */
   --color-border: #E2E5EB;
   --color-border-interactive: #848CA3;
 
@@ -451,13 +452,20 @@ main a:not(.btn):hover {
   z-index: 50;
   background: transparent;
   transition: background-color var(--duration-base) var(--ease-in-out),
+              backdrop-filter var(--duration-base) var(--ease-in-out),
               box-shadow var(--duration-base) var(--ease-in-out);
 }
 
 /* "Scrolled" state — toggled by Phase 5 JS adding this class to <body>.
-   Declared now so Phase 5 only has to add the class, not new CSS. */
+   Declared now so Phase 5 only has to add the class, not new CSS.
+   Frosted-glass treatment: translucent white + blur, so content still
+   reads faintly through the bar instead of a hard cut to solid white.
+   backdrop-filter has no fallback needed — unsupported browsers simply
+   keep the plain translucent background color, which still looks fine. */
 body.is-scrolled .site-header {
-  background: var(--color-surface);
+  background: var(--color-surface-translucent);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
   box-shadow: var(--shadow-sm);
 }
 
@@ -1176,6 +1184,11 @@ body.is-scrolled .site-header {
     flex-wrap: wrap;
   }
   .contact__platforms .btn { width: auto; }
+  /* The 3 buttons wrap as a row, but the tags list underneath needs to
+     force its own new line rather than trying to squeeze in after Email. */
+  .contact__platforms .contact__tags {
+    flex-basis: 100%;
+  }
 }
 
 /* --------------------------------------------------------------------
