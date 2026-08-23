@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found | Refa Defanda Witanto</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#2A46C0">
+
+  <!-- Absolute paths throughout this file on purpose: GitHub Pages can route
+       any invalid URL under /portfolio/ (at any depth) to this page, but the
+       browser keeps that original mistyped URL — so relative paths like
+       "assets/css/styles.css" would resolve incorrectly depending on how
+       deep the bad link was. Absolute paths always resolve the same way. -->
+  <link rel="icon" href="/portfolio/favicon.ico" sizes="any">
+  <link rel="icon" href="/portfolio/assets/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/portfolio/assets/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/portfolio/assets/css/styles.css">
+
+  <style>
+    /* Small page-specific layout only — everything else (colors, type,
+       button styles) comes from the site's own design tokens and .btn
+       classes in styles.css, so this stays on-brand for free. */
+    .error-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--container-pad);
+      text-align: center;
+    }
+    .error-page__content { max-width: 32rem; }
+    .error-page__code {
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--color-primary);
+      margin-bottom: var(--space-4);
+    }
+    .error-page__title {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 1.5rem + 1vw, 2.5rem);
+      font-weight: 600;
+      color: var(--color-ink);
+      margin-bottom: var(--space-4);
+    }
+    .error-page__body {
+      font-family: var(--font-body);
+      color: var(--color-ink-soft);
+      margin-bottom: var(--space-6);
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <main class="error-page">
+    <div class="error-page__content">
+      <p class="error-page__code">404 — NOT FOUND</p>
+      <h1 class="error-page__title">This page doesn't exist</h1>
+      <p class="error-page__body">
+        The link you followed may be broken, or the page may have moved.
+        Let's get you back to the portfolio.
+      </p>
+      <a class="btn btn--primary" href="/portfolio/">Back to homepage</a>
+    </div>
+  </main>
+</body>
+</html>

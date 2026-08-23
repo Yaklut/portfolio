@@ -1578,3 +1578,264 @@ body.modal-open {
     padding: var(--space-7) var(--space-6) var(--space-6);
   }
 }
+
+/* ---- Timeline ---- */
+/* New section (not in the original locked IA) — a chronological recap of
+   Education/Research/Projects/Certifications in one place, sitting after
+   Certifications since it's a summary layer, not a replacement for any of
+   the detailed sections above it. */
+
+.timeline__intro {
+  max-width: 60ch;
+  color: var(--color-ink-soft);
+  margin-bottom: var(--space-7);
+}
+
+.timeline__year-card + .timeline__year-card {
+  margin-top: var(--space-6);
+}
+
+/* Each year is its own light card — reuses the site's one card shell
+   (surface/radius/shadow/border) so the section reads as structured
+   content, not a bare list floating on the page background. */
+.timeline__year-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-6) var(--space-6) var(--space-5);
+}
+
+.timeline__year {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-ink);
+  margin-bottom: var(--space-5);
+}
+
+.timeline__list {
+  list-style: none;
+  position: relative;
+  padding-left: 46px;
+}
+/* The spine — drawn once behind the icons, not per-item, so it reads as
+   one continuous line regardless of how tall each row is. */
+.timeline__list::before {
+  content: '';
+  position: absolute;
+  left: 17px;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  background: var(--color-border);
+}
+
+.timeline__item {
+  position: relative;
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
+  padding: var(--space-3) var(--space-3) var(--space-3) 0;
+  margin-left: -14px;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--duration-base) var(--ease-out);
+}
+.timeline__item + .timeline__item {
+  margin-top: var(--space-1);
+}
+@media (hover: hover) {
+  .timeline__item:hover {
+    background: var(--color-surface-alt);
+  }
+}
+
+/* Icon marker — sits directly on the spine line. The surface-colored
+   background masks the line passing behind it, same trick real vertical
+   timelines use instead of stacking a separate dot next to an icon. */
+.timeline__icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border-interactive);
+  color: var(--color-ink-faint);
+  z-index: 1;
+}
+.timeline__icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Projects and publications are the two categories that actually matter
+   most for a recruiter — real analytical work and peer-reviewed output,
+   not routine course completions. Giving them the primary-tint treatment
+   (the same one Expertise icons use) creates a hierarchy that reflects
+   that, rather than every entry carrying identical visual weight. */
+.timeline__item--elevated .timeline__icon {
+  background: var(--color-primary-tint);
+  border-color: transparent;
+  color: var(--color-primary);
+}
+/* The one lead-authored publication carries the same gold "distinction"
+   treatment it already has in the Research section — not a new color
+   decision, just extending the existing rule into this section too. */
+.timeline__item--lead .timeline__icon {
+  background: var(--color-gold-tint);
+  border-color: transparent;
+  color: var(--color-gold-deep);
+}
+
+.timeline__content {
+  flex: 1;
+  min-width: 0;
+  padding-top: 3px;
+}
+
+.timeline__meta {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  margin-bottom: 2px;
+}
+.timeline__date {
+  color: var(--color-ink);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.timeline__category {
+  color: var(--color-ink-faint);
+  letter-spacing: 0.06em;
+}
+.timeline__item--lead .timeline__category {
+  color: var(--color-gold-deep);
+}
+
+.timeline__label {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--color-ink-soft);
+}
+.timeline__label strong {
+  color: var(--color-ink);
+  font-weight: 500;
+}
+.timeline__item--elevated .timeline__label strong {
+  font-weight: 600;
+}
+
+/* Grid-style stagger for items within a visible year card, capped at the
+   first 6 rows — matches the same reasoning as the certification grid:
+   nobody should wait 900ms+ for the last row of a 12-item year to appear. */
+.timeline__item {
+  animation: timelineItemIn 500ms var(--ease-out) both;
+  animation-play-state: paused;
+}
+.timeline__year-card.is-visible .timeline__item {
+  animation-play-state: running;
+}
+.timeline__year-card.is-visible .timeline__item:nth-child(1) { animation-delay: 0ms; }
+.timeline__year-card.is-visible .timeline__item:nth-child(2) { animation-delay: 50ms; }
+.timeline__year-card.is-visible .timeline__item:nth-child(3) { animation-delay: 100ms; }
+.timeline__year-card.is-visible .timeline__item:nth-child(4) { animation-delay: 150ms; }
+.timeline__year-card.is-visible .timeline__item:nth-child(5) { animation-delay: 200ms; }
+.timeline__year-card.is-visible .timeline__item:nth-child(n+6) { animation-delay: 250ms; }
+
+@keyframes timelineItemIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .timeline__item {
+    animation: none !important;
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   10. PRINT
+   ========================================================================== */
+
+@media print {
+  /* Force every scroll-reveal element visible — without this, anything
+     the IntersectionObserver hasn't triggered yet prints as invisible. */
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Chrome that only makes sense in an interactive browser. */
+  .site-header,
+  .nav-toggle,
+  .skip-link,
+  .hero__cta-row,
+  .btn--primary,
+  .resume__preview,
+  .cert-link,
+  .project__media-trigger::after,
+  .modal,
+  .footer__nav,
+  .footer__social {
+    display: none !important;
+  }
+
+  * {
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    text-shadow: none !important;
+  }
+
+  body {
+    background: #FFFFFF;
+    color: #000000;
+  }
+
+  .section-heading,
+  main > section > * {
+    background: transparent !important;
+  }
+
+  /* The footer's dark band wastes ink/toner and can render as a near-solid
+     black rectangle on non-color printers — flip it to plain text on white. */
+  .site-footer {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    border-top: 1px solid #000000;
+  }
+  .footer__tagline,
+  .footer__wordmark,
+  .footer__copyright {
+    color: #000000 !important;
+  }
+
+  a {
+    color: #000000;
+    text-decoration: underline;
+  }
+
+  /* Print the actual destination for external evidence links (GitHub,
+     LinkedIn, Scholar) since a reader obviously can't click a printed page. */
+  .project__link[href^="http"]:after,
+  .contact__platforms a[href^="http"]:after,
+  .research > .btn[href^="http"]:after {
+    content: " (" attr(href) ")";
+    font-size: 0.75rem;
+    color: #333333;
+  }
+
+  .card {
+    border: 1px solid #CCCCCC;
+    break-inside: avoid;
+  }
+
+  section {
+    break-inside: avoid-page;
+  }
+}

@@ -16,6 +16,47 @@
   <link rel="icon" href="assets/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
   <link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
 
+  <!-- Structured data (schema.org Person) — helps Google understand this page
+       is about a person, not a generic article, when someone searches the
+       name directly. Every field below already exists elsewhere on this page
+       or in the site's approved source content; nothing here is new/invented. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Refa Defanda Witanto",
+    "url": "https://yaklut.github.io/portfolio/",
+    "image": "https://yaklut.github.io/portfolio/assets/images/profile/refa-defanda-witanto.jpg",
+    "jobTitle": "International Relations Student / Data & Business Analytics",
+    "description": "International Relations student at Universitas Brawijaya building a second track in data analytics, business intelligence, and research.",
+    "email": "mailto:refadfnda@gmail.com",
+    "telephone": "+6281336023700",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Malang",
+      "addressRegion": "East Java",
+      "addressCountry": "ID"
+    },
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "Universitas Brawijaya"
+    },
+    "affiliation": {
+      "@type": "Organization",
+      "name": "Veritas Institute of Politics"
+    },
+    "knowsAbout": [
+      "Data Analysis", "SQL", "Google BigQuery", "Looker Studio",
+      "Statistical Analysis", "Business Intelligence", "International Relations Research"
+    ],
+    "sameAs": [
+      "https://www.linkedin.com/in/refa-defanda/",
+      "https://scholar.google.com/citations?user=X9B00VQAAAAJ&hl=id&oi=ao",
+      "https://github.com/Yaklut"
+    ]
+  }
+  </script>
+
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://yaklut.github.io/portfolio/">
@@ -775,11 +816,192 @@
     </section>
 
     <!-- ==================================================================
+         TIMELINE — new section, added after the original 9-phase build.
+         Not in the top nav (already has 8 links + the Resume button; adding
+         a 9th risked crowding at smaller desktop widths) — reachable by
+         scrolling, same as the unnumbered About section above.
+         ================================================================== -->
+    <!-- ==================================================================
+         TIMELINE — new section, added after the original 9-phase build.
+         Not in the top nav (already has 8 links + the Resume button; adding
+         a 9th risked crowding at smaller desktop widths) — reachable by
+         scrolling, same as the unnumbered About section above.
+         ================================================================== -->
+    <section id="timeline" class="timeline" aria-labelledby="timeline-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">07</span>
+        <h2 id="timeline-heading" class="section-title">Timeline</h2>
+      </div>
+      <p class="timeline__intro reveal">
+        Education, research, projects, and certifications above, laid out in one chronological line.
+      </p>
+
+      <div class="timeline__track">
+        <div class="timeline__year-card reveal">
+          <h3 class="timeline__year">2023</h3>
+          <ol class="timeline__list">
+            <li class="timeline__item">
+              <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" /><path d="M22 10v6" /><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /></svg></span>
+              <div class="timeline__content">
+                <p class="timeline__meta"><span class="timeline__date">Aug</span><span class="timeline__category">EDU</span></p>
+                <p class="timeline__label">Began <strong>Bachelor of International Relations</strong>, Universitas Brawijaya</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <div class="timeline__year-card reveal">
+          <h3 class="timeline__year">2024</h3>
+          <ol class="timeline__list">
+            <li class="timeline__item">
+              <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526" /><circle cx="12" cy="8" r="6" /></svg></span>
+              <div class="timeline__content">
+                <p class="timeline__meta"><span class="timeline__date">Nov 2</span><span class="timeline__category">HONOR</span></p>
+                <p class="timeline__label">2nd Winner, <strong>ALSA Legal Essay Competition</strong> — English Competition</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <div class="timeline__year-card reveal">
+          <h3 class="timeline__year">2025</h3>
+          <ol class="timeline__list">
+            <li class="timeline__item">
+              <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12h.01" /><path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" /><path d="M22 13a18.15 18.15 0 0 1-20 0" /><rect width="20" height="14" x="2" y="6" rx="2" /></svg></span>
+              <div class="timeline__content">
+                <p class="timeline__meta"><span class="timeline__date">16 Mar</span><span class="timeline__category">CERT</span></p>
+                <p class="timeline__label"><strong>Guide to Learn Python with AI</strong> — DQLab</p>
+              </div>
+            </li>
+            <li class="timeline__item">
+              <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12h.01" /><path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" /><path d="M22 13a18.15 18.15 0 0 1-20 0" /><rect width="20" height="14" x="2" y="6" rx="2" /></svg></span>
+              <div class="timeline__content">
+                <p class="timeline__meta"><span class="timeline__date">16 Mar</span><span class="timeline__category">CERT</span></p>
+                <p class="timeline__label"><strong>Introduction to Data Science with Python</strong> — DQLab</p>
+              </div>
+            </li>
+            <li class="timeline__item">
+              <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12h.01" /><path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" /><path d="M22 13a18.15 18.15 0 0 1-20 0" /><rect width="20" height="14" x="2" y="6" rx="2" /></svg></span>
+              <div class="timeline__content">
+                <p class="timeline__meta"><span class="timeline__date">27 Mar</span><span class="timeline__category">CERT</span></p>
+                <p class="timeline__label"><strong>Python Fundamental for Data Science</strong> — DQLab</p>
+              </div>
+            </li>
+            <li class="timeline__item">
+              <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12h.01" /><path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" /><path d="M22 13a18.15 18.15 0 0 1-20 0" /><rect width="20" height="14" x="2" y="6" rx="2" /></svg></span>
+              <div class="timeline__content">
+                <p class="timeline__meta"><span class="timeline__date">28 Mar</span><span class="timeline__category">CERT</span></p>
+                <p class="timeline__label"><strong>Intro to Data Analytics</strong> (Mini Course) — RevoU</p>
+              </div>
+            </li>
+            <li class="timeline__item">
+              <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12h.01" /><path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" /><path d="M22 13a18.15 18.15 0 0 1-20 0" /><rect width="20" height="14" x="2" y="6" rx="2" /></svg></span>
+              <div class="timeline__content">
+                <p class="timeline__meta"><span class="timeline__date">3 Apr</span><span class="timeline__category">CERT</span></p>
+                <p class="timeline__label"><strong>Python for Data Professional Beginner</strong> – Part 1 — DQLab</p>
+              </div>
+            </li>
+            <li class="timeline__item">
+              <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12h.01" /><path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" /><path d="M22 13a18.15 18.15 0 0 1-20 0" /><rect width="20" height="14" x="2" y="6" rx="2" /></svg></span>
+              <div class="timeline__content">
+                <p class="timeline__meta"><span class="timeline__date">7 Apr</span><span class="timeline__category">CERT</span></p>
+                <p class="timeline__label"><strong>Data Analyst</strong> — DSAREA × JOBAREA</p>
+              </div>
+            </li>
+            <li class="timeline__item timeline__item--elevated">
+              <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z" /><path d="M8 10v4" /><path d="M12 10v2" /><path d="M16 10v6" /></svg></span>
+              <div class="timeline__content">
+                <p class="timeline__meta"><span class="timeline__date">17 Apr – 15 May</span><span class="timeline__category">PROJECT</span></p>
+                <p class="timeline__label"><strong>Kimia Farma Performance Analytics</strong> — BigQuery + Looker Studio dashboard</p>
+              </div>
+            </li>
+            <li class="timeline__item">
+              <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12h.01" /><path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" /><path d="M22 13a18.15 18.15 0 0 1-20 0" /><rect width="20" height="14" x="2" y="6" rx="2" /></svg></span>
+              <div class="timeline__content">
+                <p class="timeline__meta"><span class="timeline__date">15 May</span><span class="timeline__category">CERT</span></p>
+                <p class="timeline__label"><strong>Kimia Farma Big Data Analytics</strong> — Rakamin Academy Virtual Internship</p>
+              </div>
+            </li>
+            <li class="timeline__item">
+              <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12h.01" /><path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" /><path d="M22 13a18.15 18.15 0 0 1-20 0" /><rect width="20" height="14" x="2" y="6" rx="2" /></svg></span>
+              <div class="timeline__content">
+                <p class="timeline__meta"><span class="timeline__date">5 Jun</span><span class="timeline__category">CERT</span></p>
+                <p class="timeline__label"><strong>Data Analysis Fundamental</strong> — MySkill</p>
+              </div>
+            </li>
+            <li class="timeline__item">
+              <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12h.01" /><path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" /><path d="M22 13a18.15 18.15 0 0 1-20 0" /><rect width="20" height="14" x="2" y="6" rx="2" /></svg></span>
+              <div class="timeline__content">
+                <p class="timeline__meta"><span class="timeline__date">5 Jun</span><span class="timeline__category">CERT</span></p>
+                <p class="timeline__label"><strong>Statistics</strong> — MySkill</p>
+              </div>
+            </li>
+            <li class="timeline__item timeline__item--elevated">
+              <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z" /><path d="M8 10v4" /><path d="M12 10v2" /><path d="M16 10v6" /></svg></span>
+              <div class="timeline__content">
+                <p class="timeline__meta"><span class="timeline__date">6 Oct – 3 Nov</span><span class="timeline__category">PROJECT</span></p>
+                <p class="timeline__label"><strong>Bank Muamalat BI Dashboard</strong> — BigQuery + Looker Studio dashboard</p>
+              </div>
+            </li>
+            <li class="timeline__item">
+              <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12h.01" /><path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" /><path d="M22 13a18.15 18.15 0 0 1-20 0" /><rect width="20" height="14" x="2" y="6" rx="2" /></svg></span>
+              <div class="timeline__content">
+                <p class="timeline__meta"><span class="timeline__date">3 Nov</span><span class="timeline__category">CERT</span></p>
+                <p class="timeline__label"><strong>Bank Muamalat Business Intelligence Analyst</strong> — Rakamin Academy Virtual Internship</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <div class="timeline__year-card reveal">
+          <h3 class="timeline__year">2026</h3>
+          <ol class="timeline__list">
+            <li class="timeline__item timeline__item--elevated">
+              <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16" /><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" /></svg></span>
+              <div class="timeline__content">
+                <p class="timeline__meta"><span class="timeline__date">2026</span><span class="timeline__category">PUB</span></p>
+                <p class="timeline__label"><strong>Unravelling Indonesia's Foreign Aid Interest Towards Fiji</strong> — Journal of Public Power (5th of 7 authors)</p>
+              </div>
+            </li>
+            <li class="timeline__item timeline__item--elevated timeline__item--lead">
+              <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16" /><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" /></svg></span>
+              <div class="timeline__content">
+                <p class="timeline__meta"><span class="timeline__date">2026</span><span class="timeline__category">PUB · 1ST AUTHOR</span></p>
+                <p class="timeline__label"><strong>Air Power and Regional Security</strong> — Indonesian Journal of International Relations</p>
+              </div>
+            </li>
+            <li class="timeline__item timeline__item--elevated">
+              <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16" /><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" /></svg></span>
+              <div class="timeline__content">
+                <p class="timeline__meta"><span class="timeline__date">Apr</span><span class="timeline__category">PUB</span></p>
+                <p class="timeline__label"><strong>Revisiting the Developmental State</strong> — Indonesian Journal of Social Research (3rd of 6 authors)</p>
+              </div>
+            </li>
+            <li class="timeline__item timeline__item--elevated">
+              <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16" /><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" /></svg></span>
+              <div class="timeline__content">
+                <p class="timeline__meta"><span class="timeline__date">Jun</span><span class="timeline__category">PUB</span></p>
+                <p class="timeline__label"><strong>Localization of Sexual and Reproductive Health and Rights Norms</strong> — Teunuleh Scientific Journal (3rd of 7 authors)</p>
+              </div>
+            </li>
+            <li class="timeline__item timeline__item--elevated">
+              <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16" /><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" /></svg></span>
+              <div class="timeline__content">
+                <p class="timeline__meta"><span class="timeline__date">Jul</span><span class="timeline__category">PUB</span></p>
+                <p class="timeline__label"><strong>Untangling Small Arms and Transnational Organized Crime</strong> — Jurnal Pena Wimaya (6th of 6 authors)</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
          RESUME / CV
          ================================================================== -->
     <section id="resume" class="resume" aria-labelledby="resume-heading">
       <div class="section-heading reveal">
-        <span class="section-eyebrow" aria-hidden="true">07</span>
+        <span class="section-eyebrow" aria-hidden="true">08</span>
         <h2 id="resume-heading" class="section-title">Resume / CV</h2>
       </div>
 
@@ -808,7 +1030,7 @@
          ================================================================== -->
     <section id="contact" class="contact" aria-labelledby="contact-heading">
       <div class="section-heading reveal">
-        <span class="section-eyebrow" aria-hidden="true">08</span>
+        <span class="section-eyebrow" aria-hidden="true">09</span>
         <h2 id="contact-heading" class="section-title">Contact</h2>
       </div>
 
@@ -895,6 +1117,15 @@
   <script defer src="assets/js/reveal.js"></script>
   <script defer src="assets/js/modal.js"></script>
   <script defer src="assets/js/main.js"></script>
+
+  <!-- Analytics — GoatCounter (free for non-commercial sites, no cookies,
+       ~3.5KB, no GDPR banner needed). ACTION REQUIRED: this data-goatcounter
+       URL is a placeholder. Sign up free at https://www.goatcounter.com,
+       pick a site code, then replace YOUR-CODE below with it. Until you do,
+       this script simply fails silently — it won't break anything, it just
+       won't count anything either. -->
+  <script data-goatcounter="https://YOUR-CODE.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
 
 </body>
 </html>
