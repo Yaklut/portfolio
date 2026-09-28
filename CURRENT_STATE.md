@@ -1,6 +1,6 @@
 # Current State — Refa's Portfolio Website
 
-**Last updated:** August 18, 2026 (Phase 7 — Accessibility & Performance audit — complete)
+**Last updated:** September 28, 2026 (post-launch feature round: Quick Wins + tool marquee — see "Post-launch feature round (Sep 2026)")
 
 ## Completed
 - **Phase 1: Planning & Architecture** — ✅ complete. Full detail: `PHASE_1_PLANNING_ARCHITECTURE.md`
@@ -10,6 +10,8 @@
 - **Phase 5: Animations & Interactions** — ✅ complete. Scroll reveal, hero entrance, navbar scroll state, active-nav tracking, mobile menu, hover polish, and the certificate/project lightbox are all implemented and QA'd. Details below.
   - **Same-day follow-up:** a targeted landscape-mobile check (not a full Phase 6 — see that section below) found and fixed one real bug in the mobile menu. Details in "Landscape mobile follow-up" below.
 - **Phase 7: Accessibility & Performance** — ✅ complete. Real audit (not speculative), 7 issues found and fixed, all low-risk, zero visual/design changes. Full detail below. No visual redesign occurred — identity remains exactly as approved in `DESIGN.md`.
+- **Phases 8–9: Testing & Deployment** — ✅ complete, confirmed by Refa. Site is live at `https://yaklut.github.io/portfolio/`.
+- **Post-launch feature round (Sep 2026)** — ✅ built and confirmed working locally by Refa; not yet committed/pushed at time of writing. Detail in the section of the same name below.
 
 ## Files created/modified in Phase 5
 - **`assets/js/nav.js`** *(new)* — navbar scrolled state, mobile menu (open/close, focus trap, Escape, outside/empty-space tap, close-on-link-click, auto-close on resize past desktop), active-section tracking.
@@ -298,5 +300,41 @@ Refa's reaction to the first version: "good, but too simple." Fair — it was pl
 
 Re-verified after the rewrite: all 11 `<section>` tags still balance, all 19 items present, eyebrow numbering (01–09) and section order unaffected, reveal-on-scroll confirmed actually firing on the new `.timeline__year-card` structure (not just visually similar), no new console errors, checked on both 1440px and 375px.
 
+## Post-launch feature round (Sep 2026)
+Inspired by structure/interaction ideas from a second reference site (farihmuwaffaq.my.id) — patterns only, none of its visual identity, wording, or code was copied. Refa picked which ideas to build from a shortlist.
+
+**Built**
+1. **Hero availability badge.** A `.chip` pill ("Open to Data & Business Analyst Internships") between the CTA row and the stats. No new component — `.chip` was already documented as the "open to" tag style. Added to the hero entrance stagger (340ms) and to its `prefers-reduced-motion` override list.
+2. **Sector tags on both project cards.** New `.project__sector` mono kicker above each project title ("Pharmaceutical retail" / "Islamic banking"), reusing the hero-eyebrow typography.
+3. **Hero stat count-up.** New `assets/js/stat-count.js`, called from `main.js`. Counts the three hero numbers (5 / 2 / 11) from 0 over 700ms, starting at 380ms to match the CSS stat fade-in delay. Scoped to `.hero__stats .stat-value` only — other `.stat-value` elements hold currency/suffix formats and must not be touched. If JS fails, the real numbers are already in the HTML. Skipped entirely under `prefers-reduced-motion`.
+   - The hero entrance itself is still pure CSS; only the numbers are animated by JS.
+   - The 380ms/700ms constants in `stat-count.js` mirror the CSS delay — if the hero stagger is retimed, update both.
+4. **Tool/tech marquee.** New unnumbered sub-block at the bottom of the Skills & Tools section (kept out of the numbered sequence so eyebrows 01–09 are unchanged). Five brand logos: Google BigQuery, Looker Studio, Microsoft Excel, Google Sheets, Python.
+   - Auto-scroll is pure CSS (track duplicated once, translated -50% for a seamless loop). New `assets/js/marquee.js` only wires the pause/resume toggle button.
+   - Accessibility: explicit pause button (`aria-pressed`, label switches Pause/Resume), the duplicate half is `aria-hidden`, visible logos carry `aria-label`s, and under `prefers-reduced-motion` the animation and the button are both removed. New shared `.sr-only` utility added to the layout-utilities block.
+   - Logo sources: BigQuery, Looker, Sheets and Python come from the Simple Icons package (brand hex colors). Excel is the official multi-color SVG supplied by Refa, cleaned of Illustrator metadata, with a unique gradient ID per copy so the two inline instances don't collide.
+
+**Bug found and fixed during Refa's local check**
+- Symptom: after pausing, clicking resume did nothing until Refa clicked elsewhere.
+- Cause: the pause rules used `:hover` on the whole `.tool-marquee` and `:focus-within`. The toggle button is the only focusable element inside, so a click left it focused (`:focus-within` still true) and the mouse still hovering it — both kept the animation paused regardless of the `is-paused` class.
+- Fix: hover-pause now applies to `.tool-marquee__viewport` only (the logo strip, not the button), and `:focus-within` was removed. If logos ever become links, revisit whether pause-on-focus is wanted.
+
+**Files changed:** `index.html`, `assets/css/styles.css`, `assets/js/main.js` (init list), new `assets/js/stat-count.js`, new `assets/js/marquee.js`.
+
+**Verification — kept separate on purpose**
+- Independently verified: JS syntax (`node -c`), HTML tag balance (sections/divs/lists/svg), CSS brace balance, unique gradient IDs, correct insertion points.
+- Confirmed by Refa (local browser): badge, sector tags, count-up, marquee with all five logos, and the pause/resume fix.
+- Not run: Playwright screenshot/breakpoint pass — the browser binary can't be downloaded in the working sandbox. The marquee and badge have therefore not been checked at 375/430/768px by automated screenshots.
+
+**Known caveats**
+- The Looker Studio slot uses the generic Looker mark — Simple Icons has no separate Looker Studio icon.
+- Four logos are single-color brand marks and Excel is full multi-tone artwork, so the strip is not perfectly uniform in style. Refa reviewed it and accepted it.
+- GoatCounter is still the `YOUR-CODE` placeholder (see "New features added"). Refa has not created an account yet and was unfamiliar with the service; until a real site code is set the script fails silently.
+
+**Decided but not built: per-project case-study pages.** Refa chose real multi-page sub-pages (relaxing the Phase 1 single-`index.html` lock for these pages only) over expanding the existing cards. Source material exists — `Dashboard_Projects.pdf` contains the full Kimia Farma and BMI dashboard views, far more detail than the card screenshots. Implications to plan for: shared nav/footer markup duplicated across pages (no templating in vanilla HTML), relative asset paths from a subfolder, and the 404 page's absolute-path convention. Narrative content must be reviewed by Refa; nothing may be presented as Refa's finding or decision unless Refa confirms it.
+
 ## Next recommended task
-No blocking work remains. **Phase 8 (Testing & Debugging) is effectively covered** by this phase's own regression pass (see above) the same way Phase 6 folded into the landscape-mobile follow-up — there's no separate concrete task left that isn't either "final deployment prep" or "needs your physical hardware." Recommended next step: **Phase 9 — GitHub Pages Deployment**, plus the two optional items above (self-hosting fonts; a real Lighthouse pull post-deploy) whenever you want them.
+1. **Commit and push** the Sep 2026 feature round (5 files listed above), then check the live site once.
+2. **Case-study pages** for Kimia Farma and BMI — start with one project as a template, get Refa's review of the draft observations, then replicate for the other.
+3. **GoatCounter** — either create the free account and swap in the site code, or remove the script tag if analytics isn't wanted.
+4. Optional, unchanged from before: self-host fonts; a real Lighthouse pull on the live site.
