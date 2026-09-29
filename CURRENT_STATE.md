@@ -282,7 +282,7 @@ Refa asked for feature ideas beyond bug fixes; after presenting options, asked t
 
 **3. JSON-LD structured data.** `Person` schema in `index.html`'s `<head>`, separate from the Open Graph tags added earlier (those control social-share preview cards; this is about how the page can appear in Google search results if someone searches the name directly). Every field traces to content already elsewhere on the page or in verified source material — name, alumniOf, affiliation, knowsAbout, sameAs (LinkedIn/Scholar/GitHub) — nothing new was invented. Validated as parseable JSON before shipping.
 
-**4. Analytics — GoatCounter.** Confirmed via web search this is a genuinely free (non-commercial tier), cookieless, ~3.5KB option with no GDPR-banner requirement, and doesn't need any DNS/hosting changes (unlike Cloudflare Web Analytics, whose free tier is more clearly tied to sites already proxied through Cloudflare). Wired into `index.html` with a placeholder domain (`YOUR-CODE.goatcounter.com`) and an inline comment — **Refa needs to sign up free at goatcounter.com and swap in their real site code**, since that account can't be created on their behalf. Until that swap happens the script just fails silently; it doesn't break anything else on the page.
+**4. Analytics — GoatCounter.** Confirmed via web search this is a genuinely free (non-commercial tier), cookieless, ~3.5KB option with no GDPR-banner requirement, and doesn't need any DNS/hosting changes (unlike Cloudflare Web Analytics, whose free tier is more clearly tied to sites already proxied through Cloudflare). Wired into `index.html` with a placeholder domain (`YOUR-CODE.goatcounter.com`) and an inline comment — **Refa needed to sign up free at goatcounter.com and swap in their real site code**, since that account can't be created on their behalf. *(Resolved Sep 28, 2026 — Refa created the account and the real code `refadfnda` is now in `index.html`; see the Sep 2026 round below.)*
 
 **5. Timeline section — new, not in the original locked IA.** Sits between Certifications and Resume/CV (numbered `07`; Resume and Contact shifted to `08`/`09` accordingly). A single chronological list — Education, both projects, all 5 publications, and the 10 dated certifications (the Dibimbing cert has no printed date on the certificate itself, so it's excluded here rather than guessed) — grouped by year, pulled by re-parsing the actual `datetime` attributes already in the page rather than retyping dates by hand, specifically to avoid transcription drift from the source of truth. The one lead-authored publication reuses the *same* gold "distinction" treatment it already has in the Research section (not a new color decision — carrying the existing rule into a new context). Deliberately built as compact rows, not the site's usual card shell: at 19 entries, the card system's shadow/padding/radius would have made the section far longer than the information density justifies. Not added to the top nav — it already carries 8 links plus the Resume button, and a 9th risked crowding at in-between desktop widths; reachable by scrolling instead, same as the unnumbered About section.
 
@@ -319,7 +319,7 @@ Inspired by structure/interaction ideas from a second reference site (farihmuwaf
 - Cause: the pause rules used `:hover` on the whole `.tool-marquee` and `:focus-within`. The toggle button is the only focusable element inside, so a click left it focused (`:focus-within` still true) and the mouse still hovering it — both kept the animation paused regardless of the `is-paused` class.
 - Fix: hover-pause now applies to `.tool-marquee__viewport` only (the logo strip, not the button), and `:focus-within` was removed. If logos ever become links, revisit whether pause-on-focus is wanted.
 
-**Files changed:** `index.html`, `assets/css/styles.css`, `assets/js/main.js` (init list), new `assets/js/stat-count.js`, new `assets/js/marquee.js`.
+**Files changed:** `index.html` (also the GoatCounter code swap), `assets/css/styles.css`, `assets/js/main.js` (init list), new `assets/js/stat-count.js`, new `assets/js/marquee.js`.
 
 **Verification — kept separate on purpose**
 - Independently verified: JS syntax (`node -c`), HTML tag balance (sections/divs/lists/svg), CSS brace balance, unique gradient IDs, correct insertion points.
@@ -329,12 +329,63 @@ Inspired by structure/interaction ideas from a second reference site (farihmuwaf
 **Known caveats**
 - The Looker Studio slot uses the generic Looker mark — Simple Icons has no separate Looker Studio icon.
 - Four logos are single-color brand marks and Excel is full multi-tone artwork, so the strip is not perfectly uniform in style. Refa reviewed it and accepted it.
-- GoatCounter is still the `YOUR-CODE` placeholder (see "New features added"). Refa has not created an account yet and was unfamiliar with the service; until a real site code is set the script fails silently.
+- GoatCounter: Refa created the account and the real site code (`refadfnda`) replaced the `YOUR-CODE` placeholder on Sep 28, 2026. The site should be checked once after deploy to confirm the first pageview is counted in the GoatCounter dashboard.
 
 **Decided but not built: per-project case-study pages.** Refa chose real multi-page sub-pages (relaxing the Phase 1 single-`index.html` lock for these pages only) over expanding the existing cards. Source material exists — `Dashboard_Projects.pdf` contains the full Kimia Farma and BMI dashboard views, far more detail than the card screenshots. Implications to plan for: shared nav/footer markup duplicated across pages (no templating in vanilla HTML), relative asset paths from a subfolder, and the 404 page's absolute-path convention. Narrative content must be reviewed by Refa; nothing may be presented as Refa's finding or decision unless Refa confirms it.
 
+## Case-study pages — draft layout (Sep 28, 2026)
+Refa approved real multi-page case studies and, with the dashboard rebuild postponed ("harus dari awal banget"), asked for the layout first.
+
+**What exists**
+- `case-studies/kimia-farma.html` and `case-studies/bmi.html`, generated from one shared template so the two pages cannot drift. They are **not linked from the homepage yet**, carry `<meta name="robots" content="noindex, nofollow">`, and show a visible "Draft layout" banner. Both are marked with `REMOVE BEFORE PUBLISHING` comments.
+- One new CSS block at the end of `assets/css/styles.css`: **"12. CASE-STUDY PAGES"** (`.cs-*` classes). It reuses existing tokens and shells (`.card`, `.chip`, `.stat`, `.section-heading`, `.project__media` + the lightbox), so the pages match the homepage without a new visual language. Sections are still direct children of `<main>`, so the shared section rhythm and even/odd banding apply.
+- Paths are relative (`../assets/...`), which works locally and under `/portfolio/`. The navbar/footer markup is duplicated in each page (vanilla HTML, no templating): if the homepage nav changes, both case-study pages need the same edit. The Projects nav link is pre-marked `is-active`; `nav.js` needs no changes (it finds no matching sections and exits).
+- Page structure: hero (sector kicker, title, summary, program/period/data/tools) → 01 Context & question → 02 Approach (numbered steps) → 03 Results snapshot (four KPI tiles + an HTML/CSS bar chart, values always printed as text) → 04 What the data shows → 05 The dashboard (original screenshot in the lightbox, plus a correction note and a dashed v2 placeholder) → 06 Recommendations → 07 Data check & corrections → GitHub links and previous/next project cards.
+- Every figure comes from Refa's raw files as recomputed on Sep 28, 2026 (see "Open data questions"), not from the old dashboard screenshots.
+
+**Left out on purpose — Refa to decide**
+- BMI deck: "underperforming cities (Albany, Springfield)" — those are the 5th and 6th of 361 cities by sales. And the Ramadan/Eid seasonality recommendation — the dataset is US-based and its peak (Jun 2021) does not line up with either.
+- Kimia Farma deck: the "investigate branch service quality" recommendation (the rating gap is a selection effect) and the "raise margins through cost efficiency" line (the data has no costs).
+- Consequence: Kimia Farma has one recommendation plus a placeholder card; BMI has three.
+- Two BMI links from the final-task deck (SQL file on GitHub, YouTube presentation) are included and flagged with a `REVIEW` comment.
+
+**Before these pages go live**
+1. ~~Homepage cards showed the old figures and the Kimia Farma "rating gap" sentence.~~ **Fixed Sep 28, 2026** — `index.html` now shows the corrected figures and wording (see "Homepage cards corrected" below), so it no longer contradicts the case studies.
+2. Decide whether the original screenshots stay (with the correction notes now in the pages) or are replaced by a rebuilt v2 dashboard.
+3. Add "Read the case study →" links from each homepage project card once Refa has visually reviewed the draft pages, then remove the banner and the noindex tag.
+
+**Homepage cards corrected (Sep 28, 2026).** `index.html` project cards now match the case-study figures exactly:
+- Kimia Farma: Total Transactions 672,458; Nett Sales Rp321.17B; Nett Profit Rp91.21B; Customer Names 264,601 (relabelled from "Customers" — the field is `customer_name`, not a true ID). Key-insight sentence now cites Jawa Barat's corrected Rp94.87B / 29.5% and the flat year-over-year trend, and no longer claims a branch-rating "gap" (selection effect, see "Open data questions").
+- BMI: Total Sales relabelled `1.75M` (currency symbol dropped — unconfirmed, see "Open data questions"); "Total Orders" split into two correct stats, **Orders 3,339** and **Units Sold 11,654** (the card had one mislabeled number; now both real numbers are shown).
+- **Not fixed — needs Refa:** `CV_Refa_Defanda_Witanto.pdf` (bullet points) and the LinkedIn/portfolio-deck equivalents state the same old wrong figures (`Rp346.96M`, `Rp98.54M`, `Rp102.5M`, and "integrating 11,654" as if that were a row/record count for BMI). Claude has no source file for the CV (only the exported PDF) and cannot edit it — Refa needs to fix this wherever the CV is authored (Canva/Word/Docs) and re-export.
+
+**Verification:** structural only — tag balance, unique IDs, every relative link and image exists. No browser is available in the working sandbox, so nothing has been rendered. Needs Refa's visual check at roughly 375, 768 and 1440px, including the lightbox on the dashboard screenshot and the bar rows on mobile.
+
+## Open data questions (raised Sep 28, 2026)
+Found while reading the two final-task decks against what the cards say. Status after Claude re-checked BMI from the raw workbook and Refa's own AI agent recomputed both projects.
+
+**BMI — verified by Claude from `dataset_task_5.xlsx`** (orders, product, product category, customers sheets):
+- Total sales = **1,754,750.57** (Σ quantity × price) → the dashboard's "1,75 jt" is correct as a number. A competing figure of ≈349.5k from Refa's agent was wrong and should be ignored.
+- **3,339 distinct orders**, **11,654 units** (Σ quantity), **1,671 customers**; all joins match with no row fan-out (3,339 rows after every join).
+- Dashboard city table (Washington 55,382 / 308 units, Houston, Sacramento, San Diego, Albany, Springfield), category bars, 361 cities, and the monthly trend (peak Jun 2021 ≈ 95.4k, low Oct 2021 ≈ 52.3k) all reproduce exactly.
+- Consequences: the scorecard labelled "Total Order 11654" is really **units sold**; the true order count is **3,339** (≈ 2.0 orders per customer). The deck's "11,600 orders from 1,671 customers" is wrong on the same point.
+- **Currency is not stated anywhere in the dataset.** US addresses/ZIP codes and prices of 4.99–899 point to USD, but that is an inference; the dashboard's "Rp" is Looker's locale format. Label to be decided by Refa (e.g. `$1.75M`, or a neutral "1.75M" plus a note).
+
+**Kimia Farma — verified by Claude from the four raw CSVs** (672,458 transactions, 150 products, 1,725 branches, 31 provinces, 2020-01-01 → 2023-12-30; no duplicate IDs, every transaction joins to a product and a branch, transaction price equals product price on every row):
+- `discount_percentage` takes 0.00–0.15 in 0.01 steps (mean 0.075), so it is a **fraction**. Correct formula: `price * (1 - discount_percentage)`; the deck's `/ 100.0` shrinks every discount 100×.
+- The deck's formula reproduces the current cards exactly (nett sales 346,961,801,575; nett profit 98,539,911,168), so the cards are what the flawed query outputs. "M" on the dashboard means *miliar* (billion).
+- **Corrected figures:** nett sales **Rp321,171,190,319 (≈ Rp321.17 billion)**, nett profit **Rp91,214,988,060 (≈ Rp91.21 billion)**. The deck overstated both by 8.03%; profit margin is 28.40% either way. Refa's agent's nett-sales figure was right.
+- Province top-10 charts, transaction counts and the branch-rating table reproduce exactly, and the province ranking does **not** change after the fix. Jawa Barat corrected: Rp94.87 billion nett sales (29.5% of the total), 198,723 transactions.
+- Year-over-year (corrected): nett sales 80.44 / 80.04 / 80.58 / 80.12 billion for 2020–2023 (−0.5%, +0.7%, −0.6%) — flat, with ≈168k transactions every year. Every February is the lowest month of its year (the recurring dips on the dashboard line).
+- "Customers 264,601" is the count of **distinct `customer_name`** — the data has no customer ID, so it should be labelled that way.
+- **Rating insight overreaches.** Average transaction rating is 4.000. The 96 branches rated 5.0 average 3.997 versus 4.000 for the rest (correlation ≈ 0.02). The "lowest" 5-star branches (3.905–3.957) are what chance alone produces: simulating 96 random branches gives a minimum around 3.93. The deck/card wording about a service-quality "gap" is a selection effect and should be reworded (the deck also says "transaction volume" where the table is about transaction *rating*).
+
+**Site status:** no card figures were changed. `index.html` still shows `Rp346.96M` / `Rp98.54M` / `Rp102.5M` (Kimia Farma) and `Rp1.75M` / `11,654 Total Orders` (BMI). They are on hold until the sources are fixed (Looker scorecards for BMI; SQL formula, dashboard and screenshot for Kimia Farma), so text and screenshots don't contradict each other.
+
 ## Next recommended task
-1. **Commit and push** the Sep 2026 feature round (5 files listed above), then check the live site once.
-2. **Case-study pages** for Kimia Farma and BMI — start with one project as a template, get Refa's review of the draft observations, then replicate for the other.
-3. **GoatCounter** — either create the free account and swap in the site code, or remove the script tag if analytics isn't wanted.
-4. Optional, unchanged from before: self-host fonts; a real Lighthouse pull on the live site.
+1. **Refa reviews the two draft pages locally** (open `case-studies/kimia-farma.html` and `bmi.html` from the repo folder) at desktop, tablet and phone widths; report anything off.
+2. **Fix the CV PDF** (and anywhere else the old figures appear, e.g. LinkedIn) — Claude cannot do this one, no source file available.
+3. Once both of the above are done: add "Read the case study →" links on the homepage cards, remove the draft banner and noindex tag from the two case-study pages.
+4. **Decide on the dashboards:** keep the original screenshots with the correction notes, or rebuild v2 (BigQuery + Looker Studio, with Extract Data so it survives BigQuery's 60-day sandbox expiry). Rebuilding is postponed for now.
+5. **Commit and push** everything from the Sep 2026 rounds (feature round, GoatCounter code, corrected homepage cards, case-study pages), then check the live site and the first GoatCounter pageview.
+6. Optional, unchanged: self-host fonts; a real Lighthouse pull on the live site.
