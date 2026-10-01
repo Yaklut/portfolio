@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bank Muamalat (BMI) Sales Performance Dashboard — Case Study | Refa Defanda Witanto</title>
+  <meta name="description" content="Case study: four relational tables joined into a BigQuery master table and analysed for product, city and customer sales patterns.">
+  <meta name="theme-color" content="#2A46C0">
+  <!-- DRAFT: remove this tag when the page is approved for publishing. -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" href="../assets/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="../assets/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="../assets/images/icons/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header">
+    <nav class="navbar" aria-label="Primary">
+      <a class="navbar__wordmark" href="../index.html#hero">Refa Defanda</a>
+
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="primary-navigation" aria-label="Open menu">
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+      </button>
+
+      <div id="primary-navigation" class="nav-panel">
+        <ul class="nav-list">
+          <li><a class="nav-link" href="../index.html#about">About</a></li>
+          <li><a class="nav-link" href="../index.html#expertise">Expertise</a></li>
+          <li><a class="nav-link" href="../index.html#skills">Skills</a></li>
+          <li><a class="nav-link is-active" href="../index.html#projects" aria-current="true">Projects</a></li>
+          <li><a class="nav-link" href="../index.html#education">Education</a></li>
+          <li><a class="nav-link" href="../index.html#research">Research</a></li>
+          <li><a class="nav-link" href="../index.html#certifications">Certifications</a></li>
+          <li><a class="nav-link" href="../index.html#contact">Contact</a></li>
+        </ul>
+        <button type="button" class="nav-search-btn" id="cmdk-trigger" aria-label="Jump to a section" aria-haspopup="dialog" aria-keyshortcuts="Control+K Meta+K">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <kbd class="nav-search-btn__hint" aria-hidden="true">Ctrl K</kbd>
+        </button>
+        <a class="nav-cta btn btn--primary" href="../index.html#resume">Resume</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <section class="cs-hero" aria-labelledby="cs-title">
+      <div class="cs-hero__inner">
+        <!-- REMOVE BEFORE PUBLISHING: this banner, and the noindex meta tag in <head>. -->
+        <p class="cs-draft-banner">Draft layout — content pending Refa's review</p>
+        <div><a class="btn btn--ghost cs-back" href="../index.html#projects">← Back to projects</a></div>
+        <p class="project__sector">Islamic banking</p>
+        <h1 id="cs-title" class="cs-title">Bank Muamalat (BMI) Sales Performance Dashboard</h1>
+        <p class="cs-summary">Four relational tables joined into one BigQuery master table and a Looker Studio sales dashboard, with recommendations on product portfolio and customer retention.</p>
+        <dl class="cs-meta">
+          <div><dt>Program</dt><dd>Project-Based Virtual Internship — Business Intelligence Analyst · Bank Muamalat × Rakamin Academy</dd></div>
+          <div><dt>Period</dt><dd><time datetime="2025-10-06">Oct 6</time>–<time datetime="2025-11-03">Nov 3, 2025</time></dd></div>
+          <div><dt>Data</dt><dd>4 relational tables · 3,339 orders · Jan 2020–Dec 2021</dd></div>
+          <div><dt>Tools</dt><dd><ul class="tool-chips" aria-label="Tools used"><li class="chip">Google BigQuery</li><li class="chip">Google Looker Studio</li><li class="chip">SQL</li></ul></dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section id="context" aria-labelledby="context-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">01</span>
+        <h2 id="context-heading" class="section-title">Context &amp; question</h2>
+      </div>
+      <div class="cs-body">
+        <div class="cs-prose reveal">
+          <p>Bank Muamalat, Indonesia's first Sharia bank (founded 1991), needed a data-driven way to evaluate sales performance across products, customer segments and cities. The data arrived as four related tables that had to be understood and combined before any analysis was possible.</p>
+          <h3>Data provided</h3>
+          <ul class="cs-list">
+            <li><strong>Customer</strong> — contact details and city</li>
+            <li><strong>Orders</strong> — date, customer, product and quantity (3,339 orders)</li>
+            <li><strong>Product</strong> — name, category and price (70 products)</li>
+            <li><strong>ProductCategory</strong> — category names (7 categories)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="approach" aria-labelledby="approach-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">02</span>
+        <h2 id="approach-heading" class="section-title">Approach</h2>
+      </div>
+      <div class="cs-body">
+        <ol class="cs-steps">
+          <li class="card reveal"><h3>Identify primary keys</h3><p><span class="cs-code">CustomerID</span>, <span class="cs-code">OrderID</span>, <span class="cs-code">ProdNumber</span> and <span class="cs-code">CategoryID</span> — one per table.</p></li>
+          <li class="card reveal"><h3>Map the relationships</h3><p>One customer has many orders, one product appears in many orders, and one category holds many products.</p></li>
+          <li class="card reveal"><h3>Build the master table</h3><p>One BigQuery query joins the four tables and adds <span class="cs-code">total_sales</span> = quantity × price. The result has 3,339 rows — one per order — with no duplicated rows after the joins.</p></li>
+          <li class="card reveal"><h3>Build the dashboard</h3><p>Looker Studio filters, scorecards, sales and quantity by product category, top-5 categories by sales and by quantity, sales by city and a monthly sales trend.</p></li>
+          <li class="card reveal"><h3>Recommend</h3><p>Turned the patterns into recommendations for the business.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="results" aria-labelledby="results-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">03</span>
+        <h2 id="results-heading" class="section-title">Results snapshot</h2>
+      </div>
+      <div class="cs-body">
+        <dl class="cs-kpis reveal">
+          <div class="stat"><dt class="stat-label">Total sales</dt><dd class="stat-value">1.75M</dd></div>
+          <div class="stat"><dt class="stat-label">Orders</dt><dd class="stat-value">3,339</dd></div>
+          <div class="stat"><dt class="stat-label">Units sold</dt><dd class="stat-value">11,654</dd></div>
+          <div class="stat"><dt class="stat-label">Customers</dt><dd class="stat-value">1,671</dd></div>
+        </dl>
+        <p class="cs-note reveal">Recomputed directly from the raw workbook in September 2026. The dataset has no currency field, and customer addresses are in the United States, so values are most likely dollars; they are shown here without a currency symbol.</p>
+        <div class="card cs-chart reveal">
+          <h3>Sales versus volume, by product category</h3>
+          <p class="cs-chart__sub">Share of total sales · share of total units sold</p>
+          <ul class="cs-legend" aria-hidden="true"><li><i></i>Share of sales</li><li><i class="cs-bar--alt"></i>Share of units</li></ul>
+          <ul class="cs-bars">
+            <li class="cs-bars__row"><span class="cs-bars__label">Robots</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:100.0%"></span><span class="cs-bar cs-bar--alt" style="--w:21.2%"></span></span><span class="cs-bars__value cs-bars__value--wide">42.4% · 9.0%</span></span></li>
+            <li class="cs-bars__row"><span class="cs-bars__label">Drones</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:64.2%"></span><span class="cs-bar cs-bar--alt" style="--w:24.8%"></span></span><span class="cs-bars__value cs-bars__value--wide">27.2% · 10.5%</span></span></li>
+            <li class="cs-bars__row"><span class="cs-bars__label">Robot Kits</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:29.0%"></span><span class="cs-bar cs-bar--alt" style="--w:21.0%"></span></span><span class="cs-bars__value cs-bars__value--wide">12.3% · 8.9%</span></span></li>
+            <li class="cs-bars__row"><span class="cs-bars__label">Drone Kits</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:21.7%"></span><span class="cs-bar cs-bar--alt" style="--w:30.7%"></span></span><span class="cs-bars__value cs-bars__value--wide">9.2% · 13.0%</span></span></li>
+            <li class="cs-bars__row"><span class="cs-bars__label">Training Videos</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:10.8%"></span><span class="cs-bar cs-bar--alt" style="--w:42.2%"></span></span><span class="cs-bars__value cs-bars__value--wide">4.6% · 17.9%</span></span></li>
+            <li class="cs-bars__row"><span class="cs-bars__label">eBooks</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:8.0%"></span><span class="cs-bar cs-bar--alt" style="--w:63.2%"></span></span><span class="cs-bars__value cs-bars__value--wide">3.4% · 26.8%</span></span></li>
+            <li class="cs-bars__row"><span class="cs-bars__label">Blueprints</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:2.1%"></span><span class="cs-bar cs-bar--alt" style="--w:32.8%"></span></span><span class="cs-bars__value cs-bars__value--wide">0.9% · 13.9%</span></span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="insights" aria-labelledby="insights-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">04</span>
+        <h2 id="insights-heading" class="section-title">What the data shows</h2>
+      </div>
+      <div class="cs-body">
+        <ul class="cs-cards">
+          <li class="card reveal"><span class="cs-tag">Revenue mix</span><h3>Two categories carry the revenue</h3><p>Robots and Drones bring in 69.6% of sales from only 19.6% of units, at average prices of about 706 and 389 per unit.</p><p class="cs-evidence">Robots 42.4% + Drones 27.2% of sales</p></li>
+          <li class="card reveal"><span class="cs-tag">Volume vs value</span><h3>Volume and value point in opposite directions</h3><p>eBooks and Training Videos make up 44.7% of units but only 8.0% of sales — their average price is about 19 and 39 per unit.</p><p class="cs-evidence">eBooks 26.8% + Training Videos 17.9% of units</p></li>
+          <li class="card reveal"><span class="cs-tag">Retention</span><h3>Repeat buying is already the norm</h3><p>The 3,339 orders came from 1,671 customers — two orders each on average — and 59.1% of customers ordered more than once.</p><p class="cs-evidence">Up to 7 orders from one customer</p></li>
+          <li class="card reveal"><span class="cs-tag">Geography</span><h3>Sales are spread thin across cities</h3><p>Washington leads with 3.2% of sales (55,382); the top six cities together account for 11.5% across 361 cities.</p><p class="cs-evidence">Washington · Houston · Sacramento · San Diego · Albany · Springfield</p></li>
+          <li class="card reveal"><span class="cs-tag">Trend</span><h3>Sales fluctuate rather than hold steady</h3><p>Monthly sales ranged from 52.3k (Oct 2021) to 95.4k (Jun 2021) around an average of 73.1k, and 2021 finished 7.8% below 2020.</p><p class="cs-evidence">2020: 913.2k · 2021: 841.5k</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="dashboard" aria-labelledby="dashboard-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">05</span>
+        <h2 id="dashboard-heading" class="section-title">The dashboard</h2>
+      </div>
+      <div class="cs-body">
+        <div class="cs-figure reveal">
+          <figure class="project__media">
+            <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size screenshot of the Bank Muamalat dashboard">
+              <img
+                src="../assets/images/projects/bmi-dashboard.webp"
+                alt="Looker Studio dashboard showing Bank Muamalat total sales, total orders, and top product categories and cities by sales"
+                width="1323" height="1189" loading="lazy">
+            </button>
+            <figcaption>Original dashboard screenshot from the course submission (Oct–Nov 2025)</figcaption>
+          </figure>
+        </div>
+        <p class="cs-note reveal">This is the original submission. Its “Total Order” tile (11,654) actually sums units sold; the number of orders is 3,339. The “Rp” prefix is Looker's locale formatting — the dataset has no currency. The original Looker Studio report and its BigQuery data are no longer available, which is why only the screenshot remains.</p>
+        <!-- PLACEHOLDER: replace with the v2 dashboard link and screenshot if the dashboard is rebuilt. -->
+        <div class="cs-placeholder reveal">[ Dashboard v2 — corrected labels · link and screenshot pending ]</div>
+      </div>
+    </section>
+
+    <section id="recommendations" aria-labelledby="recommendations-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">06</span>
+        <h2 id="recommendations-heading" class="section-title">Recommendations</h2>
+      </div>
+      <div class="cs-body">
+        <ul class="cs-cards cs-cards--3">
+          <li class="card reveal"><span class="cs-tag">From the original deck</span><h3>Position Robots and Drones as premium</h3><p>Position the two high-value categories as premium products, and pair them with Sharia financing options (Mudharabah/Murabahah with flexible tenors) to make higher ticket prices easier to buy.</p><p class="cs-evidence">69.6% of sales from 19.6% of units</p></li>
+          <li class="card reveal"><span class="cs-tag">From the original deck</span><h3>Bundle the digital products</h3><p>Create bundles and subscription-based models for eBooks and Training Videos, where volume is high but each sale is small.</p><p class="cs-evidence">44.7% of units · 8.0% of sales</p></li>
+          <li class="card reveal"><span class="cs-tag">From the original deck</span><h3>Strengthen retention with data</h3><p>Build a data-driven CRM with tiered loyalty rewards and targeted promotions based on transaction history — repeat buying is already common.</p><p class="cs-evidence">59.1% of customers ordered more than once</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="data-check" aria-labelledby="data-check-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">07</span>
+        <h2 id="data-check-heading" class="section-title">Data check &amp; corrections</h2>
+      </div>
+      <div class="cs-body">
+        <div class="cs-prose reveal">
+          <p>Every figure on this page was recomputed from the raw workbook in September 2026. Doing so turned up three issues in the original course submission. They are listed here rather than left out.</p>
+        </div>
+        <ul class="cs-cards cs-cards--3">
+          <li class="card reveal"><span class="cs-tag">Found · Relabeled</span><h3>Orders versus units</h3><p>The dashboard's “Total Order” tile (11,654) sums the quantity column. There are 3,339 distinct orders; 11,654 is units sold.</p></li>
+          <li class="card reveal"><span class="cs-tag">Found · Relabeled</span><h3>No currency in the data</h3><p>The dataset has no currency field. The “Rp” prefix came from Looker's locale, and the customer addresses are American, so values are most likely dollars.</p></li>
+          <li class="card reveal"><span class="cs-tag">Found · Reworded</span><h3>“Stable” was too strong</h3><p>The original deck described revenue as stable. Monthly sales swing between 52.3k and 95.4k, and 2021 ended 7.8% below 2020.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="more" aria-label="More">
+      <div class="cs-body">
+        <div class="cs-actions reveal">
+          <a class="btn btn--secondary" href="https://github.com/Yaklut/BMI-Sales-Performance-Dashboard" target="_blank" rel="noopener noreferrer">View on GitHub →</a>
+          <!-- REVIEW: both links below come from the final-task deck; confirm you want them public. -->
+          <a class="btn btn--ghost" href="https://github.com/Yaklut/BMI-Sales-Performance-Dashboard/blob/main/SQLQuery" target="_blank" rel="noopener noreferrer">SQL query →</a>
+          <a class="btn btn--ghost" href="https://youtu.be/mrnS1N15mgA" target="_blank" rel="noopener noreferrer">Watch the presentation →</a>
+        </div>
+        <div class="cs-pager reveal">
+          <a class="card cs-pager__link" href="kimia-farma.html"><span>Previous project</span><strong>← Kimia Farma Performance Analytics (2020–2023)</strong></a>
+          <a class="card cs-pager__link" href="../index.html#projects"><span>All projects</span><strong>Back to Featured Projects →</strong></a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer__top">
+      <p class="footer__wordmark">Refa Defanda Witanto</p>
+      <p class="footer__tagline">International Relations student building a second track in data &amp; business analytics.</p>
+    </div>
+
+    <nav class="footer__nav" aria-label="Footer">
+      <ul>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#research">Research</a></li>
+        <li><a href="../index.html#certifications">Certifications</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="footer__social" role="group" aria-label="Social links">
+      <a href="https://www.linkedin.com/in/refa-defanda/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://wa.me/6281336023700" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      <a href="mailto:refadfnda@gmail.com">Email</a>
+    </div>
+
+    <p class="footer__copyright">© 2026 Refa Defanda Witanto. All rights reserved.</p>
+  </footer>
+
+  <div class="modal" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-caption" aria-hidden="true" inert>
+    <div class="modal__dialog">
+      <button type="button" class="modal__close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <!-- src is a 1x1 transparent placeholder (standard technique for JS-populated
+           images) — modal.js always overwrites it with the real image before the
+           dialog becomes visible. -->
+      <img class="modal__image" id="lightbox-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="">
+      <p class="modal__caption" id="lightbox-caption"></p>
+    </div>
+  </div>
+
+
+  <!-- ==================================================================
+       COMMAND PALETTE — Ctrl/Cmd+K jump-to menu. Item list is built at
+       runtime by assets/js/command-palette.js from this page's own
+       section headings, not hardcoded here.
+       ================================================================== -->
+  <div class="modal modal--top" id="command-palette" role="dialog" aria-modal="true" aria-label="Jump to a section" aria-hidden="true" inert>
+    <div class="modal__dialog cmdk__dialog">
+      <div class="cmdk__search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="cmdk-input" class="cmdk__input" placeholder="Search or jump to…" role="combobox" aria-expanded="true" aria-controls="cmdk-list" aria-autocomplete="list" autocomplete="off" spellcheck="false">
+        <button type="button" class="modal__close cmdk__close" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <ul class="cmdk__list" id="cmdk-list" role="listbox" aria-label="Results"></ul>
+      <p class="cmdk__empty" id="cmdk-empty" hidden>No results.</p>
+      <div class="cmdk__footer" aria-hidden="true">
+        <span><kbd>↑</kbd><kbd>↓</kbd> Navigate</span>
+        <span><kbd>↵</kbd> Open</span>
+      </div>
+    </div>
+  </div>
+
+  <script defer src="../assets/js/nav.js"></script>
+  <script defer src="../assets/js/reveal.js"></script>
+  <script defer src="../assets/js/modal.js"></script>
+  <script defer src="../assets/js/command-palette.js"></script>
+  <script defer src="../assets/js/main.js"></script>
+
+  <script data-goatcounter="https://refadfnda.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>

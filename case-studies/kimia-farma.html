@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kimia Farma Performance Analytics — Case Study | Refa Defanda Witanto</title>
+  <meta name="description" content="Case study: four Kimia Farma datasets (2020–2023) modelled in BigQuery and analysed for sales, profit and branch performance.">
+  <meta name="theme-color" content="#2A46C0">
+  <!-- DRAFT: remove this tag when the page is approved for publishing. -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" href="../assets/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="../assets/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="../assets/images/icons/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header">
+    <nav class="navbar" aria-label="Primary">
+      <a class="navbar__wordmark" href="../index.html#hero">Refa Defanda</a>
+
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="primary-navigation" aria-label="Open menu">
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+      </button>
+
+      <div id="primary-navigation" class="nav-panel">
+        <ul class="nav-list">
+          <li><a class="nav-link" href="../index.html#about">About</a></li>
+          <li><a class="nav-link" href="../index.html#expertise">Expertise</a></li>
+          <li><a class="nav-link" href="../index.html#skills">Skills</a></li>
+          <li><a class="nav-link is-active" href="../index.html#projects" aria-current="true">Projects</a></li>
+          <li><a class="nav-link" href="../index.html#education">Education</a></li>
+          <li><a class="nav-link" href="../index.html#research">Research</a></li>
+          <li><a class="nav-link" href="../index.html#certifications">Certifications</a></li>
+          <li><a class="nav-link" href="../index.html#contact">Contact</a></li>
+        </ul>
+        <button type="button" class="nav-search-btn" id="cmdk-trigger" aria-label="Jump to a section" aria-haspopup="dialog" aria-keyshortcuts="Control+K Meta+K">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <kbd class="nav-search-btn__hint" aria-hidden="true">Ctrl K</kbd>
+        </button>
+        <a class="nav-cta btn btn--primary" href="../index.html#resume">Resume</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <section class="cs-hero" aria-labelledby="cs-title">
+      <div class="cs-hero__inner">
+        <!-- REMOVE BEFORE PUBLISHING: this banner, and the noindex meta tag in <head>. -->
+        <p class="cs-draft-banner">Draft layout — content pending Refa's review</p>
+        <div><a class="btn btn--ghost cs-back" href="../index.html#projects">← Back to projects</a></div>
+        <p class="project__sector">Pharmaceutical retail</p>
+        <h1 id="cs-title" class="cs-title">Kimia Farma Performance Analytics (2020–2023)</h1>
+        <p class="cs-summary">Four years of Kimia Farma sales, profitability and branch performance, turned from four raw datasets into a BigQuery analysis table and a Looker Studio dashboard.</p>
+        <dl class="cs-meta">
+          <div><dt>Program</dt><dd>Project-Based Virtual Internship — Big Data Analytics · Kimia Farma × Rakamin Academy. Completed with an average score of 91.56 (Excellent).</dd></div>
+          <div><dt>Period</dt><dd><time datetime="2025-04-17">Apr 17</time>–<time datetime="2025-05-15">May 15, 2025</time></dd></div>
+          <div><dt>Data</dt><dd>4 CSV files · 672,458 transactions · 2020–2023</dd></div>
+          <div><dt>Tools</dt><dd><ul class="tool-chips" aria-label="Tools used"><li class="chip">Google BigQuery</li><li class="chip">Google Looker Studio</li><li class="chip">SQL</li></ul></dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section id="context" aria-labelledby="context-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">01</span>
+        <h2 id="context-heading" class="section-title">Context &amp; question</h2>
+      </div>
+      <div class="cs-body">
+        <div class="cs-prose reveal">
+          <p>Kimia Farma, one of Indonesia's largest pharmaceutical companies, needed a data-driven way to evaluate business performance across its branch network. The brief covered 2020–2023 and asked for patterns in sales, profitability, promotion effectiveness and the service quality of its branches.</p>
+          <h3>Data provided</h3>
+          <ul class="cs-list">
+            <li><strong>Transactions</strong> — date, product, discount and transaction rating (672,458 rows)</li>
+            <li><strong>Products</strong> — name, category and price (150 products)</li>
+            <li><strong>Branch offices</strong> — location and branch rating (1,725 branches)</li>
+            <li><strong>Inventory</strong> — stock counts per branch</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="approach" aria-labelledby="approach-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">02</span>
+        <h2 id="approach-heading" class="section-title">Approach</h2>
+      </div>
+      <div class="cs-body">
+        <ol class="cs-steps cs-steps--3">
+          <li class="card reveal"><h3>Import</h3><p>Loaded the four CSV files into Google BigQuery as native tables, using the console's local-file upload.</p></li>
+          <li class="card reveal"><h3>Model</h3><p>Wrote a SQL query with CTEs and LEFT JOINs that combines transactions, products and branches into one analysis table, adding <span class="cs-code">nett_sales</span> (price after discount) and <span class="cs-code">nett_profit</span> using the brief's gross-profit percentage by price tier (10% up to Rp50,000, rising to 30% above Rp500,000).</p></li>
+          <li class="card reveal"><h3>Visualize</h3><p>Built a Looker Studio dashboard: filters for year, city, province, branch and product; scorecards; top-10 provinces by nett sales and by transactions; a province profit map; a monthly nett-sales trend; and a table of branches where branch rating and transaction rating diverge.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="results" aria-labelledby="results-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">03</span>
+        <h2 id="results-heading" class="section-title">Results snapshot</h2>
+      </div>
+      <div class="cs-body">
+        <dl class="cs-kpis reveal">
+          <div class="stat"><dt class="stat-label">Transactions</dt><dd class="stat-value">672,458</dd></div>
+          <div class="stat"><dt class="stat-label">Nett sales · Rp billion</dt><dd class="stat-value">321.17</dd></div>
+          <div class="stat"><dt class="stat-label">Nett profit · Rp billion</dt><dd class="stat-value">91.21</dd></div>
+          <div class="stat"><dt class="stat-label">Distinct customer names</dt><dd class="stat-value">264,601</dd></div>
+        </dl>
+        <p class="cs-note reveal">Recomputed directly from the raw CSV files in September 2026, with nett sales = price × (1 − discount). The original dashboard used a formula that overstated nett sales and nett profit by 8.03% — see “Data check &amp; corrections” below.</p>
+        <div class="card cs-chart reveal">
+          <h3>Top 10 provinces by nett sales</h3>
+          <p class="cs-chart__sub">Rp billion · share of total nett sales · 31 provinces in the data</p>
+          <ul class="cs-bars">
+            <li class="cs-bars__row"><span class="cs-bars__label">Jawa Barat</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:100.0%"></span></span><span class="cs-bars__value">94.87 · 29.5%</span></span></li>
+            <li class="cs-bars__row"><span class="cs-bars__label">Sumatera Utara</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:24.2%"></span></span><span class="cs-bars__value">22.95 · 7.1%</span></span></li>
+            <li class="cs-bars__row"><span class="cs-bars__label">Jawa Tengah</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:23.5%"></span></span><span class="cs-bars__value">22.25 · 6.9%</span></span></li>
+            <li class="cs-bars__row"><span class="cs-bars__label">Jawa Timur</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:17.5%"></span></span><span class="cs-bars__value">16.63 · 5.2%</span></span></li>
+            <li class="cs-bars__row"><span class="cs-bars__label">Sulawesi Utara</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:16.8%"></span></span><span class="cs-bars__value">15.90 · 5.0%</span></span></li>
+            <li class="cs-bars__row"><span class="cs-bars__label">Sumatera Barat</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:16.1%"></span></span><span class="cs-bars__value">15.31 · 4.8%</span></span></li>
+            <li class="cs-bars__row"><span class="cs-bars__label">Aceh</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:11.0%"></span></span><span class="cs-bars__value">10.47 · 3.3%</span></span></li>
+            <li class="cs-bars__row"><span class="cs-bars__label">Nusa Tenggara Barat</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:10.6%"></span></span><span class="cs-bars__value">10.04 · 3.1%</span></span></li>
+            <li class="cs-bars__row"><span class="cs-bars__label">Kalimantan Timur</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:10.2%"></span></span><span class="cs-bars__value">9.71 · 3.0%</span></span></li>
+            <li class="cs-bars__row"><span class="cs-bars__label">Riau</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:9.9%"></span></span><span class="cs-bars__value">9.35 · 2.9%</span></span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="insights" aria-labelledby="insights-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">04</span>
+        <h2 id="insights-heading" class="section-title">What the data shows</h2>
+      </div>
+      <div class="cs-body">
+        <ul class="cs-cards">
+          <li class="card reveal"><span class="cs-tag">Trend</span><h3>Sales are flat, not growing</h3><p>Nett sales were Rp80.4, 80.0, 80.6 and 80.1 billion in 2020–2023, on roughly 168,000 transactions every year. A dip recurs each February.</p><p class="cs-evidence">−0.5% · +0.7% · −0.6% year over year</p></li>
+          <li class="card reveal"><span class="cs-tag">Concentration</span><h3>One province carries the network</h3><p>Jawa Barat alone contributes 29.5% of nett sales and 198,723 transactions; the top three provinces contribute 43.6%.</p><p class="cs-evidence">Top 10 provinces = 70.8% of nett sales</p></li>
+          <li class="card reveal"><span class="cs-tag">Product mix</span><h3>High-priced products drive the business</h3><p>Products priced above Rp500,000 are about half of all transactions but bring in 76% of nett sales and 80% of nett profit.</p><p class="cs-evidence">&gt; Rp500k: 52% of transactions · 76% of nett sales · 80% of nett profit</p></li>
+          <li class="card reveal"><span class="cs-tag">Service quality</span><h3>Branch rating does not predict transaction rating</h3><p>The 96 branches rated 5.0 average a transaction rating of 3.997, against 4.000 for all other branches. The five “lowest” 5-star branches are what picking the minimum of 96 branches produces by chance.</p><p class="cs-evidence">Correlation between the two ratings ≈ 0.02</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="dashboard" aria-labelledby="dashboard-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">05</span>
+        <h2 id="dashboard-heading" class="section-title">The dashboard</h2>
+      </div>
+      <div class="cs-body">
+        <div class="cs-figure reveal">
+          <figure class="project__media">
+            <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size screenshot of the Kimia Farma dashboard">
+              <img
+                src="../assets/images/projects/kimia-farma-dashboard.webp"
+                alt="Looker Studio dashboard showing Kimia Farma total transactions, nett sales, nett profit, and top provinces by sales and transaction volume, 2020–2023"
+                width="1326" height="1187" loading="lazy">
+            </button>
+            <figcaption>Original dashboard screenshot from the course submission (Apr–May 2025)</figcaption>
+          </figure>
+        </div>
+        <p class="cs-note reveal">This is the original submission. Its nett sales and nett profit tiles (“Rp346,96 M” and “Rp98,54 M” — Looker's Indonesian abbreviation “M” means <em>miliar</em>, billion) come from the discount formula described below, so the corrected figures on this page replace them. The original Looker Studio report and its BigQuery data are no longer available, which is why only the screenshot remains.</p>
+        <!-- PLACEHOLDER: replace with the v2 dashboard link and screenshot if the dashboard is rebuilt. -->
+        <div class="cs-placeholder reveal">[ Dashboard v2 — rebuilt with corrected formulas · link and screenshot pending ]</div>
+      </div>
+    </section>
+
+    <section id="recommendations" aria-labelledby="recommendations-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">06</span>
+        <h2 id="recommendations-heading" class="section-title">Recommendations</h2>
+      </div>
+      <div class="cs-body">
+        <ul class="cs-cards">
+          <li class="card reveal"><span class="cs-tag">From the original deck</span><h3>Build growth outside Jawa Barat</h3><p>Focus sales campaigns and promotions on the mid-tier provinces rather than on the market leader.</p><p class="cs-evidence">Jawa Barat = 29.5% of nett sales; provinces ranked 2–6 hold 4.8–7.1% each</p></li>
+          <li class="card reveal"><span class="cs-tag">Placeholder</span><h3>Add a second recommendation</h3><p>[ Refa to add — tie it to a number shown above ]</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="data-check" aria-labelledby="data-check-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">07</span>
+        <h2 id="data-check-heading" class="section-title">Data check &amp; corrections</h2>
+      </div>
+      <div class="cs-body">
+        <div class="cs-prose reveal">
+          <p>Every figure on this page was recomputed from the four raw CSV files in September 2026. Doing so turned up several issues in the original course submission. They are listed here rather than left out.</p>
+        </div>
+        <ul class="cs-cards">
+          <li class="card reveal"><span class="cs-tag">Found · Fixed</span><h3>Discount formula</h3><p>The original SQL divided <span class="cs-code">discount_percentage</span> by 100, but the raw values are fractions (0.00–0.15), so every discount was 100× too small. Nett sales and nett profit were overstated by 8.03% (Rp346.96 → Rp321.17 billion; Rp98.54 → Rp91.21 billion). The province ranking is unchanged.</p></li>
+          <li class="card reveal"><span class="cs-tag">Found · Relabeled</span><h3>Reading Looker's “M”</h3><p>In Indonesian-locale Looker, “M” abbreviates billions (<em>miliar</em>). “Rp346,96 M” on the dashboard means 346.96 billion, not million.</p></li>
+          <li class="card reveal"><span class="cs-tag">Found · Relabeled</span><h3>Customers are names, not IDs</h3><p>The dataset has no customer ID. The 264,601 figure counts distinct customer names, so it approximates unique customers.</p></li>
+          <li class="card reveal"><span class="cs-tag">Found · Reworded</span><h3>Rating gap is a selection effect</h3><p>The original dashboard highlighted five 5-star branches with the lowest transaction ratings and read it as a service-quality gap. Across all branches the two ratings are essentially unrelated, so the gap does not hold up.</p></li>
+          <li class="card reveal"><span class="cs-tag">Limit</span><h3>Fixed margins, not costs</h3><p>Nett profit applies the brief's gross-profit percentage for each price tier (10–30%), so profit patterns follow the price mix, not measured costs.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="more" aria-label="More">
+      <div class="cs-body">
+        <div class="cs-actions reveal">
+          <a class="btn btn--secondary" href="https://github.com/Yaklut/KimiaFarma-Performance-Analytics" target="_blank" rel="noopener noreferrer">View on GitHub →</a>
+        </div>
+        <div class="cs-pager reveal">
+          <a class="card cs-pager__link" href="../index.html#projects"><span>All projects</span><strong>← Back to Featured Projects</strong></a>
+          <a class="card cs-pager__link" href="bmi.html"><span>Next project</span><strong>Bank Muamalat (BMI) Sales Performance Dashboard →</strong></a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer__top">
+      <p class="footer__wordmark">Refa Defanda Witanto</p>
+      <p class="footer__tagline">International Relations student building a second track in data &amp; business analytics.</p>
+    </div>
+
+    <nav class="footer__nav" aria-label="Footer">
+      <ul>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#research">Research</a></li>
+        <li><a href="../index.html#certifications">Certifications</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="footer__social" role="group" aria-label="Social links">
+      <a href="https://www.linkedin.com/in/refa-defanda/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://wa.me/6281336023700" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      <a href="mailto:refadfnda@gmail.com">Email</a>
+    </div>
+
+    <p class="footer__copyright">© 2026 Refa Defanda Witanto. All rights reserved.</p>
+  </footer>
+
+  <div class="modal" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-caption" aria-hidden="true" inert>
+    <div class="modal__dialog">
+      <button type="button" class="modal__close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <!-- src is a 1x1 transparent placeholder (standard technique for JS-populated
+           images) — modal.js always overwrites it with the real image before the
+           dialog becomes visible. -->
+      <img class="modal__image" id="lightbox-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="">
+      <p class="modal__caption" id="lightbox-caption"></p>
+    </div>
+  </div>
+
+
+  <!-- ==================================================================
+       COMMAND PALETTE — Ctrl/Cmd+K jump-to menu. Item list is built at
+       runtime by assets/js/command-palette.js from this page's own
+       section headings, not hardcoded here.
+       ================================================================== -->
+  <div class="modal modal--top" id="command-palette" role="dialog" aria-modal="true" aria-label="Jump to a section" aria-hidden="true" inert>
+    <div class="modal__dialog cmdk__dialog">
+      <div class="cmdk__search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="cmdk-input" class="cmdk__input" placeholder="Search or jump to…" role="combobox" aria-expanded="true" aria-controls="cmdk-list" aria-autocomplete="list" autocomplete="off" spellcheck="false">
+        <button type="button" class="modal__close cmdk__close" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <ul class="cmdk__list" id="cmdk-list" role="listbox" aria-label="Results"></ul>
+      <p class="cmdk__empty" id="cmdk-empty" hidden>No results.</p>
+      <div class="cmdk__footer" aria-hidden="true">
+        <span><kbd>↑</kbd><kbd>↓</kbd> Navigate</span>
+        <span><kbd>↵</kbd> Open</span>
+      </div>
+    </div>
+  </div>
+
+  <script defer src="../assets/js/nav.js"></script>
+  <script defer src="../assets/js/reveal.js"></script>
+  <script defer src="../assets/js/modal.js"></script>
+  <script defer src="../assets/js/command-palette.js"></script>
+  <script defer src="../assets/js/main.js"></script>
+
+  <script data-goatcounter="https://refadfnda.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>

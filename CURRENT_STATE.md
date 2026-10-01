@@ -333,6 +333,64 @@ Inspired by structure/interaction ideas from a second reference site (farihmuwaf
 
 **Decided but not built: per-project case-study pages.** Refa chose real multi-page sub-pages (relaxing the Phase 1 single-`index.html` lock for these pages only) over expanding the existing cards. Source material exists — `Dashboard_Projects.pdf` contains the full Kimia Farma and BMI dashboard views, far more detail than the card screenshots. Implications to plan for: shared nav/footer markup duplicated across pages (no templating in vanilla HTML), relative asset paths from a subfolder, and the 404 page's absolute-path convention. Narrative content must be reviewed by Refa; nothing may be presented as Refa's finding or decision unless Refa confirms it.
 
+## Two new interactive features (Sep 29, 2026)
+Both leftover ideas Refa picked from the original farihmuwaffaq.my.id-inspired shortlist (the third, numbered nav prefixes, was not picked).
+
+**Command palette (Ctrl/Cmd+K).** New `assets/js/command-palette.js` + a `.nav-search-btn` trigger in the navbar (before the Resume CTA) + a second `.modal` instance (`#command-palette`, using `.modal--top` so it sits near the top like a conventional command palette rather than dead-centre). Deliberately does **not** hardcode a list of sections: at init it reads every `main > section[id]` heading and the two `[id^="project-"]` card titles on *whatever page it's running on*, plus a "Download Resume" / "Email Refa" action if that page has a matching real link. This means the same unmodified script works on `index.html` (15 items: 9 sections + 2 projects + 2 case-study-adjacent + 2 actions) and on each case-study page (its own 7 sections + the footer's Email action — verified no phantom "Download Resume" appears there, since no such link exists on those pages). Keyboard: type to filter (substring match), ↑/↓ to move, Enter to jump (sets `location.hash`) or trigger the action element's own `.click()`, Esc/backdrop-click to close. Focus-trap and open/close mirror `modal.js`'s existing pattern.
+
+**Publications filter.** New `.pub-filter` button group (All / SINTA 2 / SINTA 4 / 1st Author) above the Research & Publications list, plus `assets/js/publications-filter.js`. Also derives everything from the existing DOM rather than new data attributes: tier comes from each card's own `.chip--tier` text, "1st Author" from the existing `.card--publication-lead` class (the actual first-author paper) — so the five real publications stay the one source of truth.
+
+**Verification — a step up from previous rounds.** No browser is available in this sandbox, but both features are plain DOM logic with no layout/CSS dependency, so they could be genuinely execution-tested with `jsdom` (installable from npm, unlike a Playwright browser binary): loaded the real `index.html` and both scripts, then asserted the actual behavior rather than just reading the code —
+- Command palette on `index.html` built exactly the 15 expected items in the right 4 groups; typing "kimia" filtered to exactly one match; a nonsense query correctly showed the empty state.
+- Publications filter on `index.html`: SINTA 2 → 2 cards, SINTA 4 → 3 cards, 1st Author → 1 card (the right one), All → 5.
+- Command palette on `case-studies/kimia-farma.html` built its own 7 on-page sections + Email (no Resume action, correctly, since that page has no PDF download link).
+- (Superseded: rendering, keyboard and click behavior were later verified in real headless Chromium — see the section above; that run found a click bug jsdom had missed.)
+
+**Files changed:** `index.html` (search button + both markup blocks), `assets/css/styles.css` (blocks 13–14), `assets/js/main.js` (init list), new `assets/js/command-palette.js`, new `assets/js/publications-filter.js`; `case-studies/kimia-farma.html` and `bmi.html` regenerated from the same template to add the palette there too.
+
+## Sixth publication added (Sep 30, 2026)
+Refa supplied the PDF and the journal link for a new paper: **"Indonesia's Transition as an Emerging Donor: The Case of Indonesian Aid in SDG-Related Sector"**, *Sosiohumaniora — Jurnal Ilmu-ilmu Sosial dan Humaniora*, Vol. 28 No. 1 (March 2026), pp. 74–87, DOI `10.24198/sosiohumaniora.v28i1.70328`. Refa is the **4th of 7 authors** (author list taken from the PDF). Per the PDF: submitted 14 Apr 2026, accepted 31 Aug 2026, published 8 Sep 2026.
+
+**Tier verified, not assumed.** The journal's own pages state SINTA 2 (SK 79/E/KPT/2023, valid from Vol. 24 No. 2/2022 to Vol. 29 No. 1/2027), and Vol. 28 No. 1 falls inside that range. The article page itself blocked automated access, so title, authors, volume and dates come from Refa's PDF; the tier comes from the journal's site.
+
+**What changed in `index.html`**
+- Hero stat 5 → **6** SINTA-indexed publications (the count-up reads the number from the HTML, so nothing else needed changing).
+- About paragraph: "five" → "six" SINTA-indexed publications ("including one as first author" is still true).
+- New publication card in the SINTA 2 group, after the Journal of Public Power card (existing cards were not reordered). Card text follows the existing pattern; the issue date shown is the printed issue ("March 2026"), not the online publication date.
+- New Timeline entry in the 2026 card, between the two undated-month entries and "Apr": `Mar · PUB · Sosiohumaniora (4th of 7 authors)`. Timeline items 19 → **20**.
+- Nothing to change in the publications filter code: counts are derived from the cards, now **6 / 3 / 3 / 1** (All / SINTA 2 / SINTA 4 / 1st Author), status line reads "Showing 6 of 6 publications". Command palette unaffected (15 items). JSON-LD and meta descriptions contain no publication counts.
+
+**Verified in real headless Chromium:** hero reads "6 SINTA-Indexed Publications", filter counts and status as above, SINTA 2 shows exactly the three right cards, 1st Author shows only the Air Power paper, timeline order correct, no page errors, tag balance and unique IDs intact. (A first attempt at the timeline insertion used a greedy regex and duplicated a block — 28 items; it was caught by comparing the item count with the committed version, reverted, and redone with a precise slice.)
+
+**Not done / needs Refa**
+- `assets/documents/Refa_Defanda_Witanto_CV.pdf` has a PUBLICATIONS section listing the original five papers. Claude has no editable source for the CV, so Refa must add the sixth there and re-export (same pending CV job as the old project figures).
+- Date question: the PDF says the paper was published 8 Sep 2026 although it belongs to the March 2026 issue. The site follows the issue date like the other cards. If Refa prefers actual publication dates, the timeline entry would move to "Sep" and sit last in the 2026 card.
+- Per-paper DOI links stay off (Phase 1 decision C9); this paper does have a DOI if Refa ever wants to reverse that.
+
+## Command palette & publications filter redesign (Sep 30, 2026)
+Refa (with screenshots taken against the up-to-date CSS) found the first versions plain, disliked the "Esc" badge, and asked for a more modernist look plus some motion on the SINTA filter. All verified in real headless Chromium (see the tooling note in the next section).
+
+**Navbar trigger.** Now a slim pill (white, hairline border, soft shadow, lifts on hover). At ≥1440px it carries a shortcut chip that shows `⌘K` on Apple devices and `Ctrl K` elsewhere (chosen in `command-palette.js`; verified both); below 1440px it is icon-only because the 1280px desktop navbar is already full. `aria-keyshortcuts="Control+K Meta+K"`.
+
+**Palette panel.** Blurred scrim + frosted panel that drops in (fade, small slide and scale). Search row with a coloured icon, a caret in the primary colour, and a primary-coloured underline while focused. **No "Esc" anywhere**: the close control is an icon-only round ×, and the footer hint (desktop / non-touch only, via `pointer: coarse`) reads "↑ ↓ Navigate · ↵ Open". Each result has a tinted icon tile (`#` for sections, folder for projects, download/mail for actions); the active row turns primary-tinted with a `↵` chip. Items rise in once when the palette opens (never replays while typing). Empty state names the query. Placeholder is "Search or jump to…" (longer text truncated on phones).
+
+**Publications filter.** Segmented control with a primary-coloured thumb that slides between options, live counts per option (derived from the cards; 5/2/3/1 at the time, 6/3/3/1 after the sixth publication; hidden ≤480px), and a "Showing N of 5 publications" status line (`role="status"`, announced politely). Only rendered when JS runs (`.js .pub-filter-wrap`). On change (skipped under `prefers-reduced-motion`): cards that stop matching fade and shrink out (170ms) → the list animates to its new height → staying cards glide to their new position (FLIP) → newly matching cards rise in with a 70ms stagger. A newer click settles any in-flight animation first; verified that six rapid clicks end in a consistent state with no leftover inline styles or running animations. Cards get `.is-visible` explicitly when shown, because a card hidden before it was ever scrolled into view would otherwise stay at opacity 0.
+
+**Files changed:** `assets/css/styles.css` (blocks 13–14 rewritten), `assets/js/command-palette.js` and `publications-filter.js` (rewritten), `index.html` (trigger, panel and filter markup), both case-study pages regenerated from the shared template.
+
+## Real-browser verification now possible + fixes to the two new features (Sep 29, 2026)
+**Tooling correction.** Earlier notes say no browser can run in the sandbox. That was true for Playwright (its browser download is blocked) but not for everything: `@sparticuz/chromium` + `puppeteer-core` install from the npm registry (allowed) and launch a real headless Chromium (`--no-sandbox`, `file://` URLs work). Playwright-style screenshots, real clicks/keyboard and layout measurement are therefore available. Fonts fall back (Google Fonts is blocked), so widths of text in renders are slightly wider than on the live site.
+
+**What Refa reported.** Screenshots showed the navbar "Ctrl K" button as a huge unstyled square (giant icon, text stacked underneath) and the Publications filter as plain default browser buttons. Cause, verified: nothing wrong in the shipped CSS — the file parses cleanly (postcss), the rules are top-level, and rendered from the delivered `styles.css` both look styled. The screenshots match a **stale `assets/css/styles.css`** on Refa's machine (blocks 13–14 missing), i.e. the new `index.html`/JS were copied but the new stylesheet was not (or is cached). Fix on Refa's side: replace `assets/css/styles.css` with the delivered copy and hard-refresh (Ctrl+Shift+R).
+
+**Real bugs found by rendering and fixed anyway**
+1. Navbar crowding: with the extra button, "Ctrl K" and the wordmark could wrap onto two lines at 1280px. Now `white-space: nowrap` on both, and the "Ctrl K" hint only shows at ≥1440px (icon-only below; the desktop navbar starts at 1280px and is already full). Verified at 1280/1366/1440/1920: wordmark 1 line, no overflow.
+2. **Palette items could not be clicked** (jsdom did not catch this; a real browser did). `mouseenter` called `render()`, which rebuilt the list and replaced the element under the pointer between mousedown and mouseup, so the click was lost. Highlight changes now update classes in place (`setActive`), and hover uses `mousemove` so a list scrolling under a resting pointer does not steal the selection.
+3. On phones the palette can be opened from inside the full-screen menu; jumping left that menu open over the page. `activate()` now closes the menu if it is open.
+Re-tested in real Chromium: Ctrl+K opens with focus in the input; typing filters; arrows + Enter jump; Esc closes and focus returns to the trigger; hover then click jumps; mobile menu → palette → pick closes both and scrolls; the Email action is offered. Publications filter buttons render as pills and SINTA 2 shows exactly two cards.
+
+**Also rendered for the first time:** `case-studies/kimia-farma.html` (desktop, full page viewed) and `bmi.html` (mobile 390px, checked for horizontal overflow only — none). Kimia Farma layout looked correct (hero, steps, KPI tiles, bar chart, dashboard figure, cards, footer). The BMI page was not visually inspected; Refa's own review is still pending.
+
 ## Case-study pages — draft layout (Sep 28, 2026)
 Refa approved real multi-page case studies and, with the dashboard rebuild postponed ("harus dari awal banget"), asked for the layout first.
 
@@ -356,7 +414,7 @@ Refa approved real multi-page case studies and, with the dashboard rebuild postp
 
 **Homepage cards corrected (Sep 28, 2026).** `index.html` project cards now match the case-study figures exactly:
 - Kimia Farma: Total Transactions 672,458; Nett Sales Rp321.17B; Nett Profit Rp91.21B; Customer Names 264,601 (relabelled from "Customers" — the field is `customer_name`, not a true ID). Key-insight sentence now cites Jawa Barat's corrected Rp94.87B / 29.5% and the flat year-over-year trend, and no longer claims a branch-rating "gap" (selection effect, see "Open data questions").
-- BMI: Total Sales relabelled `1.75M` (currency symbol dropped — unconfirmed, see "Open data questions"); "Total Orders" split into two correct stats, **Orders 3,339** and **Units Sold 11,654** (the card had one mislabeled number; now both real numbers are shown).
+- BMI: Total Sales is `$1.75M` (currency confirmed USD Sep 29, 2026 — see "Open data questions"); "Total Orders" split into two correct stats, **Orders 3,339** and **Units Sold 11,654** (the card had one mislabeled number; now both real numbers are shown).
 - **Not fixed — needs Refa:** `CV_Refa_Defanda_Witanto.pdf` (bullet points) and the LinkedIn/portfolio-deck equivalents state the same old wrong figures (`Rp346.96M`, `Rp98.54M`, `Rp102.5M`, and "integrating 11,654" as if that were a row/record count for BMI). Claude has no source file for the CV (only the exported PDF) and cannot edit it — Refa needs to fix this wherever the CV is authored (Canva/Word/Docs) and re-export.
 
 **Verification:** structural only — tag balance, unique IDs, every relative link and image exists. No browser is available in the working sandbox, so nothing has been rendered. Needs Refa's visual check at roughly 375, 768 and 1440px, including the lightbox on the dashboard screenshot and the bar rows on mobile.
@@ -369,7 +427,7 @@ Found while reading the two final-task decks against what the cards say. Status 
 - **3,339 distinct orders**, **11,654 units** (Σ quantity), **1,671 customers**; all joins match with no row fan-out (3,339 rows after every join).
 - Dashboard city table (Washington 55,382 / 308 units, Houston, Sacramento, San Diego, Albany, Springfield), category bars, 361 cities, and the monthly trend (peak Jun 2021 ≈ 95.4k, low Oct 2021 ≈ 52.3k) all reproduce exactly.
 - Consequences: the scorecard labelled "Total Order 11654" is really **units sold**; the true order count is **3,339** (≈ 2.0 orders per customer). The deck's "11,600 orders from 1,671 customers" is wrong on the same point.
-- **Currency is not stated anywhere in the dataset.** US addresses/ZIP codes and prices of 4.99–899 point to USD, but that is an inference; the dashboard's "Rp" is Looker's locale format. Label to be decided by Refa (e.g. `$1.75M`, or a neutral "1.75M" plus a note).
+- **Currency confirmed as USD (Sep 29, 2026).** No currency field exists in the dataset, but every customer's city/state/ZIP/area-code is a real matching U.S. location and 25 of 70 product prices end in .99/.95/.50 (U.S. retail convention). Refa confirmed; cards and case-study page now show `$1.75M`.
 
 **Kimia Farma — verified by Claude from the four raw CSVs** (672,458 transactions, 150 products, 1,725 branches, 31 provinces, 2020-01-01 → 2023-12-30; no duplicate IDs, every transaction joins to a product and a branch, transaction price equals product price on every row):
 - `discount_percentage` takes 0.00–0.15 in 0.01 steps (mean 0.075), so it is a **fraction**. Correct formula: `price * (1 - discount_percentage)`; the deck's `/ 100.0` shrinks every discount 100×.
@@ -383,7 +441,7 @@ Found while reading the two final-task decks against what the cards say. Status 
 **Site status:** no card figures were changed. `index.html` still shows `Rp346.96M` / `Rp98.54M` / `Rp102.5M` (Kimia Farma) and `Rp1.75M` / `11,654 Total Orders` (BMI). They are on hold until the sources are fixed (Looker scorecards for BMI; SQL formula, dashboard and screenshot for Kimia Farma), so text and screenshots don't contradict each other.
 
 ## Next recommended task
-1. **Refa reviews the two draft pages locally** (open `case-studies/kimia-farma.html` and `bmi.html` from the repo folder) at desktop, tablet and phone widths; report anything off.
+1. **Refa reviews the two draft pages locally, and now also the command palette (Ctrl/Cmd+K) and publications filter** (open `case-studies/kimia-farma.html` and `bmi.html` from the repo folder) at desktop, tablet and phone widths; report anything off.
 2. **Fix the CV PDF** (and anywhere else the old figures appear, e.g. LinkedIn) — Claude cannot do this one, no source file available.
 3. Once both of the above are done: add "Read the case study →" links on the homepage cards, remove the draft banner and noindex tag from the two case-study pages.
 4. **Decide on the dashboards:** keep the original screenshots with the correction notes, or rebuild v2 (BigQuery + Looker Studio, with Extract Data so it survives BigQuery's 60-day sandbox expiry). Rebuilding is postponed for now.
