@@ -855,6 +855,19 @@ body.is-scrolled .site-header {
 .project__media {
   background: var(--color-surface-alt);
 }
+/* Stacked layout (below 1280px): a near-square dashboard stretched to full
+   card width gets absurdly tall, so cap it and centre it on the grey mat. */
+.card--project .project__media img {
+  max-width: 760px;
+  margin-inline: auto;
+}
+.project__visual .project__stats {
+  margin: 0;
+  padding: var(--space-5);
+  border-block: 0;
+  border-top: 1px solid var(--color-border);
+}
+.project__content .project__link { margin-top: var(--space-2); }
 .project__media img {
   width: 100%;
   height: auto;
@@ -1344,33 +1357,6 @@ body.is-scrolled .site-header {
   .skills-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .certs-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
-  /* ---- Featured Projects: stacked → alternating split card ---- */
-  .card--project {
-    display: grid;
-    grid-template-columns: minmax(0, 48fr) minmax(0, 52fr);
-    align-items: stretch;
-  }
-  .project__media {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-  .project__media img {
-    flex: 1;
-    height: 100%;
-    object-fit: cover;
-  }
-  .project__content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: var(--space-7);
-  }
-  /* Alternate sides via CSS order (not HTML order) — keeps screen-reader
-     reading order as image → content on every card, per DESIGN.md §9. */
-  .card--project:nth-of-type(even) .project__media { order: 2; }
-  .card--project:nth-of-type(even) .project__content { order: 1; }
-
   /* ---- Education: card can breathe a little more ---- */
   .education__card { padding: var(--space-6); }
 
@@ -1392,6 +1378,24 @@ body.is-scrolled .site-header {
    fallback fonts) are loaded.
    -------------------------------------------------------------------- */
 @media (min-width: 1280px) {
+  /* ---- Featured Projects: alternating split card ----
+     Left column = screenshot + metric strip (the evidence); right column =
+     the written case. Both columns are content-sized and top-aligned, so
+     neither can leave an empty block beside the other. */
+  .card--project {
+    display: grid;
+    grid-template-columns: minmax(0, 52fr) minmax(0, 48fr);
+    align-items: start;
+  }
+  .card--project .project__media img { max-width: none; }
+  .project__content {
+    padding: var(--space-7);
+  }
+  /* Alternate sides via CSS order (not HTML order) — keeps screen-reader
+     reading order as image → content on every card, per DESIGN.md §9. */
+  .card--project:nth-of-type(even) .project__visual { order: 2; }
+  .card--project:nth-of-type(even) .project__content { order: 1; }
+
   .nav-toggle { display: none; }
   .nav-panel {
     position: static;
