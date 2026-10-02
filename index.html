@@ -115,6 +115,7 @@
         <a class="nav-cta btn btn--primary" href="#resume">Resume</a>
       </div>
     </nav>
+    <div class="scroll-progress" aria-hidden="true"></div>
   </header>
 
   <main id="main-content">
@@ -443,14 +444,72 @@
         <!-- Project 1: Kimia Farma -->
         <article class="card card--project reveal" id="project-kimia-farma">
           <div class="project__visual">
-          <figure class="project__media">
-            <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size screenshot of the Kimia Farma dashboard">
-              <img
-                src="assets/images/projects/kimia-farma-dashboard.webp"
-                alt="Looker Studio dashboard showing Kimia Farma total transactions, nett sales, nett profit, and top provinces by sales and transaction volume, 2020–2023"
-                width="1326" height="1187" loading="lazy">
-            </button>
-            <figcaption>Kimia Farma performance analytics dashboard, built in Looker Studio</figcaption>
+          <figure class="project__media media-tabs" data-media-tabs>
+            <div class="media-tabs__list" role="tablist" aria-label="Kimia Farma project evidence">
+              <button type="button" role="tab" class="media-tabs__tab" id="kf-tab-overview" aria-controls="kf-panel-overview" aria-selected="true">Overview</button>
+              <button type="button" role="tab" class="media-tabs__tab" id="kf-tab-detail" aria-controls="kf-panel-detail" aria-selected="false" tabindex="-1">Detail</button>
+              <button type="button" role="tab" class="media-tabs__tab" id="kf-tab-sql" aria-controls="kf-panel-sql" aria-selected="false" tabindex="-1">SQL</button>
+            </div>
+
+            <div class="media-tabs__panel" role="tabpanel" id="kf-panel-overview" aria-labelledby="kf-tab-overview" data-caption="Page 1 · Overview: KPIs, yearly trend, province map">
+              <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Kimia Farma dashboard, page 1 (overview)">
+                <img
+                  src="assets/images/projects/kimia-farma-dashboard-overview.webp"
+                  alt="Looker Studio dashboard, page 1: headline insight, yearly nett sales versus nett profit, profit by province map, KPI tiles for total nett profit, nett sales, transactions and average rating, nett sales by branch category, and top 10 provinces by transactions and nett sales"
+                  width="956" height="948" loading="lazy">
+              </button>
+            </div>
+
+            <div class="media-tabs__panel" role="tabpanel" id="kf-panel-detail" aria-labelledby="kf-tab-detail" data-caption="Page 2 · Detail: branches, transactions, categories, stock" hidden>
+              <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Kimia Farma dashboard, page 2 (detail)">
+                <img
+                  src="assets/images/projects/kimia-farma-dashboard-detail.webp"
+                  alt="Looker Studio dashboard, page 2: top 5 branches table, latest transactions snapshot, nett sales by product category, monthly nett sales trend, and top 10 provinces by total stock"
+                  width="956" height="951" loading="lazy">
+              </button>
+            </div>
+
+            <div class="media-tabs__panel media-tabs__panel--code" role="tabpanel" id="kf-panel-sql" aria-labelledby="kf-tab-sql" data-caption="Core of 02_create_tabel_analisa.sql (trimmed, English comments)" hidden>
+              <pre class="sql-code" tabindex="0" aria-label="SQL used to build the Kimia Farma analysis table"><code><span class="sql-c">-- tabel_analisa: one row per transaction</span>
+<span class="sql-k">CREATE OR REPLACE TABLE</span> `project_id.kimia_farma.tabel_analisa` <span class="sql-k">AS</span>
+<span class="sql-k">WITH</span> base <span class="sql-k">AS</span> (
+  <span class="sql-k">SELECT</span>
+    t.transaction_id,
+    PARSE_DATE('%m/%d/%Y', t.date) <span class="sql-k">AS</span> date,  <span class="sql-c">-- CSV dates are M/D/YYYY strings</span>
+    t.branch_id,
+    b.kota,
+    b.provinsi,
+    b.rating <span class="sql-k">AS</span> rating_cabang,
+    p.product_name,
+    p.product_category,
+    t.price <span class="sql-k">AS</span> actual_price,
+    t.discount_percentage,
+    <span class="sql-c">-- gross margin tier by price</span>
+    <span class="sql-k">CASE</span>
+      <span class="sql-k">WHEN</span> t.price &lt;= 50000  <span class="sql-k">THEN</span> 0.10
+      <span class="sql-k">WHEN</span> t.price &lt;= 100000 <span class="sql-k">THEN</span> 0.15
+      <span class="sql-k">WHEN</span> t.price &lt;= 300000 <span class="sql-k">THEN</span> 0.20
+      <span class="sql-k">WHEN</span> t.price &lt;= 500000 <span class="sql-k">THEN</span> 0.25
+      <span class="sql-k">ELSE</span> 0.30
+    <span class="sql-k">END</span> <span class="sql-k">AS</span> persentase_gross_laba,
+    t.rating <span class="sql-k">AS</span> rating_transaksi
+    <span class="sql-c">-- ... remaining columns omitted here</span>
+  <span class="sql-k">FROM</span> `project_id.kimia_farma.kf_final_transaction` <span class="sql-k">AS</span> t
+  <span class="sql-k">LEFT JOIN</span> `project_id.kimia_farma.kf_kantor_cabang` <span class="sql-k">AS</span> b <span class="sql-k">ON</span> t.branch_id  = b.branch_id
+  <span class="sql-k">LEFT JOIN</span> `project_id.kimia_farma.kf_product`       <span class="sql-k">AS</span> p <span class="sql-k">ON</span> t.product_id = p.product_id
+)
+<span class="sql-k">SELECT</span>
+  *,
+  <span class="sql-k">ROUND</span>(actual_price * (1 - discount_percentage), 2)                         <span class="sql-k">AS</span> nett_sales,
+  <span class="sql-k">ROUND</span>(actual_price * (1 - discount_percentage) * persentase_gross_laba, 2) <span class="sql-k">AS</span> nett_profit
+  <span class="sql-c">-- + province -&gt; ISO code CASE for the Looker Studio geo map</span>
+<span class="sql-k">FROM</span> base;
+
+<span class="sql-c">-- kf_inventory is deliberately NOT joined: its (branch, product) pairs repeat,</span>
+<span class="sql-c">-- so a direct join would duplicate transaction rows and inflate nett_sales.</span></code></pre>
+            </div>
+
+            <figcaption class="media-tabs__caption" aria-live="polite">Page 1 · Overview: KPIs, yearly trend, province map</figcaption>
           </figure>
 
 
@@ -587,6 +646,45 @@
           </div>
         </article>
 
+      </div>
+
+      <div class="workflow reveal">
+        <div class="workflow__head">
+          <h3>How I work</h3>
+          <p>The workflow behind the Kimia Farma analysis, from raw CSVs to a decision-ready dashboard.</p>
+        </div>
+
+        <ol class="workflow__steps">
+          <li class="workflow__step">
+            <span class="workflow__num" aria-hidden="true">01</span>
+            <h4>Load</h4>
+            <p>Imported four CSVs into BigQuery with explicit schemas. Dates arrive as M/D/YYYY text, so they were loaded as strings and parsed later.</p>
+          </li>
+          <li class="workflow__step">
+            <span class="workflow__num" aria-hidden="true">02</span>
+            <h4>Model</h4>
+            <p>Built one analysis table with LEFT JOINs, then derived nett sales and nett profit using a price-tier margin rule.</p>
+          </li>
+          <li class="workflow__step">
+            <span class="workflow__num" aria-hidden="true">03</span>
+            <h4>Validate</h4>
+            <p>Wrote checks for row counts, unparsed dates, unmatched joins and yearly totals, with expected values computed from the source CSVs.</p>
+          </li>
+          <li class="workflow__step">
+            <span class="workflow__num" aria-hidden="true">04</span>
+            <h4>Report</h4>
+            <p>Connected the table to Looker Studio: filters, KPI tiles, a yearly trend, a province map, and a one-line takeaway at the top of the page.</p>
+          </li>
+        </ol>
+
+        <div class="workflow__calls">
+          <h4>Judgment calls I documented</h4>
+          <ul>
+            <li><strong>Inventory is not joined to transactions.</strong> Its (branch, product) pairs repeat, so a direct join would duplicate sales rows and inflate nett sales.</li>
+            <li><strong>Branches are identified by ID and city, not name.</strong> <code>branch_name</code> has only three unique values.</li>
+            <li><strong>Province ISO codes were added</strong> so the geo map places every province correctly.</li>
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -1134,6 +1232,13 @@
         <h2 id="contact-heading" class="section-title">Contact</h2>
       </div>
 
+      <div class="contact__lead reveal">
+        <p>
+          Open to Data Analyst, Business Analyst, and research or digital internships. If my
+          work fits something you're building, I'd like to hear about it.
+        </p>
+      </div>
+
       <div class="contact__grid reveal">
         <div class="contact__info">
           <p class="contact__row">
@@ -1153,7 +1258,7 @@
         <div class="contact__platforms">
           <a class="btn btn--secondary" href="https://www.linkedin.com/in/refa-defanda/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           <a class="btn btn--secondary" href="https://wa.me/6281336023700" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-          <a class="btn btn--secondary" href="mailto:refadfnda@gmail.com">Email</a>
+          <a class="btn btn--primary" href="mailto:refadfnda@gmail.com">Email me</a>
 
           <ul class="contact__tags" aria-label="Currently open to">
             <li class="chip">Data Analyst Roles</li>
@@ -1243,6 +1348,8 @@
   <script defer src="assets/js/marquee.js"></script>
   <script defer src="assets/js/command-palette.js"></script>
   <script defer src="assets/js/publications-filter.js"></script>
+  <script defer src="assets/js/scroll-progress.js"></script>
+  <script defer src="assets/js/media-tabs.js"></script>
   <script defer src="assets/js/main.js"></script>
 
   <!-- Analytics — GoatCounter (free for non-commercial sites, no cookies,

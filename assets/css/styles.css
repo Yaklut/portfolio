@@ -1124,6 +1124,18 @@ body.is-scrolled .site-header {
 
 /* ---- Contact ---- */
 
+/* The wrapper div takes the container width/centering from `main > section > *`;
+   only the text line is narrowed, so it stays aligned with the heading. */
+.contact__lead {
+  margin-bottom: var(--space-7);
+}
+.contact__lead p {
+  max-width: 44rem;
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--color-ink-soft);
+}
+
 .contact__grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -2248,8 +2260,12 @@ body.modal-open {
   .cs-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cs-kpis { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
+@media (min-width: 768px) {
+  .cs-steps--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 @media (min-width: 1024px) {
   .cs-meta { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .cs-steps--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .cs-steps--3,
   .cs-cards--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
@@ -2742,3 +2758,198 @@ body.modal-open {
     break-inside: avoid-page;
   }
 }
+
+
+/* ---- Scroll progress line (scroll-progress.js) ----
+   Sits on the bottom edge of the sticky header. No transition, so it tracks
+   scrolling exactly and needs no reduced-motion override. */
+.scroll-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--color-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
+}
+
+/* ---- Tabbed project evidence (media-tabs.js) ----------------------------
+   Overview / Detail / SQL share one frame. Every panel has the same aspect
+   ratio as the dashboard screenshots, so switching tabs never changes the
+   card height. */
+.media-tabs__list {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  overflow-x: auto;
+}
+.media-tabs__tab {
+  flex: none;
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--color-border-interactive);
+  border-radius: var(--radius-full);
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out);
+}
+.media-tabs__tab:hover {
+  background: var(--color-primary-tint);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.media-tabs__tab[aria-selected="true"] {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+.media-tabs__tab:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+.media-tabs__panel {
+  aspect-ratio: 956 / 950;
+  max-width: 760px;
+  margin-inline: auto;
+}
+.media-tabs__panel[hidden] { display: none; }
+.media-tabs__panel .project__media-trigger,
+.media-tabs__panel .project__media-trigger img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.card--project .media-tabs__panel .project__media-trigger img { max-width: none; }
+
+.sql-code {
+  height: 100%;
+  margin: 0;
+  padding: var(--space-5);
+  overflow: auto;
+  background: var(--color-dark-bg);
+  color: var(--color-dark-text);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.6;
+  tab-size: 2;
+}
+.sql-code:focus-visible {
+  outline: 2px solid var(--color-primary-on-dark);
+  outline-offset: -4px;
+}
+.sql-k { color: var(--color-primary-on-dark); }
+.sql-c { color: var(--color-dark-text-soft); }
+
+/* ---- How I work (workflow strip under the projects) ---- */
+.workflow {
+  margin-top: var(--space-8);
+}
+.workflow__head h3 {
+  font-size: clamp(1.375rem, 1.25rem + 0.6vw, 1.75rem);
+}
+.workflow__head p {
+  margin-top: var(--space-2);
+  max-width: 44rem;
+  color: var(--color-ink-soft);
+}
+.workflow__steps {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-5);
+  margin: var(--space-6) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.workflow__step {
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+.workflow__num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--color-primary);
+}
+.workflow__step h4 {
+  margin: var(--space-2) 0;
+  font-size: 1.125rem;
+}
+.workflow__step p {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--color-ink-soft);
+}
+.workflow__calls {
+  margin-top: var(--space-6);
+  padding: var(--space-5);
+  background: var(--color-primary-tint);
+  border-radius: var(--radius-md);
+}
+.workflow__calls h4 {
+  font-size: 1rem;
+}
+.workflow__calls ul {
+  display: grid;
+  gap: var(--space-3);
+  margin: var(--space-3) 0 0;
+  padding-left: 1.25rem;
+  list-style: disc;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+.workflow__calls code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+@media (min-width: 768px) {
+  .workflow__steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1024px) {
+  .workflow__steps { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+
+/* ---- Case study: SQL blocks (reuse .sql-code from the project card tabs) ---- */
+.cs-sql {
+  max-width: 62rem;
+  margin: 0 0 var(--space-6);
+}
+.cs-sql__label {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.cs-sql .sql-code {
+  height: auto;
+  max-height: 32rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+.cs-sql__caption {
+  margin: var(--space-2) 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--color-ink-faint);
+}
+.cs-cards + .cs-prose,
+.cs-sql + .cs-sql { margin-top: var(--space-6); }
+.cs-steps + .cs-prose,
+.cs-cards--3 + .cs-prose { margin-top: var(--space-7); }
+.cs-prose + .cs-cards { margin-top: var(--space-4); }

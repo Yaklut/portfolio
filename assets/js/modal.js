@@ -104,8 +104,13 @@ window.Portfolio.initModal = function initModal() {
       });
     } else if (type === 'project') {
       const figure = trigger.closest('figure.project__media');
-      const img = figure ? figure.querySelector('img') : null;
-      const captionText = figure ? figure.querySelector('figcaption')?.textContent.trim() : '';
+      // Prefer the clicked button's own image, so a figure with several
+      // tabbed screenshots opens the one that is actually showing.
+      const img = trigger.querySelector('img') || (figure ? figure.querySelector('img') : null);
+      const panel = trigger.closest('[data-caption]');
+      const captionText = panel
+        ? panel.dataset.caption
+        : (figure ? figure.querySelector('figcaption')?.textContent.trim() : '');
       if (!img) return;
       openModal({
         src: img.currentSrc || img.src,

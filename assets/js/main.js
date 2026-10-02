@@ -2,7 +2,7 @@
    main.js — initialization
 
    Loaded last (after nav.js, reveal.js, modal.js, stat-count.js,
-   marquee.js, command-palette.js, publications-filter.js), so every
+   marquee.js, command-palette.js, publications-filter.js, scroll-progress.js, media-tabs.js), so every
    window.Portfolio.init* function it calls already exists by this point.
    ========================================================================== */
 
@@ -14,7 +14,7 @@
 
   window.Portfolio = window.Portfolio || {};
 
-  ['initNav', 'initReveal', 'initModal', 'initStatCount', 'initMarquee', 'initCommandPalette', 'initPublicationsFilter'].forEach((name) => {
+  ['initNav', 'initReveal', 'initModal', 'initStatCount', 'initMarquee', 'initCommandPalette', 'initPublicationsFilter', 'initScrollProgress', 'initMediaTabs'].forEach((name) => {
     if (typeof window.Portfolio[name] === 'function') {
       window.Portfolio[name]();
     }
