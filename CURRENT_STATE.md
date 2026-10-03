@@ -499,3 +499,9 @@ Found while reading the two final-task decks against what the cards say. Status 
 ## Project logos (Oct 3, 2026)
 - Refa supplied Kimia Farma (SVG), Bank Muamalat (SVG) and Rakamin (PNG). Prepared into `assets/images/logos/`: SVG viewBoxes cropped to the artwork (the originals sat on a 950x950 / letter-size canvas) with fixed width/height removed; Rakamin PNG cropped of its transparent margin and resized to 520px wide. Used as `<img>` with alt text, so SVG styles cannot leak into the page.
 - Header: client logo in a larger white tile, "via", Rakamin in a smaller tile. Top-right on >=900px; above the sector pill on smaller screens. Hierarchy is deliberate: the client is where the project was done, Rakamin is the programme.
+
+## Education, round 2 (Oct 3, 2026)
+- Degree card now has a semester map: 8 numbered bars (1–6 done, 7 = "Now", 8 upcoming), academic-year brackets (2023/24 … 2026/27) and milestone icons above the semester they fall in, plus a legend list: Sem 3 ALSA 2nd Winner, Sem 4 Kimia Farma internship, Sem 5 Bank Muamalat internship, Sem 6 Publications in 2026.
+- ASSUMPTION (derived, Refa to confirm): semesters start in Aug and Feb, so Aug 2023 = Sem 1 and Oct 2026 = Sem 7. Milestone placement follows from their dates (Nov 2024, Apr–May 2025, Oct–Nov 2025, 2026).
+- Right column: GPA ring, Current Standing, new Expected Graduation (Aug 2027) tile. Honors card rebuilt as a gold feature card (big "2nd", title, essay in italics, meta chips) — same facts, re-arranged.
+- Old `.edu-track*` CSS removed. UB logo slot still holds the graduation-cap placeholder (Refa to send logo).

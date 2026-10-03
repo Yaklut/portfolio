@@ -186,14 +186,6 @@
 .edu-logo__img { width: 64px; height: 64px; object-fit: contain; }
 .edu-main h3 { font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem); margin-bottom: var(--space-1); }
 .edu-main .education__dates { margin: 0 0 var(--space-5); font-family: var(--font-mono); font-size: 0.8125rem; }
-.edu-track { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; }
-.edu-track__seg { height: 10px; border-radius: var(--radius-full); background: var(--color-border); }
-.edu-track__seg.is-done { background: var(--accent); }
-.edu-track__seg:nth-child(7) { box-shadow: 0 0 0 3px var(--accent-tint); }
-.edu-track__legend { display: flex; justify-content: space-between; margin-top: var(--space-2); font: 500 0.75rem var(--font-mono); color: var(--color-ink-faint); }
-.js .edu-track__seg.is-done { transform-origin: left; animation: seg-in 500ms var(--ease-out) backwards; }
-.edu-track__seg:nth-child(2){animation-delay:60ms}.edu-track__seg:nth-child(3){animation-delay:120ms}.edu-track__seg:nth-child(4){animation-delay:180ms}
-.edu-track__seg:nth-child(5){animation-delay:240ms}.edu-track__seg:nth-child(6){animation-delay:300ms}.edu-track__seg:nth-child(7){animation-delay:360ms}
 @keyframes seg-in { from { transform: scaleX(0); opacity: 0; } }
 
 .edu-side { display: grid; gap: var(--space-5); grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -220,7 +212,6 @@
   .edu-honors { grid-column: 1 / -1; }
 }
 @media (max-width: 480px) { .edu-side { grid-template-columns: 1fr; } .edu-main { padding: var(--space-5); } }
-@media (prefers-reduced-motion: reduce) { .js .edu-track__seg.is-done { animation: none; } .edu-ring__fill { transition: none; } }
 
 /* Education refinements */
 .edu-main { display: flex; flex-direction: column; }
@@ -454,3 +445,47 @@ html:not(.js) .timeline__item { animation: none; opacity: 1; }
 @media (max-width: 899px) {
   .project--v2 .project__head { display: flex; flex-direction: column; align-items: flex-start; }
 }
+
+/* ---- Education, round 2: semester map with milestones, 3 tiles, richer honors (Oct 3, 2026) ---- */
+.edu-sems { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 6px; margin-top: var(--space-2); }
+.edu-sem { display: grid; justify-items: center; gap: 6px; }
+.edu-sem__top { height: 30px; display: grid; place-items: end center; }
+.edu-sem__bar { width: 100%; height: 10px; border-radius: var(--radius-full); background: var(--color-border); }
+.edu-sem.is-done .edu-sem__bar, .edu-sem.is-now .edu-sem__bar { background: var(--accent); }
+.edu-sem.is-now .edu-sem__bar { box-shadow: 0 0 0 3px var(--accent-tint); }
+.edu-sem__n { font: 600 0.75rem var(--font-body); color: var(--color-ink-faint); }
+.edu-sem.is-now .edu-sem__n { color: var(--accent-deep); }
+.js .edu-sem.is-done .edu-sem__bar, .js .edu-sem.is-now .edu-sem__bar { transform-origin: left; animation: seg-in 500ms var(--ease-out) backwards; }
+.edu-sem:nth-child(2) .edu-sem__bar { animation-delay: 60ms; } .edu-sem:nth-child(3) .edu-sem__bar { animation-delay: 120ms; }
+.edu-sem:nth-child(4) .edu-sem__bar { animation-delay: 180ms; } .edu-sem:nth-child(5) .edu-sem__bar { animation-delay: 240ms; }
+.edu-sem:nth-child(6) .edu-sem__bar { animation-delay: 300ms; } .edu-sem:nth-child(7) .edu-sem__bar { animation-delay: 360ms; }
+.edu-mark { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: #fff; box-shadow: 0 0 0 3px var(--accent-tint); }
+.edu-mark svg { width: 14px; height: 14px; }
+.edu-now { position: relative; padding: 2px 8px; border-radius: var(--radius-full); background: var(--accent); color: #fff; font: 700 0.6875rem var(--font-body); letter-spacing: 0.04em; text-transform: uppercase; }
+.edu-now::after { content: ""; position: absolute; left: 50%; bottom: -3px; width: 7px; height: 7px; background: var(--accent); transform: translateX(-50%) rotate(45deg); }
+.edu-years { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin-top: var(--space-1); }
+.edu-years li { padding-top: 6px; border-top: 2px solid var(--color-border); text-align: center; font: 500 0.75rem var(--font-body); color: var(--color-ink-faint); }
+.edu-milestones { display: grid; gap: var(--space-2); margin-top: var(--space-5); padding-top: var(--space-4); border-top: 1px solid var(--color-border); }
+.edu-milestones li { display: flex; align-items: baseline; gap: var(--space-3); font-size: 0.875rem; line-height: 1.4; color: var(--color-ink-soft); }
+.edu-milestones__sem { flex: none; min-width: 52px; padding: 1px 8px; border-radius: var(--radius-full); background: var(--accent-tint); color: var(--accent-deep); font: 600 0.75rem var(--font-body); text-align: center; }
+.edu-progress { padding-top: var(--space-5); margin-bottom: var(--space-2); }
+
+.edu-tile__icon { display: grid; place-items: center; width: 56px; height: 56px; flex: none; border-radius: var(--radius-md); background: var(--accent); color: #fff; }
+.edu-tile__icon svg { width: 26px; height: 26px; }
+.edu-side { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 560px) and (max-width: 899px) { .edu-side { grid-template-columns: repeat(3, minmax(0, 1fr)); } .edu-tile { flex-direction: column; align-items: flex-start; } }
+@media (min-width: 900px) { .edu-side { grid-template-rows: repeat(3, 1fr); } }
+
+.edu-honors { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: var(--space-5); align-items: center; padding: var(--space-5) var(--space-6);
+  background-image: linear-gradient(135deg, var(--color-gold-tint), transparent 80%); border: 1px solid var(--color-gold); border-left-width: 5px; }
+.edu-honors__rank { font: 700 clamp(2.5rem, 2rem + 2vw, 3.75rem)/1 var(--font-display); color: var(--color-gold); }
+.edu-honors__rank sup { font-size: 0.45em; margin-left: 2px; vertical-align: super; }
+.edu-honors__label { margin: 0 0 2px; font: 600 0.75rem var(--font-body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-gold-deep); }
+.edu-honors__title { margin: 0; font: 600 clamp(1rem, 0.95rem + 0.3vw, 1.1875rem)/1.35 var(--font-display); color: var(--color-ink); }
+.edu-honors__essay { margin: var(--space-1) 0 0; font-size: 0.9375rem; font-style: italic; color: var(--color-ink-soft); }
+.edu-honors__meta { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.edu-honors__meta li { padding: 3px 10px; border-radius: var(--radius-full); background: var(--color-surface); border: 1px solid var(--color-gold-tint); font-size: 0.8125rem; color: var(--color-gold-deep); font-weight: 500; }
+.edu-honors__icon { display: grid; place-items: center; width: 52px; height: 52px; border-radius: var(--radius-md); background: var(--color-gold); color: #fff; }
+.edu-honors__icon svg { width: 26px; height: 26px; }
+@media (max-width: 640px) { .edu-honors { grid-template-columns: auto minmax(0, 1fr); } .edu-honors__icon { display: none; } .edu-honors { padding: var(--space-5); } }
+@media (prefers-reduced-motion: reduce) { .js .edu-sem.is-done .edu-sem__bar, .js .edu-sem.is-now .edu-sem__bar { animation: none; } .edu-ring__fill { transition: none; } }
