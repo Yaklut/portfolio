@@ -480,3 +480,22 @@ Found while reading the two final-task decks against what the cards say. Status 
 - Publications: snapshot tiles (6 papers / 1st author / 3+3 SINTA split / 2–7 authors per paper), tier-coloured left borders, and an author-position dot strip on each card (text kept for screen readers). Filter still works (verified).
 - Snapshot numbers all derive from the existing cards; "all published in 2026" and "2–7 authors" are read from the card text.
 - Layout gotcha: elements that are direct children of a `<section>` must not reset `margin-inline`/`padding-inline` (the container rule lives there) — use `margin-block`.
+
+## Font change: mono removed from UI labels (Oct 3, 2026)
+- `--font-mono` in styles.css now points to the display sans (Schibsted Grotesk), so KPI numbers, uppercase labels, dates, filter pills and chips no longer look like code. New `--font-code` (IBM Plex Mono) is used only by real code: `.sql-code`, `.cs-code`, `.workflow__calls code`.
+- index.html loads IBM Plex Mono at weight 400 only (was 400/500/600). 404.html and case-studies/*.html still load the old 3 weights — harmless; note the global token change also affects the case-study drafts' labels/numbers.
+- Fixed: KPI `<dd>` default margin made values sit right of their labels (`.stat-value { margin: 0 }` in redesign.css).
+
+## Skills section redesign, round 2 (Oct 3, 2026)
+- Replaced the big-number "proof" blocks (awkward: tiny text, detached number, footnote-like links) with an "evidence" footer per card: label (Applied in / Learned through / Shown in) + link pills with icons and an arrow, pointing to #project-kimia-farma, #project-bmi, #certifications, #research, #about. Old `.skill-proof*` CSS removed from redesign.css.
+- Tools marquee: now a card (label left, pause button right on one row), each tool in a pill with a full-colour logo. Items use `margin-right` instead of flex `gap`, so the -50% loop lands exactly on the duplicate (the old gap-based track was off by half a gap at the loop point).
+- Note: direct children of a `<section>` must keep the container's inline padding; the marquee card uses an explicit width/max-width instead.
+- Verified at 1440 and 390 in headless Chromium; all 7 evidence links resolve to real ids.
+
+## Project tab animation (Oct 3, 2026)
+- `assets/js/media-tabs.js`: switching Overview/Detail/SQL now slides — the old panel slides out (160 ms), the new one slides in from the side of the tab you clicked (420 ms), and a blue pill glides behind the selected tab (`.media-tabs__thumb`, styled in motion.css). A second click mid-animation finishes the first swap instantly (verified with rapid clicks). aria-selected, roving tabindex, arrow keys and the caption are unchanged; reduced-motion users get an instant swap.
+- OPEN: company logos (Kimia Farma, Bank Muamalat, optionally Rakamin) for the project headers — Refa must supply SVG/PNG files; nothing added yet.
+
+## Project logos (Oct 3, 2026)
+- Refa supplied Kimia Farma (SVG), Bank Muamalat (SVG) and Rakamin (PNG). Prepared into `assets/images/logos/`: SVG viewBoxes cropped to the artwork (the originals sat on a 950x950 / letter-size canvas) with fixed width/height removed; Rakamin PNG cropped of its transparent margin and resized to 520px wide. Used as `<img>` with alt text, so SVG styles cannot leak into the page.
+- Header: client logo in a larger white tile, "via", Rakamin in a smaller tile. Top-right on >=900px; above the sector pill on smaller screens. Hierarchy is deliberate: the client is where the project was done, Rakamin is the programme.

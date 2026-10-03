@@ -112,3 +112,15 @@
   .toast, .to-top, .mobile-cta { transition: opacity var(--duration-fast); transform: none; }
   .modal__image { transition: none; }
 }
+
+/* ---- Project tabs: sliding pill behind the selected tab ---- */
+.media-tabs__list { position: relative; }
+.media-tabs__list.has-thumb .media-tabs__tab { position: relative; z-index: 1; }
+.media-tabs__thumb {
+  position: absolute; left: 0; top: 0; z-index: 0; pointer-events: none;
+  border-radius: var(--radius-full); background: var(--color-primary); box-shadow: var(--shadow-sm);
+}
+.media-tabs__thumb.is-ready { transition: transform 420ms var(--ease-out), width 420ms var(--ease-out); }
+.media-tabs__list.has-thumb .media-tabs__tab[aria-selected="true"],
+.media-tabs__list.has-thumb .media-tabs__tab[aria-selected="true"]:hover { background: transparent; border-color: transparent; color: #fff; }
+@media (prefers-reduced-motion: reduce) { .media-tabs__thumb.is-ready { transition: none; } }
