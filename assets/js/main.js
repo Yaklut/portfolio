@@ -14,7 +14,7 @@
 
   window.Portfolio = window.Portfolio || {};
 
-  ['initNav', 'initReveal', 'initModal', 'initStatCount', 'initMarquee', 'initCommandPalette', 'initPublicationsFilter', 'initScrollProgress', 'initMediaTabs'].forEach((name) => {
+  ['initNav', 'initReveal', 'initModal', 'initStatCount', 'initMarquee', 'initCommandPalette', 'initPublicationsFilter', 'initScrollProgress', 'initMediaTabs', 'initMotion'].forEach((name) => {
     if (typeof window.Portfolio[name] === 'function') {
       window.Portfolio[name]();
     }

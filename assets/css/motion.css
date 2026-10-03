@@ -1,0 +1,114 @@
+/* ==========================================================================
+   motion.css — click/transition feedback + small utilities (loaded after styles.css)
+   Everything here is additive; nothing in styles.css is overridden except
+   .btn (position/overflow, needed for the ripple).
+   ========================================================================== */
+
+/* ---- Button press + ripple ---- */
+.btn { position: relative; overflow: hidden; }
+.btn:active { transform: scale(0.97); }
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: currentColor;
+  opacity: 0.22;
+  transform: scale(0);
+  animation: ripple 560ms var(--ease-out) forwards;
+}
+@keyframes ripple { to { transform: scale(1); opacity: 0; } }
+
+/* ---- Cursor spotlight on interactive cards (mouse only) ---- */
+@media (hover: hover) and (pointer: fine) {
+  .card--project:hover,
+  .card--certification:hover {
+    background-image: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(42, 70, 192, 0.07), transparent 65%);
+  }
+}
+.card--certification:active { transform: translateY(-2px) scale(0.99); }
+
+/* ---- Section "landing": accent underline sweeps under a heading after an anchor jump ---- */
+.section-title.is-landed {
+  width: fit-content;
+  background: linear-gradient(var(--color-primary), var(--color-primary)) no-repeat 0 100% / 0 3px;
+  animation: landed 1100ms var(--ease-out) forwards;
+}
+@keyframes landed {
+  0%   { background-size: 0 3px; opacity: 1; }
+  55%  { background-size: 100% 3px; }
+  100% { background-size: 100% 3px; background-position: 100% 100%; }
+}
+.section-eyebrow.is-landed { animation: eyebrow-pop 700ms var(--ease-out); }
+@keyframes eyebrow-pop { 40% { transform: translateY(-4px); color: var(--color-primary); } }
+
+/* ---- Lightbox zoom ---- */
+.modal__image { cursor: zoom-in; transition: width var(--duration-base) var(--ease-out); }
+.modal__dialog.is-zoomed { overflow: auto; }
+.modal__dialog.is-zoomed .modal__image { width: 240%; max-width: none; cursor: zoom-out; }
+.modal__hint { margin-top: var(--space-2); font-size: 0.75rem; color: var(--color-ink-faint); text-align: center; }
+
+/* ---- Copy-email button + toast ---- */
+.copy-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-left: var(--space-2); padding: 3px 10px; min-height: 28px; flex: none;
+  font: 600 0.75rem var(--font-body);
+  color: var(--color-ink-soft); background: var(--color-surface);
+  border: 1px solid var(--color-border-interactive); border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background var(--duration-fast), color var(--duration-fast), transform var(--duration-fast);
+}
+.copy-btn:hover { background: var(--color-primary-tint); color: var(--color-primary); }
+.copy-btn:active { transform: scale(0.95); }
+.copy-btn svg { width: 13px; height: 13px; }
+.copy-btn.is-copied { color: var(--color-primary); }
+.copy-btn.is-copied svg { animation: pop 380ms var(--ease-out); }
+@keyframes pop { 40% { transform: scale(1.35) rotate(-8deg); } }
+
+.toast {
+  position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); z-index: 70;
+  padding: 10px 18px; border-radius: var(--radius-full);
+  background: var(--color-dark-bg); color: var(--color-dark-text);
+  font: 500 0.875rem var(--font-body); box-shadow: var(--shadow-md);
+  opacity: 0; transform: translate(-50%, 12px); pointer-events: none;
+  transition: opacity var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out);
+}
+.toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---- Back-to-top ---- */
+.to-top {
+  position: fixed; right: 20px; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); z-index: 45;
+  width: 46px; height: 46px; display: grid; place-items: center;
+  border-radius: 50%; border: 1px solid var(--color-border);
+  background: var(--color-surface); color: var(--color-ink); box-shadow: var(--shadow-md);
+  cursor: pointer; opacity: 0; transform: translateY(16px) scale(0.9); visibility: hidden;
+  transition: opacity var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out),
+              visibility 0s linear var(--duration-base), background var(--duration-fast), color var(--duration-fast);
+}
+.to-top.is-visible { opacity: 1; transform: none; visibility: visible; transition-delay: 0s; }
+.to-top:hover { background: var(--color-primary); color: #fff; }
+.to-top:hover svg { transform: translateY(-2px); }
+.to-top svg { width: 20px; height: 20px; transition: transform var(--duration-fast) var(--ease-out); }
+
+/* ---- Mobile quick-action bar (Resume · Contact) ---- */
+.mobile-cta { display: none; }
+@media (max-width: 767px) {
+  .mobile-cta {
+    position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); z-index: 44;
+    display: flex; gap: 8px; padding: 8px;
+    background: rgba(255, 255, 255, 0.82); backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid var(--color-border); border-radius: var(--radius-full); box-shadow: var(--shadow-md);
+    transform: translateY(140%); transition: transform var(--duration-slow) var(--ease-out);
+  }
+  .mobile-cta.is-visible { transform: none; }
+  .mobile-cta .btn { flex: 1; justify-content: center; }
+  .to-top { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); right: 16px; }
+  .site-footer { padding-bottom: 88px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ripple, .section-title.is-landed, .section-eyebrow.is-landed, .copy-btn.is-copied svg { animation: none; }
+  .toast, .to-top, .mobile-cta { transition: opacity var(--duration-fast); transform: none; }
+  .modal__image { transition: none; }
+}

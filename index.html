@@ -79,6 +79,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/motion.css">
+  <link rel="stylesheet" href="assets/css/redesign.css">
 </head>
 <body>
 
@@ -179,15 +181,16 @@
         <h2 id="about-heading" class="section-title">About Me</h2>
       </div>
 
-      <div class="about__body reveal">
-        <p>
+      <div class="about__layout">
+        <div class="about__body reveal">
+          <p>
           I'm an International Relations undergraduate at Universitas Brawijaya (GPA 3.53/4.00),
           currently in my 7th semester and expecting to graduate in August 2027. Alongside my IR
           coursework, I've built hands-on experience in data analytics, SQL, and business
           intelligence — applied through two Rakamin Academy virtual internships with Kimia Farma
           and Bank Muamalat.
         </p>
-        <p>
+          <p>
           I also serve as a Research Fellow in the Social Sciences &amp; Humanities Department at
           Veritas Institute of Politics, where I collaborate with International Relations and
           Political Science lecturers at Universitas Brawijaya on research projects and have
@@ -195,15 +198,16 @@
           carries into my peer-reviewed academic work — six SINTA-indexed publications, including
           one as first author.
         </p>
-        <p>
+          <p class="about__lead">
           I'm drawn to the space where social science and data meet: using statistical methods and
           dashboards to turn qualitative and quantitative evidence into insights that support real
           decisions.
         </p>
-
-        <p class="about__credentials">
-          Universitas Brawijaya · Research Fellow, Veritas Institute of Politics · Malang, East Java, Indonesia
-        </p>
+        </div>
+        <aside class="about__snapshot reveal" aria-label="Snapshot">
+          <ul class="snap-list"><li class="snap accent-blue"><span class="snap__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></span><div><span class="snap__label">Studying</span><strong>International Relations</strong><span class="snap__sub">Universitas Brawijaya · 7th semester</span></div></li><li class="snap accent-teal"><span class="snap__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><div><span class="snap__label">Applied</span><strong>2 virtual internships</strong><span class="snap__sub">Kimia Farma · Bank Muamalat (Rakamin Academy)</span></div></li><li class="snap accent-violet"><span class="snap__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span><div><span class="snap__label">Research Fellow</span><strong>Veritas Institute of Politics</strong><span class="snap__sub">Social Sciences &amp; Humanities Department</span></div></li><li class="snap accent-coral"><span class="snap__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></span><div><span class="snap__label">Published</span><strong>6 SINTA-indexed papers</strong><span class="snap__sub">One as first author</span></div></li></ul>
+          <p class="snap__loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Malang, East Java, Indonesia</p>
+        </aside>
       </div>
     </section>
 
@@ -217,7 +221,8 @@
       </div>
 
       <div class="expertise-grid">
-        <article class="card card--expertise reveal">
+        <article class="card card--expertise accent-blue reveal">
+          <span class="expertise__index" aria-hidden="true">01</span>
           <span class="icon-badge" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <ellipse cx="12" cy="5" rx="9" ry="3" />
@@ -230,9 +235,11 @@
             Cleaning, joining, and querying multi-source datasets in Google BigQuery — from CTEs and
             LEFT JOINs to CASE WHEN logic — to turn raw transaction data into analysis-ready tables.
           </p>
+        <ul class="expertise__tags" aria-label="Related tools and methods"><li>Google BigQuery</li><li>SQL</li><li>Data Cleaning</li></ul>
         </article>
 
-        <article class="card card--expertise reveal">
+        <article class="card card--expertise accent-teal reveal">
+          <span class="expertise__index" aria-hidden="true">02</span>
           <span class="icon-badge" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect width="7" height="9" x="3" y="3" rx="1" />
@@ -246,9 +253,11 @@
             Building interactive Looker Studio dashboards that surface sales, profitability, and
             performance metrics in a way non-technical stakeholders can act on.
           </p>
+        <ul class="expertise__tags" aria-label="Related tools and methods"><li>Looker Studio</li><li>Data Visualization</li></ul>
         </article>
 
-        <article class="card card--expertise reveal">
+        <article class="card card--expertise accent-violet reveal">
+          <span class="expertise__index" aria-hidden="true">03</span>
           <span class="icon-badge" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2" />
@@ -260,9 +269,11 @@
             Wilcoxon, Kruskal-Wallis — to analyze data distributions and support evidence-based
             conclusions.
           </p>
+        <ul class="expertise__tags" aria-label="Related tools and methods"><li>T-Test</li><li>ANOVA</li><li>Chi-Square</li><li>Kruskal-Wallis</li></ul>
         </article>
 
-        <article class="card card--expertise reveal">
+        <article class="card card--expertise accent-coral reveal">
+          <span class="expertise__index" aria-hidden="true">04</span>
           <span class="icon-badge" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="m21 21-4.34-4.34" />
@@ -274,9 +285,11 @@
             Literature review, thematic analysis, and academic writing, developed through
             peer-reviewed publishing and a Research Fellow role at Veritas Institute of Politics.
           </p>
+        <ul class="expertise__tags" aria-label="Related tools and methods"><li>Literature Review</li><li>Thematic Analysis</li><li>Academic Writing</li></ul>
         </article>
 
-        <article class="card card--expertise reveal">
+        <article class="card card--expertise accent-green reveal">
+          <span class="expertise__index" aria-hidden="true">05</span>
           <span class="icon-badge" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" />
@@ -292,6 +305,7 @@
             Advanced Excel (Index-Match, concatenation, database functions) and business-acumen
             skills applied to structure and analyze business data.
           </p>
+        <ul class="expertise__tags" aria-label="Related tools and methods"><li>Microsoft Excel</li><li>Google Sheets</li></ul>
         </article>
       </div>
     </section>
@@ -306,7 +320,7 @@
       </div>
 
       <div class="skills-grid">
-        <div class="skill-group reveal">
+        <div class="skill-group skill-group--blue reveal">
           <span class="icon-badge" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M3 3v16a2 2 0 0 0 2 2h16" />
@@ -315,6 +329,7 @@
               <path d="M8 17v-3" />
             </svg>
           </span>
+          <span class="skill-group__count">07 skills</span>
           <h3>Data &amp; BI</h3>
           <ul class="chip-list">
             <li class="chip">Google BigQuery</li>
@@ -325,14 +340,20 @@
             <li class="chip">Data Visualization</li>
             <li class="chip">Data Cleaning</li>
           </ul>
+          <div class="skill-proof">
+            <span class="skill-proof__num" aria-hidden="true">2</span>
+            <p class="skill-proof__text"><strong>projects</strong> built with these tools</p>
+            <div class="skill-proof__links"><a href="#project-kimia-farma">Kimia Farma</a><a href="#project-bmi">Bank Muamalat</a></div>
+          </div>
         </div>
 
-        <div class="skill-group reveal">
+        <div class="skill-group skill-group--teal reveal">
           <span class="icon-badge" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2" />
             </svg>
           </span>
+          <span class="skill-group__count">06 skills</span>
           <h3>Statistics</h3>
           <ul class="chip-list">
             <li class="chip">T-Test</li>
@@ -342,29 +363,41 @@
             <li class="chip">Kruskal-Wallis Test</li>
             <li class="chip">Descriptive Statistics</li>
           </ul>
+          <div class="skill-proof">
+            <span class="skill-proof__num" aria-hidden="true">1</span>
+            <p class="skill-proof__text"><strong>certificate</strong> in statistics (MySkill, Jun 2025)</p>
+            <div class="skill-proof__links"><a href="#certifications">See certification</a></div>
+          </div>
         </div>
 
-        <div class="skill-group reveal">
+        <div class="skill-group skill-group--violet reveal">
           <span class="icon-badge" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="m16 18 6-6-6-6" />
               <path d="m8 6-6 6 6 6" />
             </svg>
           </span>
+          <span class="skill-group__count">02 skills</span>
           <h3>Programming</h3>
           <ul class="chip-list">
             <li class="chip">Python (Basic)</li>
             <li class="chip">HTML</li>
           </ul>
+          <div class="skill-proof">
+            <span class="skill-proof__num" aria-hidden="true">5</span>
+            <p class="skill-proof__text"><strong>certificates</strong> in Python and front-end development</p>
+            <div class="skill-proof__links"><a href="#certifications">See certifications</a></div>
+          </div>
         </div>
 
-        <div class="skill-group reveal">
+        <div class="skill-group skill-group--coral reveal">
           <span class="icon-badge" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="m21 21-4.34-4.34" />
               <circle cx="11" cy="11" r="8" />
             </svg>
           </span>
+          <span class="skill-group__count">05 skills</span>
           <h3>Research</h3>
           <ul class="chip-list">
             <li class="chip">Qualitative Research Methods</li>
@@ -373,6 +406,11 @@
             <li class="chip">Thematic Analysis</li>
             <li class="chip">Academic Writing</li>
           </ul>
+          <div class="skill-proof">
+            <span class="skill-proof__num" aria-hidden="true">6</span>
+            <p class="skill-proof__text"><strong>publications</strong> SINTA-indexed, one as first author</p>
+            <div class="skill-proof__links"><a href="#research">See research</a></div>
+          </div>
         </div>
       </div>
 
@@ -442,8 +480,15 @@
       <div class="projects-list">
 
         <!-- Project 1: Kimia Farma -->
-        <article class="card card--project reveal" id="project-kimia-farma">
-          <div class="project__visual">
+        <article class="card card--project project--v2 accent-teal reveal" id="project-kimia-farma">
+          <header class="project__head">
+            <p class="project__sector">Pharmaceutical retail</p>
+            <h3>Kimia Farma Performance Analytics (2020–2023)</h3>
+            <ul class="project__meta-chips" aria-label="Project details"><li>Project-Based Virtual Internship</li><li>Big Data Analytics · Kimia Farma × Rakamin Academy</li><li><time datetime="2025-04-17">Apr 17</time>–<time datetime="2025-05-15">May 15, 2025</time></li></ul>
+          </header>
+
+          <div class="project__showcase">
+            <div class="project__visual">
           <figure class="project__media media-tabs" data-media-tabs>
             <div class="media-tabs__list" role="tablist" aria-label="Kimia Farma project evidence">
               <button type="button" role="tab" class="media-tabs__tab" id="kf-tab-overview" aria-controls="kf-panel-overview" aria-selected="true">Overview</button>
@@ -511,9 +556,9 @@
 
             <figcaption class="media-tabs__caption" aria-live="polite">Page 1 · Overview: KPIs, yearly trend, province map</figcaption>
           </figure>
-
-
-            <dl class="project__stats">
+            </div>
+            <div class="project__side">
+              <dl class="project__stats">
               <div class="stat">
                 <dt class="stat-label">Total Transactions</dt>
                 <dd class="stat-value">672,458</dd>
@@ -531,51 +576,57 @@
                 <dd class="stat-value">264,601</dd>
               </div>
             </dl>
+              <div class="project__viz">
+            <div class="viz-ring">
+              <div class="viz-ring__chart">
+                <svg viewBox="0 0 120 120" role="img" aria-label="Jawa Barat accounts for 29.5 percent of total nett sales">
+                  <circle class="viz-ring__track" cx="60" cy="60" r="50" pathLength="100"/>
+                  <circle class="viz-ring__fill" cx="60" cy="60" r="50" pathLength="100" stroke-dasharray="29.5 100"/>
+                </svg>
+                <span class="viz-ring__label">29.5%</span>
+              </div>
+              <p><strong>Jawa Barat</strong> share of total nett sales<br><span>Rp94.87B of Rp321.17B</span></p>
+            </div>
+              </div>
+              <ol class="viz-flow" aria-label="Data flow"><li class="viz-node"><strong>4 source datasets</strong><span>Transactions · products · inventory · branch offices</span></li><li class="viz-node"><strong>BigQuery analysis table</strong><span>CTEs · LEFT JOINs · CASE WHEN</span></li><li class="viz-node"><strong>Looker Studio dashboard</strong><span>Overview + detail pages</span></li></ol>
+            </div>
           </div>
 
-          <div class="project__content">
-            <p class="project__sector">Pharmaceutical retail</p>
-            <h3>Kimia Farma Performance Analytics (2020–2023)</h3>
-            <p class="project__meta">
-              Project-Based Virtual Internship — Big Data Analytics · Kimia Farma × Rakamin Academy ·
-              <time datetime="2025-04-17">Apr 17</time>–<time datetime="2025-05-15">May 15, 2025</time>
-            </p>
-
-            <p>
-              <strong>Context:</strong> Kimia Farma, one of Indonesia's largest pharmaceutical
+          <div class="project__story">
+            <section class="story-block"><span class="story-block__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span><h4>Context</h4><p>Kimia Farma, one of Indonesia's largest pharmaceutical
               companies, needed a data-driven way to evaluate business performance across its
-              branch network.
-            </p>
-            <p>
-              <strong>My contribution:</strong> I imported and integrated four datasets —
+              branch network.</p></section>
+            <section class="story-block"><span class="story-block__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></span><h4>My contribution</h4><p>I imported and integrated four datasets —
               transactions, products, inventory, and branch offices — into Google BigQuery covering
               2020–2023. I wrote SQL queries using CTEs, LEFT JOINs, and CASE WHEN logic to compute
               nett sales and gross profit margins by product price tier, then built a Looker Studio
-              dashboard to surface the results.
-            </p>
+              dashboard to surface the results.</p></section>
+            <section class="story-block story-block--insight"><span class="story-block__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5M9 18h6M10 22h4"/></svg></span><h4>Key insight</h4><p>Jawa Barat led every province in both nett sales
+              (Rp94.87B, 29.5% of the total) and transaction volume (198,723) — though nett sales
+              held roughly flat year over year (~Rp80B annually, 2020–2023) rather than growing.
+              Completed with an average score of 91.56 (Excellent).</p></section>
+          </div>
 
+          <footer class="project__foot">
             <ul class="tool-chips" aria-label="Tools used">
               <li class="chip">Google BigQuery</li>
               <li class="chip">Google Looker Studio</li>
               <li class="chip">SQL</li>
             </ul>
-
-            <p>
-              <strong>Key insight:</strong> Jawa Barat led every province in both nett sales
-              (Rp94.87B, 29.5% of the total) and transaction volume (198,723) — though nett sales
-              held roughly flat year over year (~Rp80B annually, 2020–2023) rather than growing.
-              Completed with an average score of 91.56 (Excellent).
-            </p>
-
-            <a class="btn btn--ghost project__link" href="https://github.com/Yaklut/KimiaFarma-Performance-Analytics" target="_blank" rel="noopener noreferrer">
-              View on GitHub →
-            </a>
-          </div>
+            <a class="btn btn--secondary project__link" href="https://github.com/Yaklut/KimiaFarma-Performance-Analytics" target="_blank" rel="noopener noreferrer">View on GitHub →</a>
+          </footer>
         </article>
 
         <!-- Project 2: Bank Muamalat / BMI -->
-        <article class="card card--project reveal" id="project-bmi">
-          <div class="project__visual">
+        <article class="card card--project project--v2 accent-violet reveal" id="project-bmi">
+          <header class="project__head">
+            <p class="project__sector">Islamic banking</p>
+            <h3>Bank Muamalat (BMI) Sales Performance Dashboard</h3>
+            <ul class="project__meta-chips" aria-label="Project details"><li>Project-Based Virtual Internship</li><li>Business Intelligence Analyst · Bank Muamalat × Rakamin Academy</li><li><time datetime="2025-10-06">Oct 6</time>–<time datetime="2025-11-03">Nov 3, 2025</time></li></ul>
+          </header>
+
+          <div class="project__showcase">
+            <div class="project__visual">
           <figure class="project__media">
             <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size screenshot of the Bank Muamalat dashboard">
               <img
@@ -585,9 +636,9 @@
             </button>
             <figcaption>Bank Muamalat (BMI) sales performance dashboard, built in Looker Studio</figcaption>
           </figure>
-
-
-            <dl class="project__stats">
+            </div>
+            <div class="project__side">
+              <dl class="project__stats">
               <div class="stat">
                 <dt class="stat-label">Total Sales</dt>
                 <dd class="stat-value">$1.75M</dd>
@@ -605,45 +656,37 @@
                 <dd class="stat-value">1,671</dd>
               </div>
             </dl>
+              <div class="project__viz">
+            <ul class="viz-picks">
+              <li><span>Top revenue categories</span><strong>Robots · Drones</strong></li>
+              <li><span>Highest-revenue city</span><strong>Washington</strong><em>55,382 in sales</em></li>
+            </ul>
+              </div>
+              <ol class="viz-flow" aria-label="Data flow"><li class="viz-node"><strong>4 relational datasets</strong><span>Customer · Orders · Product · Product Category</span></li><li class="viz-node"><strong>BigQuery master table</strong><span>Multi-table SQL JOINs</span></li><li class="viz-node"><strong>Looker Studio dashboard</strong><span>Sales view + recommendations</span></li></ol>
+            </div>
           </div>
 
-          <div class="project__content">
-            <p class="project__sector">Islamic banking</p>
-            <h3>Bank Muamalat (BMI) Sales Performance Dashboard</h3>
-            <p class="project__meta">
-              Project-Based Virtual Internship — Business Intelligence Analyst · Bank Muamalat ×
-              Rakamin Academy ·
-              <time datetime="2025-10-06">Oct 6</time>–<time datetime="2025-11-03">Nov 3, 2025</time>
-            </p>
-
-            <p>
-              <strong>Context:</strong> Bank Muamalat needed a data-driven way to evaluate sales
-              performance across products, customer segments, and cities.
-            </p>
-            <p>
-              <strong>My contribution:</strong> I mapped entity relationships and identified primary
+          <div class="project__story">
+            <section class="story-block"><span class="story-block__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span><h4>Context</h4><p>Bank Muamalat needed a data-driven way to evaluate sales
+              performance across products, customer segments, and cities.</p></section>
+            <section class="story-block"><span class="story-block__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></span><h4>My contribution</h4><p>I mapped entity relationships and identified primary
               keys across four relational datasets (Customer, Orders, Product, Product Category),
               then constructed a master table in BigQuery using multi-table SQL JOINs, and built a
               sales performance dashboard with strategic recommendations on product portfolio
-              segmentation, geographic marketing, and data-driven customer retention via CRM.
-            </p>
+              segmentation, geographic marketing, and data-driven customer retention via CRM.</p></section>
+            <section class="story-block story-block--insight"><span class="story-block__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5M9 18h6M10 22h4"/></svg></span><h4>Key insight</h4><p>Robots and Drones were the top revenue categories
+              despite moderate order volume — a sign of high unit-price contribution — while
+              Washington was the highest-revenue city (55,382 in sales).</p></section>
+          </div>
 
+          <footer class="project__foot">
             <ul class="tool-chips" aria-label="Tools used">
               <li class="chip">Google BigQuery</li>
               <li class="chip">Google Looker Studio</li>
               <li class="chip">SQL</li>
             </ul>
-
-            <p>
-              <strong>Key insight:</strong> Robots and Drones were the top revenue categories
-              despite moderate order volume — a sign of high unit-price contribution — while
-              Washington was the highest-revenue city (55,382 in sales).
-            </p>
-
-            <a class="btn btn--ghost project__link" href="https://github.com/Yaklut/BMI-Sales-Performance-Dashboard" target="_blank" rel="noopener noreferrer">
-              View on GitHub →
-            </a>
-          </div>
+            <a class="btn btn--secondary project__link" href="https://github.com/Yaklut/BMI-Sales-Performance-Dashboard" target="_blank" rel="noopener noreferrer">View on GitHub →</a>
+          </footer>
         </article>
 
       </div>
@@ -697,30 +740,42 @@
         <h2 id="education-heading" class="section-title">Education</h2>
       </div>
 
-      <article class="card education__card reveal">
-        <h3>Bachelor of International Relations</h3>
-        <p class="education__institution">Universitas Brawijaya, Malang, East Java, Indonesia</p>
-        <p class="education__dates">
-          <time datetime="2023-08">Aug 2023</time> – <time datetime="2027-08">Aug 2027</time> (Expected)
-        </p>
-
-        <dl class="education__stats">
-          <div class="stat">
-            <dt class="stat-label">GPA</dt>
-            <dd class="stat-value">3.53<span class="stat-unit">/4.00</span></dd>
+      <div class="edu-grid">
+        <article class="card education__card edu-main accent-blue reveal">
+          <div class="edu-main__head">
+            <!-- Logo slot: replace the span below with
+                 <img class="edu-logo__img" src="assets/images/profile/ub-logo.svg" alt="Universitas Brawijaya logo"> -->
+            <span class="edu-logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></span>
+            <div>
+              <h3>Bachelor of International Relations</h3>
+              <p class="education__institution">Universitas Brawijaya, Malang, East Java, Indonesia</p>
+            </div>
           </div>
-          <div class="stat">
-            <dt class="stat-label">Current Standing</dt>
-            <dd class="stat-value">7th<span class="stat-unit"> Semester</span></dd>
-          </div>
-        </dl>
+          <p class="education__dates">
+            <time datetime="2023-08">Aug 2023</time> – <time datetime="2027-08">Aug 2027</time> (Expected)
+          </p>
+          <p class="edu-progress"><strong>Semester 7 of 8</strong><span>of the expected program length</span></p>
+          <div class="edu-track" role="img" aria-label="7th semester of an expected 8"><span class="edu-track__seg is-done"></span><span class="edu-track__seg is-done"></span><span class="edu-track__seg is-done"></span><span class="edu-track__seg is-done"></span><span class="edu-track__seg is-done"></span><span class="edu-track__seg is-done"></span><span class="edu-track__seg is-done"></span><span class="edu-track__seg"></span></div>
+          <div class="edu-track__legend"><span>Aug 2023</span><span>Aug 2027</span></div>
+        </article>
 
-        <p class="education__honors">
-          <strong>Honors:</strong> 2nd Winner, ALSA Legal Essay Competition — English Competition
+        <div class="edu-side">
+          <div class="card edu-tile accent-teal reveal">
+            <div class="edu-ring">
+              <svg viewBox="0 0 120 120" aria-hidden="true"><circle class="edu-ring__track" cx="60" cy="60" r="50" pathLength="100"/><circle class="edu-ring__fill" cx="60" cy="60" r="50" pathLength="100" stroke-dasharray="88.25 100"/></svg>
+            </div>
+            <dl><div class="stat"><dt class="stat-label">GPA</dt><dd class="stat-value">3.53<span class="stat-unit">/4.00</span></dd></div></dl>
+          </div>
+          <div class="card edu-tile accent-violet reveal">
+            <span class="edu-tile__big" aria-hidden="true">7</span>
+            <dl><div class="stat"><dt class="stat-label">Current Standing</dt><dd class="stat-value">7th<span class="stat-unit"> Semester</span></dd></div></dl>
+          </div>
+        </div>
+
+        <p class="education__honors edu-honors reveal"><span class="edu-honors__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.7V17c0 .6-.5 1-1.2 1.2C7.8 18.5 7 20 7 22M14 14.7V17c0 .6.5 1 1.2 1.2 1 .3 1.8 1.8 1.8 3.8M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg></span><span><strong>Honors:</strong> 2nd Winner, ALSA Legal Essay Competition — English Competition
           2024, for the essay “When Words Became Weapons: Hate Speech Laws and Limits of Free
-          Expressions,” ALSA English Competition 2024, Jember (Nov 2, 2024).
-        </p>
-      </article>
+          Expressions,” ALSA English Competition 2024, Jember (Nov 2, 2024).</span></p>
+      </div>
     </section>
 
     <!-- ==================================================================
@@ -731,6 +786,13 @@
         <span class="section-eyebrow" aria-hidden="true">05</span>
         <h2 id="research-heading" class="section-title">Research &amp; Publications</h2>
       </div>
+
+      <ul class="pub-snapshot reveal" aria-label="Publication snapshot">
+        <li class="accent-blue"><span class="pub-snapshot__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></span><div><span class="pub-snapshot__num">6</span><span class="pub-snapshot__label">peer-reviewed papers</span><span class="pub-snapshot__sub">all published in 2026</span></div></li>
+        <li class="accent-gold"><span class="pub-snapshot__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/></svg></span><div><span class="pub-snapshot__num">1st</span><span class="pub-snapshot__label">author on 1 paper</span><span class="pub-snapshot__sub">1st of 2 authors · IJIR</span></div></li>
+        <li class="accent-teal"><span class="pub-snapshot__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 16V9M12 16V5M17 16v-4"/></svg></span><div><span class="pub-snapshot__num">3 + 3</span><span class="pub-snapshot__label">SINTA 2 + SINTA 4</span><span class="pub-snapshot__bar" aria-hidden="true"><i></i><i></i></span></div></li>
+        <li class="accent-violet"><span class="pub-snapshot__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><div><span class="pub-snapshot__num">2–7</span><span class="pub-snapshot__label">authors per paper</span><span class="pub-snapshot__sub">collaborative research teams</span></div></li>
+      </ul>
 
       <div class="pub-filter-wrap">
         <div class="pub-filter" id="pub-filter" role="group" aria-label="Filter publications">
@@ -746,58 +808,58 @@
 
       <div class="publications-list">
 
-        <article class="card card--publication reveal">
+        <article class="card card--publication pub--t2 reveal">
           <span class="chip chip--tier">SINTA 2</span>
           <div class="publication__content">
             <h3>Revisiting the Developmental State: Evidence from Vietnam’s Electric Mobility Strategy through VinFast</h3>
             <p class="publication__meta">Indonesian Journal of Social Research (IJSR), Vol. 8 No. 1 · April 2026</p>
           </div>
-          <span class="chip chip--author">3rd of 6 Authors</span>
+          <span class="chip chip--author"><span class="author-dots" aria-hidden="true"><i></i><i></i><i class="is-you"></i><i></i><i></i><i></i></span>3rd of 6 Authors</span>
         </article>
 
-        <article class="card card--publication reveal">
+        <article class="card card--publication pub--t2 reveal">
           <span class="chip chip--tier">SINTA 2</span>
           <div class="publication__content">
             <h3>Unravelling Indonesia’s Foreign Aid Interest Towards Fiji From a Multi-Frame Perspective</h3>
             <p class="publication__meta">Journal of Public Power, Vol. 10 No. 1 · 2026</p>
           </div>
-          <span class="chip chip--author">5th of 7 Authors</span>
+          <span class="chip chip--author"><span class="author-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i class="is-you"></i><i></i><i></i></span>5th of 7 Authors</span>
         </article>
 
-        <article class="card card--publication reveal">
+        <article class="card card--publication pub--t2 reveal">
           <span class="chip chip--tier">SINTA 2</span>
           <div class="publication__content">
             <h3>Indonesia’s Transition as an Emerging Donor: The Case of Indonesian Aid in SDG-Related Sector</h3>
             <p class="publication__meta">Sosiohumaniora — Jurnal Ilmu-ilmu Sosial dan Humaniora, Vol. 28 No. 1 · March 2026</p>
           </div>
-          <span class="chip chip--author">4th of 7 Authors</span>
+          <span class="chip chip--author"><span class="author-dots" aria-hidden="true"><i></i><i></i><i></i><i class="is-you"></i><i></i><i></i><i></i></span>4th of 7 Authors</span>
         </article>
 
-        <article class="card card--publication card--publication-lead reveal">
+        <article class="card card--publication pub--t4 card--publication-lead reveal">
           <span class="chip chip--tier chip--gold">SINTA 4</span>
           <div class="publication__content">
             <h3>Air Power and Regional Security: Assessing Indonesia’s Air Defense Strategy in the Context of ASEAN Regional Security</h3>
             <p class="publication__meta">Indonesian Journal of International Relations (IJIR), Vol. 10 No. 1 · 2026</p>
           </div>
-          <span class="chip chip--author chip--gold">1st of 2 Authors</span>
+          <span class="chip chip--author chip--gold"><span class="author-dots" aria-hidden="true"><i class="is-you"></i><i></i></span>1st of 2 Authors</span>
         </article>
 
-        <article class="card card--publication reveal">
+        <article class="card card--publication pub--t4 reveal">
           <span class="chip chip--tier">SINTA 4</span>
           <div class="publication__content">
             <h3>Localization of Sexual and Reproductive Health and Rights Norms in Indonesia: The Contestation between Global Norms and Domestic Morality</h3>
             <p class="publication__meta">Teunuleh Scientific Journal — The International Journal of Social Sciences, Vol. 7 Issue 2 · June 2026</p>
           </div>
-          <span class="chip chip--author">3rd of 7 Authors</span>
+          <span class="chip chip--author"><span class="author-dots" aria-hidden="true"><i></i><i></i><i class="is-you"></i><i></i><i></i><i></i><i></i></span>3rd of 7 Authors</span>
         </article>
 
-        <article class="card card--publication reveal">
+        <article class="card card--publication pub--t4 reveal">
           <span class="chip chip--tier">SINTA 4</span>
           <div class="publication__content">
             <h3>Untangling Small Arms and Transnational Organized Crime: Evidence from Abu Sayyaf in the Philippines 2014–2017</h3>
             <p class="publication__meta">Jurnal Pena Wimaya, Vol. 6 No. 2 · July 2026</p>
           </div>
-          <span class="chip chip--author">6th of 6 Authors</span>
+          <span class="chip chip--author"><span class="author-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i class="is-you"></i></span>6th of 6 Authors</span>
         </article>
 
       </div>
@@ -816,9 +878,15 @@
         <h2 id="certifications-heading" class="section-title">Certifications</h2>
       </div>
 
+      <ul class="cert-summary reveal">
+        <li class="accent-blue"><span class="cert-summary__num">11</span><span>certificates</span></li>
+        <li class="accent-teal"><span class="cert-summary__num">6</span><span>learning platforms</span></li>
+        <li class="accent-violet"><span class="cert-summary__num">2</span><span>virtual internships</span></li>
+      </ul>
+
       <!-- Group 1: Applied & Virtual Internships -->
-      <div class="cert-group">
-        <h3 class="cert-group__title">Applied &amp; Virtual Internships</h3>
+      <div class="cert-group accent-violet">
+        <header class="cert-group__head"><span class="cert-group__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><h3 class="cert-group__title">Applied &amp; Virtual Internships</h3><span class="cert-group__count">02</span></header>
         <div class="certs-grid">
 
           <article class="card card--certification reveal">
@@ -828,6 +896,8 @@
               <path d="M22 13a18.15 18.15 0 0 1-20 0" />
               <rect width="20" height="14" x="2" y="6" rx="2" />
             </svg>
+            <a class="cert-thumb" href="assets/images/certificates/rakamin-kimia-farma-big-data-analytics.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate" tabindex="-1" aria-hidden="true"><img src="assets/images/certificates/thumbs/rakamin-kimia-farma-big-data-analytics.jpg" alt="" loading="lazy" width="560" height="314"></a>
+            <div class="cert-body">
             <h4>Kimia Farma Big Data Analytics — Project-Based Virtual Internship</h4>
             <p class="cert-issuer">Rakamin Academy × Kimia Farma</p>
             <p class="cert-date"><time datetime="2025-05-15">May 2025</time></p>
@@ -835,6 +905,7 @@
             <a class="btn btn--ghost cert-link" href="assets/images/certificates/rakamin-kimia-farma-big-data-analytics.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
               View Certificate →
             </a>
+          </div>
           </article>
 
           <article class="card card--certification reveal">
@@ -844,6 +915,8 @@
               <path d="M22 13a18.15 18.15 0 0 1-20 0" />
               <rect width="20" height="14" x="2" y="6" rx="2" />
             </svg>
+            <a class="cert-thumb" href="assets/images/certificates/rakamin-bank-muamalat-bi-analyst.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate" tabindex="-1" aria-hidden="true"><img src="assets/images/certificates/thumbs/rakamin-bank-muamalat-bi-analyst.jpg" alt="" loading="lazy" width="560" height="314"></a>
+            <div class="cert-body">
             <h4>Bank Muamalat Business Intelligence Analyst — Project-Based Virtual Internship</h4>
             <p class="cert-issuer">Rakamin Academy × Bank Muamalat</p>
             <p class="cert-date"><time datetime="2025-11-03">Nov 2025</time></p>
@@ -851,14 +924,15 @@
             <a class="btn btn--ghost cert-link" href="assets/images/certificates/rakamin-bank-muamalat-bi-analyst.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
               View Certificate →
             </a>
+          </div>
           </article>
 
         </div>
       </div>
 
       <!-- Group 2: Data Analytics & Programming -->
-      <div class="cert-group">
-        <h3 class="cert-group__title">Data Analytics &amp; Programming</h3>
+      <div class="cert-group accent-teal">
+        <header class="cert-group__head"><span class="cert-group__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></span><h3 class="cert-group__title">Data Analytics &amp; Programming</h3><span class="cert-group__count">08</span></header>
         <div class="certs-grid">
 
           <article class="card card--certification reveal">
@@ -867,6 +941,8 @@
               <path d="M22 10v6" />
               <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
             </svg>
+            <a class="cert-thumb" href="assets/images/certificates/dqlab-guide-learn-python-with-ai.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate" tabindex="-1" aria-hidden="true"><img src="assets/images/certificates/thumbs/dqlab-guide-learn-python-with-ai.jpg" alt="" loading="lazy" width="560" height="314"></a>
+            <div class="cert-body">
             <h4>Guide to Learn Python with AI</h4>
             <p class="cert-issuer">DQLab</p>
             <p class="cert-date"><time datetime="2025-03-16">16 Mar 2025</time></p>
@@ -874,6 +950,7 @@
             <a class="btn btn--ghost cert-link" href="assets/images/certificates/dqlab-guide-learn-python-with-ai.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
               View Certificate →
             </a>
+          </div>
           </article>
 
           <article class="card card--certification reveal">
@@ -882,6 +959,8 @@
               <path d="M22 10v6" />
               <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
             </svg>
+            <a class="cert-thumb" href="assets/images/certificates/dqlab-intro-data-science-python.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate" tabindex="-1" aria-hidden="true"><img src="assets/images/certificates/thumbs/dqlab-intro-data-science-python.jpg" alt="" loading="lazy" width="560" height="314"></a>
+            <div class="cert-body">
             <h4>Introduction to Data Science with Python</h4>
             <p class="cert-issuer">DQLab</p>
             <p class="cert-date"><time datetime="2025-03-16">16 Mar 2025</time></p>
@@ -889,6 +968,7 @@
             <a class="btn btn--ghost cert-link" href="assets/images/certificates/dqlab-intro-data-science-python.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
               View Certificate →
             </a>
+          </div>
           </article>
 
           <article class="card card--certification reveal">
@@ -897,6 +977,8 @@
               <path d="M22 10v6" />
               <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
             </svg>
+            <a class="cert-thumb" href="assets/images/certificates/dqlab-python-fundamental-data-science.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate" tabindex="-1" aria-hidden="true"><img src="assets/images/certificates/thumbs/dqlab-python-fundamental-data-science.jpg" alt="" loading="lazy" width="560" height="314"></a>
+            <div class="cert-body">
             <h4>Python Fundamental for Data Science</h4>
             <p class="cert-issuer">DQLab</p>
             <p class="cert-date"><time datetime="2025-03-27">27 Mar 2025</time></p>
@@ -904,6 +986,7 @@
             <a class="btn btn--ghost cert-link" href="assets/images/certificates/dqlab-python-fundamental-data-science.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
               View Certificate →
             </a>
+          </div>
           </article>
 
           <article class="card card--certification reveal">
@@ -912,6 +995,8 @@
               <path d="M22 10v6" />
               <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
             </svg>
+            <a class="cert-thumb" href="assets/images/certificates/revou-intro-to-data-analytics.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate" tabindex="-1" aria-hidden="true"><img src="assets/images/certificates/thumbs/revou-intro-to-data-analytics.jpg" alt="" loading="lazy" width="560" height="314"></a>
+            <div class="cert-body">
             <h4>Intro to Data Analytics (Mini Course)</h4>
             <p class="cert-issuer">RevoU</p>
             <p class="cert-date"><time datetime="2025-03-28">28 Mar 2025</time></p>
@@ -919,6 +1004,7 @@
             <a class="btn btn--ghost cert-link" href="assets/images/certificates/revou-intro-to-data-analytics.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
               View Certificate →
             </a>
+          </div>
           </article>
 
           <article class="card card--certification reveal">
@@ -927,6 +1013,8 @@
               <path d="M22 10v6" />
               <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
             </svg>
+            <a class="cert-thumb" href="assets/images/certificates/dqlab-python-data-professional-beginner-1.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate" tabindex="-1" aria-hidden="true"><img src="assets/images/certificates/thumbs/dqlab-python-data-professional-beginner-1.jpg" alt="" loading="lazy" width="560" height="314"></a>
+            <div class="cert-body">
             <h4>Python for Data Professional Beginner – Part 1</h4>
             <p class="cert-issuer">DQLab</p>
             <p class="cert-date"><time datetime="2025-04-03">3 Apr 2025</time></p>
@@ -934,6 +1022,7 @@
             <a class="btn btn--ghost cert-link" href="assets/images/certificates/dqlab-python-data-professional-beginner-1.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
               View Certificate →
             </a>
+          </div>
           </article>
 
           <article class="card card--certification reveal">
@@ -942,6 +1031,8 @@
               <path d="M22 10v6" />
               <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
             </svg>
+            <a class="cert-thumb" href="assets/images/certificates/dsarea-jobarea-data-analyst.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate" tabindex="-1" aria-hidden="true"><img src="assets/images/certificates/thumbs/dsarea-jobarea-data-analyst.jpg" alt="" loading="lazy" width="560" height="314"></a>
+            <div class="cert-body">
             <h4>Data Analyst</h4>
             <p class="cert-issuer">DSAREA × JOBAREA</p>
             <p class="cert-date"><time datetime="2025-04-07">Mar–Apr 2025</time></p>
@@ -949,6 +1040,7 @@
             <a class="btn btn--ghost cert-link" href="assets/images/certificates/dsarea-jobarea-data-analyst.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
               View Certificate →
             </a>
+          </div>
           </article>
 
           <article class="card card--certification reveal">
@@ -957,6 +1049,8 @@
               <path d="M22 10v6" />
               <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
             </svg>
+            <a class="cert-thumb" href="assets/images/certificates/myskill-data-analysis-fundamental.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate" tabindex="-1" aria-hidden="true"><img src="assets/images/certificates/thumbs/myskill-data-analysis-fundamental.jpg" alt="" loading="lazy" width="560" height="314"></a>
+            <div class="cert-body">
             <h4>Data Analysis Fundamental</h4>
             <p class="cert-issuer">MySkill</p>
             <p class="cert-date"><time datetime="2025-06-05">5 Jun 2025</time></p>
@@ -964,6 +1058,7 @@
             <a class="btn btn--ghost cert-link" href="assets/images/certificates/myskill-data-analysis-fundamental.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
               View Certificate →
             </a>
+          </div>
           </article>
 
           <article class="card card--certification reveal">
@@ -972,6 +1067,8 @@
               <path d="M22 10v6" />
               <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
             </svg>
+            <a class="cert-thumb" href="assets/images/certificates/myskill-statistics.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate" tabindex="-1" aria-hidden="true"><img src="assets/images/certificates/thumbs/myskill-statistics.jpg" alt="" loading="lazy" width="560" height="314"></a>
+            <div class="cert-body">
             <h4>Statistics</h4>
             <p class="cert-issuer">MySkill</p>
             <p class="cert-date"><time datetime="2025-06-05">5 Jun 2025</time></p>
@@ -979,14 +1076,15 @@
             <a class="btn btn--ghost cert-link" href="assets/images/certificates/myskill-statistics.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
               View Certificate →
             </a>
+          </div>
           </article>
 
         </div>
       </div>
 
       <!-- Group 3: Other Technical Skills -->
-      <div class="cert-group">
-        <h3 class="cert-group__title">Other Technical Skills</h3>
+      <div class="cert-group accent-coral">
+        <header class="cert-group__head"><span class="cert-group__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></span><h3 class="cert-group__title">Other Technical Skills</h3><span class="cert-group__count">01</span></header>
         <div class="certs-grid">
 
           <article class="card card--certification reveal">
@@ -994,12 +1092,15 @@
               <path d="m16 18 6-6-6-6" />
               <path d="m8 6-6 6 6 6" />
             </svg>
+            <a class="cert-thumb" href="assets/images/certificates/dibimbing-frontend-developer.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate" tabindex="-1" aria-hidden="true"><img src="assets/images/certificates/thumbs/dibimbing-frontend-developer.jpg" alt="" loading="lazy" width="560" height="314"></a>
+            <div class="cert-body">
             <h4>DSF 37 – Front End Developer</h4>
             <p class="cert-issuer">Dibimbing.id</p>
             <p class="cert-date placeholder">[Date not shown on certificate]</p>
             <a class="btn btn--ghost cert-link" href="assets/images/certificates/dibimbing-frontend-developer.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
               View Certificate →
             </a>
+          </div>
           </article>
 
         </div>
@@ -1031,7 +1132,7 @@
         <div class="timeline__year-card reveal">
           <h3 class="timeline__year">2023</h3>
           <ol class="timeline__list">
-            <li class="timeline__item">
+            <li data-cat="EDU" class="timeline__item">
               <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" /><path d="M22 10v6" /><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /></svg></span>
               <div class="timeline__content">
                 <p class="timeline__meta"><span class="timeline__date">Aug</span><span class="timeline__category">EDU</span></p>
@@ -1044,7 +1145,7 @@
         <div class="timeline__year-card reveal">
           <h3 class="timeline__year">2024</h3>
           <ol class="timeline__list">
-            <li class="timeline__item">
+            <li data-cat="HONOR" class="timeline__item">
               <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526" /><circle cx="12" cy="8" r="6" /></svg></span>
               <div class="timeline__content">
                 <p class="timeline__meta"><span class="timeline__date">Nov 2</span><span class="timeline__category">HONOR</span></p>
@@ -1057,84 +1158,84 @@
         <div class="timeline__year-card reveal">
           <h3 class="timeline__year">2025</h3>
           <ol class="timeline__list">
-            <li class="timeline__item">
+            <li data-cat="CERT" class="timeline__item">
               <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12h.01" /><path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" /><path d="M22 13a18.15 18.15 0 0 1-20 0" /><rect width="20" height="14" x="2" y="6" rx="2" /></svg></span>
               <div class="timeline__content">
                 <p class="timeline__meta"><span class="timeline__date">16 Mar</span><span class="timeline__category">CERT</span></p>
                 <p class="timeline__label"><strong>Guide to Learn Python with AI</strong> — DQLab</p>
               </div>
             </li>
-            <li class="timeline__item">
+            <li data-cat="CERT" class="timeline__item">
               <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12h.01" /><path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" /><path d="M22 13a18.15 18.15 0 0 1-20 0" /><rect width="20" height="14" x="2" y="6" rx="2" /></svg></span>
               <div class="timeline__content">
                 <p class="timeline__meta"><span class="timeline__date">16 Mar</span><span class="timeline__category">CERT</span></p>
                 <p class="timeline__label"><strong>Introduction to Data Science with Python</strong> — DQLab</p>
               </div>
             </li>
-            <li class="timeline__item">
+            <li data-cat="CERT" class="timeline__item">
               <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12h.01" /><path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" /><path d="M22 13a18.15 18.15 0 0 1-20 0" /><rect width="20" height="14" x="2" y="6" rx="2" /></svg></span>
               <div class="timeline__content">
                 <p class="timeline__meta"><span class="timeline__date">27 Mar</span><span class="timeline__category">CERT</span></p>
                 <p class="timeline__label"><strong>Python Fundamental for Data Science</strong> — DQLab</p>
               </div>
             </li>
-            <li class="timeline__item">
+            <li data-cat="CERT" class="timeline__item">
               <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12h.01" /><path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" /><path d="M22 13a18.15 18.15 0 0 1-20 0" /><rect width="20" height="14" x="2" y="6" rx="2" /></svg></span>
               <div class="timeline__content">
                 <p class="timeline__meta"><span class="timeline__date">28 Mar</span><span class="timeline__category">CERT</span></p>
                 <p class="timeline__label"><strong>Intro to Data Analytics</strong> (Mini Course) — RevoU</p>
               </div>
             </li>
-            <li class="timeline__item">
+            <li data-cat="CERT" class="timeline__item">
               <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12h.01" /><path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" /><path d="M22 13a18.15 18.15 0 0 1-20 0" /><rect width="20" height="14" x="2" y="6" rx="2" /></svg></span>
               <div class="timeline__content">
                 <p class="timeline__meta"><span class="timeline__date">3 Apr</span><span class="timeline__category">CERT</span></p>
                 <p class="timeline__label"><strong>Python for Data Professional Beginner</strong> – Part 1 — DQLab</p>
               </div>
             </li>
-            <li class="timeline__item">
+            <li data-cat="CERT" class="timeline__item">
               <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12h.01" /><path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" /><path d="M22 13a18.15 18.15 0 0 1-20 0" /><rect width="20" height="14" x="2" y="6" rx="2" /></svg></span>
               <div class="timeline__content">
                 <p class="timeline__meta"><span class="timeline__date">7 Apr</span><span class="timeline__category">CERT</span></p>
                 <p class="timeline__label"><strong>Data Analyst</strong> — DSAREA × JOBAREA</p>
               </div>
             </li>
-            <li class="timeline__item timeline__item--elevated">
+            <li data-cat="PROJECT" class="timeline__item timeline__item--elevated">
               <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z" /><path d="M8 10v4" /><path d="M12 10v2" /><path d="M16 10v6" /></svg></span>
               <div class="timeline__content">
                 <p class="timeline__meta"><span class="timeline__date">17 Apr – 15 May</span><span class="timeline__category">PROJECT</span></p>
                 <p class="timeline__label"><strong>Kimia Farma Performance Analytics</strong> — BigQuery + Looker Studio dashboard</p>
               </div>
             </li>
-            <li class="timeline__item">
+            <li data-cat="CERT" class="timeline__item">
               <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12h.01" /><path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" /><path d="M22 13a18.15 18.15 0 0 1-20 0" /><rect width="20" height="14" x="2" y="6" rx="2" /></svg></span>
               <div class="timeline__content">
                 <p class="timeline__meta"><span class="timeline__date">15 May</span><span class="timeline__category">CERT</span></p>
                 <p class="timeline__label"><strong>Kimia Farma Big Data Analytics</strong> — Rakamin Academy Virtual Internship</p>
               </div>
             </li>
-            <li class="timeline__item">
+            <li data-cat="CERT" class="timeline__item">
               <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12h.01" /><path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" /><path d="M22 13a18.15 18.15 0 0 1-20 0" /><rect width="20" height="14" x="2" y="6" rx="2" /></svg></span>
               <div class="timeline__content">
                 <p class="timeline__meta"><span class="timeline__date">5 Jun</span><span class="timeline__category">CERT</span></p>
                 <p class="timeline__label"><strong>Data Analysis Fundamental</strong> — MySkill</p>
               </div>
             </li>
-            <li class="timeline__item">
+            <li data-cat="CERT" class="timeline__item">
               <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12h.01" /><path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" /><path d="M22 13a18.15 18.15 0 0 1-20 0" /><rect width="20" height="14" x="2" y="6" rx="2" /></svg></span>
               <div class="timeline__content">
                 <p class="timeline__meta"><span class="timeline__date">5 Jun</span><span class="timeline__category">CERT</span></p>
                 <p class="timeline__label"><strong>Statistics</strong> — MySkill</p>
               </div>
             </li>
-            <li class="timeline__item timeline__item--elevated">
+            <li data-cat="PROJECT" class="timeline__item timeline__item--elevated">
               <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z" /><path d="M8 10v4" /><path d="M12 10v2" /><path d="M16 10v6" /></svg></span>
               <div class="timeline__content">
                 <p class="timeline__meta"><span class="timeline__date">6 Oct – 3 Nov</span><span class="timeline__category">PROJECT</span></p>
                 <p class="timeline__label"><strong>Bank Muamalat BI Dashboard</strong> — BigQuery + Looker Studio dashboard</p>
               </div>
             </li>
-            <li class="timeline__item">
+            <li data-cat="CERT" class="timeline__item">
               <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12h.01" /><path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" /><path d="M22 13a18.15 18.15 0 0 1-20 0" /><rect width="20" height="14" x="2" y="6" rx="2" /></svg></span>
               <div class="timeline__content">
                 <p class="timeline__meta"><span class="timeline__date">3 Nov</span><span class="timeline__category">CERT</span></p>
@@ -1147,42 +1248,42 @@
         <div class="timeline__year-card reveal">
           <h3 class="timeline__year">2026</h3>
           <ol class="timeline__list">
-            <li class="timeline__item timeline__item--elevated">
+            <li data-cat="PUB" class="timeline__item timeline__item--elevated">
               <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16" /><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" /></svg></span>
               <div class="timeline__content">
                 <p class="timeline__meta"><span class="timeline__date">2026</span><span class="timeline__category">PUB</span></p>
                 <p class="timeline__label"><strong>Unravelling Indonesia's Foreign Aid Interest Towards Fiji</strong> — Journal of Public Power (5th of 7 authors)</p>
               </div>
             </li>
-            <li class="timeline__item timeline__item--elevated timeline__item--lead">
+            <li data-cat="PUB" class="timeline__item timeline__item--elevated timeline__item--lead">
               <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16" /><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" /></svg></span>
               <div class="timeline__content">
                 <p class="timeline__meta"><span class="timeline__date">2026</span><span class="timeline__category">PUB · 1ST AUTHOR</span></p>
                 <p class="timeline__label"><strong>Air Power and Regional Security</strong> — Indonesian Journal of International Relations</p>
               </div>
             </li>
-            <li class="timeline__item timeline__item--elevated">
+            <li data-cat="PUB" class="timeline__item timeline__item--elevated">
               <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16" /><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" /></svg></span>
               <div class="timeline__content">
                 <p class="timeline__meta"><span class="timeline__date">Mar</span><span class="timeline__category">PUB</span></p>
                 <p class="timeline__label"><strong>Indonesia's Transition as an Emerging Donor</strong> — Sosiohumaniora (4th of 7 authors)</p>
               </div>
             </li>
-            <li class="timeline__item timeline__item--elevated">
+            <li data-cat="PUB" class="timeline__item timeline__item--elevated">
               <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16" /><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" /></svg></span>
               <div class="timeline__content">
                 <p class="timeline__meta"><span class="timeline__date">Apr</span><span class="timeline__category">PUB</span></p>
                 <p class="timeline__label"><strong>Revisiting the Developmental State</strong> — Indonesian Journal of Social Research (3rd of 6 authors)</p>
               </div>
             </li>
-            <li class="timeline__item timeline__item--elevated">
+            <li data-cat="PUB" class="timeline__item timeline__item--elevated">
               <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16" /><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" /></svg></span>
               <div class="timeline__content">
                 <p class="timeline__meta"><span class="timeline__date">Jun</span><span class="timeline__category">PUB</span></p>
                 <p class="timeline__label"><strong>Localization of Sexual and Reproductive Health and Rights Norms</strong> — Teunuleh Scientific Journal (3rd of 7 authors)</p>
               </div>
             </li>
-            <li class="timeline__item timeline__item--elevated">
+            <li data-cat="PUB" class="timeline__item timeline__item--elevated">
               <span class="timeline__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16" /><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" /></svg></span>
               <div class="timeline__content">
                 <p class="timeline__meta"><span class="timeline__date">Jul</span><span class="timeline__category">PUB</span></p>
@@ -1203,19 +1304,31 @@
         <h2 id="resume-heading" class="section-title">Resume / CV</h2>
       </div>
 
-      <div class="resume__block reveal">
-        <p class="resume__updated">Last updated: <time datetime="2026-08-13">August 13, 2026</time></p>
-
-        <a class="btn btn--primary" href="assets/documents/Refa_Defanda_Witanto_CV.pdf" download>
-          Download CV (PDF)
-        </a>
+      <div class="resume__layout reveal">
+        <aside class="resume__card">
+          <span class="resume__file-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v4a2 2 0 0 0 2 2h4M8 13h8M8 17h5"/></svg></span>
+          <h3>Refa_Defanda_Witanto_CV.pdf</h3>
+          <p class="resume__about">Covers education, organizational experience, projects, and skills.</p>
+          <dl class="resume__meta">
+            <div><dt>Format</dt><dd>PDF · A4</dd></div>
+            <div><dt>Length</dt><dd>2 pages</dd></div>
+            <div><dt>Updated</dt><dd><time datetime="2026-08-13">Aug 13, 2026</time></dd></div>
+          </dl>
+          <div class="resume__actions">
+            <a class="btn btn--primary" href="assets/documents/Refa_Defanda_Witanto_CV.pdf" download>Download CV (PDF)</a>
+            <a class="btn btn--secondary" href="assets/documents/Refa_Defanda_Witanto_CV.pdf" target="_blank" rel="noopener noreferrer">Open in new tab</a>
+          </div>
+        </aside>
 
         <div class="resume__preview">
-          <iframe
-            src="assets/documents/Refa_Defanda_Witanto_CV.pdf"
-            title="Refa Defanda Witanto — CV preview"
-            loading="lazy"
-            height="600"></iframe>
+          <div class="resume__window">
+            <div class="resume__window-bar" aria-hidden="true"><span></span><span></span><span></span><em>Refa_Defanda_Witanto_CV.pdf</em></div>
+            <iframe
+              src="assets/documents/Refa_Defanda_Witanto_CV.pdf#toolbar=0&amp;navpanes=0&amp;view=FitH"
+              title="Refa Defanda Witanto — CV preview"
+              loading="lazy"
+              height="640"></iframe>
+          </div>
           <p class="resume__preview-fallback">
             Preview not loading? <a href="assets/documents/Refa_Defanda_Witanto_CV.pdf">Open the CV directly</a>.
           </p>
@@ -1241,121 +1354,19 @@
 
       <div class="contact__grid reveal">
         <div class="contact__info">
-          <p class="contact__row">
-            <span class="contact__label">Email</span>
-            <a href="mailto:refadfnda@gmail.com">refadfnda@gmail.com</a>
-          </p>
-          <p class="contact__row">
-            <span class="contact__label">Phone / WhatsApp</span>
-            <a href="https://wa.me/6281336023700" target="_blank" rel="noopener noreferrer">+62 813-3602-3700</a>
-          </p>
-          <p class="contact__row">
-            <span class="contact__label">Location</span>
-            <span>Malang, East Java, Indonesia</span>
-          </p>
-        </div>
-
-        <div class="contact__platforms">
-          <a class="btn btn--secondary" href="https://www.linkedin.com/in/refa-defanda/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a class="btn btn--secondary" href="https://wa.me/6281336023700" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-          <a class="btn btn--primary" href="mailto:refadfnda@gmail.com">Email me</a>
-
-          <ul class="contact__tags" aria-label="Currently open to">
-            <li class="chip">Data Analyst Roles</li>
-            <li class="chip">Business Analyst Roles</li>
-            <li class="chip">Research &amp; Data Roles</li>
-            <li class="chip">Digital &amp; Business Internships</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ==================================================================
-       FOOTER
-       ================================================================== -->
-  <footer class="site-footer">
-    <div class="footer__top">
-      <p class="footer__wordmark">Refa Defanda Witanto</p>
-      <p class="footer__tagline">International Relations student building a second track in data &amp; business analytics.</p>
-    </div>
-
-    <nav class="footer__nav" aria-label="Footer">
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#research">Research</a></li>
-        <li><a href="#certifications">Certifications</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-
-    <div class="footer__social" role="group" aria-label="Social links">
-      <a href="https://www.linkedin.com/in/refa-defanda/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <a href="https://wa.me/6281336023700" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-      <a href="mailto:refadfnda@gmail.com">Email</a>
-    </div>
-
-    <p class="footer__copyright">© 2026 Refa Defanda Witanto. All rights reserved.</p>
-  </footer>
-
-  <!-- ==================================================================
-       LIGHTBOX — reused for both certificate and project screenshots.
-       Populated per-click by assets/js/modal.js; see index.html's
-       data-modal="certificate" / data-modal="project" triggers above.
-       ================================================================== -->
-  <div class="modal" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-caption" aria-hidden="true" inert>
-    <div class="modal__dialog">
-      <button type="button" class="modal__close" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <!-- src is a 1x1 transparent placeholder (standard technique for JS-populated
-           images) — modal.js always overwrites it with the real image before the
-           dialog becomes visible. -->
-      <img class="modal__image" id="lightbox-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="">
-      <p class="modal__caption" id="lightbox-caption"></p>
-    </div>
-  </div>
-
-  <!-- ==================================================================
-       COMMAND PALETTE — Ctrl/Cmd+K jump-to menu. Item list is built at
-       runtime by assets/js/command-palette.js from this page's own
-       section headings, not hardcoded here.
-       ================================================================== -->
-  <div class="modal modal--top" id="command-palette" role="dialog" aria-modal="true" aria-label="Jump to a section" aria-hidden="true" inert>
-    <div class="modal__dialog cmdk__dialog">
-      <div class="cmdk__search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <input type="text" id="cmdk-input" class="cmdk__input" placeholder="Search or jump to…" role="combobox" aria-expanded="true" aria-controls="cmdk-list" aria-autocomplete="list" autocomplete="off" spellcheck="false">
-        <button type="button" class="modal__close cmdk__close" aria-label="Close">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-        </button>
-      </div>
-      <ul class="cmdk__list" id="cmdk-list" role="listbox" aria-label="Results"></ul>
-      <p class="cmdk__empty" id="cmdk-empty" hidden>No results.</p>
-      <div class="cmdk__footer" aria-hidden="true">
-        <span><kbd>↑</kbd><kbd>↓</kbd> Navigate</span>
-        <span><kbd>↵</kbd> Open</span>
-      </div>
-    </div>
-  </div>
-
-  <script defer src="assets/js/nav.js"></script>
-  <script defer src="assets/js/reveal.js"></script>
-  <script defer src="assets/js/modal.js"></script>
-  <script defer src="assets/js/stat-count.js"></script>
-  <script defer src="assets/js/marquee.js"></script>
-  <script defer src="assets/js/command-palette.js"></script>
-  <script defer src="assets/js/publications-filter.js"></script>
-  <script defer src="assets/js/scroll-progress.js"></script>
-  <script defer src="assets/js/media-tabs.js"></script>
-  <script defer src="assets/js/main.js"></script>
-
-  <!-- Analytics — GoatCounter (free for non-commercial sites, no cookies,
-       ~3.5KB, no GDPR banner needed). Site code: refadfnda. -->
-  <script data-goatcounter="https://refadfnda.goatcounter.com/count"
-          async src="//gc.zgo.at/count.js"></script>
-
-</body>
-</html>
+          <div class="contact__row accent-red">
+            <span class="contact__icon"><svg class="brand " viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg></span>
+            <div class="contact__body">
+              <span class="contact__label">Email</span>
+              <div class="contact__value"><a href="mailto:refadfnda@gmail.com">refadfnda@gmail.com</a></div>
+            </div>
+          </div>
+          <div class="contact__row accent-green">
+            <span class="contact__icon"><svg class="brand " viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></span>
+            <div class="contact__body">
+              <span class="contact__label">Phone / WhatsApp</span>
+              <div class="contact__value"><a href="https://wa.me/6281336023700" target="_blank" rel="noopener noreferrer">+62 813-3602-3700</a></div>
+            </div>
+          </div>
+          <div class="contact__row accent-violet">
+            <s

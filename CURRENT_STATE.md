@@ -447,3 +447,36 @@ Found while reading the two final-task decks against what the cards say. Status 
 4. **Decide on the dashboards:** keep the original screenshots with the correction notes, or rebuild v2 (BigQuery + Looker Studio, with Extract Data so it survives BigQuery's 60-day sandbox expiry). Rebuilding is postponed for now.
 5. **Commit and push** everything from the Sep 2026 rounds (feature round, GoatCounter code, corrected homepage cards, case-study pages), then check the live site and the first GoatCounter pageview.
 6. Optional, unchanged: self-host fonts; a real Lighthouse pull on the live site.
+
+## Motion & UX round (Oct 2, 2026)
+- New files: `assets/css/motion.css`, `assets/js/motion.js` (init via `initMotion` in main.js; linked in index.html). Existing files otherwise untouched.
+- Added: lightbox grows from the clicked card/screenshot and shrinks back on close; click-to-zoom in lightbox; button ripple + press state; cursor spotlight on project/cert cards; heading underline sweep after anchor jumps; copy-email button + toast; back-to-top; mobile Resume/Contact bar (<768px).
+- Verified in headless Chromium (desktop 1440, mobile 390). Not yet committed/pushed.
+
+## Skills & Projects redesign (Oct 2, 2026)
+- New file `assets/css/redesign.css` (linked after motion.css). `index.html`: Skills and both project articles restructured; tabs, SQL panel, lightbox triggers and all text/figures preserved.
+- Skills: 2x2 grid (1 col on mobile), one accent per category (blue/teal/violet/coral), all chips left-aligned and nowrap, per-card "proof" block that links to the real evidence (2 projects, 1 certificate, 5 certificates, 6 publications).
+- Projects: header band + media/KPI/visual split + three story blocks (Context, My contribution, Key insight) + footer with tools and GitHub link. Kimia Farma = teal (29.5% Jawa Barat ring, 4-dataset -> table -> dashboard flow); BMI = violet (top categories/city picks, same flow).
+- Data-viz palette tokens added: `--viz-teal/violet/coral` (+ -deep, -tint). Gold unchanged.
+- Verified in headless Chromium at 1440 / 820 / 390. Not yet committed/pushed.
+
+## About / Expertise / Education redesign (Oct 2, 2026)
+- `index.html` (About, Expertise, Education markup) + `assets/css/redesign.css` (appended). All original text kept; the old About credentials line is now the snapshot cards + location.
+- About: text + 4 colored snapshot cards (all facts from existing copy). Expertise: 5 colored cards (6-col grid, row 2 fills fully) with tag chips taken from the Skills lists. Education: degree card with semester track (7 of 8 — the 8 is derived from Aug 2023–Aug 2027), GPA ring (3.53/4.00), standing tile, gold honors note.
+- New token: `--viz-green` (+deep/tint) for the 5th expertise card.
+- OPEN: Universitas Brawijaya logo — Refa must supply an SVG/PNG. Placeholder is a graduation-cap icon; swap instructions are in an HTML comment inside `.edu-main__head`.
+- Verified in headless Chromium at 1440 / 820 / 390. Not yet committed/pushed.
+
+## Timeline / Resume / Contact redesign (Oct 2, 2026)
+- `index.html` (3 sections), `assets/css/redesign.css` (appended), `assets/css/motion.css` (copy button shrunk: it was stretching full-width inside the old column-flex contact row; now 28px tall on mouse, 44px on touch).
+- Timeline: sticky year rail + colour-coded cards (EDU blue, HONOR gold, CERT teal, PROJECT violet, PUB coral, lead-author PUB gold) via `data-cat` on each `<li>`; 2-column grid on >=700px. All 20 entries unchanged.
+- Resume: info card (file name, PDF·A4, 2 pages, updated date, Download + Open in new tab) next to a framed preview; preview URL now has `#toolbar=0&navpanes=0&view=FitH` to hide the browser PDF toolbar/sidebar (Chrome/Edge; other browsers may ignore it). Not verifiable in headless Chromium (no PDF viewer) — Refa to check in a real browser.
+- Contact: info rows as cards with Gmail/WhatsApp/location icon tiles, buttons with LinkedIn/WhatsApp/Gmail icons (paths from simple-icons 13.21.0, CC0), colour dots on the "open to" chips. New tokens `--viz-red`.
+- Resume "last updated Aug 13, 2026" and the CV PDF itself are still outdated (5 papers, old figures) — Refa must re-export.
+
+## Timeline fix + Certifications + Publications (Oct 2, 2026)
+- Timeline bug: 2023 card was 16px out of line with later years. Cause: the reset rule `.timeline__year-card + .timeline__year-card` used `gap`, which beat the desktop `column-gap` for every year except the first. Now `row-gap` in the base rule; verified all four years start at the same x.
+- Certifications: summary tiles (11 certificates, 6 platforms, 2 virtual internships), colour-coded groups with count badges (internships violet, courses teal, other coral), and a real thumbnail of each certificate (new `assets/images/certificates/thumbs/`, 560px, ~326 KB total, lazy-loaded). Clicking the thumbnail or the link opens the existing lightbox.
+- Publications: snapshot tiles (6 papers / 1st author / 3+3 SINTA split / 2–7 authors per paper), tier-coloured left borders, and an author-position dot strip on each card (text kept for screen readers). Filter still works (verified).
+- Snapshot numbers all derive from the existing cards; "all published in 2026" and "2–7 authors" are read from the card text.
+- Layout gotcha: elements that are direct children of a `<section>` must not reset `margin-inline`/`padding-inline` (the container rule lives there) — use `margin-block`.
