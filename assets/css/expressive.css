@@ -1,0 +1,58 @@
+/* ==========================================================================
+   expressive.css — styles for expressive.js (loaded after redesign.css)
+   Everything that hides content is gated behind `.xp`, which the script adds
+   only when it is running and motion is allowed.
+   ========================================================================== */
+
+/* ---- Heading word reveal ---- */
+.split-word { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.14em; margin-bottom: -0.14em; }
+.split-inner { display: inline-block; }
+.xp .split-inner {
+  transform: translateY(108%) rotate(4deg); transform-origin: 0 100%;
+  transition: transform 900ms var(--ease-out); transition-delay: calc(var(--i) * 110ms + 120ms);
+}
+.xp .hero__name.is-split { animation: none; opacity: 1; } /* the word reveal replaces the plain fade-up */
+.xp .hero__name.is-split-in .split-inner { transform: none; }
+.xp .section-heading.is-visible .section-title .split-inner { transform: none; transition-delay: calc(var(--i) * 80ms + 160ms); }
+
+/* ---- Staggered entrances (animation, so existing hover transitions are untouched) ---- */
+@keyframes xpIn { from { opacity: 0; translate: 0 16px; scale: 0.96; } to { opacity: 1; translate: 0 0; scale: 1; } }
+.xp [data-in]:not(.in-view) { opacity: 0; }
+.xp [data-in].in-view { animation: xpIn 650ms var(--ease-out) both; animation-delay: var(--d, 0ms); }
+.xp .pub-snapshot__bar i[data-in].in-view { animation-name: xpGrow; transform-origin: left; }
+@keyframes xpGrow { from { opacity: 0; scale: 0 1; } to { opacity: 1; scale: 1 1; } }
+.xp .viz-node[data-in].in-view::after { animation: xpLine 700ms var(--ease-out) both; animation-delay: calc(var(--d, 0ms) + 250ms); transform-origin: top; }
+@keyframes xpLine { from { scale: 1 0; } to { scale: 1 1; } }
+
+/* ---- Figures use even-width digits while counting ---- */
+.project__stats .stat-value, .cert-summary__num, .pub-snapshot__num, .skill-group__count { font-variant-numeric: tabular-nums; }
+
+/* ---- Icon badges pop on card hover ---- */
+@keyframes xpIconPop { 40% { scale: 1.18; rotate: -8deg; } 70% { scale: 0.96; rotate: 3deg; } }
+@media (hover: hover) {
+  .card--expertise:hover .icon-badge, .skill-group:hover .icon-badge, .snap:hover .snap__icon { animation: xpIconPop 650ms var(--ease-out); }
+}
+
+/* ---- Hero: accent shape drifts opposite to the cursor ---- */
+.xp .hero__photo-frame::before { translate: calc(var(--px, 0) * -18px) calc(var(--py, 0) * -18px); transition: translate 400ms var(--ease-out); }
+
+/* The track has the section container's inline padding, so the spine's `left` must add it —
+   the dots are positioned inside the year cards (which start after that padding). */
+/* ---- Timeline spine (wide screens only; the year rail already structures the list on small ones) ---- */
+.timeline__track { position: relative; }
+.timeline__spine, .timeline__dot { display: none; }
+@media (min-width: 1000px) {
+  .timeline__spine { display: block; position: absolute; left: calc(var(--container-pad) + 165px); top: 8px; bottom: 8px; width: 2px; border-radius: 2px; background: var(--color-border); }
+  .timeline__spine i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(var(--color-primary), var(--viz-teal)); transform-origin: top; transform: scaleY(var(--p, 0)); transition: transform 120ms linear; }
+  .timeline__year-card { position: relative; }
+  .timeline__dot {
+    display: block; position: absolute; left: 158px; top: 14px; width: 16px; height: 16px; border-radius: 50%; z-index: 1;
+    background: var(--color-surface); border: 3px solid var(--color-border-interactive);
+    transition: background 350ms var(--ease-out), border-color 350ms var(--ease-out), box-shadow 350ms var(--ease-out), scale 350ms var(--ease-out);
+  }
+  .timeline__dot.is-passed { background: var(--color-primary); border-color: var(--color-primary); box-shadow: 0 0 0 5px var(--color-primary-tint); scale: 1.15; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xp .split-inner, .timeline__dot { transition: none; }
+}

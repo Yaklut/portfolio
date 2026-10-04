@@ -512,3 +512,17 @@ Found while reading the two final-task decks against what the cards say. Status 
 - UB logo wired in: Refa had added `assets/images/profile/ub-logo.svg` (2.7 MB, ~9,300 traced paths — too heavy for a 64px badge), so a 160px transparent PNG (`ub-logo.png`, 48 KB) is used instead. The original SVG is untouched and can be deleted from the repo to save space.
 - Project buttons: GitHub mark (simple-icons, CC0) added before "View on GitHub →" on both project cards.
 - Dead CSS removed: `.edu-milestones*`, `.edu-tile__big`, `.edu-tile__icon`. Verified at 1440 / 760 / 390 in headless Chromium, no overflow, no JS errors.
+
+## Expressive animation round (Oct 4, 2026) — built on a freshly downloaded repo
+Refa's choices: all sections, all four animation types, intensity "expressive but tidy".
+- New files: `assets/css/expressive.css`, `assets/js/expressive.js` (linked in index.html after redesign.css / motion.js; self-initialising, does not touch main.js). Content is only hidden once the script adds `html.xp`, so a failed script never hides anything; the whole layer is skipped for `prefers-reduced-motion`, and cursor effects are skipped on touch devices.
+- Headings: hero name and every section title rise word-by-word out of a mask (aria-label keeps the full text for screen readers).
+- Cursor: cards (Expertise, Skills, snapshot tiles, certificates, Education tiles) and the hero photo tilt toward the pointer (CSS `rotate`, perspective on the parent); hero/contact/resume buttons and project links are magnetic (CSS `translate`); the accent shape behind the hero photo drifts against the cursor.
+- Scroll-linked: timeline spine fills as you scroll and the year dots light up (>=1000px only).
+- Data: KPI numbers, certificate/publication summaries and the "07 skills" counters count up on reveal and always end on the exact original text; publication bar segments grow; flow lines draw; chips, story blocks, logos and author dots enter in a stagger (CSS animations, so existing hover transitions are untouched).
+- Verified in headless Chromium: desktop 1440 (every effect), reduced-motion context (no `xp`, nothing hidden, spine static), mobile touch 390 (no overflow, no tilt, everything revealed). No console errors.
+
+## Timeline spine fix (Oct 4, 2026)
+- Bug: the spine was positioned from the track's border edge, but the track carries the section container's inline padding (50–64 px), so the line sat 50–64 px left of the dots and cut through the year numbers. `expressive.css` now uses `left: calc(var(--container-pad) + 165px)`; spine x equals dot x at 1000/1100/1440/1920 px and clears the year text.
+- Also: the spine now reaches exactly 100% when the bottom of the timeline reaches the bottom of the screen (before, it stopped around 78%).
+- NOTE: `expressive.css` / `expressive.js` were not yet on GitHub main when this was checked (they exist only in Refa's local copy), so they must be committed together with the index.html link tags.
