@@ -116,48 +116,64 @@
 
         <div class="cs-prose reveal">
           <h3>The SQL</h3>
-          <p>The queries behind the analysis. Project and dataset names replaced with placeholders; comments translated to English.</p>
+          <p>The queries behind the analysis, as written in the script. Only the project and dataset names are replaced with placeholders.</p>
         </div>
           <div class="cs-sql reveal">
             <p class="cs-sql__label">Validate keys and relationships</p>
-            <pre class="sql-code" tabindex="0" aria-label="Validate keys and relationships"><code><span class="sql-c">-- Q1. Primary key check.   Expected: total_rows = distinct_keys and null_keys = 0</span>
-<span class="sql-k">SELECT</span> 'customers' <span class="sql-k">AS</span> tabel, 'CustomerID' <span class="sql-k">AS</span> pk,
+            <pre class="sql-code" tabindex="0" aria-label="Validate keys and relationships"><code><span class="sql-c">-- A. Primary key validation</span>
+<span class="sql-c">-- Expected: total_rows = distinct_keys and null_keys = 0</span>
+
+<span class="sql-k">SELECT</span> 'customers' <span class="sql-k">AS</span> table_name, 'CustomerID' <span class="sql-k">AS</span> pk,
        <span class="sql-k">COUNT</span>(*) <span class="sql-k">AS</span> total_rows,
        <span class="sql-k">COUNT</span>(<span class="sql-k">DISTINCT</span> CustomerID) <span class="sql-k">AS</span> distinct_keys,
        <span class="sql-k">COUNTIF</span>(CustomerID <span class="sql-k">IS NULL</span>) <span class="sql-k">AS</span> null_keys
 <span class="sql-k">FROM</span> `project_id.dataset.customers`
 <span class="sql-k">UNION ALL</span>
+<span class="sql-k">SELECT</span> 'products', 'ProdNumber',
+       <span class="sql-k">COUNT</span>(*), <span class="sql-k">COUNT</span>(<span class="sql-k">DISTINCT</span> ProdNumber), <span class="sql-k">COUNTIF</span>(ProdNumber <span class="sql-k">IS NULL</span>)
+<span class="sql-k">FROM</span> `project_id.dataset.products`
+<span class="sql-k">UNION ALL</span>
 <span class="sql-k">SELECT</span> 'orders', 'OrderID',
        <span class="sql-k">COUNT</span>(*), <span class="sql-k">COUNT</span>(<span class="sql-k">DISTINCT</span> OrderID), <span class="sql-k">COUNTIF</span>(OrderID <span class="sql-k">IS NULL</span>)
-<span class="sql-k">FROM</span> `project_id.dataset.orders`;
-<span class="sql-c">-- (same pattern for products and product_category)</span>
+<span class="sql-k">FROM</span> `project_id.dataset.orders`
+<span class="sql-k">UNION ALL</span>
+<span class="sql-k">SELECT</span> 'product_category', 'CategoryID',
+       <span class="sql-k">COUNT</span>(*), <span class="sql-k">COUNT</span>(<span class="sql-k">DISTINCT</span> CategoryID), <span class="sql-k">COUNTIF</span>(CategoryID <span class="sql-k">IS NULL</span>)
+<span class="sql-k">FROM</span> `project_id.dataset.product_category`;
 
-<span class="sql-c">-- Q2. Orphan keys.   Expected: 0 in all three</span>
+<span class="sql-c">-- B. Relationship validation (orphan key check)</span>
+<span class="sql-c">-- Expected: all counts = 0</span>
+
 <span class="sql-k">SELECT</span>
   (<span class="sql-k">SELECT</span> <span class="sql-k">COUNT</span>(*) <span class="sql-k">FROM</span> `project_id.dataset.orders` o
     <span class="sql-k">LEFT JOIN</span> `project_id.dataset.customers` c <span class="sql-k">ON</span> o.CustomerID = c.CustomerID
-    <span class="sql-k">WHERE</span> c.CustomerID <span class="sql-k">IS NULL</span>) <span class="sql-k">AS</span> orders_tanpa_customer,
+    <span class="sql-k">WHERE</span> c.CustomerID <span class="sql-k">IS NULL</span>) <span class="sql-k">AS</span> orders_without_customer,
   (<span class="sql-k">SELECT</span> <span class="sql-k">COUNT</span>(*) <span class="sql-k">FROM</span> `project_id.dataset.orders` o
     <span class="sql-k">LEFT JOIN</span> `project_id.dataset.products` p <span class="sql-k">ON</span> o.ProdNumber = p.ProdNumber
-    <span class="sql-k">WHERE</span> p.ProdNumber <span class="sql-k">IS NULL</span>) <span class="sql-k">AS</span> orders_tanpa_product,
+    <span class="sql-k">WHERE</span> p.ProdNumber <span class="sql-k">IS NULL</span>) <span class="sql-k">AS</span> orders_without_product,
   (<span class="sql-k">SELECT</span> <span class="sql-k">COUNT</span>(*) <span class="sql-k">FROM</span> `project_id.dataset.products` p
     <span class="sql-k">LEFT JOIN</span> `project_id.dataset.product_category` pc <span class="sql-k">ON</span> CAST(p.Category <span class="sql-k">AS</span> INT64) = pc.CategoryID
-    <span class="sql-k">WHERE</span> pc.CategoryID <span class="sql-k">IS NULL</span>) <span class="sql-k">AS</span> products_tanpa_category;</code></pre>
-            <p class="cs-sql__caption">From <span class="cs-code">sejahtera_bersama.sql</span>. Shortened: the key check is shown for two of the four tables.</p>
+    <span class="sql-k">WHERE</span> pc.CategoryID <span class="sql-k">IS NULL</span>) <span class="sql-k">AS</span> products_without_category;</code></pre>
+            <p class="cs-sql__caption">Sections A and B of <span class="cs-code">SQLQuery.sql</span>. The expected values are the ones the script checks against.</p>
           </div>
           <div class="cs-sql reveal">
             <p class="cs-sql__label">Build the master table</p>
-            <pre class="sql-code" tabindex="0" aria-label="Build the master table"><code><span class="sql-c">-- master_table: one row per order, joined to product, category and customer</span>
+            <pre class="sql-code" tabindex="0" aria-label="Build the master table"><code><span class="sql-c">-- MASTER TABLE</span>
+<span class="sql-c">-- Notes:</span>
+<span class="sql-c">--  * CustomerEmail in the raw data looks like 'abc@x.com#mailto:abc@x.com#',</span>
+<span class="sql-c">--    so it is cleaned with SPLIT(CustomerEmail, '#')[OFFSET(0)].</span>
+<span class="sql-c">--  * products was loaded with all columns as STRING (decimal comma in the source</span>
+<span class="sql-c">--    CSV), so Price is converted with CAST(REPLACE(Price, ',', '.') AS FLOAT64)</span>
+<span class="sql-c">--    and Category with CAST(Category AS INT64).</span>
+
 <span class="sql-k">CREATE OR REPLACE TABLE</span> `project_id.dataset.master_table` <span class="sql-k">AS</span>
 <span class="sql-k">SELECT</span>
   CAST(o.Date <span class="sql-k">AS</span> DATE)                        <span class="sql-k">AS</span> order_date,
   pc.CategoryName                             <span class="sql-k">AS</span> category_name,
   p.ProdName                                  <span class="sql-k">AS</span> product_name,
-  <span class="sql-c">-- Price was uploaded as text with a decimal comma (9,99)</span>
-  CAST(REPLACE(p.Price, ',', '.') <span class="sql-k">AS</span> FLOAT64) <span class="sql-k">AS</span> product_price,
+  CAST(REPLACE(p.Price, ',', '.') <span class="sql-k">AS</span> FLOAT64)  <span class="sql-k">AS</span> product_price,
   o.Quantity                                  <span class="sql-k">AS</span> order_qty,
-  <span class="sql-k">ROUND</span>(o.Quantity * CAST(REPLACE(p.Price, ',', '.') <span class="sql-k">AS</span> FLOAT64), 2) <span class="sql-k">AS</span> total_sales,
-  <span class="sql-c">-- raw emails look like 'abc@x.com#mailto:abc@x.com#'</span>
+  <span class="sql-k">ROUND</span>(o.Quantity * CAST(REPLACE(p.Price, ',', '.') <span class="sql-k">AS</span> FLOAT64), 2)  <span class="sql-k">AS</span> total_sales,
   SPLIT(c.CustomerEmail, '#')[OFFSET(0)]      <span class="sql-k">AS</span> cust_email,
   c.CustomerCity                              <span class="sql-k">AS</span> cust_city
 <span class="sql-k">FROM</span> `project_id.dataset.orders` o
@@ -169,16 +185,18 @@
   <span class="sql-k">ON</span> o.CustomerID = c.CustomerID
 <span class="sql-k">ORDER BY</span> order_date, o.OrderID;
 
-<span class="sql-c">-- Validation.   Expected: 3339 rows, total_sales ~ 1754750.57, total_qty 11654</span>
-<span class="sql-k">SELECT</span> <span class="sql-k">COUNT</span>(*)         <span class="sql-k">AS</span> jumlah_baris,
+<span class="sql-c">-- Validation (expected: 3,339 rows, total_sales ~ 1,754,750.57, total_qty 11,654)</span>
+<span class="sql-k">SELECT</span> <span class="sql-k">COUNT</span>(*)         <span class="sql-k">AS</span> row_count,
        <span class="sql-k">SUM</span>(total_sales) <span class="sql-k">AS</span> total_sales,
-       <span class="sql-k">SUM</span>(order_qty)   <span class="sql-k">AS</span> total_qty
+       <span class="sql-k">SUM</span>(order_qty)   <span class="sql-k">AS</span> total_qty,
+       MIN(order_date)  <span class="sql-k">AS</span> start_date,
+       MAX(order_date)  <span class="sql-k">AS</span> end_date
 <span class="sql-k">FROM</span> `project_id.dataset.master_table`;</code></pre>
-            <p class="cs-sql__caption">The validation figures were checked against the source data.</p>
+            <p class="cs-sql__caption">The master table query and its validation, from <span class="cs-code">SQLQuery.sql</span>.</p>
           </div>
           <div class="cs-sql reveal">
             <p class="cs-sql__label">Growth by category, 2020 vs 2021</p>
-            <pre class="sql-code" tabindex="0" aria-label="Growth by category, 2020 vs 2021"><code><span class="sql-c">-- Sales and quantity per category, 2020 vs 2021</span>
+            <pre class="sql-code" tabindex="0" aria-label="Growth by category, 2020 vs 2021"><code><span class="sql-c">-- E1. Sales and quantity growth by category, 2020 vs 2021</span>
 <span class="sql-k">SELECT</span> category_name,
        <span class="sql-k">SUM</span>(<span class="sql-k">IF</span>(EXTRACT(YEAR <span class="sql-k">FROM</span> order_date) = 2020, total_sales, 0)) <span class="sql-k">AS</span> sales_2020,
        <span class="sql-k">SUM</span>(<span class="sql-k">IF</span>(EXTRACT(YEAR <span class="sql-k">FROM</span> order_date) = 2021, total_sales, 0)) <span class="sql-k">AS</span> sales_2021,
@@ -189,7 +207,7 @@
 <span class="sql-k">FROM</span> `project_id.dataset.master_table`
 <span class="sql-k">GROUP BY</span> category_name
 <span class="sql-k">ORDER BY</span> sales_2020 DESC;</code></pre>
-            <p class="cs-sql__caption">One of the queries behind the recommendations. It shows which categories moved between years.</p>
+            <p class="cs-sql__caption">Query E1, one of the queries behind the recommendations.</p>
           </div>
       </div>
     </section>
@@ -206,7 +224,7 @@
           <div class="stat"><dt class="stat-label">Units sold</dt><dd class="stat-value">11,654</dd></div>
           <div class="stat"><dt class="stat-label">Customers</dt><dd class="stat-value">1,671</dd></div>
         </dl>
-        <p class="cs-note reveal">Recomputed directly from the raw workbook in September 2026. The dataset has no currency field, and customer addresses are in the United States, so values are shown in dollars.</p>
+        <p class="cs-note reveal">Recomputed directly from the raw workbook in September 2026. The dataset has no currency field, and customer addresses are in the United States, so the rebuilt dashboard labels values in dollars.</p>
         <div class="card cs-chart reveal">
           <h3>Sales versus volume, by product category</h3>
           <p class="cs-chart__sub">Share of total sales · share of total units sold</p>
@@ -282,7 +300,7 @@
           <li class="card reveal"><span class="cs-tag">Recommendation 1</span><h3>Recover Robots and position it as premium</h3><p>Robots bring in 42.4% of sales, yet fell 15.4% from 2020 to 2021 and account for about 87% of the total decline. Three products make up 54% of Robots sales: MICR-23K, RWW-75 and RLK-9920. Prioritise them with premium positioning and campaigns, and investigate why Robots dropped in 2021.</p><p class="cs-evidence">Robots 402,835 → 340,670</p></li>
           <li class="card reveal"><span class="cs-tag">Recommendation 2</span><h3>Forecast demand for Robots and Drones</h3><p>Robots sales swing about fivefold within a year, from 43,854 in June 2021 to 8,793 in October 2021. Monthly demand forecasting for the high-volume physical products helps avoid stock-outs at the peak and overstock in quiet months. eBooks, Training Videos and Blueprints are assumed to be digital and need no stock planning.</p><p class="cs-evidence">Best month 95,402 · weakest 52,348</p></li>
           <li class="card reveal"><span class="cs-tag">Recommendation 3</span><h3>Cross-sell from cheap to high-value products</h3><p>eBooks, Training Videos and Blueprints are 59% of units but 8.9% of sales, and 40.5% of customers bought only from these three. Build an upgrade path from Blueprints to Robot Kits and Drone Kits, then to Robots and Drones, with bundles such as a Drone Kit plus an eBook.</p><p class="cs-evidence">Only 32.5% of customers ever bought Robots or Drones</p></li>
-          <li class="card reveal"><span class="cs-tag">Recommendation 4</span><h3>Retain declining cities, focus on the core</h3><p>Washington, the top city, fell 37% in 2021. Birmingham dropped about 95% and Sacramento about 69%. With 361 cities and the top ten at only 17% of sales, run retention programs in the declining cities and focus marketing on the core instead of spreading it across hundreds of small cities.</p><p class="cs-evidence">Washington 33,988 → 21,394</p></li>
+          <li class="card reveal"><span class="cs-tag">Recommendation 4</span><h3>Retain declining cities, focus on the core</h3><p>Washington, the top city, fell 37% in 2021. Birmingham dropped about 95% and Sacramento about 69%. With 361 cities and the top ten at only 17% of sales, run retention programs in the declining cities and focus marketing on the core states (California, Texas and Florida) instead of spreading it across hundreds of small cities.</p><p class="cs-evidence">Washington 33,988 → 21,394</p></li>
           <li class="card reveal"><span class="cs-tag">Recommendation 5</span><h3>Activate passive customers, reward the best</h3><p>452 of 2,123 customers (21%) have never ordered. Of the 1,671 active ones, 59% have reordered and the top 10% generate 40% of sales. Send a first-purchase voucher to the passive group, add a VIP program for top customers, and push one-time buyers toward a second order.</p><p class="cs-evidence">Top 10% of customers · 40% of sales</p></li>
         </ul>
         <p class="cs-note reveal">Limits: the data covers only two years and has no cost or margin, so every recommendation is based on sales and quantity, not profitability. The digital-product status of eBooks, Training Videos and Blueprints is an assumption based on the product type.</p>
@@ -311,7 +329,7 @@
         <div class="cs-actions reveal">
           <a class="btn btn--secondary" href="https://github.com/Yaklut/BMI-Sales-Performance-Dashboard" target="_blank" rel="noopener noreferrer">View on GitHub →</a>
           <!-- REVIEW: both links below come from the final-task deck; confirm you want them public. -->
-          <a class="btn btn--ghost" href="https://github.com/Yaklut/BMI-Sales-Performance-Dashboard/blob/main/sejahtera_bersama.sql" target="_blank" rel="noopener noreferrer">SQL query →</a>
+          <a class="btn btn--ghost" href="https://github.com/Yaklut/BMI-Sales-Performance-Dashboard/blob/main/sql/SQLQuery.sql" target="_blank" rel="noopener noreferrer">SQL query →</a>
           <a class="btn btn--ghost" href="https://youtu.be/mrnS1N15mgA" target="_blank" rel="noopener noreferrer">Watch the presentation →</a>
         </div>
         <div class="cs-pager reveal">

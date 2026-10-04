@@ -658,18 +658,23 @@
               </button>
             </div>
 
-            <div class="media-tabs__panel media-tabs__panel--code" role="tabpanel" id="bmi-panel-sql" aria-labelledby="bmi-tab-sql" data-caption="Master table query from sejahtera_bersama.sql (English comments)" hidden>
-              <pre class="sql-code" tabindex="0" aria-label="SQL used to build the Bank Muamalat master table"><code><span class="sql-c">-- master_table: one row per order, joined to product, category and customer</span>
+            <div class="media-tabs__panel media-tabs__panel--code" role="tabpanel" id="bmi-panel-sql" aria-labelledby="bmi-tab-sql" data-caption="Master table query from SQLQuery.sql (placeholder project names)" hidden>
+              <pre class="sql-code" tabindex="0" aria-label="SQL used to build the Bank Muamalat master table"><code><span class="sql-c">-- MASTER TABLE</span>
+<span class="sql-c">-- Notes:</span>
+<span class="sql-c">--  * CustomerEmail in the raw data looks like 'abc@x.com#mailto:abc@x.com#',</span>
+<span class="sql-c">--    so it is cleaned with SPLIT(CustomerEmail, '#')[OFFSET(0)].</span>
+<span class="sql-c">--  * products was loaded with all columns as STRING (decimal comma in the source</span>
+<span class="sql-c">--    CSV), so Price is converted with CAST(REPLACE(Price, ',', '.') AS FLOAT64)</span>
+<span class="sql-c">--    and Category with CAST(Category AS INT64).</span>
+
 <span class="sql-k">CREATE OR REPLACE TABLE</span> `project_id.dataset.master_table` <span class="sql-k">AS</span>
 <span class="sql-k">SELECT</span>
   CAST(o.Date <span class="sql-k">AS</span> DATE)                        <span class="sql-k">AS</span> order_date,
   pc.CategoryName                             <span class="sql-k">AS</span> category_name,
   p.ProdName                                  <span class="sql-k">AS</span> product_name,
-  <span class="sql-c">-- Price was uploaded as text with a decimal comma (9,99)</span>
-  CAST(REPLACE(p.Price, ',', '.') <span class="sql-k">AS</span> FLOAT64) <span class="sql-k">AS</span> product_price,
+  CAST(REPLACE(p.Price, ',', '.') <span class="sql-k">AS</span> FLOAT64)  <span class="sql-k">AS</span> product_price,
   o.Quantity                                  <span class="sql-k">AS</span> order_qty,
-  ROUND(o.Quantity * CAST(REPLACE(p.Price, ',', '.') <span class="sql-k">AS</span> FLOAT64), 2) <span class="sql-k">AS</span> total_sales,
-  <span class="sql-c">-- raw emails look like 'abc@x.com#mailto:abc@x.com#'</span>
+  <span class="sql-k">ROUND</span>(o.Quantity * CAST(REPLACE(p.Price, ',', '.') <span class="sql-k">AS</span> FLOAT64), 2)  <span class="sql-k">AS</span> total_sales,
   SPLIT(c.CustomerEmail, '#')[OFFSET(0)]      <span class="sql-k">AS</span> cust_email,
   c.CustomerCity                              <span class="sql-k">AS</span> cust_city
 <span class="sql-k">FROM</span> `project_id.dataset.orders` o
@@ -723,7 +728,7 @@
               Looker Studio sales dashboard, and wrote five data-backed recommendations: recover
               Robots, forecast inventory, cross-sell to higher-value products, retain declining
               cities, and activate dormant customers.</p></section>
-            <section class="story-block story-block--insight"><span class="story-block__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5M9 18h6M10 22h4"/></svg></span><h4>Key insight</h4><p>Robots brought in 42.4% of sales ($743.5K) but fell
+            <section class="story-block story-block--insight"><span class="story-block__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5M9 18h6M10 22h4"/></svg></span><h4>Key insight</h4><p>Robots brought in 42.4% of sales (743,505) but fell
               15.4% from 2020 to 2021, about 87% of the 7.8% total decline. Washington was the
               highest-revenue city (55,382 in sales) and dropped 37% in 2021.</p></section>
           </div>
