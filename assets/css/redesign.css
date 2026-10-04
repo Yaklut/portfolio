@@ -123,6 +123,9 @@
 @media (min-width: 1100px) {
   .project--v2 .project__head { padding: var(--space-7) var(--space-7) var(--space-6); }
   .project__showcase { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); align-items: stretch; }
+  /* Even cards put the screenshot on the right (styles.css `order: 2`), so swap the column
+     widths too; otherwise the screenshot lands in the narrow column. */
+  .card--project:nth-of-type(even) .project__showcase { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); }
   .project--v2 .project__side { padding: var(--space-6) var(--space-6) var(--space-6) var(--space-5); }
   .project__story { grid-template-columns: repeat(3, minmax(0, 1fr)); padding: var(--space-6) var(--space-7); gap: var(--space-5); }
   .project__foot { padding: var(--space-5) var(--space-7); }
@@ -489,3 +492,15 @@ html:not(.js) .timeline__item { animation: none; opacity: 1; }
 .edu-honors__icon svg { width: 26px; height: 26px; }
 @media (max-width: 640px) { .edu-honors { grid-template-columns: auto minmax(0, 1fr); } .edu-honors__icon { display: none; } .edu-honors { padding: var(--space-5); } }
 @media (prefers-reduced-motion: reduce) { .js .edu-sem.is-done .edu-sem__bar, .js .edu-sem.is-now .edu-sem__bar { animation: none; } .edu-ring__fill { transition: none; } }
+
+
+/* ---- BMI tabs: screenshots are wider than the Kimia Farma ones (898x800 and 898x687).
+   The panel uses the taller ratio and the dashboard's own page colour, so the
+   shorter page 2 sits flush at the top with no visible band beneath it. ---- */
+.media-tabs--bmi .media-tabs__panel {
+  aspect-ratio: 898 / 800;
+  background: #F1F4F6;
+}
+.media-tabs--bmi .media-tabs__panel .project__media-trigger img {
+  object-position: top;
+}

@@ -633,14 +633,56 @@
 
           <div class="project__showcase">
             <div class="project__visual">
-          <figure class="project__media">
-            <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size screenshot of the Bank Muamalat dashboard">
-              <img
-                src="assets/images/projects/bmi-dashboard.webp"
-                alt="Looker Studio dashboard showing Bank Muamalat total sales, total orders, and top product categories and cities by sales"
-                width="1323" height="1189" loading="lazy">
-            </button>
-            <figcaption>Bank Muamalat (BMI) sales performance dashboard, built in Looker Studio</figcaption>
+          <figure class="project__media media-tabs media-tabs--bmi" data-media-tabs>
+            <div class="media-tabs__list" role="tablist" aria-label="Bank Muamalat project evidence">
+              <button type="button" role="tab" class="media-tabs__tab" id="bmi-tab-overview" aria-controls="bmi-panel-overview" aria-selected="true">Overview</button>
+              <button type="button" role="tab" class="media-tabs__tab" id="bmi-tab-detail" aria-controls="bmi-panel-detail" aria-selected="false" tabindex="-1">Detail</button>
+              <button type="button" role="tab" class="media-tabs__tab" id="bmi-tab-sql" aria-controls="bmi-panel-sql" aria-selected="false" tabindex="-1">SQL</button>
+            </div>
+
+            <div class="media-tabs__panel" role="tabpanel" id="bmi-panel-overview" aria-labelledby="bmi-tab-overview" data-caption="Page 1 · Overview: sales and quantity by category, top 5s, cities, monthly trend">
+              <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Bank Muamalat dashboard, page 1 (overview)">
+                <img
+                  src="assets/images/projects/bmi-dashboard-overview.webp"
+                  alt="Looker Studio dashboard, page 1: total sales, total orders and order quantity tiles, total sales and quantity by product category, top 5 categories by sales and by quantity, total sales by city, and a monthly sales trend for 2020 to 2021"
+                  width="898" height="800" loading="lazy">
+              </button>
+            </div>
+
+            <div class="media-tabs__panel" role="tabpanel" id="bmi-panel-detail" aria-labelledby="bmi-tab-detail" data-caption="Page 2 · Detail: sales and quantity by category, top 10 products" hidden>
+              <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Bank Muamalat dashboard, page 2 (detail)">
+                <img
+                  src="assets/images/projects/bmi-dashboard-detail.webp"
+                  alt="Looker Studio dashboard, page 2: sales by category and quantity by category bar charts that drill down to products, and a table of the top 10 products by sales with category, quantity and order count"
+                  width="898" height="687" loading="lazy">
+              </button>
+            </div>
+
+            <div class="media-tabs__panel media-tabs__panel--code" role="tabpanel" id="bmi-panel-sql" aria-labelledby="bmi-tab-sql" data-caption="Master table query from sejahtera_bersama.sql (English comments)" hidden>
+              <pre class="sql-code" tabindex="0" aria-label="SQL used to build the Bank Muamalat master table"><code><span class="sql-c">-- master_table: one row per order, joined to product, category and customer</span>
+<span class="sql-k">CREATE OR REPLACE TABLE</span> `project_id.dataset.master_table` <span class="sql-k">AS</span>
+<span class="sql-k">SELECT</span>
+  CAST(o.Date <span class="sql-k">AS</span> DATE)                        <span class="sql-k">AS</span> order_date,
+  pc.CategoryName                             <span class="sql-k">AS</span> category_name,
+  p.ProdName                                  <span class="sql-k">AS</span> product_name,
+  <span class="sql-c">-- Price was uploaded as text with a decimal comma (9,99)</span>
+  CAST(REPLACE(p.Price, ',', '.') <span class="sql-k">AS</span> FLOAT64) <span class="sql-k">AS</span> product_price,
+  o.Quantity                                  <span class="sql-k">AS</span> order_qty,
+  ROUND(o.Quantity * CAST(REPLACE(p.Price, ',', '.') <span class="sql-k">AS</span> FLOAT64), 2) <span class="sql-k">AS</span> total_sales,
+  <span class="sql-c">-- raw emails look like 'abc@x.com#mailto:abc@x.com#'</span>
+  SPLIT(c.CustomerEmail, '#')[OFFSET(0)]      <span class="sql-k">AS</span> cust_email,
+  c.CustomerCity                              <span class="sql-k">AS</span> cust_city
+<span class="sql-k">FROM</span> `project_id.dataset.orders` o
+<span class="sql-k">JOIN</span> `project_id.dataset.products` p
+  <span class="sql-k">ON</span> o.ProdNumber = p.ProdNumber
+<span class="sql-k">JOIN</span> `project_id.dataset.product_category` pc
+  <span class="sql-k">ON</span> CAST(p.Category <span class="sql-k">AS</span> INT64) = pc.CategoryID
+<span class="sql-k">JOIN</span> `project_id.dataset.customers` c
+  <span class="sql-k">ON</span> o.CustomerID = c.CustomerID
+<span class="sql-k">ORDER BY</span> order_date, o.OrderID;</code></pre>
+            </div>
+
+            <figcaption class="media-tabs__caption" aria-live="polite">Page 1 · Overview: sales and quantity by category, top 5s, cities, monthly trend</figcaption>
           </figure>
             </div>
             <div class="project__side">
@@ -677,12 +719,13 @@
               performance across products, customer segments, and cities.</p></section>
             <section class="story-block"><span class="story-block__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></span><h4>My contribution</h4><p>I mapped entity relationships and identified primary
               keys across four relational datasets (Customer, Orders, Product, Product Category),
-              then constructed a master table in BigQuery using multi-table SQL JOINs, and built a
-              sales performance dashboard with strategic recommendations on product portfolio
-              segmentation, geographic marketing, and data-driven customer retention via CRM.</p></section>
-            <section class="story-block story-block--insight"><span class="story-block__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5M9 18h6M10 22h4"/></svg></span><h4>Key insight</h4><p>Robots and Drones were the top revenue categories
-              despite moderate order volume — a sign of high unit-price contribution — while
-              Washington was the highest-revenue city (55,382 in sales).</p></section>
+              then constructed a master table in BigQuery using multi-table SQL JOINs, built a
+              Looker Studio sales dashboard, and wrote five data-backed recommendations: recover
+              Robots, forecast inventory, cross-sell to higher-value products, retain declining
+              cities, and activate dormant customers.</p></section>
+            <section class="story-block story-block--insight"><span class="story-block__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5M9 18h6M10 22h4"/></svg></span><h4>Key insight</h4><p>Robots brought in 42.4% of sales ($743.5K) but fell
+              15.4% from 2020 to 2021, about 87% of the 7.8% total decline. Washington was the
+              highest-revenue city (55,382 in sales) and dropped 37% in 2021.</p></section>
           </div>
 
           <footer class="project__foot">

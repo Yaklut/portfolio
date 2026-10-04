@@ -62,7 +62,7 @@
         <div><a class="btn btn--ghost cs-back" href="../index.html#projects">← Back to projects</a></div>
         <p class="project__sector">Islamic banking</p>
         <h1 id="cs-title" class="cs-title">Bank Muamalat (BMI) Sales Performance Dashboard</h1>
-        <p class="cs-summary">Four relational tables joined into one BigQuery master table and a Looker Studio sales dashboard, with recommendations on product portfolio and customer retention.</p>
+        <p class="cs-summary">Four relational tables joined into one BigQuery master table and a Looker Studio sales dashboard, and five data-backed recommendations on products, inventory, cities and customers.</p>
         <dl class="cs-meta">
           <div><dt>Program</dt><dd>Project-Based Virtual Internship — Business Intelligence Analyst · Bank Muamalat × Rakamin Academy</dd></div>
           <div><dt>Period</dt><dd><time datetime="2025-10-06">Oct 6</time>–<time datetime="2025-11-03">Nov 3, 2025</time></dd></div>
@@ -82,7 +82,7 @@
           <p>Bank Muamalat, Indonesia's first Sharia bank (founded 1991), needed a data-driven way to evaluate sales performance across products, customer segments and cities. The data arrived as four related tables that had to be understood and combined before any analysis was possible.</p>
           <h3>Data provided</h3>
           <ul class="cs-list">
-            <li><strong>Customer</strong> — contact details and city</li>
+            <li><strong>Customer</strong> — contact details and city (2,123 customers)</li>
             <li><strong>Orders</strong> — date, customer, product and quantity (3,339 orders)</li>
             <li><strong>Product</strong> — name, category and price (70 products)</li>
             <li><strong>ProductCategory</strong> — category names (7 categories)</li>
@@ -98,12 +98,99 @@
       </div>
       <div class="cs-body">
         <ol class="cs-steps">
-          <li class="card reveal"><h3>Identify primary keys</h3><p><span class="cs-code">CustomerID</span>, <span class="cs-code">OrderID</span>, <span class="cs-code">ProdNumber</span> and <span class="cs-code">CategoryID</span> — one per table.</p></li>
-          <li class="card reveal"><h3>Map the relationships</h3><p>One customer has many orders, one product appears in many orders, and one category holds many products.</p></li>
+          <li class="card reveal"><h3>Identify primary keys</h3><p><span class="cs-code">CustomerID</span>, <span class="cs-code">OrderID</span>, <span class="cs-code">ProdNumber</span> and <span class="cs-code">CategoryID</span> — one per table, each checked for uniqueness and missing values.</p></li>
+          <li class="card reveal"><h3>Map the relationships</h3><p>One customer has many orders, one product appears in many orders, and one category holds many products. A check for orphan keys found none on any of the three links.</p></li>
           <li class="card reveal"><h3>Build the master table</h3><p>One BigQuery query joins the four tables and adds <span class="cs-code">total_sales</span> = quantity × price. The result has 3,339 rows — one per order — with no duplicated rows after the joins.</p></li>
-          <li class="card reveal"><h3>Build the dashboard</h3><p>Looker Studio filters, scorecards, sales and quantity by product category, top-5 categories by sales and by quantity, sales by city and a monthly sales trend.</p></li>
-          <li class="card reveal"><h3>Recommend</h3><p>Turned the patterns into recommendations for the business.</p></li>
+          <li class="card reveal"><h3>Build the dashboard</h3><p>A two-page Looker Studio dashboard. Page 1: scorecards, sales and quantity by category, top 5 categories by sales and by quantity, sales by city, and a monthly trend. Page 2: category charts that drill down to products, and a top-10 product table.</p></li>
+          <li class="card reveal"><h3>Recommend</h3><p>Turned the patterns into five recommendations, each tied to a figure and a dashboard view (see Recommendations below).</p></li>
         </ol>
+
+        <div class="cs-prose reveal">
+          <h3>Data cleaning decisions</h3>
+        </div>
+        <ul class="cs-cards cs-cards--3">
+          <li class="card reveal"><span class="cs-tag">Decision</span><h3>Prices loaded as text</h3><p>The CSV uses a decimal comma (<span class="cs-code">9,99</span>). Read automatically, prices come out 100 times too large, so the products table is loaded as text and converted in SQL.</p></li>
+          <li class="card reveal"><span class="cs-tag">Decision</span><h3>Emails cleaned</h3><p>Raw emails look like <span class="cs-code">abc@x.com#mailto:abc@x.com#</span>. Only the part before the first <span class="cs-code">#</span> is kept.</p></li>
+          <li class="card reveal"><span class="cs-tag">Decision</span><h3>Category IDs cast to integers</h3><p>The category column arrives as text, so it is cast to an integer before joining to the category table.</p></li>
+        </ul>
+
+        <div class="cs-prose reveal">
+          <h3>The SQL</h3>
+          <p>The queries behind the analysis. Project and dataset names replaced with placeholders; comments translated to English.</p>
+        </div>
+          <div class="cs-sql reveal">
+            <p class="cs-sql__label">Validate keys and relationships</p>
+            <pre class="sql-code" tabindex="0" aria-label="Validate keys and relationships"><code><span class="sql-c">-- Q1. Primary key check.   Expected: total_rows = distinct_keys and null_keys = 0</span>
+<span class="sql-k">SELECT</span> 'customers' <span class="sql-k">AS</span> tabel, 'CustomerID' <span class="sql-k">AS</span> pk,
+       <span class="sql-k">COUNT</span>(*) <span class="sql-k">AS</span> total_rows,
+       <span class="sql-k">COUNT</span>(<span class="sql-k">DISTINCT</span> CustomerID) <span class="sql-k">AS</span> distinct_keys,
+       <span class="sql-k">COUNTIF</span>(CustomerID <span class="sql-k">IS NULL</span>) <span class="sql-k">AS</span> null_keys
+<span class="sql-k">FROM</span> `project_id.dataset.customers`
+<span class="sql-k">UNION ALL</span>
+<span class="sql-k">SELECT</span> 'orders', 'OrderID',
+       <span class="sql-k">COUNT</span>(*), <span class="sql-k">COUNT</span>(<span class="sql-k">DISTINCT</span> OrderID), <span class="sql-k">COUNTIF</span>(OrderID <span class="sql-k">IS NULL</span>)
+<span class="sql-k">FROM</span> `project_id.dataset.orders`;
+<span class="sql-c">-- (same pattern for products and product_category)</span>
+
+<span class="sql-c">-- Q2. Orphan keys.   Expected: 0 in all three</span>
+<span class="sql-k">SELECT</span>
+  (<span class="sql-k">SELECT</span> <span class="sql-k">COUNT</span>(*) <span class="sql-k">FROM</span> `project_id.dataset.orders` o
+    <span class="sql-k">LEFT JOIN</span> `project_id.dataset.customers` c <span class="sql-k">ON</span> o.CustomerID = c.CustomerID
+    <span class="sql-k">WHERE</span> c.CustomerID <span class="sql-k">IS NULL</span>) <span class="sql-k">AS</span> orders_tanpa_customer,
+  (<span class="sql-k">SELECT</span> <span class="sql-k">COUNT</span>(*) <span class="sql-k">FROM</span> `project_id.dataset.orders` o
+    <span class="sql-k">LEFT JOIN</span> `project_id.dataset.products` p <span class="sql-k">ON</span> o.ProdNumber = p.ProdNumber
+    <span class="sql-k">WHERE</span> p.ProdNumber <span class="sql-k">IS NULL</span>) <span class="sql-k">AS</span> orders_tanpa_product,
+  (<span class="sql-k">SELECT</span> <span class="sql-k">COUNT</span>(*) <span class="sql-k">FROM</span> `project_id.dataset.products` p
+    <span class="sql-k">LEFT JOIN</span> `project_id.dataset.product_category` pc <span class="sql-k">ON</span> CAST(p.Category <span class="sql-k">AS</span> INT64) = pc.CategoryID
+    <span class="sql-k">WHERE</span> pc.CategoryID <span class="sql-k">IS NULL</span>) <span class="sql-k">AS</span> products_tanpa_category;</code></pre>
+            <p class="cs-sql__caption">From <span class="cs-code">sejahtera_bersama.sql</span>. Shortened: the key check is shown for two of the four tables.</p>
+          </div>
+          <div class="cs-sql reveal">
+            <p class="cs-sql__label">Build the master table</p>
+            <pre class="sql-code" tabindex="0" aria-label="Build the master table"><code><span class="sql-c">-- master_table: one row per order, joined to product, category and customer</span>
+<span class="sql-k">CREATE OR REPLACE TABLE</span> `project_id.dataset.master_table` <span class="sql-k">AS</span>
+<span class="sql-k">SELECT</span>
+  CAST(o.Date <span class="sql-k">AS</span> DATE)                        <span class="sql-k">AS</span> order_date,
+  pc.CategoryName                             <span class="sql-k">AS</span> category_name,
+  p.ProdName                                  <span class="sql-k">AS</span> product_name,
+  <span class="sql-c">-- Price was uploaded as text with a decimal comma (9,99)</span>
+  CAST(REPLACE(p.Price, ',', '.') <span class="sql-k">AS</span> FLOAT64) <span class="sql-k">AS</span> product_price,
+  o.Quantity                                  <span class="sql-k">AS</span> order_qty,
+  <span class="sql-k">ROUND</span>(o.Quantity * CAST(REPLACE(p.Price, ',', '.') <span class="sql-k">AS</span> FLOAT64), 2) <span class="sql-k">AS</span> total_sales,
+  <span class="sql-c">-- raw emails look like 'abc@x.com#mailto:abc@x.com#'</span>
+  SPLIT(c.CustomerEmail, '#')[OFFSET(0)]      <span class="sql-k">AS</span> cust_email,
+  c.CustomerCity                              <span class="sql-k">AS</span> cust_city
+<span class="sql-k">FROM</span> `project_id.dataset.orders` o
+<span class="sql-k">JOIN</span> `project_id.dataset.products` p
+  <span class="sql-k">ON</span> o.ProdNumber = p.ProdNumber
+<span class="sql-k">JOIN</span> `project_id.dataset.product_category` pc
+  <span class="sql-k">ON</span> CAST(p.Category <span class="sql-k">AS</span> INT64) = pc.CategoryID
+<span class="sql-k">JOIN</span> `project_id.dataset.customers` c
+  <span class="sql-k">ON</span> o.CustomerID = c.CustomerID
+<span class="sql-k">ORDER BY</span> order_date, o.OrderID;
+
+<span class="sql-c">-- Validation.   Expected: 3339 rows, total_sales ~ 1754750.57, total_qty 11654</span>
+<span class="sql-k">SELECT</span> <span class="sql-k">COUNT</span>(*)         <span class="sql-k">AS</span> jumlah_baris,
+       <span class="sql-k">SUM</span>(total_sales) <span class="sql-k">AS</span> total_sales,
+       <span class="sql-k">SUM</span>(order_qty)   <span class="sql-k">AS</span> total_qty
+<span class="sql-k">FROM</span> `project_id.dataset.master_table`;</code></pre>
+            <p class="cs-sql__caption">The validation figures were checked against the source data.</p>
+          </div>
+          <div class="cs-sql reveal">
+            <p class="cs-sql__label">Growth by category, 2020 vs 2021</p>
+            <pre class="sql-code" tabindex="0" aria-label="Growth by category, 2020 vs 2021"><code><span class="sql-c">-- Sales and quantity per category, 2020 vs 2021</span>
+<span class="sql-k">SELECT</span> category_name,
+       <span class="sql-k">SUM</span>(<span class="sql-k">IF</span>(EXTRACT(YEAR <span class="sql-k">FROM</span> order_date) = 2020, total_sales, 0)) <span class="sql-k">AS</span> sales_2020,
+       <span class="sql-k">SUM</span>(<span class="sql-k">IF</span>(EXTRACT(YEAR <span class="sql-k">FROM</span> order_date) = 2021, total_sales, 0)) <span class="sql-k">AS</span> sales_2021,
+       <span class="sql-k">ROUND</span>(<span class="sql-k">SAFE_DIVIDE</span>(<span class="sql-k">SUM</span>(<span class="sql-k">IF</span>(EXTRACT(YEAR <span class="sql-k">FROM</span> order_date) = 2021, total_sales, 0)),
+                         <span class="sql-k">SUM</span>(<span class="sql-k">IF</span>(EXTRACT(YEAR <span class="sql-k">FROM</span> order_date) = 2020, total_sales, 0))) * 100 - 100, 1) <span class="sql-k">AS</span> growth_sales_pct,
+       <span class="sql-k">SUM</span>(<span class="sql-k">IF</span>(EXTRACT(YEAR <span class="sql-k">FROM</span> order_date) = 2020, order_qty, 0)) <span class="sql-k">AS</span> qty_2020,
+       <span class="sql-k">SUM</span>(<span class="sql-k">IF</span>(EXTRACT(YEAR <span class="sql-k">FROM</span> order_date) = 2021, order_qty, 0)) <span class="sql-k">AS</span> qty_2021
+<span class="sql-k">FROM</span> `project_id.dataset.master_table`
+<span class="sql-k">GROUP BY</span> category_name
+<span class="sql-k">ORDER BY</span> sales_2020 DESC;</code></pre>
+            <p class="cs-sql__caption">One of the queries behind the recommendations. It shows which categories moved between years.</p>
+          </div>
       </div>
     </section>
 
@@ -114,12 +201,12 @@
       </div>
       <div class="cs-body">
         <dl class="cs-kpis reveal">
-          <div class="stat"><dt class="stat-label">Total sales</dt><dd class="stat-value">1.75M</dd></div>
+          <div class="stat"><dt class="stat-label">Total sales</dt><dd class="stat-value">$1.75M</dd></div>
           <div class="stat"><dt class="stat-label">Orders</dt><dd class="stat-value">3,339</dd></div>
           <div class="stat"><dt class="stat-label">Units sold</dt><dd class="stat-value">11,654</dd></div>
           <div class="stat"><dt class="stat-label">Customers</dt><dd class="stat-value">1,671</dd></div>
         </dl>
-        <p class="cs-note reveal">Recomputed directly from the raw workbook in September 2026. The dataset has no currency field, and customer addresses are in the United States, so values are most likely dollars; they are shown here without a currency symbol.</p>
+        <p class="cs-note reveal">Recomputed directly from the raw workbook in September 2026. The dataset has no currency field, and customer addresses are in the United States, so values are shown in dollars.</p>
         <div class="card cs-chart reveal">
           <h3>Sales versus volume, by product category</h3>
           <p class="cs-chart__sub">Share of total sales · share of total units sold</p>
@@ -161,18 +248,27 @@
       <div class="cs-body">
         <div class="cs-figure reveal">
           <figure class="project__media">
-            <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size screenshot of the Bank Muamalat dashboard">
+            <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Bank Muamalat dashboard, page 1 (overview)">
               <img
-                src="../assets/images/projects/bmi-dashboard.webp"
-                alt="Looker Studio dashboard showing Bank Muamalat total sales, total orders, and top product categories and cities by sales"
-                width="1323" height="1189" loading="lazy">
+                src="../assets/images/projects/bmi-dashboard-overview.webp"
+                alt="Looker Studio dashboard, page 1: total sales, total orders and order quantity tiles, total sales and quantity by product category, top 5 categories by sales and by quantity, total sales by city, and a monthly sales trend for 2020 to 2021"
+                width="898" height="800" loading="lazy">
             </button>
-            <figcaption>Original dashboard screenshot from the course submission (Oct–Nov 2025)</figcaption>
+            <figcaption>Page 1 · Overview: scorecards, sales and quantity by category, top 5s, cities, monthly trend</figcaption>
           </figure>
         </div>
-        <p class="cs-note reveal">This is the original submission. Its “Total Order” tile (11,654) actually sums units sold; the number of orders is 3,339. The “Rp” prefix is Looker's locale formatting — the dataset has no currency. The original Looker Studio report and its BigQuery data are no longer available, which is why only the screenshot remains.</p>
-        <!-- PLACEHOLDER: replace with the v2 dashboard link and screenshot if the dashboard is rebuilt. -->
-        <div class="cs-placeholder reveal">[ Dashboard v2 — corrected labels · link and screenshot pending ]</div>
+        <div class="cs-figure reveal">
+          <figure class="project__media">
+            <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Bank Muamalat dashboard, page 2 (detail)">
+              <img
+                src="../assets/images/projects/bmi-dashboard-detail.webp"
+                alt="Looker Studio dashboard, page 2: sales by category and quantity by category bar charts that drill down to products, and a table of the top 10 products by sales with category, quantity and order count"
+                width="898" height="687" loading="lazy">
+            </button>
+            <figcaption>Page 2 · Detail: category charts (click a bar to see its products) and the top 10 products by sales</figcaption>
+          </figure>
+        </div>
+        <p class="cs-note reveal">This is the rebuilt dashboard (v2), with the labels corrected: orders (3,339) and units sold (11,654) are separate tiles, and sales are shown in dollars. In the original submission (Oct–Nov 2025), the “Total Order” tile summed units sold and the sales figure carried a “Rp” prefix from Looker's locale. The original Looker Studio report and its BigQuery data are no longer available.</p>
       </div>
     </section>
 
@@ -183,10 +279,13 @@
       </div>
       <div class="cs-body">
         <ul class="cs-cards cs-cards--3">
-          <li class="card reveal"><span class="cs-tag">From the original deck</span><h3>Position Robots and Drones as premium</h3><p>Position the two high-value categories as premium products, and pair them with Sharia financing options (Mudharabah/Murabahah with flexible tenors) to make higher ticket prices easier to buy.</p><p class="cs-evidence">69.6% of sales from 19.6% of units</p></li>
-          <li class="card reveal"><span class="cs-tag">From the original deck</span><h3>Bundle the digital products</h3><p>Create bundles and subscription-based models for eBooks and Training Videos, where volume is high but each sale is small.</p><p class="cs-evidence">44.7% of units · 8.0% of sales</p></li>
-          <li class="card reveal"><span class="cs-tag">From the original deck</span><h3>Strengthen retention with data</h3><p>Build a data-driven CRM with tiered loyalty rewards and targeted promotions based on transaction history — repeat buying is already common.</p><p class="cs-evidence">59.1% of customers ordered more than once</p></li>
+          <li class="card reveal"><span class="cs-tag">Recommendation 1</span><h3>Recover Robots and position it as premium</h3><p>Robots bring in 42.4% of sales, yet fell 15.4% from 2020 to 2021 and account for about 87% of the total decline. Three products make up 54% of Robots sales: MICR-23K, RWW-75 and RLK-9920. Prioritise them with premium positioning and campaigns, and investigate why Robots dropped in 2021.</p><p class="cs-evidence">Robots 402,835 → 340,670</p></li>
+          <li class="card reveal"><span class="cs-tag">Recommendation 2</span><h3>Forecast demand for Robots and Drones</h3><p>Robots sales swing about fivefold within a year, from 43,854 in June 2021 to 8,793 in October 2021. Monthly demand forecasting for the high-volume physical products helps avoid stock-outs at the peak and overstock in quiet months. eBooks, Training Videos and Blueprints are assumed to be digital and need no stock planning.</p><p class="cs-evidence">Best month 95,402 · weakest 52,348</p></li>
+          <li class="card reveal"><span class="cs-tag">Recommendation 3</span><h3>Cross-sell from cheap to high-value products</h3><p>eBooks, Training Videos and Blueprints are 59% of units but 8.9% of sales, and 40.5% of customers bought only from these three. Build an upgrade path from Blueprints to Robot Kits and Drone Kits, then to Robots and Drones, with bundles such as a Drone Kit plus an eBook.</p><p class="cs-evidence">Only 32.5% of customers ever bought Robots or Drones</p></li>
+          <li class="card reveal"><span class="cs-tag">Recommendation 4</span><h3>Retain declining cities, focus on the core</h3><p>Washington, the top city, fell 37% in 2021. Birmingham dropped about 95% and Sacramento about 69%. With 361 cities and the top ten at only 17% of sales, run retention programs in the declining cities and focus marketing on the core instead of spreading it across hundreds of small cities.</p><p class="cs-evidence">Washington 33,988 → 21,394</p></li>
+          <li class="card reveal"><span class="cs-tag">Recommendation 5</span><h3>Activate passive customers, reward the best</h3><p>452 of 2,123 customers (21%) have never ordered. Of the 1,671 active ones, 59% have reordered and the top 10% generate 40% of sales. Send a first-purchase voucher to the passive group, add a VIP program for top customers, and push one-time buyers toward a second order.</p><p class="cs-evidence">Top 10% of customers · 40% of sales</p></li>
         </ul>
+        <p class="cs-note reveal">Limits: the data covers only two years and has no cost or margin, so every recommendation is based on sales and quantity, not profitability. The digital-product status of eBooks, Training Videos and Blueprints is an assumption based on the product type.</p>
       </div>
     </section>
 
@@ -200,8 +299,8 @@
           <p>Every figure on this page was recomputed from the raw workbook in September 2026. Doing so turned up three issues in the original course submission. They are listed here rather than left out.</p>
         </div>
         <ul class="cs-cards cs-cards--3">
-          <li class="card reveal"><span class="cs-tag">Found · Relabeled</span><h3>Orders versus units</h3><p>The dashboard's “Total Order” tile (11,654) sums the quantity column. There are 3,339 distinct orders; 11,654 is units sold.</p></li>
-          <li class="card reveal"><span class="cs-tag">Found · Relabeled</span><h3>No currency in the data</h3><p>The dataset has no currency field. The “Rp” prefix came from Looker's locale, and the customer addresses are American, so values are most likely dollars.</p></li>
+          <li class="card reveal"><span class="cs-tag">Found · Fixed in v2</span><h3>Orders versus units</h3><p>The dashboard's “Total Order” tile (11,654) sums the quantity column. There are 3,339 distinct orders; 11,654 is units sold.</p></li>
+          <li class="card reveal"><span class="cs-tag">Found · Fixed in v2</span><h3>No currency in the data</h3><p>The dataset has no currency field. The “Rp” prefix came from Looker's locale, and the customer addresses are American, so values are most likely dollars. The rebuilt dashboard shows dollars.</p></li>
           <li class="card reveal"><span class="cs-tag">Found · Reworded</span><h3>“Stable” was too strong</h3><p>The original deck described revenue as stable. Monthly sales swing between 52.3k and 95.4k, and 2021 ended 7.8% below 2020.</p></li>
         </ul>
       </div>
@@ -212,7 +311,7 @@
         <div class="cs-actions reveal">
           <a class="btn btn--secondary" href="https://github.com/Yaklut/BMI-Sales-Performance-Dashboard" target="_blank" rel="noopener noreferrer">View on GitHub →</a>
           <!-- REVIEW: both links below come from the final-task deck; confirm you want them public. -->
-          <a class="btn btn--ghost" href="https://github.com/Yaklut/BMI-Sales-Performance-Dashboard/blob/main/SQLQuery" target="_blank" rel="noopener noreferrer">SQL query →</a>
+          <a class="btn btn--ghost" href="https://github.com/Yaklut/BMI-Sales-Performance-Dashboard/blob/main/sejahtera_bersama.sql" target="_blank" rel="noopener noreferrer">SQL query →</a>
           <a class="btn btn--ghost" href="https://youtu.be/mrnS1N15mgA" target="_blank" rel="noopener noreferrer">Watch the presentation →</a>
         </div>
         <div class="cs-pager reveal">
