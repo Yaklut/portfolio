@@ -203,7 +203,6 @@
 .edu-ring__fill { stroke: var(--accent); stroke-linecap: round; }
 .js .edu-tile.reveal:not(.is-visible) .edu-ring__fill { stroke-dasharray: 0 100; }
 .edu-ring__fill { transition: stroke-dasharray 1200ms var(--ease-out) 250ms; }
-.edu-tile__big { font: 600 4rem/1 var(--font-mono); color: var(--accent); opacity: 0.25; }
 
 .edu-honors { display: flex; gap: var(--space-4); align-items: flex-start; margin: 0; padding: var(--space-5); }
 .edu-honors__icon { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: var(--radius-sm); background: var(--color-gold); color: #fff; }
@@ -225,7 +224,6 @@
 .edu-tile dl, .edu-tile .stat { margin: 0; padding: 0; }
 .edu-tile .stat-value { margin: 0; padding: 0; display: block; }
 .edu-ring { width: 88px; height: 88px; flex: none; }
-.edu-tile__big { font-size: 4.5rem; min-width: 88px; text-align: center; }
 
 /* ================= Timeline / Resume / Contact (Oct 2, 2026) ================= */
 :root { --viz-red: #C5221F; --viz-red-deep: #A31B19; --viz-red-tint: #FCE8E6; }
@@ -468,16 +466,11 @@ html:not(.js) .timeline__item { animation: none; opacity: 1; }
 .edu-now::after { content: ""; position: absolute; left: 50%; bottom: -3px; width: 7px; height: 7px; background: var(--accent); transform: translateX(-50%) rotate(45deg); }
 .edu-years { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin-top: var(--space-1); }
 .edu-years li { padding-top: 6px; border-top: 2px solid var(--color-border); text-align: center; font: 500 0.75rem var(--font-body); color: var(--color-ink-faint); }
-.edu-milestones { display: grid; gap: var(--space-2); margin-top: var(--space-5); padding-top: var(--space-4); border-top: 1px solid var(--color-border); }
-.edu-milestones li { display: flex; align-items: baseline; gap: var(--space-3); font-size: 0.875rem; line-height: 1.4; color: var(--color-ink-soft); }
-.edu-milestones__sem { flex: none; min-width: 52px; padding: 1px 8px; border-radius: var(--radius-full); background: var(--accent-tint); color: var(--accent-deep); font: 600 0.75rem var(--font-body); text-align: center; }
 .edu-progress { padding-top: var(--space-5); margin-bottom: var(--space-2); }
 
-.edu-tile__icon { display: grid; place-items: center; width: 56px; height: 56px; flex: none; border-radius: var(--radius-md); background: var(--accent); color: #fff; }
-.edu-tile__icon svg { width: 26px; height: 26px; }
 .edu-side { grid-template-columns: minmax(0, 1fr); }
-@media (min-width: 560px) and (max-width: 899px) { .edu-side { grid-template-columns: repeat(3, minmax(0, 1fr)); } .edu-tile { flex-direction: column; align-items: flex-start; } }
-@media (min-width: 900px) { .edu-side { grid-template-rows: repeat(3, 1fr); } }
+@media (min-width: 560px) and (max-width: 899px) { .edu-side { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 900px) { .edu-side { grid-template-rows: repeat(2, 1fr); } }
 
 .edu-honors { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: var(--space-5); align-items: center; padding: var(--space-5) var(--space-6);
   background-image: linear-gradient(135deg, var(--color-gold-tint), transparent 80%); border: 1px solid var(--color-gold); border-left-width: 5px; }
@@ -503,4 +496,51 @@ html:not(.js) .timeline__item { animation: none; opacity: 1; }
 }
 .media-tabs--bmi .media-tabs__panel .project__media-trigger img {
   object-position: top;
+}
+
+/* ================= Education round 3 (Oct 4, 2026) ================= */
+.edu-logo { background: #fff; padding: 6px; }
+.edu-logo__img { width: 100%; height: 100%; object-fit: contain; border-radius: 0; }
+
+.edu-tile { flex-direction: column; align-items: stretch; justify-content: center; gap: var(--space-5); padding: var(--space-6); }
+.edu-tile__row { display: flex; align-items: center; gap: var(--space-5); }
+.edu-tile .stat-value { font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.5rem); }
+.edu-ring, .edu-donut { width: 96px; height: 96px; flex: none; }
+
+/* GPA scale: 0-4.00 with the pin at 3.53 */
+.edu-scale { padding-top: var(--space-2); }
+.edu-scale__track { position: relative; height: 10px; border-radius: var(--radius-full); background: var(--accent-tint); }
+.edu-scale__fill { position: absolute; inset: 0 auto 0 0; width: var(--p); border-radius: inherit; background: var(--accent); transform-origin: left; }
+.edu-scale__pin { position: absolute; top: 50%; left: var(--p); width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; background: #fff; border: 4px solid var(--accent); box-shadow: var(--shadow-sm); }
+.js .edu-tile.reveal:not(.is-visible) .edu-scale__fill { transform: scaleX(0); }
+.js .edu-tile.reveal:not(.is-visible) .edu-scale__pin { left: 0; }
+.edu-scale__fill { transition: transform 1200ms var(--ease-out) 250ms; }
+.edu-scale__pin { transition: left 1200ms var(--ease-out) 250ms; }
+.edu-scale__ticks { position: relative; height: 1.25rem; margin-top: var(--space-2); }
+.edu-scale__ticks li { position: absolute; left: calc(var(--i) * 25%); transform: translateX(-50%); font: 500 0.75rem var(--font-body); color: var(--color-ink-faint); }
+.edu-scale__ticks li:first-child { transform: none; }
+.edu-scale__ticks li:last-child { transform: translateX(-100%); }
+
+/* Standing: 8 semester arcs, 7 filled */
+.edu-donut { position: relative; }
+.edu-donut svg { width: 100%; height: 100%; }
+.edu-donut path { fill: none; stroke: var(--accent-tint); stroke-width: 12; stroke-linecap: round; transition: opacity 400ms var(--ease-out), stroke 400ms; transition-delay: calc(var(--i) * 90ms + 200ms); }
+.edu-donut path.is-on { stroke: var(--accent); }
+.js .edu-tile.reveal:not(.is-visible) .edu-donut path.is-on { stroke: var(--accent-tint); }
+.edu-donut__label { position: absolute; inset: 0; display: grid; place-items: center; font: 600 1.5rem var(--font-display); color: var(--accent-deep); }
+.edu-donut__label small { font-size: 0.875rem; font-weight: 500; color: var(--color-ink-faint); margin-left: 1px; }
+.edu-donut__label { display: flex; align-items: center; justify-content: center; }
+.edu-tile__chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.edu-tile__chips li { padding: 4px 12px; border-radius: var(--radius-full); background: var(--accent-tint); color: var(--accent-deep); font: 600 0.8125rem var(--font-body); }
+.edu-mark { cursor: help; }
+
+/* GitHub icon on the project buttons */
+.project__link { display: inline-flex; align-items: center; gap: 8px; }
+.project__link .brand { width: 18px; height: 18px; flex: none; }
+@media (prefers-reduced-motion: reduce) { .edu-scale__fill, .edu-scale__pin, .edu-donut path { transition: none; } }
+@media (max-width: 480px) { .edu-tile { padding: var(--space-5); } .edu-ring, .edu-donut { width: 80px; height: 80px; } }
+/* keep the two side tiles compact enough that the degree card has no dead space */
+@media (min-width: 900px) {
+  .edu-tile { padding: var(--space-5) var(--space-6); gap: var(--space-4); }
+  .edu-ring, .edu-donut { width: 84px; height: 84px; }
 }

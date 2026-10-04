@@ -505,3 +505,10 @@ Found while reading the two final-task decks against what the cards say. Status 
 - ASSUMPTION (derived, Refa to confirm): semesters start in Aug and Feb, so Aug 2023 = Sem 1 and Oct 2026 = Sem 7. Milestone placement follows from their dates (Nov 2024, Apr–May 2025, Oct–Nov 2025, 2026).
 - Right column: GPA ring, Current Standing, new Expected Graduation (Aug 2027) tile. Honors card rebuilt as a gold feature card (big "2nd", title, essay in italics, meta chips) — same facts, re-arranged.
 - Old `.edu-track*` CSS removed. UB logo slot still holds the graduation-cap placeholder (Refa to send logo).
+
+## Education round 3 + GitHub icons (Oct 4, 2026) — worked on the freshly downloaded repo
+- Removed (Refa's request): the "Sem 3–6" milestone legend and the large "Expected Graduation" tile. The semester map keeps its icon marks above semesters 3–6; they now carry hover tooltips (title attribute) since the legend is gone.
+- GPA tile: ring + 0–4.00 scale bar with a pin at 3.53 (animated on reveal). Current Standing tile: 8-arc donut (7 filled, "7/8" in the centre) + chips "Final year" and "Year 4 of 4" (derived from semester 7 of 8).
+- UB logo wired in: Refa had added `assets/images/profile/ub-logo.svg` (2.7 MB, ~9,300 traced paths — too heavy for a 64px badge), so a 160px transparent PNG (`ub-logo.png`, 48 KB) is used instead. The original SVG is untouched and can be deleted from the repo to save space.
+- Project buttons: GitHub mark (simple-icons, CC0) added before "View on GitHub →" on both project cards.
+- Dead CSS removed: `.edu-milestones*`, `.edu-tile__big`, `.edu-tile__icon`. Verified at 1440 / 760 / 390 in headless Chromium, no overflow, no JS errors.
