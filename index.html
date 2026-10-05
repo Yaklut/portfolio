@@ -76,10 +76,9 @@
   <meta name="twitter:description" content="International Relations student at Universitas Brawijaya building a second track in data analytics, business intelligence, and research.">
   <meta name="twitter:image" content="https://yaklut.github.io/portfolio/assets/images/social/og-image.jpg">
 
-  <!-- Fonts (Phase 2 approved system: Schibsted Grotesk / Public Sans; IBM Plex Mono for code only) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+  <!-- Fonts: self-hosted (see @font-face in styles.css and assets/fonts/LICENSES.txt). Phase 2 system: Schibsted Grotesk / Public Sans; IBM Plex Mono for code only. -->
+  <link rel="preload" href="assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/public-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 
   <link rel="stylesheet" href="assets/css/styles.css">
   <link rel="stylesheet" href="assets/css/motion.css">
@@ -212,6 +211,31 @@
           <ul class="snap-list"><li class="snap accent-blue"><span class="snap__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></span><div><span class="snap__label">Studying</span><strong>International Relations</strong><span class="snap__sub">Universitas Brawijaya · 7th semester</span></div></li><li class="snap accent-teal"><span class="snap__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><div><span class="snap__label">Applied</span><strong>2 virtual internships</strong><span class="snap__sub">Kimia Farma · Bank Muamalat (Rakamin Academy)</span></div></li><li class="snap accent-violet"><span class="snap__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span><div><span class="snap__label">Research Fellow</span><strong>Veritas Institute of Politics</strong><span class="snap__sub">Social Sciences &amp; Humanities Department</span></div></li><li class="snap accent-coral"><span class="snap__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></span><div><span class="snap__label">Published</span><strong>6 SINTA-indexed papers</strong><span class="snap__sub">One as first author</span></div></li></ul>
           <p class="snap__loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Malang, East Java, Indonesia</p>
         </aside>
+      </div>
+
+      <div class="about__experience reveal">
+        <h3 class="about__subtitle">Experience</h3>
+        <article class="card card--experience accent-blue">
+          <header class="experience__head">
+            <span class="icon-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="14" x="2" y="7" rx="2" ry="2" />
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+              </svg>
+            </span>
+            <div class="experience__title">
+              <h4>Research Fellow</h4>
+              <p class="experience__org">Veritas Institute of Politics · Social Sciences &amp; Humanities Department</p>
+            </div>
+            <p class="chip experience__date">Dec 2024 – Present</p>
+          </header>
+          <ul class="experience__list">
+            <li>Participated in a research project with lecturers from the International Relations and Political Science Department at Universitas Brawijaya.</li>
+            <li>Authored 5+ policy and socio-political articles published on the Veritas Institute of Politics platform.</li>
+            <li>Strengthened research competencies through capacity-building in qualitative and quantitative research methods.</li>
+            <li>Engaged in literature reviews, data interpretation, and thematic analysis to support ongoing research initiatives.</li>
+          </ul>
+        </article>
       </div>
     </section>
 
@@ -982,7 +1006,7 @@
             <p class="cert-date"><time datetime="2025-05-15">May 2025</time></p>
             <p class="cert-credential">Credential ID: 341459IAPRGIK1552025</p>
             <a class="btn btn--ghost cert-link" href="assets/images/certificates/rakamin-kimia-farma-big-data-analytics.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
-              View Certificate →
+              <span aria-hidden="true">View Certificate →</span><span class="sr-only">View certificate for Kimia Farma Big Data Analytics — Project-Based Virtual Internship</span>
             </a>
           </div>
           </article>
@@ -1001,7 +1025,7 @@
             <p class="cert-date"><time datetime="2025-11-03">Nov 2025</time></p>
             <p class="cert-credential">Credential ID: 341459IAPRGIB3112025</p>
             <a class="btn btn--ghost cert-link" href="assets/images/certificates/rakamin-bank-muamalat-bi-analyst.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
-              View Certificate →
+              <span aria-hidden="true">View Certificate →</span><span class="sr-only">View certificate for Bank Muamalat Business Intelligence Analyst — Project-Based Virtual Internship</span>
             </a>
           </div>
           </article>
@@ -1027,7 +1051,7 @@
             <p class="cert-date"><time datetime="2025-03-16">16 Mar 2025</time></p>
             <p class="cert-credential">Credential ID: DQLABAI001NTNUUI</p>
             <a class="btn btn--ghost cert-link" href="assets/images/certificates/dqlab-guide-learn-python-with-ai.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
-              View Certificate →
+              <span aria-hidden="true">View Certificate →</span><span class="sr-only">View certificate for Guide to Learn Python with AI</span>
             </a>
           </div>
           </article>
@@ -1045,7 +1069,7 @@
             <p class="cert-date"><time datetime="2025-03-16">16 Mar 2025</time></p>
             <p class="cert-credential">Credential ID: DQLABINTP1RUIPOQ</p>
             <a class="btn btn--ghost cert-link" href="assets/images/certificates/dqlab-intro-data-science-python.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
-              View Certificate →
+              <span aria-hidden="true">View Certificate →</span><span class="sr-only">View certificate for Introduction to Data Science with Python</span>
             </a>
           </div>
           </article>
@@ -1063,7 +1087,7 @@
             <p class="cert-date"><time datetime="2025-03-27">27 Mar 2025</time></p>
             <p class="cert-credential">Credential ID: DQLABINTP1FBMWSQ</p>
             <a class="btn btn--ghost cert-link" href="assets/images/certificates/dqlab-python-fundamental-data-science.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
-              View Certificate →
+              <span aria-hidden="true">View Certificate →</span><span class="sr-only">View certificate for Python Fundamental for Data Science</span>
             </a>
           </div>
           </article>
@@ -1081,7 +1105,7 @@
             <p class="cert-date"><time datetime="2025-03-28">28 Mar 2025</time></p>
             <p class="cert-credential">Credential ID: DAMC-17032025-01-1-00017</p>
             <a class="btn btn--ghost cert-link" href="assets/images/certificates/revou-intro-to-data-analytics.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
-              View Certificate →
+              <span aria-hidden="true">View Certificate →</span><span class="sr-only">View certificate for Intro to Data Analytics (Mini Course)</span>
             </a>
           </div>
           </article>
@@ -1099,7 +1123,7 @@
             <p class="cert-date"><time datetime="2025-04-03">3 Apr 2025</time></p>
             <p class="cert-credential">Credential ID: DQLABINTP1JRAROU</p>
             <a class="btn btn--ghost cert-link" href="assets/images/certificates/dqlab-python-data-professional-beginner-1.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
-              View Certificate →
+              <span aria-hidden="true">View Certificate →</span><span class="sr-only">View certificate for Python for Data Professional Beginner – Part 1</span>
             </a>
           </div>
           </article>
@@ -1117,7 +1141,7 @@
             <p class="cert-date"><time datetime="2025-04-07">Mar–Apr 2025</time></p>
             <p class="cert-credential">Credential ID: 0052/DSA/DA/042025</p>
             <a class="btn btn--ghost cert-link" href="assets/images/certificates/dsarea-jobarea-data-analyst.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
-              View Certificate →
+              <span aria-hidden="true">View Certificate →</span><span class="sr-only">View certificate for Data Analyst</span>
             </a>
           </div>
           </article>
@@ -1135,7 +1159,7 @@
             <p class="cert-date"><time datetime="2025-06-05">5 Jun 2025</time></p>
             <p class="cert-credential">Credential ID: MS-5/6/2025-H2IYUG9v5guV0Mi690Ph</p>
             <a class="btn btn--ghost cert-link" href="assets/images/certificates/myskill-data-analysis-fundamental.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
-              View Certificate →
+              <span aria-hidden="true">View Certificate →</span><span class="sr-only">View certificate for Data Analysis Fundamental</span>
             </a>
           </div>
           </article>
@@ -1153,7 +1177,7 @@
             <p class="cert-date"><time datetime="2025-06-05">5 Jun 2025</time></p>
             <p class="cert-credential">Credential ID: MS-5/6/2025-howaZsODT8B9qyNq2R16</p>
             <a class="btn btn--ghost cert-link" href="assets/images/certificates/myskill-statistics.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
-              View Certificate →
+              <span aria-hidden="true">View Certificate →</span><span class="sr-only">View certificate for Statistics</span>
             </a>
           </div>
           </article>
@@ -1177,7 +1201,7 @@
             <p class="cert-issuer">Dibimbing.id</p>
             <p class="cert-date placeholder">[Date not shown on certificate]</p>
             <a class="btn btn--ghost cert-link" href="assets/images/certificates/dibimbing-frontend-developer.jpg" target="_blank" rel="noopener noreferrer" data-modal="certificate">
-              View Certificate →
+              <span aria-hidden="true">View Certificate →</span><span class="sr-only">View certificate for DSF 37 – Front End Developer</span>
             </a>
           </div>
           </article>

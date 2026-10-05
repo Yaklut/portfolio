@@ -548,3 +548,23 @@ html:not(.js) .timeline__item { animation: none; opacity: 1; }
   .edu-tile { padding: var(--space-5) var(--space-6); gap: var(--space-4); }
   .edu-ring, .edu-donut { width: 84px; height: 84px; }
 }
+
+/* ================= About: Experience card (Oct 5, 2026) ================= */
+.about__experience { margin-top: var(--space-8); }
+.about__subtitle {
+  font-size: clamp(1.375rem, 1.25rem + 0.6vw, 1.75rem); font-weight: 600;
+  margin-bottom: var(--space-5); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-border);
+}
+.card--experience { display: grid; gap: var(--space-4); border-left: 4px solid var(--accent); }
+.experience__head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-4); }
+.experience__head .icon-badge { flex-shrink: 0; margin-bottom: 0; background: var(--accent-tint); color: var(--accent-deep); }
+.experience__title { flex: 1 1 260px; min-width: 0; }
+.experience__title h4 { margin: 0; font-size: 1.125rem; line-height: 1.3; }
+.experience__org { margin: var(--space-1) 0 0; font-size: 0.9375rem; color: var(--color-ink-soft); }
+.experience__date { margin: 0; flex-shrink: 0; background: var(--accent-tint); color: var(--accent-deep); font-weight: 600; }
+.experience__list {
+  display: grid; gap: var(--space-2); max-width: 75ch; margin: 0; padding-left: 1.25rem;
+  list-style: disc; color: var(--color-ink-soft); font-size: 0.9375rem; line-height: 1.6;
+}
+.experience__list li { list-style: disc; }  /* the global "li { list-style: none }" reset would otherwise win */
+.experience__list li::marker { color: var(--accent); }

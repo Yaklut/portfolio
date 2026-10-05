@@ -1,0 +1,11 @@
+Fonts hosted locally (latin subset, woff2), served from this site instead of Google Fonts.
+All three families are licensed under the SIL Open Font License 1.1 (https://openfontlicense.org).
+
+Schibsted Grotesk - Copyright 2023 The Schibsted-Grotesk Project Authors
+  https://github.com/schibsted/schibsted-grotesk
+Public Sans - Copyright 2015 The Public Sans Project Authors
+  https://github.com/uswds/public-sans
+IBM Plex Mono - Copyright 2017 IBM Corp.
+  https://github.com/IBM/plex
+
+Files were obtained from the Fontsource packages (https://fontsource.org).
