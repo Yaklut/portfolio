@@ -154,33 +154,6 @@
     document.documentElement.addEventListener('mouseleave', () => { states.forEach((s) => { s.tx = 0; s.ty = 0; }); kick(); });
   }
 
-  /* ---- 5. Magnetic buttons (uses the `translate` property, so hover/active transforms still work) ---- */
-  function magnet() {
-    const items = $$('.hero__cta-row .btn, .contact__buttons .btn, .resume__actions .btn, .project__link')
-      .map((el) => ({ el, x: 0, y: 0, tx: 0, ty: 0 }));
-    let raf = 0;
-    function loop() {
-      raf = 0; let active = false;
-      items.forEach((m) => {
-        m.x += (m.tx - m.x) * 0.18; m.y += (m.ty - m.y) * 0.18;
-        const idle = !m.tx && !m.ty && Math.abs(m.x) + Math.abs(m.y) < 0.05;
-        m.el.style.translate = idle ? '' : `${m.x.toFixed(2)}px ${m.y.toFixed(2)}px`;
-        if (!idle) active = true;
-      });
-      if (active) raf = requestAnimationFrame(loop);
-    }
-    document.addEventListener('pointermove', (e) => {
-      if (e.pointerType === 'touch') return;
-      items.forEach((m) => {
-        const r = m.el.getBoundingClientRect();
-        const near = e.clientX > r.left - 70 && e.clientX < r.right + 70 && e.clientY > r.top - 70 && e.clientY < r.bottom + 70;
-        m.tx = near ? clamp((e.clientX - (r.left + r.width / 2)) * 0.3, -12, 12) : 0;
-        m.ty = near ? clamp((e.clientY - (r.top + r.height / 2)) * 0.4, -10, 10) : 0;
-      });
-      if (!raf) raf = requestAnimationFrame(loop);
-    }, { passive: true });
-  }
-
   /* ---- 6. Hero: the accent shape behind the photo drifts against the cursor ---- */
   function heroParallax() {
     const hero = document.querySelector('.hero'), frame = document.querySelector('.hero__photo-frame');
@@ -230,6 +203,6 @@
     textReveals();
     staggerIn();
     countUps();
-    if (fine) { tilt(); magnet(); heroParallax(); }
+    if (fine) { tilt(); heroParallax(); }
   });
 })();
