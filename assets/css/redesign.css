@@ -248,6 +248,7 @@
 .timeline__item[data-cat="CERT"]    { --accent: var(--viz-teal); --accent-deep: var(--viz-teal-deep); --accent-tint: var(--viz-teal-tint); }
 .timeline__item[data-cat="PROJECT"] { --accent: var(--viz-violet); --accent-deep: var(--viz-violet-deep); --accent-tint: var(--viz-violet-tint); }
 .timeline__item[data-cat="PUB"]     { --accent: var(--viz-coral); --accent-deep: var(--viz-coral-deep); --accent-tint: var(--viz-coral-tint); }
+.timeline__item[data-cat="ROLE"]    { --accent: var(--viz-green); --accent-deep: var(--viz-green-deep); --accent-tint: var(--viz-green-tint); }
 .timeline__item--lead { --accent: var(--color-gold) !important; --accent-deep: var(--color-gold-deep) !important; --accent-tint: var(--color-gold-tint) !important; }
 .timeline__item {
   margin: 0; padding: var(--space-4); align-items: flex-start; gap: var(--space-3);
