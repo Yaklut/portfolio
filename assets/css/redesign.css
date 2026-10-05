@@ -378,6 +378,10 @@
 .card--publication .chip--tier { background: var(--accent-tint); color: var(--accent-deep); font-weight: 600; }
 .card--publication .chip--author { gap: 8px; background: var(--color-surface-alt); color: var(--color-ink-soft); }
 .card--publication-lead .chip--author { background: var(--color-gold-tint); color: var(--color-gold-deep); }
+/* "My role" line under each publication: what Refa actually did on the paper */
+.publication__role { margin-top: var(--space-2); max-width: 68ch; font-size: 0.875rem; line-height: 1.55; color: var(--color-ink-soft); }
+.publication__role span { font-weight: 600; color: var(--color-ink); }
+.publication__role span::after { content: ":"; }
 .author-dots { display: inline-flex; gap: 3px; }
 .author-dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--color-border-interactive); opacity: 0.45; }
 .author-dots i.is-you { background: var(--accent); opacity: 1; box-shadow: 0 0 0 3px var(--accent-tint); }
