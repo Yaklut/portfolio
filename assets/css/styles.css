@@ -1880,6 +1880,8 @@ body.modal-open {
    content that runs longer than five seconds. */
 .tool-marquee__track {
   animation: toolMarquee 28s linear infinite;
+  /* Own compositing layer: avoids repaint flicker under the edge-fade mask */
+  will-change: transform;
 }
 .tool-marquee__viewport:hover .tool-marquee__track,
 .tool-marquee.is-paused .tool-marquee__track {
@@ -1890,7 +1892,8 @@ body.modal-open {
   to   { transform: translateX(-50%); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .tool-marquee__track { animation: none; }
+  .tool-marquee__track { animation: none; will-change: auto; }
+  .tool-marquee__item[aria-hidden="true"] { display: none; }
   .tool-marquee__toggle { display: none; }
 }
 
