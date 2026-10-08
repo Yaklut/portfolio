@@ -11,10 +11,10 @@ The site is a single-page, hand-written HTML/CSS/JavaScript project. There is no
 | Section | What it shows |
 |---|---|
 | Hero | Name, academic status, value proposition, and the main calls to action (projects, resume, contact) |
-| About | The International Relations → data/research story, plus an Experience entry (Research Fellow, Veritas Institute of Politics) |
+| About | The International Relations → data/research story, a "Current focus" strip (internship and ongoing courses), and an Experience entry (Research Fellow, Veritas Institute of Politics) |
 | Expertise & Skills | What I do, and the tools and methods behind it |
-| Featured Projects | Two dashboard projects (Kimia Farma, Bank Muamalat) with context, tools, key figures, dashboard screenshots, and GitHub links |
-| Education | Degree, GPA, and academic honors |
+| Featured Projects | Two dashboard projects (Kimia Farma, Bank Muamalat) with context, tools, key figures, dashboard screenshots, and GitHub links; interactive charts of their findings ("Explore the data"); a step-by-step "How I work" for each; and three short "Analysis notes" |
+| Education | Degree, semester progress, GPA, academic honors, and a viewable academic transcript (student ID and signatory ID hidden) |
 | Research & Publications | Six SINTA-indexed papers, with tier, author position, and my role on each, filterable by tier and first authorship |
 | Certifications | Eleven certificates grouped by domain, each viewable in an in-page lightbox |
 | Timeline, Resume, Contact | Key dates, a downloadable CV, and direct contact links |
@@ -27,8 +27,9 @@ Two longer project write-ups live in [`case-studies/`](case-studies/).
 - Sticky navigation with active-section tracking, a reading-progress line, and a mobile menu
 - `Ctrl/Cmd + K` command palette to jump between sections
 - Scroll-reveal and entrance animations, all skipped when the visitor has `prefers-reduced-motion` enabled
-- Accessible lightbox for certificates and dashboard screenshots (focus trap, `Esc` to close, focus returns to the trigger)
+- Accessible lightbox for certificates, dashboard screenshots, and the academic transcript (focus trap, `Esc` to close, focus returns to the trigger)
 - Tabbed evidence panels on project cards that follow the WAI-ARIA tabs pattern
+- Two interactive charts built with plain HTML, CSS, and JavaScript (no chart library): every number sits in the markup, the charts re-sort and filter on a toggle, and they work with the keyboard and without JavaScript
 - Self-hosted fonts, inline SVG icons, lazy-loaded images, and no third-party JavaScript apart from a privacy-friendly page-view counter ([GoatCounter](https://www.goatcounter.com/))
 
 ## Tech stack
@@ -60,6 +61,7 @@ portfolio/
     │   ├── reveal.js           Scroll-triggered reveals (IntersectionObserver)
     │   ├── modal.js            Certificate and screenshot lightbox
     │   ├── media-tabs.js       Tabbed screenshots on project cards
+    │   ├── data-explorer.js    Interactive charts in "Explore the data"
     │   ├── publications-filter.js
     │   ├── command-palette.js  Ctrl/Cmd + K jump menu
     │   ├── scroll-progress.js

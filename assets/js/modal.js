@@ -7,6 +7,7 @@
    A single delegated click listener handles every trigger on the page:
      - certificate links   (<a data-modal="certificate"> — 11 of them)
      - project screenshots (<button data-modal="project"> — 2 of them)
+     - the academic transcript (<a data-modal="transcript"> — 1 of them)
    so opening the lightbox never costs more than one listener regardless
    of how many certificates get added later.
    ========================================================================== */
@@ -100,6 +101,14 @@ window.Portfolio.initModal = function initModal() {
         src: trigger.getAttribute('href'),
         alt: title ? `${title} certificate` : 'Certificate image',
         caption: title,
+        trigger,
+      });
+    } else if (type === 'transcript') {
+      e.preventDefault();
+      openModal({
+        src: trigger.getAttribute('href'),
+        alt: 'Academic transcript of Refa Defanda Witanto, Universitas Brawijaya, issued 24 August 2026. The student ID and the signatory\'s employee number are hidden.',
+        caption: 'Official academic record (in Indonesian), issued Aug 24, 2026. The student ID and the signatory\'s employee number are hidden.',
         trigger,
       });
     } else if (type === 'project') {
