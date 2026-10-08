@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sales Performance Dashboard in Excel — Case Study | Refa Defanda Witanto</title>
+  <meta name="description" content="Case study: four Kimia Farma datasets (2020–2023) modelled in BigQuery and analysed for sales, profit and branch performance.">
+  <meta name="theme-color" content="#2A46C0">
+
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" href="../assets/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="../assets/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="../assets/images/icons/apple-touch-icon.png">
+
+  <link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/public-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header">
+    <nav class="navbar" aria-label="Primary">
+      <a class="navbar__wordmark" href="../index.html#hero">Refa Defanda</a>
+
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="primary-navigation" aria-label="Open menu">
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+      </button>
+
+      <div id="primary-navigation" class="nav-panel">
+        <ul class="nav-list">
+          <li><a class="nav-link" href="../index.html#about">About</a></li>
+          <li><a class="nav-link" href="../index.html#expertise">Expertise</a></li>
+          <li><a class="nav-link" href="../index.html#skills">Skills</a></li>
+          <li><a class="nav-link is-active" href="../index.html#projects" aria-current="true">Projects</a></li>
+          <li><a class="nav-link" href="../index.html#education">Education</a></li>
+          <li><a class="nav-link" href="../index.html#research">Research</a></li>
+          <li><a class="nav-link" href="../index.html#certifications">Certifications</a></li>
+          <li><a class="nav-link" href="../index.html#contact">Contact</a></li>
+        </ul>
+        <button type="button" class="nav-search-btn" id="cmdk-trigger" aria-label="Jump to a section" aria-haspopup="dialog" aria-keyshortcuts="Control+K Meta+K">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <kbd class="nav-search-btn__hint" aria-hidden="true">Ctrl K</kbd>
+        </button>
+        <a class="nav-cta btn btn--primary" href="../index.html#resume">Resume</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <section class="cs-hero" aria-labelledby="cs-title">
+      <div class="cs-hero__inner">
+        <div><a class="btn btn--ghost cs-back" href="../index.html#projects">← Back to projects</a></div>
+        <p class="project__sector">Sales &amp; financial performance</p>
+        <h1 id="cs-title" class="cs-title">Sales Performance Dashboard in Excel</h1>
+        <p class="cs-summary">Seven hundred raw orders turned into calculated revenue and profit, summarised in PivotTables and presented as an Excel dashboard with five charts and three slicers.</p>
+        <dl class="cs-meta">
+          <div><dt>Program</dt><dd>MySkill Intensive Bootcamp — Microsoft Excel Basic to Advanced · Batch 36. The final project report was graded Distinction (total score 89).</dd></div>
+          <div><dt>Period</dt><dd><time datetime="2026-09-12">Sep 12</time>–<time datetime="2026-09-26">Sep 26, 2026</time> (final project report)</dd></div>
+          <div><dt>Data</dt><dd>700 orders · 6 products · 5 countries · 5 buyer segments · Sep 2013–Dec 2014</dd></div>
+          <div><dt>Tools</dt><dd><ul class="tool-chips" aria-label="Tools used"><li class="chip">Microsoft Excel</li><li class="chip">XLOOKUP</li><li class="chip">PivotTables</li><li class="chip">Slicers</li></ul></dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section id="context" aria-labelledby="context-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">01</span>
+        <h2 id="context-heading" class="section-title">Context &amp; question</h2>
+      </div>
+      <div class="cs-body">
+        <div class="cs-prose reveal">
+          <p>The bootcamp's final-project brief supplied a raw order sheet and asked for a full analysis: build an order code, extract the order details into columns, calculate total price, revenue and gross profit, work out operating and net profit per year, and present the insights as a dashboard with at least four charts and one slicer. This project meets all of it, with five charts and three slicers.</p>
+          <h3>Data provided</h3>
+          <ul class="cs-list">
+            <li><strong>Order raw</strong> — 700 orders: country, buyer segment, product, quantity sold, discount, and a text field holding the order date</li>
+            <li><strong>Product</strong> — manufacturing cost and selling price for 6 products</li>
+            <li><strong>Discount</strong> — the definition of the Low, Medium and High discount tiers</li>
+            <li><strong>Other financials</strong> — yearly G&amp;A cost, handling cost and tax</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="approach" aria-labelledby="approach-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">02</span>
+        <h2 id="approach-heading" class="section-title">Approach</h2>
+      </div>
+      <div class="cs-body">
+        <ol class="cs-steps cs-steps--4">
+          <li class="card reveal"><h3>Prepare</h3><p>Built each order code from country and segment lookups plus the date, and pulled the day, month and year out of the order-details text to rebuild a real date column.</p></li>
+          <li class="card reveal"><h3>Calculate</h3><p>Looked up each product's selling price and manufacturing cost, then computed <span class="cs-code">Total Price</span>, <span class="cs-code">Revenue</span> (after discount), <span class="cs-code">Gross Profit</span> and a discount tier for every order.</p></li>
+          <li class="card reveal"><h3>Analyse</h3><p>Worked out yearly gross profit, operating profit (minus G&amp;A and handling cost) and net profit (minus tax) from the Other financials sheet.</p></li>
+          <li class="card reveal"><h3>Visualize</h3><p>Summarised the data in 12 PivotTables and built a dashboard sheet: four KPI cards, five charts, Top Product and Top Segment rankings, and slicers for order year, buyer segment and country.</p></li>
+        </ol>
+
+        <div class="cs-prose reveal">
+          <h3>Design decisions</h3>
+        </div>
+        <ul class="cs-cards cs-cards--3">
+          <li class="card reveal"><span class="cs-tag">Decision</span><h3>Discount tiers use rounded values</h3><p>Discount values carry tiny decimal noise (for example 0.0100013), so each tier is assigned from <span class="cs-code">ROUND(discount × 100, 0)</span> rather than the raw number.</p></li>
+          <li class="card reveal"><span class="cs-tag">Decision</span><h3>2013 is flagged as a partial year</h3><p>The data starts in September 2013, so 2013 has four months and 2014 has twelve. The product-growth chart says so in its subtitle, and the dashboard makes no year-over-year growth claim.</p></li>
+          <li class="card reveal"><span class="cs-tag">Decision</span><h3>Net profit is labelled “est.”</h3><p>Its cost lines (G&amp;A, handling, tax) are yearly totals supplied in the brief, not per-order costs, so the dashboard card reads “Net Profit (est.)”.</p></li>
+        </ul>
+
+        <div class="cs-prose reveal">
+          <h3>The formulas</h3>
+          <p>The main formulas behind the workbook, as written in the file. Ranges are trimmed slightly for readability.</p>
+        </div>
+        <div class="cs-sql reveal">
+          <p class="cs-sql__label">Order code</p>
+          <pre class="sql-code" tabindex="0" aria-label="Order code formula"><code>="ORD-"&amp;XLOOKUP(C2,Guide!$B$22:$B$26,Guide!$C$22:$C$26)
+ &amp;"-"&amp;XLOOKUP(D2,Guide!$B$29:$B$33,Guide!$C$29:$C$33)
+ &amp;"-"&amp;TEXT(H2,"yyyymmdd")          // e.g. ORD-GER-GOV-20141201</code></pre>
+        </div>
+        <div class="cs-sql reveal">
+          <p class="cs-sql__label">Extract the order date from the details text</p>
+          <pre class="sql-code" tabindex="0" aria-label="Order date extraction formula"><code>// Order details is plain text, not valid JSON, so day/month/year are cut out of it
+=DATE( VALUE(TEXTBEFORE(TEXTAFTER(B2,"""year"": """),"""")),
+       VALUE(TEXTBEFORE(TEXTAFTER(B2,"""month"": """),"""")),
+       VALUE(TEXTBEFORE(TEXTAFTER(B2,"""date"": """),"""")) )</code></pre>
+        </div>
+        <div class="cs-sql reveal">
+          <p class="cs-sql__label">Price, revenue, gross profit and discount tier</p>
+          <pre class="sql-code" tabindex="0" aria-label="Revenue, gross profit and discount tier formulas"><code>Selling Price  =XLOOKUP(E2,Product!$A$2:$A$7,Product!$C$2:$C$7)
+Total Price    =I2*F2
+Revenue        =J2*(1-IF(G2="-",0,G2))
+Gross Profit   =K2-(XLOOKUP(E2,Product!$A$2:$A$7,Product!$B$2:$B$7)*F2)
+Discount Tier  =IFS(G2=0,"No Discount", ROUND(G2*100,0)&lt;=4,"Low",
+                    ROUND(G2*100,0)&lt;=9,"Medium", ROUND(G2*100,0)&lt;=15,"High")</code></pre>
+          <p class="cs-sql__caption">Revenue = total price − discount; gross profit = revenue − manufacturing cost × quantity.</p>
+        </div>
+        <div class="cs-sql reveal">
+          <p class="cs-sql__label">Operating and net profit by year</p>
+          <pre class="sql-code" tabindex="0" aria-label="Operating and net profit formulas"><code>// Other financials: yearly operating cost and net profit
+Operating Profit (2013) =SUMPRODUCT((YEAR('Order raw'!H2:H701)=2013)*'Order raw'!L2:L701) - G&amp;A - Handling
+Net Profit      (2013)  =Operating Profit - Tax</code></pre>
+          <p class="cs-sql__caption">Operating profit = gross profit − G&amp;A − handling cost; net profit = operating profit − tax.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="results" aria-labelledby="results-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">03</span>
+        <h2 id="results-heading" class="section-title">Results snapshot</h2>
+      </div>
+      <div class="cs-body">
+        <dl class="cs-kpis reveal">
+          <div class="stat"><dt class="stat-label">Total revenue</dt><dd class="stat-value">$135.19M</dd></div>
+          <div class="stat"><dt class="stat-label">Gross profit</dt><dd class="stat-value">$37.85M</dd></div>
+          <div class="stat"><dt class="stat-label">Net profit (est.)</dt><dd class="stat-value">$16.65M</dd></div>
+          <div class="stat"><dt class="stat-label">Orders</dt><dd class="stat-value">700</dd></div>
+        </dl>
+        <p class="cs-note reveal">Figures match the dashboard (revenue $135,188,198; gross profit $37,846,424; net profit $16,653,606) and were rechecked against the workbook's order data. Overall gross margin is 28.0%.</p>
+        <div class="card cs-chart reveal">
+          <h3>Revenue by product</h3>
+          <p class="cs-chart__sub">Revenue · share of total revenue · gross margin</p>
+          <ul class="cs-bars">
+            <li class="cs-bars__row"><span class="cs-bars__label">Amarilla</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:100.0%"></span></span><span class="cs-bars__value cs-bars__value--wide">$49.98M · 37.0% · margin 37.9%</span></span></li>
+            <li class="cs-bars__row"><span class="cs-bars__label">VTT</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:93.9%"></span></span><span class="cs-bars__value cs-bars__value--wide">$46.93M · 34.7% · margin 10.1%</span></span></li>
+            <li class="cs-bars__row"><span class="cs-bars__label">Velo</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:54.3%"></span></span><span class="cs-bars__value cs-bars__value--wide">$27.12M · 20.1% · margin 28.1%</span></span></li>
+            <li class="cs-bars__row"><span class="cs-bars__label">Paseo</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:12.6%"></span></span><span class="cs-bars__value cs-bars__value--wide">$6.28M · 4.6% · margin 46.2%</span></span></li>
+            <li class="cs-bars__row"><span class="cs-bars__label">Carretera</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:5.4%"></span></span><span class="cs-bars__value cs-bars__value--wide">$2.72M · 2.0% · margin 83.8%</span></span></li>
+            <li class="cs-bars__row"><span class="cs-bars__label">Montana</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:4.3%"></span></span><span class="cs-bars__value cs-bars__value--wide">$2.15M · 1.6% · margin 64.2%</span></span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="insights" aria-labelledby="insights-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">04</span>
+        <h2 id="insights-heading" class="section-title">What the data shows</h2>
+      </div>
+      <div class="cs-body">
+        <ul class="cs-cards">
+          <li class="card reveal"><span class="cs-tag">Concentration</span><h3>Two products carry the revenue</h3><p>Amarilla and VTT together bring in 71.7% of revenue; the other four products share the remaining 28.3%.</p><p class="cs-evidence">$49.98M + $46.93M of $135.19M</p></li>
+          <li class="card reveal"><span class="cs-tag">Margin</span><h3>Revenue leader is not the profit leader</h3><p>VTT is 34.7% of revenue but earns only a 10.1% gross margin, against 37.9% for Amarilla. Amarilla alone produces about half of all gross profit.</p><p class="cs-evidence">Gross profit: Amarilla $18.94M · VTT $4.73M</p></li>
+          <li class="card reveal"><span class="cs-tag">Discounts</span><h3>Deeper discounts, thinner margins</h3><p>Gross margin falls at every step: 34.3% with no discount, 30.7% (Low), 27.5% (Medium) and 25.3% (High). The Medium and High tiers still hold 70.9% of revenue.</p><p class="cs-evidence">High tier: 245 orders · Medium: 242 · Low: 160 · None: 53</p></li>
+          <li class="card reveal"><span class="cs-tag">Segments</span><h3>Government is the largest buyer segment</h3><p>Government accounts for 42.1% of revenue from 300 of the 700 orders. The other four segments follow at 13.0–15.6% each. By country, revenue is fairly even (16.9–21.4%), with Mexico lowest.</p><p class="cs-evidence">Government $56.85M · Channel Partners $21.08M · Small Business $19.91M</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="dashboard" aria-labelledby="dashboard-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">05</span>
+        <h2 id="dashboard-heading" class="section-title">The dashboard</h2>
+      </div>
+      <div class="cs-body">
+        <div class="cs-figure reveal">
+          <figure class="project__media">
+            <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Excel sales performance dashboard">
+              <img
+                src="../assets/images/projects/excel-sales-dashboard.webp"
+                alt="Excel dashboard on a dark background: four KPI cards (total revenue, gross profit, estimated net profit, total orders), a monthly revenue and gross profit line chart, revenue growth by product, revenue by country, profitability breakdown by year, revenue by discount tier, slicers for order year, buyer segment and country, and Top Product and Top Segment rankings"
+                width="1700" height="1224" loading="lazy">
+            </button>
+            <figcaption>Excel dashboard: KPI cards, monthly trend, product, country, yearly profitability and discount-tier charts, with Top Product and Top Segment rankings</figcaption>
+          </figure>
+        </div>
+        <p class="cs-note reveal">This is a static export. In the workbook, the Order Year, Buyer segment and Country origin slicers filter every chart on the dashboard; use Excel on a computer to try them.</p>
+      </div>
+    </section>
+
+    <section id="more" aria-label="More">
+      <div class="cs-body">
+        <div class="cs-actions reveal">
+          <a class="btn btn--secondary" href="../assets/documents/Sales_Performance_Dashboard_Excel.xlsx" download>Download the workbook (.xlsx) →</a>
+          <a class="btn btn--ghost" href="../index.html#certifications">View the certificates →</a>
+        </div>
+        <div class="cs-pager reveal">
+          <a class="card cs-pager__link" href="bmi.html"><span>Previous project</span><strong>← Bank Muamalat (BMI) Sales Performance Dashboard</strong></a>
+          <a class="card cs-pager__link" href="../index.html#projects"><span>All projects</span><strong>Back to Featured Projects →</strong></a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer__top">
+      <p class="footer__wordmark">Refa Defanda Witanto</p>
+      <p class="footer__tagline">International Relations student building a second track in data &amp; business analytics.</p>
+    </div>
+
+    <nav class="footer__nav" aria-label="Footer">
+      <ul>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#research">Research</a></li>
+        <li><a href="../index.html#certifications">Certifications</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="footer__social" role="group" aria-label="Social links">
+      <a href="https://www.linkedin.com/in/refa-defanda/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://wa.me/6281336023700" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      <a href="mailto:refadfnda@gmail.com">Email</a>
+    </div>
+
+    <p class="footer__copyright">© 2026 Refa Defanda Witanto. All rights reserved.</p>
+  </footer>
+
+  <div class="modal" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-caption" aria-hidden="true" inert>
+    <div class="modal__dialog">
+      <button type="button" class="modal__close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <!-- src is a 1x1 transparent placeholder (standard technique for JS-populated
+           images) — modal.js always overwrites it with the real image before the
+           dialog becomes visible. -->
+      <img class="modal__image" id="lightbox-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="">
+      <p class="modal__caption" id="lightbox-caption"></p>
+    </div>
+  </div>
+
+
+  <!-- ==================================================================
+       COMMAND PALETTE — Ctrl/Cmd+K jump-to menu. Item list is built at
+       runtime by assets/js/command-palette.js from this page's own
+       section headings, not hardcoded here.
+       ================================================================== -->
+  <div class="modal modal--top" id="command-palette" role="dialog" aria-modal="true" aria-label="Jump to a section" aria-hidden="true" inert>
+    <div class="modal__dialog cmdk__dialog">
+      <div class="cmdk__search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="cmdk-input" class="cmdk__input" placeholder="Search or jump to…" role="combobox" aria-expanded="true" aria-controls="cmdk-list" aria-autocomplete="list" autocomplete="off" spellcheck="false">
+        <button type="button" class="modal__close cmdk__close" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <ul class="cmdk__list" id="cmdk-list" role="listbox" aria-label="Results"></ul>
+      <p class="cmdk__empty" id="cmdk-empty" hidden>No results.</p>
+      <div class="cmdk__footer" aria-hidden="true">
+        <span><kbd>↑</kbd><kbd>↓</kbd> Navigate</span>
+        <span><kbd>↵</kbd> Open</span>
+      </div>
+    </div>
+  </div>
+
+  <script defer src="../assets/js/nav.js"></script>
+  <script defer src="../assets/js/reveal.js"></script>
+  <script defer src="../assets/js/modal.js"></script>
+  <script defer src="../assets/js/command-palette.js"></script>
+  <script defer src="../assets/js/main.js"></script>
+
+  <script data-goatcounter="https://refadfnda.goatcounter.com/count"
+          async src="https://gc.zgo.at/count.js"></script>
+
+</body>
+</html>

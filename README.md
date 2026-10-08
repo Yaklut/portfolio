@@ -16,7 +16,7 @@ The site is a single-page, hand-written HTML/CSS/JavaScript project. There is no
 | Featured Projects | Two dashboard projects (Kimia Farma, Bank Muamalat) with context, tools, key figures, dashboard screenshots, and GitHub links; interactive charts of their findings ("Explore the data"); a step-by-step "How I work" for each; and three short "Analysis notes" |
 | Education | Degree, semester progress, GPA, academic honors, and a viewable academic transcript (student ID and signatory ID hidden) |
 | Research & Publications | Six SINTA-indexed papers, with tier, author position, and my role on each, filterable by tier and first authorship |
-| Certifications | Eleven certificates grouped by domain, each viewable in an in-page lightbox |
+| Certifications | Thirteen certificates grouped by domain, each viewable in an in-page lightbox |
 | Timeline, Resume, Contact | Key dates, a downloadable CV, and direct contact links |
 
 Two longer project write-ups live in [`case-studies/`](case-studies/).

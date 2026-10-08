@@ -2078,6 +2078,11 @@ body.modal-open {
 .cs-kpis .stat-value {
   font-size: clamp(1.375rem, 1.2rem + 0.8vw, 2rem);
 }
+@media (max-width: 480px) {
+  /* Keeps currency values such as "$37.85M" inside the card on phones */
+  .cs-kpis .stat { padding: var(--space-4); }
+  .cs-kpis .stat-value { font-size: 1.25rem; }
+}
 .cs-note {
   max-width: 65ch;
   margin: 0 0 var(--space-7);
