@@ -13,7 +13,7 @@ The site is a single-page, hand-written HTML/CSS/JavaScript project. There is no
 | Hero | Name, academic status, value proposition, and the main calls to action (projects, resume, contact) |
 | About | The International Relations → data/research story, a "Current focus" strip (internship and ongoing courses), and an Experience entry (Research Fellow, Veritas Institute of Politics) |
 | Expertise & Skills | What I do, and the tools and methods behind it |
-| Featured Projects | Two dashboard projects (Kimia Farma, Bank Muamalat) with context, tools, key figures, dashboard screenshots, and GitHub links; interactive charts of their findings ("Explore the data"); a step-by-step "How I work" for each; and three short "Analysis notes" |
+| Featured Projects | Three compact project snapshots (Kimia Farma, Bank Muamalat, Excel sales dashboard): summary, dashboard thumbnail, key figures, one key insight and buttons to the full case study, the data explorer and the code or workbook. The whole card is clickable. |
 | Education | Degree, semester progress, GPA, academic honors, and a viewable academic transcript (student ID and signatory ID hidden) |
 | Research & Publications | Six SINTA-indexed papers, with tier, author position, and my role on each, filterable by tier and first authorship |
 | Certifications | Thirteen certificates grouped by domain, each viewable in an in-page lightbox |
@@ -60,8 +60,8 @@ portfolio/
     │   ├── nav.js              Navbar scroll state, mobile menu, active link
     │   ├── reveal.js           Scroll-triggered reveals (IntersectionObserver)
     │   ├── modal.js            Certificate and screenshot lightbox
-    │   ├── media-tabs.js       Tabbed screenshots on project cards
-    │   ├── data-explorer.js    Interactive charts in "Explore the data"
+    │   ├── media-tabs.js       (no longer loaded; project cards no longer use tabs)
+    │   ├── data-explorer.js    (no longer loaded; the interactive charts now live on each case-study page in case-study.js)
     │   ├── publications-filter.js
     │   ├── command-palette.js  Ctrl/Cmd + K jump menu
     │   ├── scroll-progress.js

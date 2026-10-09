@@ -261,24 +261,30 @@
       <div class="cs-body">
         <ol class="cs-lessons">
         <li class="card cs-lesson reveal"><span class="cs-lesson__num" aria-hidden="true">01</span>
+          <h3 class="cs-lesson__title">A low rating at a 5-star branch is not a service problem</h3>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">Challenge</p><p>My first dashboard highlighted five branches rated 5.0 whose transactions had the lowest ratings, and I read that as a service-quality gap.</p></div>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">What I did</p><p>Then I checked every branch. The 96 branches rated 5.0 average a transaction rating of 3.997, against 4.000 for all other branches, and the correlation between the two ratings is about 0.02. Picking the five lowest out of 96 will always produce some low numbers. That is selection, not signal, so I removed the claim.</p></div>
+          <div class="cs-lesson__col cs-lesson__col--take"><p class="cs-lesson__label">Takeaway</p><p>Test an outlier against the whole population before calling it a pattern.</p></div>
+        </li>
+        <li class="card cs-lesson reveal"><span class="cs-lesson__num" aria-hidden="true">02</span>
           <h3 class="cs-lesson__title">Joins that quietly inflate sales</h3>
           <div class="cs-lesson__col"><p class="cs-lesson__label">Challenge</p><p>Inventory repeats the same (branch, product) pairs, so joining it to the transactions would duplicate sales rows and inflate nett sales.</p></div>
           <div class="cs-lesson__col"><p class="cs-lesson__label">What I did</p><p>Kept inventory out of the main join and summarised it in its own table.</p></div>
           <div class="cs-lesson__col cs-lesson__col--take"><p class="cs-lesson__label">Takeaway</p><p>Check what one row means in each table before joining, and compare totals before and after.</p></div>
         </li>
-        <li class="card cs-lesson reveal"><span class="cs-lesson__num" aria-hidden="true">02</span>
+        <li class="card cs-lesson reveal"><span class="cs-lesson__num" aria-hidden="true">03</span>
           <h3 class="cs-lesson__title">Dates stored as text</h3>
           <div class="cs-lesson__col"><p class="cs-lesson__label">Challenge</p><p>Transaction dates arrive as M/D/YYYY text.</p></div>
           <div class="cs-lesson__col"><p class="cs-lesson__label">What I did</p><p>Loaded them as strings, parsed them with PARSE_DATE in the SQL step, and added a check that counts any date that fails to parse.</p></div>
           <div class="cs-lesson__col cs-lesson__col--take"><p class="cs-lesson__label">Takeaway</p><p>Load the raw data first, transform it in SQL, and check for failures instead of trusting a conversion.</p></div>
         </li>
-        <li class="card cs-lesson reveal"><span class="cs-lesson__num" aria-hidden="true">03</span>
+        <li class="card cs-lesson reveal"><span class="cs-lesson__num" aria-hidden="true">04</span>
           <h3 class="cs-lesson__title">A map that needs the right codes</h3>
           <div class="cs-lesson__col"><p class="cs-lesson__label">Challenge</p><p>The Looker Studio geo map needs standard codes to place each province correctly.</p></div>
           <div class="cs-lesson__col"><p class="cs-lesson__label">What I did</p><p>Mapped every province to its ISO 3166-2 code inside the SQL table.</p></div>
           <div class="cs-lesson__col cs-lesson__col--take"><p class="cs-lesson__label">Takeaway</p><p>Prepare what the dashboard needs, such as map codes, in the data model.</p></div>
         </li>
-        <li class="card cs-lesson reveal"><span class="cs-lesson__num" aria-hidden="true">04</span>
+        <li class="card cs-lesson reveal"><span class="cs-lesson__num" aria-hidden="true">05</span>
           <h3 class="cs-lesson__title">Numbers that did not reconcile</h3>
           <div class="cs-lesson__col"><p class="cs-lesson__label">Challenge</p><p>Re-checking the finished project against the raw CSV files showed the original dashboard formula overstated nett sales and nett profit by 8.03%.</p></div>
           <div class="cs-lesson__col"><p class="cs-lesson__label">What I did</p><p>Recomputed everything from the raw files and documented the correction on this page (see “Data check &amp; corrections”).</p></div>

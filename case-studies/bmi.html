@@ -268,24 +268,30 @@
       <div class="cs-body">
         <ol class="cs-lessons">
         <li class="card cs-lesson reveal"><span class="cs-lesson__num" aria-hidden="true">01</span>
-          <h3 class="cs-lesson__title">Prices that were 100 times too large</h3>
-          <div class="cs-lesson__col"><p class="cs-lesson__label">Challenge</p><p>The CSV uses a decimal comma (9,99). Read automatically, prices come out 100 times too large.</p></div>
-          <div class="cs-lesson__col"><p class="cs-lesson__label">What I did</p><p>Loaded the products table as text and converted the price in SQL with REPLACE and CAST.</p></div>
-          <div class="cs-lesson__col cs-lesson__col--take"><p class="cs-lesson__label">Takeaway</p><p>Check a few values after loading, and watch for locale formats such as decimal commas.</p></div>
+          <h3 class="cs-lesson__title">A decimal comma that inflated sales 100×</h3>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">Challenge</p><p>When I loaded the product table into BigQuery, auto-detect read the price <span class="cs-code">9,99</span> as <span class="cs-code">999</span>. The source files use a decimal comma, so every price, and every sales figure built on it, was 100 times too large.</p></div>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">What I did</p><p>Loaded prices as text and converted them in SQL with <span class="cs-code">CAST(REPLACE(Price, ',', '.') AS FLOAT64)</span>. After that the master table matched: 3,339 orders, 11,654 units, and total sales of $1,754,750.57.</p></div>
+          <div class="cs-lesson__col cs-lesson__col--take"><p class="cs-lesson__label">Takeaway</p><p>Never trust type auto-detection on files from another locale.</p></div>
         </li>
         <li class="card cs-lesson reveal"><span class="cs-lesson__num" aria-hidden="true">02</span>
+          <h3 class="cs-lesson__title">A 7.8% drop, and 87% of it in one category</h3>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">Challenge</p><p>Sales fell 7.8%, from $913,210 in 2020 to $841,540 in 2021. A headline like that invites a broad answer, such as promotions everywhere.</p></div>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">What I did</p><p>Splitting it by category showed otherwise: Robots alone account for about 87% of the decline ($402,835 to $340,670, down 15.4%), while Drones grew 3.3%. Robots are 42.4% of sales, so recovering them became the first of my five recommendations.</p></div>
+          <div class="cs-lesson__col cs-lesson__col--take"><p class="cs-lesson__label">Takeaway</p><p>Break a headline number apart before deciding what to fix.</p></div>
+        </li>
+        <li class="card cs-lesson reveal"><span class="cs-lesson__num" aria-hidden="true">03</span>
           <h3 class="cs-lesson__title">Emails with extra text attached</h3>
           <div class="cs-lesson__col"><p class="cs-lesson__label">Challenge</p><p>Raw emails look like abc@x.com#mailto:abc@x.com#.</p></div>
           <div class="cs-lesson__col"><p class="cs-lesson__label">What I did</p><p>Kept only the part before the first # using SPLIT.</p></div>
           <div class="cs-lesson__col cs-lesson__col--take"><p class="cs-lesson__label">Takeaway</p><p>Look at real values, not only column names, before trusting a field.</p></div>
         </li>
-        <li class="card cs-lesson reveal"><span class="cs-lesson__num" aria-hidden="true">03</span>
+        <li class="card cs-lesson reveal"><span class="cs-lesson__num" aria-hidden="true">04</span>
           <h3 class="cs-lesson__title">Keys that had to match before joining</h3>
           <div class="cs-lesson__col"><p class="cs-lesson__label">Challenge</p><p>The category column arrives as text but has to match an integer ID in the category table.</p></div>
           <div class="cs-lesson__col"><p class="cs-lesson__label">What I did</p><p>Cast it to an integer, checked every key for uniqueness and missing values, and ran an orphan-key check on all three links (none found).</p></div>
           <div class="cs-lesson__col cs-lesson__col--take"><p class="cs-lesson__label">Takeaway</p><p>Validate keys and relationships before building the master table.</p></div>
         </li>
-        </ol>
+</ol>
       </div>
     </section>
 

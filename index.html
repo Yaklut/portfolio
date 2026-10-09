@@ -85,6 +85,7 @@
   <link rel="stylesheet" href="assets/css/redesign.css">
   <link rel="stylesheet" href="assets/css/expressive.css">
   <link rel="stylesheet" href="assets/css/transitions.css">
+  <link rel="stylesheet" href="assets/css/snapshot.css">
 </head>
 <body>
 
@@ -520,15 +521,17 @@
       <div class="section-heading reveal">
         <span class="section-eyebrow" aria-hidden="true">03</span>
         <h2 id="projects-heading" class="section-title">Featured Projects</h2>
+        <p class="projects__lead">Quick snapshots of three projects. Each case study has the full method, code or formulas, interactive charts and the lessons learned.</p>
       </div>
 
       <div class="projects-list">
 
         <!-- Project 1: Kimia Farma -->
-        <article class="card card--project project--v2 accent-teal reveal" id="project-kimia-farma">
+        <article class="card card--project project--v2 accent-teal reveal project--snapshot" id="project-kimia-farma">
           <header class="project__head">
             <p class="project__sector">Pharmaceutical retail</p>
-            <h3>Kimia Farma Performance Analytics (2020–2023)</h3>
+            <h3><a class="project__title-link" href="case-studies/kimia-farma.html">Kimia Farma Performance Analytics (2020–2023)</a></h3>
+            <p class="project__summary">Four years of Kimia Farma sales, profitability and branch performance, turned from four raw datasets into a BigQuery analysis table and a Looker Studio dashboard.</p>
             <ul class="project__meta-chips" aria-label="Project details"><li>Project-Based Virtual Internship</li><li>Big Data Analytics · Kimia Farma × Rakamin Academy</li><li><time datetime="2025-04-17">Apr 17</time>–<time datetime="2025-05-15">May 15, 2025</time></li></ul>
             <div class="project__logos" role="group" aria-label="Organizations involved">
               <span class="project__logo-tile"><img src="assets/images/logos/kimia-farma.svg" alt="Kimia Farma logo" width="280" height="100"></span>
@@ -539,73 +542,15 @@
 
           <div class="project__showcase">
             <div class="project__visual">
-          <figure class="project__media media-tabs" data-media-tabs>
-            <div class="media-tabs__list" role="tablist" aria-label="Kimia Farma project evidence">
-              <button type="button" role="tab" class="media-tabs__tab" id="kf-tab-overview" aria-controls="kf-panel-overview" aria-selected="true">Overview</button>
-              <button type="button" role="tab" class="media-tabs__tab" id="kf-tab-detail" aria-controls="kf-panel-detail" aria-selected="false" tabindex="-1">Detail</button>
-              <button type="button" role="tab" class="media-tabs__tab" id="kf-tab-sql" aria-controls="kf-panel-sql" aria-selected="false" tabindex="-1">SQL</button>
-            </div>
-
-            <div class="media-tabs__panel" role="tabpanel" id="kf-panel-overview" aria-labelledby="kf-tab-overview" data-caption="Page 1 · Overview: KPIs, yearly trend, province map">
-              <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Kimia Farma dashboard, page 1 (overview)">
-                <img
+              <figure class="project__media">
+                <a class="project__media-trigger project__media-link" href="case-studies/kimia-farma.html" aria-label="Read the Kimia Farma case study">
+                  <img
                   src="assets/images/projects/kimia-farma-dashboard-overview.webp"
                   alt="Looker Studio dashboard, page 1: headline insight, yearly nett sales versus nett profit, profit by province map, KPI tiles for total nett profit, nett sales, transactions and average rating, nett sales by branch category, and top 10 provinces by transactions and nett sales"
                   width="956" height="948" loading="lazy">
-              </button>
-            </div>
-
-            <div class="media-tabs__panel" role="tabpanel" id="kf-panel-detail" aria-labelledby="kf-tab-detail" data-caption="Page 2 · Detail: branches, transactions, categories, stock" hidden>
-              <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Kimia Farma dashboard, page 2 (detail)">
-                <img
-                  src="assets/images/projects/kimia-farma-dashboard-detail.webp"
-                  alt="Looker Studio dashboard, page 2: top 5 branches table, latest transactions snapshot, nett sales by product category, monthly nett sales trend, and top 10 provinces by total stock"
-                  width="956" height="951" loading="lazy">
-              </button>
-            </div>
-
-            <div class="media-tabs__panel media-tabs__panel--code" role="tabpanel" id="kf-panel-sql" aria-labelledby="kf-tab-sql" data-caption="Core of 02_create_tabel_analisa.sql (trimmed, English comments)" hidden>
-              <pre class="sql-code" tabindex="0" aria-label="SQL used to build the Kimia Farma analysis table"><code><span class="sql-c">-- tabel_analisa: one row per transaction</span>
-<span class="sql-k">CREATE OR REPLACE TABLE</span> `project_id.kimia_farma.tabel_analisa` <span class="sql-k">AS</span>
-<span class="sql-k">WITH</span> base <span class="sql-k">AS</span> (
-  <span class="sql-k">SELECT</span>
-    t.transaction_id,
-    PARSE_DATE('%m/%d/%Y', t.date) <span class="sql-k">AS</span> date,  <span class="sql-c">-- CSV dates are M/D/YYYY strings</span>
-    t.branch_id,
-    b.kota,
-    b.provinsi,
-    b.rating <span class="sql-k">AS</span> rating_cabang,
-    p.product_name,
-    p.product_category,
-    t.price <span class="sql-k">AS</span> actual_price,
-    t.discount_percentage,
-    <span class="sql-c">-- gross margin tier by price</span>
-    <span class="sql-k">CASE</span>
-      <span class="sql-k">WHEN</span> t.price &lt;= 50000  <span class="sql-k">THEN</span> 0.10
-      <span class="sql-k">WHEN</span> t.price &lt;= 100000 <span class="sql-k">THEN</span> 0.15
-      <span class="sql-k">WHEN</span> t.price &lt;= 300000 <span class="sql-k">THEN</span> 0.20
-      <span class="sql-k">WHEN</span> t.price &lt;= 500000 <span class="sql-k">THEN</span> 0.25
-      <span class="sql-k">ELSE</span> 0.30
-    <span class="sql-k">END</span> <span class="sql-k">AS</span> persentase_gross_laba,
-    t.rating <span class="sql-k">AS</span> rating_transaksi
-    <span class="sql-c">-- ... remaining columns omitted here</span>
-  <span class="sql-k">FROM</span> `project_id.kimia_farma.kf_final_transaction` <span class="sql-k">AS</span> t
-  <span class="sql-k">LEFT JOIN</span> `project_id.kimia_farma.kf_kantor_cabang` <span class="sql-k">AS</span> b <span class="sql-k">ON</span> t.branch_id  = b.branch_id
-  <span class="sql-k">LEFT JOIN</span> `project_id.kimia_farma.kf_product`       <span class="sql-k">AS</span> p <span class="sql-k">ON</span> t.product_id = p.product_id
-)
-<span class="sql-k">SELECT</span>
-  *,
-  <span class="sql-k">ROUND</span>(actual_price * (1 - discount_percentage), 2)                         <span class="sql-k">AS</span> nett_sales,
-  <span class="sql-k">ROUND</span>(actual_price * (1 - discount_percentage) * persentase_gross_laba, 2) <span class="sql-k">AS</span> nett_profit
-  <span class="sql-c">-- + province -&gt; ISO code CASE for the Looker Studio geo map</span>
-<span class="sql-k">FROM</span> base;
-
-<span class="sql-c">-- kf_inventory is deliberately NOT joined: its (branch, product) pairs repeat,</span>
-<span class="sql-c">-- so a direct join would duplicate transaction rows and inflate nett_sales.</span></code></pre>
-            </div>
-
-            <figcaption class="media-tabs__caption" aria-live="polite">Page 1 · Overview: KPIs, yearly trend, province map</figcaption>
-          </figure>
+                </a>
+                <figcaption>Page 1 · Overview: KPIs, yearly trend, province map</figcaption>
+              </figure>
             </div>
             <div class="project__side">
               <dl class="project__stats">
@@ -626,35 +571,11 @@
                 <dd class="stat-value">264,601</dd>
               </div>
             </dl>
-              <div class="project__viz">
-            <div class="viz-ring">
-              <div class="viz-ring__chart">
-                <svg viewBox="0 0 120 120" role="img" aria-label="Jawa Barat accounts for 29.5 percent of total nett sales">
-                  <circle class="viz-ring__track" cx="60" cy="60" r="50" pathLength="100"/>
-                  <circle class="viz-ring__fill" cx="60" cy="60" r="50" pathLength="100" stroke-dasharray="29.5 100"/>
-                </svg>
-                <span class="viz-ring__label">29.5%</span>
-              </div>
-              <p><strong>Jawa Barat</strong> share of total nett sales<br><span>Rp94.87B of Rp321.17B</span></p>
+              <section class="story-block story-block--insight snapshot__insight">
+                <h4>Key insight</h4>
+                <p>Jawa Barat led every province in both nett sales (Rp94.87B, 29.5% of the total) and transaction volume (198,723), while nett sales held roughly flat year over year (~Rp80B annually, 2020–2023).</p>
+              </section>
             </div>
-              </div>
-              <ol class="viz-flow" aria-label="Data flow"><li class="viz-node"><strong>4 source datasets</strong><span>Transactions · products · inventory · branch offices</span></li><li class="viz-node"><strong>BigQuery analysis table</strong><span>CTEs · LEFT JOINs · CASE WHEN</span></li><li class="viz-node"><strong>Looker Studio dashboard</strong><span>Overview + detail pages</span></li></ol>
-            </div>
-          </div>
-
-          <div class="project__story">
-            <section class="story-block"><span class="story-block__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span><h4>Context</h4><p>Kimia Farma, one of Indonesia's largest pharmaceutical
-              companies, needed a data-driven way to evaluate business performance across its
-              branch network.</p></section>
-            <section class="story-block"><span class="story-block__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></span><h4>My contribution</h4><p>I imported and integrated four datasets —
-              transactions, products, inventory, and branch offices — into Google BigQuery covering
-              2020–2023. I wrote SQL queries using CTEs, LEFT JOINs, and CASE WHEN logic to compute
-              nett sales and gross profit margins by product price tier, then built a Looker Studio
-              dashboard to surface the results.</p></section>
-            <section class="story-block story-block--insight"><span class="story-block__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5M9 18h6M10 22h4"/></svg></span><h4>Key insight</h4><p>Jawa Barat led every province in both nett sales
-              (Rp94.87B, 29.5% of the total) and transaction volume (198,723) — though nett sales
-              held roughly flat year over year (~Rp80B annually, 2020–2023) rather than growing.
-              Completed with an average score of 91.56 (Excellent).</p></section>
           </div>
 
           <footer class="project__foot">
@@ -663,16 +584,20 @@
               <li class="chip">Google Looker Studio</li>
               <li class="chip">SQL</li>
             </ul>
-            <a class="btn btn--primary project__link" href="case-studies/kimia-farma.html">Read case study →</a>
-            <a class="btn btn--secondary project__link" href="https://github.com/Yaklut/KimiaFarma-Performance-Analytics" target="_blank" rel="noopener noreferrer"><svg class="brand" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>View on GitHub →</a>
+            <div class="project__actions">
+              <a class="btn btn--primary project__link" href="case-studies/kimia-farma.html">Read case study →</a>
+              <a class="btn btn--ghost project__link" href="case-studies/kimia-farma.html#results">Explore the data →</a>
+              <a class="btn btn--secondary project__link" href="https://github.com/Yaklut/KimiaFarma-Performance-Analytics" target="_blank" rel="noopener noreferrer"><svg class="brand" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>View on GitHub →</a>
+            </div>
           </footer>
         </article>
 
         <!-- Project 2: Bank Muamalat / BMI -->
-        <article class="card card--project project--v2 accent-violet reveal" id="project-bmi">
+        <article class="card card--project project--v2 accent-violet reveal project--snapshot" id="project-bmi">
           <header class="project__head">
             <p class="project__sector">Islamic banking</p>
-            <h3>Bank Muamalat (BMI) Sales Performance Dashboard</h3>
+            <h3><a class="project__title-link" href="case-studies/bmi.html">Bank Muamalat (BMI) Sales Performance Dashboard</a></h3>
+            <p class="project__summary">Four relational tables joined into one BigQuery master table and a Looker Studio sales dashboard, and five data-backed recommendations on products, inventory, cities and customers.</p>
             <ul class="project__meta-chips" aria-label="Project details"><li>Project-Based Virtual Internship</li><li>Business Intelligence Analyst · Bank Muamalat × Rakamin Academy</li><li><time datetime="2025-10-06">Oct 6</time>–<time datetime="2025-11-03">Nov 3, 2025</time></li></ul>
             <div class="project__logos" role="group" aria-label="Organizations involved">
               <span class="project__logo-tile"><img src="assets/images/logos/bank-muamalat.svg" alt="Bank Muamalat logo" width="318" height="100"></span>
@@ -683,62 +608,15 @@
 
           <div class="project__showcase">
             <div class="project__visual">
-          <figure class="project__media media-tabs media-tabs--bmi" data-media-tabs>
-            <div class="media-tabs__list" role="tablist" aria-label="Bank Muamalat project evidence">
-              <button type="button" role="tab" class="media-tabs__tab" id="bmi-tab-overview" aria-controls="bmi-panel-overview" aria-selected="true">Overview</button>
-              <button type="button" role="tab" class="media-tabs__tab" id="bmi-tab-detail" aria-controls="bmi-panel-detail" aria-selected="false" tabindex="-1">Detail</button>
-              <button type="button" role="tab" class="media-tabs__tab" id="bmi-tab-sql" aria-controls="bmi-panel-sql" aria-selected="false" tabindex="-1">SQL</button>
-            </div>
-
-            <div class="media-tabs__panel" role="tabpanel" id="bmi-panel-overview" aria-labelledby="bmi-tab-overview" data-caption="Page 1 · Overview: sales and quantity by category, top 5s, cities, monthly trend">
-              <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Bank Muamalat dashboard, page 1 (overview)">
-                <img
+              <figure class="project__media">
+                <a class="project__media-trigger project__media-link" href="case-studies/bmi.html" aria-label="Read the Bank Muamalat case study">
+                  <img
                   src="assets/images/projects/bmi-dashboard-overview.webp"
                   alt="Looker Studio dashboard, page 1: total sales, total orders and order quantity tiles, total sales and quantity by product category, top 5 categories by sales and by quantity, total sales by city, and a monthly sales trend for 2020 to 2021"
                   width="898" height="800" loading="lazy">
-              </button>
-            </div>
-
-            <div class="media-tabs__panel" role="tabpanel" id="bmi-panel-detail" aria-labelledby="bmi-tab-detail" data-caption="Page 2 · Detail: sales and quantity by category, top 10 products" hidden>
-              <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Bank Muamalat dashboard, page 2 (detail)">
-                <img
-                  src="assets/images/projects/bmi-dashboard-detail.webp"
-                  alt="Looker Studio dashboard, page 2: sales by category and quantity by category bar charts that drill down to products, and a table of the top 10 products by sales with category, quantity and order count"
-                  width="898" height="687" loading="lazy">
-              </button>
-            </div>
-
-            <div class="media-tabs__panel media-tabs__panel--code" role="tabpanel" id="bmi-panel-sql" aria-labelledby="bmi-tab-sql" data-caption="Master table query from SQLQuery.sql (placeholder project names)" hidden>
-              <pre class="sql-code" tabindex="0" aria-label="SQL used to build the Bank Muamalat master table"><code><span class="sql-c">-- MASTER TABLE</span>
-<span class="sql-c">-- Notes:</span>
-<span class="sql-c">--  * CustomerEmail in the raw data looks like 'abc@x.com#mailto:abc@x.com#',</span>
-<span class="sql-c">--    so it is cleaned with SPLIT(CustomerEmail, '#')[OFFSET(0)].</span>
-<span class="sql-c">--  * products was loaded with all columns as STRING (decimal comma in the source</span>
-<span class="sql-c">--    CSV), so Price is converted with CAST(REPLACE(Price, ',', '.') AS FLOAT64)</span>
-<span class="sql-c">--    and Category with CAST(Category AS INT64).</span>
-
-<span class="sql-k">CREATE OR REPLACE TABLE</span> `project_id.dataset.master_table` <span class="sql-k">AS</span>
-<span class="sql-k">SELECT</span>
-  CAST(o.Date <span class="sql-k">AS</span> DATE)                        <span class="sql-k">AS</span> order_date,
-  pc.CategoryName                             <span class="sql-k">AS</span> category_name,
-  p.ProdName                                  <span class="sql-k">AS</span> product_name,
-  CAST(REPLACE(p.Price, ',', '.') <span class="sql-k">AS</span> FLOAT64)  <span class="sql-k">AS</span> product_price,
-  o.Quantity                                  <span class="sql-k">AS</span> order_qty,
-  <span class="sql-k">ROUND</span>(o.Quantity * CAST(REPLACE(p.Price, ',', '.') <span class="sql-k">AS</span> FLOAT64), 2)  <span class="sql-k">AS</span> total_sales,
-  SPLIT(c.CustomerEmail, '#')[OFFSET(0)]      <span class="sql-k">AS</span> cust_email,
-  c.CustomerCity                              <span class="sql-k">AS</span> cust_city
-<span class="sql-k">FROM</span> `project_id.dataset.orders` o
-<span class="sql-k">JOIN</span> `project_id.dataset.products` p
-  <span class="sql-k">ON</span> o.ProdNumber = p.ProdNumber
-<span class="sql-k">JOIN</span> `project_id.dataset.product_category` pc
-  <span class="sql-k">ON</span> CAST(p.Category <span class="sql-k">AS</span> INT64) = pc.CategoryID
-<span class="sql-k">JOIN</span> `project_id.dataset.customers` c
-  <span class="sql-k">ON</span> o.CustomerID = c.CustomerID
-<span class="sql-k">ORDER BY</span> order_date, o.OrderID;</code></pre>
-            </div>
-
-            <figcaption class="media-tabs__caption" aria-live="polite">Page 1 · Overview: sales and quantity by category, top 5s, cities, monthly trend</figcaption>
-          </figure>
+                </a>
+                <figcaption>Page 1 · Overview: sales and quantity by category, top 5s, cities, monthly trend</figcaption>
+              </figure>
             </div>
             <div class="project__side">
               <dl class="project__stats">
@@ -759,28 +637,11 @@
                 <dd class="stat-value">1,671</dd>
               </div>
             </dl>
-              <div class="project__viz">
-            <ul class="viz-picks">
-              <li><span>Top revenue categories</span><strong>Robots · Drones</strong></li>
-              <li><span>Highest-revenue city</span><strong>Washington</strong><em>55,382 in sales</em></li>
-            </ul>
-              </div>
-              <ol class="viz-flow" aria-label="Data flow"><li class="viz-node"><strong>4 relational datasets</strong><span>Customer · Orders · Product · Product Category</span></li><li class="viz-node"><strong>BigQuery master table</strong><span>Multi-table SQL JOINs</span></li><li class="viz-node"><strong>Looker Studio dashboard</strong><span>Sales view + recommendations</span></li></ol>
+              <section class="story-block story-block--insight snapshot__insight">
+                <h4>Key insight</h4>
+                <p>Robots brought in 42.4% of sales (743,505) but fell 15.4% from 2020 to 2021, about 87% of the 7.8% total decline.</p>
+              </section>
             </div>
-          </div>
-
-          <div class="project__story">
-            <section class="story-block"><span class="story-block__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span><h4>Context</h4><p>Bank Muamalat needed a data-driven way to evaluate sales
-              performance across products, customer segments, and cities.</p></section>
-            <section class="story-block"><span class="story-block__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></span><h4>My contribution</h4><p>I mapped entity relationships and identified primary
-              keys across four relational datasets (Customer, Orders, Product, Product Category),
-              then constructed a master table in BigQuery using multi-table SQL JOINs, built a
-              Looker Studio sales dashboard, and wrote five data-backed recommendations: recover
-              Robots, forecast inventory, cross-sell to higher-value products, retain declining
-              cities, and activate dormant customers.</p></section>
-            <section class="story-block story-block--insight"><span class="story-block__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5M9 18h6M10 22h4"/></svg></span><h4>Key insight</h4><p>Robots brought in 42.4% of sales (743,505) but fell
-              15.4% from 2020 to 2021, about 87% of the 7.8% total decline. Washington was the
-              highest-revenue city (55,382 in sales) and dropped 37% in 2021.</p></section>
           </div>
 
           <footer class="project__foot">
@@ -789,28 +650,35 @@
               <li class="chip">Google Looker Studio</li>
               <li class="chip">SQL</li>
             </ul>
-            <a class="btn btn--primary project__link" href="case-studies/bmi.html">Read case study →</a>
-            <a class="btn btn--secondary project__link" href="https://github.com/Yaklut/BMI-Sales-Performance-Dashboard" target="_blank" rel="noopener noreferrer"><svg class="brand" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>View on GitHub →</a>
+            <div class="project__actions">
+              <a class="btn btn--primary project__link" href="case-studies/bmi.html">Read case study →</a>
+              <a class="btn btn--ghost project__link" href="case-studies/bmi.html#results">Explore the data →</a>
+              <a class="btn btn--secondary project__link" href="https://github.com/Yaklut/BMI-Sales-Performance-Dashboard" target="_blank" rel="noopener noreferrer"><svg class="brand" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>View on GitHub →</a>
+            </div>
           </footer>
         </article>
 
         <!-- Project 3: Excel Sales Performance Dashboard -->
-        <article class="card card--project project--v2 accent-blue reveal" id="project-excel">
+        <article class="card card--project project--v2 accent-blue reveal project--snapshot" id="project-excel">
           <header class="project__head">
             <p class="project__sector">Sales &amp; financial performance</p>
-            <h3>Sales Performance Dashboard in Excel</h3>
+            <h3><a class="project__title-link" href="case-studies/excel-sales-dashboard.html">Sales Performance Dashboard in Excel</a></h3>
+            <p class="project__summary">Seven hundred raw orders turned into calculated revenue and profit, summarised in PivotTables and presented as an Excel dashboard with five charts and three slicers.</p>
             <ul class="project__meta-chips" aria-label="Project details"><li>MySkill Excel Bootcamp · Final Project</li><li>Batch 36 · Distinction (score 89)</li><li><time datetime="2026-09-12">Sep 12</time>–<time datetime="2026-09-26">Sep 26, 2026</time></li></ul>
+            <div class="project__logos" role="group" aria-label="Program">
+              <span class="project__logo-tile"><img src="assets/images/logos/myskill.webp" alt="MySkill logo" width="512" height="512"></span>
+            </div>
           </header>
 
           <div class="project__showcase">
             <div class="project__visual">
               <figure class="project__media">
-                <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Excel sales performance dashboard">
+                <a class="project__media-trigger project__media-link" href="case-studies/excel-sales-dashboard.html" aria-label="Read the Excel case study">
                   <img
                     src="assets/images/projects/excel-sales-dashboard.webp"
                     alt="Excel dashboard on a dark background: four KPI cards, a monthly revenue and gross profit line chart, revenue by product, revenue by country, profitability by year, revenue by discount tier, slicers for order year, buyer segment and country, and Top Product and Top Segment rankings"
                     width="1700" height="1224" loading="lazy">
-                </button>
+                </a>
                 <figcaption>Excel dashboard: KPIs, monthly trend, product, country, yearly profit and discount-tier charts, three slicers</figcaption>
               </figure>
             </div>
@@ -821,20 +689,11 @@
                 <div class="stat"><dt class="stat-label">Net Profit (est.)</dt><dd class="stat-value">$16.65M</dd></div>
                 <div class="stat"><dt class="stat-label">Orders</dt><dd class="stat-value">700</dd></div>
               </dl>
-              <div class="project__viz">
-                <ul class="viz-picks">
-                  <li><span>Top products by revenue</span><strong>Amarilla · VTT</strong><em>71.7% of revenue together</em></li>
-                  <li><span>Top buyer segment</span><strong>Government</strong><em>42.1% of revenue</em></li>
-                </ul>
-              </div>
-              <ol class="viz-flow" aria-label="Data flow"><li class="viz-node"><strong>700 raw orders</strong><span>Sep 2013–Dec 2014 · 6 products · 5 countries</span></li><li class="viz-node"><strong>Excel formulas</strong><span>XLOOKUP · TEXTBEFORE/AFTER · IFS</span></li><li class="viz-node"><strong>PivotTable dashboard</strong><span>5 charts · 3 slicers</span></li></ol>
+              <section class="story-block story-block--insight snapshot__insight">
+                <h4>Key insight</h4>
+                <p>Amarilla and VTT bring in 71.7% of revenue, but VTT earns only a 10.1% gross margin against 37.9% for Amarilla, so the revenue leader is not the profit leader.</p>
+              </section>
             </div>
-          </div>
-
-          <div class="project__story">
-            <section class="story-block"><span class="story-block__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span><h4>Context</h4><p>The final project of MySkill's Excel bootcamp: turn a raw sheet of 700 orders (Sep 2013–Dec 2014) into profit figures and a dashboard with at least four charts and one slicer.</p></section>
-            <section class="story-block"><span class="story-block__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></span><h4>My contribution</h4><p>I prepared the data with Excel formulas (XLOOKUP, TEXTBEFORE and TEXTAFTER, IFS), calculated revenue, gross profit, and yearly operating and net profit, then built 12 PivotTables feeding a dashboard with five charts and three slicers.</p></section>
-            <section class="story-block story-block--insight"><span class="story-block__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5M9 18h6M10 22h4"/></svg></span><h4>Key insight</h4><p>Amarilla and VTT bring in 71.7% of revenue, but VTT earns only a 10.1% gross margin against 37.9% for Amarilla, so the revenue leader is not the profit leader.</p></section>
           </div>
 
           <footer class="project__foot">
@@ -844,286 +703,16 @@
               <li class="chip">XLOOKUP</li>
               <li class="chip">Slicers</li>
             </ul>
-            <a class="btn btn--primary project__link" href="case-studies/excel-sales-dashboard.html">Read case study →</a>
-            <a class="btn btn--secondary project__link" href="assets/documents/Sales_Performance_Dashboard_Excel.xlsx" download>Download workbook →</a>
+            <div class="project__actions">
+              <a class="btn btn--primary project__link" href="case-studies/excel-sales-dashboard.html">Read case study →</a>
+              <a class="btn btn--ghost project__link" href="case-studies/excel-sales-dashboard.html#results">Explore the data →</a>
+              <a class="btn btn--secondary project__link" href="assets/documents/Sales_Performance_Dashboard_Excel.xlsx" download>Download workbook →</a>
+            </div>
           </footer>
         </article>
 
       </div>
 
-      <div class="explorer reveal" id="explore">
-        <div class="workflow__head">
-          <h3>Explore the data</h3>
-          <p>Findings from the two dashboards, rebuilt as interactive charts. Switch the view, then hover, tap, or use the arrow keys on a bar for details.</p>
-        </div>
-
-        <div class="explorer__grid">
-          <article class="card chart-card accent-violet" data-chart="bmi" aria-labelledby="chart-bmi-title">
-            <header class="chart-card__head">
-              <div>
-                <h4 id="chart-bmi-title">Bank Muamalat: what sells vs. what earns</h4>
-                <p class="chart-card__source">Product categories, 2020–2021</p>
-              </div>
-              <div class="chart-toggle" role="group" aria-label="Chart view">
-                <button type="button" class="chart-toggle__btn" data-metric="sales" aria-pressed="true" data-insight="Robots and Drones bring in about 70% of sales while making up only about 20% of units.">Sales</button>
-                <button type="button" class="chart-toggle__btn" data-metric="units" aria-pressed="false" data-insight="eBooks, Training Videos and Blueprints make up 59% of units but only 8.9% of sales.">Units sold</button>
-              </div>
-            </header>
-            <ol class="chart-rows" aria-label="Sales by product category">
-              <li class="chart-row" data-sales="743505" data-units="1053" data-share="42.4" data-yoy="-15.4">
-                <button type="button" class="chart-row__btn">
-                  <span class="chart-row__label">Robots</span>
-                  <span class="chart-row__track" aria-hidden="true"><span class="chart-row__bar" style="--w: 100.0%"></span></span>
-                  <span class="chart-row__value">$743,505</span>
-                </button>
-              </li>
-              <li class="chart-row" data-sales="477447" data-units="1227" data-share="27.2" data-yoy="3.3">
-                <button type="button" class="chart-row__btn">
-                  <span class="chart-row__label">Drones</span>
-                  <span class="chart-row__track" aria-hidden="true"><span class="chart-row__bar" style="--w: 64.2%"></span></span>
-                  <span class="chart-row__value">$477,447</span>
-                </button>
-              </li>
-              <li class="chart-row" data-sales="216437" data-units="1037" data-share="12.3" data-yoy="-11.3">
-                <button type="button" class="chart-row__btn">
-                  <span class="chart-row__label">Robot Kits</span>
-                  <span class="chart-row__track" aria-hidden="true"><span class="chart-row__bar" style="--w: 29.1%"></span></span>
-                  <span class="chart-row__value">$216,437</span>
-                </button>
-              </li>
-              <li class="chart-row" data-sales="161243" data-units="1515" data-share="9.2" data-yoy="-5.8">
-                <button type="button" class="chart-row__btn">
-                  <span class="chart-row__label">Drone Kits</span>
-                  <span class="chart-row__track" aria-hidden="true"><span class="chart-row__bar" style="--w: 21.7%"></span></span>
-                  <span class="chart-row__value">$161,243</span>
-                </button>
-              </li>
-              <li class="chart-row" data-sales="80716" data-units="2081" data-share="4.6" data-yoy="0.9">
-                <button type="button" class="chart-row__btn">
-                  <span class="chart-row__label">Training Videos</span>
-                  <span class="chart-row__track" aria-hidden="true"><span class="chart-row__bar" style="--w: 10.9%"></span></span>
-                  <span class="chart-row__value">$80,716</span>
-                </button>
-              </li>
-              <li class="chart-row" data-sales="58968" data-units="3123" data-share="3.4" data-yoy="4.2">
-                <button type="button" class="chart-row__btn">
-                  <span class="chart-row__label">eBooks</span>
-                  <span class="chart-row__track" aria-hidden="true"><span class="chart-row__bar" style="--w: 7.9%"></span></span>
-                  <span class="chart-row__value">$58,968</span>
-                </button>
-              </li>
-              <li class="chart-row" data-sales="16435" data-units="1618" data-share="0.9" data-yoy="-12.3">
-                <button type="button" class="chart-row__btn">
-                  <span class="chart-row__label">Blueprints</span>
-                  <span class="chart-row__track" aria-hidden="true"><span class="chart-row__bar" style="--w: 2.2%"></span></span>
-                  <span class="chart-row__value">$16,435</span>
-                </button>
-              </li>
-            </ol>
-            <p class="chart-card__detail" aria-live="polite">Hover, tap, or arrow through the bars for details.</p>
-            <p class="chart-card__insight">Robots and Drones bring in about 70% of sales while making up only about 20% of units.</p>
-            <p class="chart-card__note">Total sales $1.75M, 11,654 units sold. Year over year compares 2021 with 2020.</p>
-          </article>
-
-          <article class="card chart-card accent-teal" data-chart="kf" aria-labelledby="chart-kf-title">
-            <header class="chart-card__head">
-              <div>
-                <h4 id="chart-kf-title">Kimia Farma: where the nett sales come from</h4>
-                <p class="chart-card__source">Top 10 provinces by nett sales, 2020–2023</p>
-              </div>
-              <div class="chart-toggle" role="group" aria-label="Chart view">
-                <button type="button" class="chart-toggle__btn" data-top="1" aria-pressed="false" data-insight="Jawa Barat alone contributes 29.5% of nett sales and 198,723 transactions.">Top 1</button>
-                <button type="button" class="chart-toggle__btn" data-top="3" aria-pressed="false" data-insight="The top three provinces contribute 43.6% of nett sales.">Top 3</button>
-                <button type="button" class="chart-toggle__btn" data-top="10" aria-pressed="true" data-insight="The top 10 provinces make up 70.8% of nett sales, out of 31 provinces in the data.">Top 10</button>
-              </div>
-            </header>
-            <ol class="chart-rows" aria-label="Nett sales by province">
-              <li class="chart-row" data-value="94.87" data-share="29.5" data-rank="1">
-                <button type="button" class="chart-row__btn">
-                  <span class="chart-row__label">Jawa Barat</span>
-                  <span class="chart-row__track" aria-hidden="true"><span class="chart-row__bar" style="--w: 100.0%"></span></span>
-                  <span class="chart-row__value">Rp94.87B</span>
-                </button>
-              </li>
-              <li class="chart-row" data-value="22.95" data-share="7.1" data-rank="2">
-                <button type="button" class="chart-row__btn">
-                  <span class="chart-row__label">Sumatera Utara</span>
-                  <span class="chart-row__track" aria-hidden="true"><span class="chart-row__bar" style="--w: 24.2%"></span></span>
-                  <span class="chart-row__value">Rp22.95B</span>
-                </button>
-              </li>
-              <li class="chart-row" data-value="22.25" data-share="6.9" data-rank="3">
-                <button type="button" class="chart-row__btn">
-                  <span class="chart-row__label">Jawa Tengah</span>
-                  <span class="chart-row__track" aria-hidden="true"><span class="chart-row__bar" style="--w: 23.5%"></span></span>
-                  <span class="chart-row__value">Rp22.25B</span>
-                </button>
-              </li>
-              <li class="chart-row" data-value="16.63" data-share="5.2" data-rank="4">
-                <button type="button" class="chart-row__btn">
-                  <span class="chart-row__label">Jawa Timur</span>
-                  <span class="chart-row__track" aria-hidden="true"><span class="chart-row__bar" style="--w: 17.5%"></span></span>
-                  <span class="chart-row__value">Rp16.63B</span>
-                </button>
-              </li>
-              <li class="chart-row" data-value="15.9" data-share="5.0" data-rank="5">
-                <button type="button" class="chart-row__btn">
-                  <span class="chart-row__label">Sulawesi Utara</span>
-                  <span class="chart-row__track" aria-hidden="true"><span class="chart-row__bar" style="--w: 16.8%"></span></span>
-                  <span class="chart-row__value">Rp15.90B</span>
-                </button>
-              </li>
-              <li class="chart-row" data-value="15.31" data-share="4.8" data-rank="6">
-                <button type="button" class="chart-row__btn">
-                  <span class="chart-row__label">Sumatera Barat</span>
-                  <span class="chart-row__track" aria-hidden="true"><span class="chart-row__bar" style="--w: 16.1%"></span></span>
-                  <span class="chart-row__value">Rp15.31B</span>
-                </button>
-              </li>
-              <li class="chart-row" data-value="10.47" data-share="3.3" data-rank="7">
-                <button type="button" class="chart-row__btn">
-                  <span class="chart-row__label">Aceh</span>
-                  <span class="chart-row__track" aria-hidden="true"><span class="chart-row__bar" style="--w: 11.0%"></span></span>
-                  <span class="chart-row__value">Rp10.47B</span>
-                </button>
-              </li>
-              <li class="chart-row" data-value="10.04" data-share="3.1" data-rank="8">
-                <button type="button" class="chart-row__btn">
-                  <span class="chart-row__label">Nusa Tenggara Barat</span>
-                  <span class="chart-row__track" aria-hidden="true"><span class="chart-row__bar" style="--w: 10.6%"></span></span>
-                  <span class="chart-row__value">Rp10.04B</span>
-                </button>
-              </li>
-              <li class="chart-row" data-value="9.71" data-share="3.0" data-rank="9">
-                <button type="button" class="chart-row__btn">
-                  <span class="chart-row__label">Kalimantan Timur</span>
-                  <span class="chart-row__track" aria-hidden="true"><span class="chart-row__bar" style="--w: 10.2%"></span></span>
-                  <span class="chart-row__value">Rp9.71B</span>
-                </button>
-              </li>
-              <li class="chart-row" data-value="9.35" data-share="2.9" data-rank="10">
-                <button type="button" class="chart-row__btn">
-                  <span class="chart-row__label">Riau</span>
-                  <span class="chart-row__track" aria-hidden="true"><span class="chart-row__bar" style="--w: 9.9%"></span></span>
-                  <span class="chart-row__value">Rp9.35B</span>
-                </button>
-              </li>
-            </ol>
-            <p class="chart-card__detail" aria-live="polite">Hover, tap, or arrow through the bars for details.</p>
-            <p class="chart-card__insight">The top 10 provinces make up 70.8% of nett sales, out of 31 provinces in the data.</p>
-            <p class="chart-card__note">Total nett sales Rp321.17 billion, using the corrected formula.</p>
-          </article>
-        </div>
-      </div>
-
-      <div class="workflow reveal">
-        <div class="workflow__head">
-          <h3>How I work: Kimia Farma</h3>
-          <p>The workflow behind the Kimia Farma analysis, from raw CSVs to a decision-ready dashboard.</p>
-        </div>
-
-        <ol class="workflow__steps">
-          <li class="workflow__step">
-            <span class="workflow__num" aria-hidden="true">01</span>
-            <h4>Load</h4>
-            <p>Imported four CSVs into BigQuery with explicit schemas. Dates arrive as M/D/YYYY text, so they were loaded as strings and parsed later.</p>
-          </li>
-          <li class="workflow__step">
-            <span class="workflow__num" aria-hidden="true">02</span>
-            <h4>Model</h4>
-            <p>Built one analysis table with LEFT JOINs, then derived nett sales and nett profit using a price-tier margin rule.</p>
-          </li>
-          <li class="workflow__step">
-            <span class="workflow__num" aria-hidden="true">03</span>
-            <h4>Validate</h4>
-            <p>Wrote checks for row counts, unparsed dates, unmatched joins and yearly totals, with expected values computed from the source CSVs.</p>
-          </li>
-          <li class="workflow__step">
-            <span class="workflow__num" aria-hidden="true">04</span>
-            <h4>Report</h4>
-            <p>Connected the table to Looker Studio: filters, KPI tiles, a yearly trend, a province map, and a one-line takeaway at the top of the page.</p>
-          </li>
-        </ol>
-
-        <div class="workflow__calls">
-          <h4>Judgment calls I documented</h4>
-          <ul>
-            <li><strong>Inventory is not joined to transactions.</strong> Its (branch, product) pairs repeat, so a direct join would duplicate sales rows and inflate nett sales.</li>
-            <li><strong>Branches are identified by ID and city, not name.</strong> <code>branch_name</code> has only three unique values.</li>
-            <li><strong>Province ISO codes were added</strong> so the geo map places every province correctly.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="workflow reveal">
-        <div class="workflow__head">
-          <h3>How I work: Bank Muamalat</h3>
-          <p>The workflow behind the Bank Muamalat analysis, from four relational CSVs to five data-backed recommendations.</p>
-        </div>
-
-        <ol class="workflow__steps">
-          <li class="workflow__step">
-            <span class="workflow__num" aria-hidden="true">01</span>
-            <h4>Load</h4>
-            <p>Loaded four semicolon-delimited CSVs into BigQuery with a custom delimiter and the header row skipped. The products table went in as text, because auto-detect misread its prices.</p>
-          </li>
-          <li class="workflow__step">
-            <span class="workflow__num" aria-hidden="true">02</span>
-            <h4>Model</h4>
-            <p>Identified each table's primary key and mapped the one-to-many relationships, then joined everything into one master table of 3,339 rows, with total sales computed as quantity × price.</p>
-          </li>
-          <li class="workflow__step">
-            <span class="workflow__num" aria-hidden="true">03</span>
-            <h4>Validate</h4>
-            <p>Checked all three relationships for orphan keys (none found), then checked the master table's row count, total sales (1,754,750.57) and total quantity (11,654).</p>
-          </li>
-          <li class="workflow__step">
-            <span class="workflow__num" aria-hidden="true">04</span>
-            <h4>Report</h4>
-            <p>Built a two-page Looker Studio dashboard: sales and quantity by category and city, top-5 rankings, a 2020 vs 2021 comparison and a monthly Robots vs Drones trend. Then turned the findings into five recommendations.</p>
-          </li>
-        </ol>
-
-        <div class="workflow__calls">
-          <h4>Judgment calls I documented</h4>
-          <ul>
-            <li><strong>Prices are converted in SQL, not trusted to auto-detect.</strong> The source uses a decimal comma, and auto-detect read <code>9,99</code> as <code>999</code>, which inflated sales 100x.</li>
-            <li><strong>Customer emails were cleaned.</strong> The raw field carries an appended <code>#mailto:…#</code> string, removed with <code>SPLIT(CustomerEmail, '#')</code>.</li>
-            <li><strong>Recommendations stay at sales and quantity.</strong> The data covers only two years and has no cost or margin information, so nothing is claimed about profitability.</li>
-            <li><strong>Digital products are assumed.</strong> eBooks, Training Videos and Blueprints are treated as digital, so they are left out of the inventory recommendation.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="notes reveal" id="notes">
-        <div class="workflow__head">
-          <h3>Analysis notes</h3>
-          <p>Three things the two projects taught me, in short.</p>
-        </div>
-
-        <div class="notes__grid">
-          <article class="card note-card accent-teal">
-            <p class="chip note-card__tag">Kimia Farma</p>
-            <h4>A low rating at a 5-star branch is not a service problem</h4>
-            <p>My first dashboard highlighted five branches rated 5.0 whose transactions had the lowest ratings, and I read that as a service-quality gap. Then I checked every branch. The 96 branches rated 5.0 average a transaction rating of 3.997, against 4.000 for all other branches, and the correlation between the two ratings is about 0.02. Picking the five lowest out of 96 will always produce some low numbers. That is selection, not signal, so I removed the claim.</p>
-            <p class="note-card__lesson"><strong>Lesson:</strong> test an outlier against the whole population before calling it a pattern.</p>
-          </article>
-
-          <article class="card note-card accent-violet">
-            <p class="chip note-card__tag">Bank Muamalat</p>
-            <h4>A decimal comma that inflated sales 100x</h4>
-            <p>When I loaded the product table into BigQuery, auto-detect read the price <code>9,99</code> as <code>999</code>. The source files use a decimal comma, so every price, and every sales figure built on it, was 100 times too large. The fix was to load prices as text and convert them in SQL with <code>CAST(REPLACE(Price, ',', '.') AS FLOAT64)</code>. After that the master table matched: 3,339 orders, 11,654 units, and total sales of $1,754,750.57.</p>
-            <p class="note-card__lesson"><strong>Lesson:</strong> never trust type auto-detection on files from another locale.</p>
-          </article>
-
-          <article class="card note-card accent-violet">
-            <p class="chip note-card__tag">Bank Muamalat</p>
-            <h4>A 7.8% drop, and 87% of it in one category</h4>
-            <p>Sales fell 7.8%, from $913,210 in 2020 to $841,540 in 2021. A headline like that invites a broad answer, such as promotions everywhere. Splitting it by category showed otherwise: Robots alone account for about 87% of the decline ($402,835 to $340,670, down 15.4%), while Drones grew 3.3%. Robots are 42.4% of sales, so recovering them became the first of my five recommendations.</p>
-            <p class="note-card__lesson"><strong>Lesson:</strong> break a headline number apart before deciding what to fix.</p>
-          </article>
-        </div>
-      </div>
     </section>
 
     <!-- ==================================================================
@@ -1959,8 +1548,6 @@
   <script defer src="assets/js/command-palette.js"></script>
   <script defer src="assets/js/publications-filter.js"></script>
   <script defer src="assets/js/scroll-progress.js"></script>
-  <script defer src="assets/js/media-tabs.js"></script>
-  <script defer src="assets/js/data-explorer.js"></script>
   <script defer src="assets/js/motion.js"></script>
   <script defer src="assets/js/expressive.js"></script>
   <script defer src="assets/js/main.js"></script>

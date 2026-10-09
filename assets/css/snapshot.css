@@ -1,0 +1,75 @@
+/* ==========================================================================
+   snapshot.css — compact "snapshot" project cards on the home page
+
+   The full detail of each project lives on its case-study page; the home
+   page card is a quick overview: title, one-line summary, dashboard
+   thumbnail, key figures, one key insight and the buttons to go deeper.
+   Reuses the card, stat and chip styles from styles.css / redesign.css.
+   ========================================================================== */
+
+.projects__lead {
+  max-width: 62ch;
+  margin: var(--space-4) 0 0;
+  font-size: var(--text-lg, 1.0625rem);
+  line-height: 1.6;
+  color: var(--color-ink-soft);
+}
+
+.project--snapshot { position: relative; }
+.project--snapshot .project__summary {
+  max-width: 60ch;
+  margin: var(--space-3) 0 var(--space-4);
+  color: var(--color-ink-soft);
+  line-height: 1.6;
+}
+
+/* The whole card is clickable: the title link stretches over the card, and the
+   other links and buttons sit above it. */
+.project__title-link { color: inherit; text-decoration: none; }
+.project__title-link::after { content: ""; position: absolute; inset: 0; z-index: 0; border-radius: inherit; }
+.project__title-link:focus-visible { outline: none; }
+.project__title-link:focus-visible::after { outline: 2px solid var(--color-primary); outline-offset: 3px; }
+.project--snapshot .project__media-link,
+.project--snapshot .project__actions a,
+.project--snapshot .project__logos { position: relative; z-index: 1; }
+@media (hover: hover) {
+  .project--snapshot:hover .project__head h3 { color: var(--accent-deep, var(--color-primary)); }
+}
+
+/* Thumbnail */
+.project--snapshot .project__media-link { display: block; overflow: hidden; cursor: pointer; }
+.project--snapshot .project__media-link img { display: block; width: 100%; height: auto; transition: transform 700ms var(--ease-out); }
+.project--snapshot .project__media-link::after {
+  content: "Read case study →";
+  position: absolute; right: var(--space-3); bottom: var(--space-3);
+  padding: 8px 14px; border-radius: var(--radius-full);
+  background: var(--color-ink); color: #fff; font: 600 0.8125rem/1 var(--font-body);
+  opacity: 0; translate: 0 8px; transition: opacity 250ms var(--ease-out), translate 250ms var(--ease-out);
+  pointer-events: none;
+}
+@media (hover: hover) {
+  .project--snapshot:hover .project__media-link img { transform: scale(1.035); }
+  .project--snapshot:hover .project__media-link::after { opacity: 1; translate: 0 0; }
+}
+.project--snapshot .project__media-link:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.project--snapshot .project__media-link:focus-visible::after { opacity: 1; translate: 0 0; }
+
+/* Key insight sits under the figures */
+.snapshot__insight { display: block; margin: 0; padding: var(--space-4) var(--space-5); }
+.snapshot__insight h4 {
+  margin: 0 0 var(--space-2); font-family: var(--font-mono); font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-deep, var(--color-primary));
+}
+.snapshot__insight p { margin: 0; font-size: 0.9375rem; line-height: 1.6; color: var(--color-ink); }
+
+/* Footer: chips left, actions right */
+.project--snapshot .project__foot { gap: var(--space-4) var(--space-5); }
+.project__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+@media (max-width: 640px) {
+  .project__actions { width: 100%; }
+  .project__actions .btn { flex: 1 1 auto; justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project--snapshot .project__media-link img, .project--snapshot .project__media-link::after { transition: none; }
+}
