@@ -51,22 +51,77 @@ window.Portfolio.initMotion = function initMotion() {
     }).observe(modal, { attributes: true, attributeFilter: ['class'] });
   }
 
-  // Click the image to zoom in/out; zoom lands where you clicked. Resets on close.
+  // Zoom: click the image to zoom in on the spot you clicked; click again to zoom out.
+  // While zoomed, drag to move around (mouse/pen), use the arrow keys, or scroll/swipe.
+  // Resets on close.
   if (dialog && image) {
+    let drag = null;
+    let moved = false;
+
+    const hint = document.createElement('p');
+    hint.className = 'modal__hint';
+    // Sit below the picture (and below the page pager, if there is one), not inside the zoomable stage.
+    (dialog.querySelector('.modal__pager') || image.closest('.modal__stage') || image).after(hint);
+    const updateHint = () => {
+      hint.textContent = dialog.classList.contains('is-zoomed')
+        ? 'Drag to move around · click to zoom out'
+        : 'Click the image to zoom in';
+    };
+    updateHint();
+
+    image.draggable = false;
     image.addEventListener('click', (e) => {
-      const rect = image.getBoundingClientRect();
-      const fx = (e.clientX - rect.left) / rect.width;
-      const fy = (e.clientY - rect.top) / rect.height;
+      if (moved) { moved = false; return; } // that was a drag, not a click
+      // Where on the picture was clicked (0–1), measured before the zoom changes its size.
+      const before = image.getBoundingClientRect();
+      const fx = (e.clientX - before.left) / before.width;
+      const fy = (e.clientY - before.top) / before.height;
       const zoomed = dialog.classList.toggle('is-zoomed');
-      if (zoomed) {
-        requestAnimationFrame(() => {
-          dialog.scrollLeft = fx * image.offsetWidth - dialog.clientWidth / 2;
-          dialog.scrollTop = fy * image.offsetHeight - dialog.clientHeight / 2;
-        });
-      }
+      updateHint();
+      if (!zoomed) return;
+      // The zoomed size applies immediately (no width animation), so the scroll position
+      // can be set right now. Aim the clicked point at the middle of the dialog.
+      const img = image.getBoundingClientRect();
+      const box = dialog.getBoundingClientRect();
+      dialog.scrollTo({
+        left: dialog.scrollLeft + (img.left - box.left) + fx * img.width - dialog.clientWidth / 2,
+        top: dialog.scrollTop + (img.top - box.top) + fy * img.height - dialog.clientHeight / 2,
+        behavior: 'instant',
+      });
     });
+
+    // Drag to pan (touch keeps its native swipe scrolling).
+    image.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'touch' || e.button !== 0 || !dialog.classList.contains('is-zoomed')) return;
+      drag = { x: e.clientX, y: e.clientY, left: dialog.scrollLeft, top: dialog.scrollTop };
+      moved = false;
+      image.setPointerCapture(e.pointerId);
+    });
+    image.addEventListener('pointermove', (e) => {
+      if (!drag) return;
+      const dx = e.clientX - drag.x;
+      const dy = e.clientY - drag.y;
+      if (!moved && Math.hypot(dx, dy) < 5) return;
+      moved = true;
+      dialog.classList.add('is-dragging');
+      dialog.scrollLeft = drag.left - dx;
+      dialog.scrollTop = drag.top - dy;
+    });
+    const endDrag = () => { drag = null; dialog.classList.remove('is-dragging'); };
+    image.addEventListener('pointerup', endDrag);
+    image.addEventListener('pointercancel', () => { moved = false; endDrag(); });
+
+    // Arrow keys move the zoomed picture.
+    document.addEventListener('keydown', (e) => {
+      if (!dialog.classList.contains('is-zoomed') || !modal.classList.contains('is-open')) return;
+      const step = { ArrowLeft: [-80, 0], ArrowRight: [80, 0], ArrowUp: [0, -80], ArrowDown: [0, 80] }[e.key];
+      if (!step) return;
+      e.preventDefault();
+      dialog.scrollBy({ left: step[0], top: step[1], behavior: 'instant' });
+    });
+
     new MutationObserver(() => {
-      if (!modal.classList.contains('is-open')) dialog.classList.remove('is-zoomed');
+      if (!modal.classList.contains('is-open')) { dialog.classList.remove('is-zoomed', 'is-dragging'); moved = false; updateHint(); }
     }).observe(modal, { attributes: true, attributeFilter: ['class'] });
   }
 

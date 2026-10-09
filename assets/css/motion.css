@@ -43,9 +43,38 @@
 @keyframes eyebrow-pop { 40% { transform: translateY(-4px); color: var(--color-primary); } }
 
 /* ---- Lightbox zoom ---- */
-.modal__image { cursor: zoom-in; transition: width var(--duration-base) var(--ease-out); }
+.modal__image { cursor: zoom-in; -webkit-user-drag: none; user-select: none; }
 .modal__dialog.is-zoomed { overflow: auto; }
-.modal__dialog.is-zoomed .modal__image { width: 240%; max-width: none; cursor: zoom-out; }
+.modal__dialog.is-zoomed .modal__image { width: 240%; max-width: none; cursor: grab; }
+.modal__dialog.is-dragging .modal__image { cursor: grabbing; }
+.modal__stage { position: relative; overflow-x: clip; touch-action: pan-y; }
+.modal__dialog.is-zoomed .modal__stage { overflow: visible; touch-action: auto; }
+.modal__image--ghost { position: absolute; top: 0; left: 0; width: 100%; height: auto; pointer-events: none; }
+.modal__dialog.is-zoomed .modal__image--ghost { display: none; }
+
+/* ---- Multi-page certificate pager (slide left / right) ---- */
+.modal__pager { display: flex; align-items: center; justify-content: center; gap: var(--space-5); margin-top: var(--space-4); }
+.modal__pager[hidden] { display: none; }
+.modal__nav {
+  display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0;
+  border: 1px solid var(--color-border-interactive); border-radius: var(--radius-full); background: var(--color-surface); color: var(--color-ink);
+  cursor: pointer; transition: background var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out), translate var(--duration-fast) var(--ease-out);
+}
+.modal__nav svg { width: 20px; height: 20px; }
+.modal__nav:hover { background: var(--color-primary-tint); color: var(--color-primary); }
+.modal__nav[data-dir="1"]:hover { translate: 3px 0; }
+.modal__nav[data-dir="-1"]:hover { translate: -3px 0; }
+.modal__nav:active { scale: 0.94; }
+.modal__nav:focus-visible, .modal__dot:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; }
+.modal__dots { display: flex; align-items: center; gap: 10px; }
+.modal__dot {
+  position: relative; width: 10px; height: 10px; padding: 0; border: 0; border-radius: var(--radius-full);
+  background: var(--color-border-interactive); cursor: pointer;
+  transition: width 350ms var(--ease-out), background var(--duration-base) var(--ease-out);
+}
+.modal__dot::before { content: ""; position: absolute; inset: -17px -7px; } /* 44px tap target */
+.modal__dot:hover { background: var(--color-ink-faint); }
+.modal__dot.is-active { width: 28px; background: var(--color-primary); }
 .modal__hint { margin-top: var(--space-2); font-size: 0.75rem; color: var(--color-ink-faint); text-align: center; }
 
 /* ---- Copy-email button + toast ---- */
@@ -110,7 +139,8 @@
 @media (prefers-reduced-motion: reduce) {
   .ripple, .section-title.is-landed, .section-eyebrow.is-landed, .copy-btn.is-copied svg { animation: none; }
   .toast, .to-top, .mobile-cta { transition: opacity var(--duration-fast); transform: none; }
-  .modal__image { transition: none; }
+  .modal__dot, .modal__nav { transition: none; }
+  
 }
 
 /* ---- Project tabs: sliding pill behind the selected tab ---- */
