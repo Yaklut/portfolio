@@ -15,6 +15,10 @@
   <link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/fonts/public-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/motion.css">
+  <link rel="stylesheet" href="../assets/css/expressive.css">
+  <link rel="stylesheet" href="../assets/css/case-study.css">
+  <link rel="stylesheet" href="../assets/css/transitions.css">
 </head>
 <body>
 
@@ -48,6 +52,7 @@
         <a class="nav-cta btn btn--primary" href="../index.html#resume">Resume</a>
       </div>
     </nav>
+    <div class="scroll-progress" aria-hidden="true"></div>
   </header>
 
   <main id="main-content">
@@ -220,19 +225,21 @@
           <div class="stat"><dt class="stat-label">Customers</dt><dd class="stat-value">1,671</dd></div>
         </dl>
         <p class="cs-note reveal">Recomputed directly from the raw workbook in September 2026. The dataset has no currency field, and customer addresses are in the United States, so the rebuilt dashboard labels values in dollars.</p>
-        <div class="card cs-chart reveal">
+        <div class="card cs-chart reveal" data-cs-chart data-formats='{"sales":{"s":"%","d":1},"units":{"s":"%","d":1}}'>
           <h3>Sales versus volume, by product category</h3>
-          <p class="cs-chart__sub">Share of total sales · share of total units sold</p>
-          <ul class="cs-legend" aria-hidden="true"><li><i></i>Share of sales</li><li><i class="cs-bar--alt"></i>Share of units</li></ul>
-          <ul class="cs-bars">
-            <li class="cs-bars__row"><span class="cs-bars__label">Robots</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:100.0%"></span><span class="cs-bar cs-bar--alt" style="--w:21.2%"></span></span><span class="cs-bars__value cs-bars__value--wide">42.4% · 9.0%</span></span></li>
-            <li class="cs-bars__row"><span class="cs-bars__label">Drones</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:64.2%"></span><span class="cs-bar cs-bar--alt" style="--w:24.8%"></span></span><span class="cs-bars__value cs-bars__value--wide">27.2% · 10.5%</span></span></li>
-            <li class="cs-bars__row"><span class="cs-bars__label">Robot Kits</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:29.0%"></span><span class="cs-bar cs-bar--alt" style="--w:21.0%"></span></span><span class="cs-bars__value cs-bars__value--wide">12.3% · 8.9%</span></span></li>
-            <li class="cs-bars__row"><span class="cs-bars__label">Drone Kits</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:21.7%"></span><span class="cs-bar cs-bar--alt" style="--w:30.7%"></span></span><span class="cs-bars__value cs-bars__value--wide">9.2% · 13.0%</span></span></li>
-            <li class="cs-bars__row"><span class="cs-bars__label">Training Videos</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:10.8%"></span><span class="cs-bar cs-bar--alt" style="--w:42.2%"></span></span><span class="cs-bars__value cs-bars__value--wide">4.6% · 17.9%</span></span></li>
-            <li class="cs-bars__row"><span class="cs-bars__label">eBooks</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:8.0%"></span><span class="cs-bar cs-bar--alt" style="--w:63.2%"></span></span><span class="cs-bars__value cs-bars__value--wide">3.4% · 26.8%</span></span></li>
-            <li class="cs-bars__row"><span class="cs-bars__label">Blueprints</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:2.1%"></span><span class="cs-bar cs-bar--alt" style="--w:32.8%"></span></span><span class="cs-bars__value cs-bars__value--wide">0.9% · 13.9%</span></span></li>
+          <p class="cs-chart__sub">Switch between each category's share of total sales and share of total units sold. Hover, focus or tap a row for the details.</p>
+          <div class="cs-chart__controls"><div class="cs-ctl"><span class="cs-ctl__label" id="lbl-met">Measure</span><div class="cs-seg" role="group" aria-labelledby="lbl-met"><button type="button" data-metric-btn="sales" data-insight="Robots and Drones bring in about 70% of sales while making up only about 20% of units." aria-pressed="true">Share of sales</button><button type="button" data-metric-btn="units" data-insight="eBooks, Training Videos and Blueprints make up 59% of units but only 8.9% of sales." aria-pressed="false">Share of units</button></div></div></div>
+          <ul class="cs-ichart" data-dim="main" aria-label="Product categories">
+            <li class="cs-irow" data-label="Robots" data-idx="0" data-sales="42.4" data-units="9.0" data-detail="Robots: $743,505 in sales (42.4% of total), 1,053 units, sales −15.4% year over year." data-detail-units="Robots: 1,053 units (9.0% of all units), $743,505 in sales (42.4% of sales)." style="--w:100.0%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Robots</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">42.4%</span></button></li>
+            <li class="cs-irow" data-label="Drones" data-idx="1" data-sales="27.2" data-units="10.5" data-detail="Drones: $477,447 in sales (27.2% of total), 1,227 units, sales +3.3% year over year." data-detail-units="Drones: 1,227 units (10.5% of all units), $477,447 in sales (27.2% of sales)." style="--w:64.2%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Drones</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">27.2%</span></button></li>
+            <li class="cs-irow" data-label="Robot Kits" data-idx="2" data-sales="12.3" data-units="8.9" data-detail="Robot Kits: $216,437 in sales (12.3% of total), 1,037 units, sales −11.3% year over year." data-detail-units="Robot Kits: 1,037 units (8.9% of all units), $216,437 in sales (12.3% of sales)." style="--w:29.0%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Robot Kits</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">12.3%</span></button></li>
+            <li class="cs-irow" data-label="Drone Kits" data-idx="3" data-sales="9.2" data-units="13.0" data-detail="Drone Kits: $161,243 in sales (9.2% of total), 1,515 units, sales −5.8% year over year." data-detail-units="Drone Kits: 1,515 units (13.0% of all units), $161,243 in sales (9.2% of sales)." style="--w:21.7%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Drone Kits</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">9.2%</span></button></li>
+            <li class="cs-irow" data-label="Training Videos" data-idx="4" data-sales="4.6" data-units="17.9" data-detail="Training Videos: $80,716 in sales (4.6% of total), 2,081 units, sales +0.9% year over year." data-detail-units="Training Videos: 2,081 units (17.9% of all units), $80,716 in sales (4.6% of sales)." style="--w:10.8%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Training Videos</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">4.6%</span></button></li>
+            <li class="cs-irow" data-label="eBooks" data-idx="5" data-sales="3.4" data-units="26.8" data-detail="eBooks: $58,968 in sales (3.4% of total), 3,123 units, sales +4.2% year over year." data-detail-units="eBooks: 3,123 units (26.8% of all units), $58,968 in sales (3.4% of sales)." style="--w:8.0%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">eBooks</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">3.4%</span></button></li>
+            <li class="cs-irow" data-label="Blueprints" data-idx="6" data-sales="0.9" data-units="13.9" data-detail="Blueprints: $16,435 in sales (0.9% of total), 1,618 units, sales −12.3% year over year." data-detail-units="Blueprints: 1,618 units (13.9% of all units), $16,435 in sales (0.9% of sales)." style="--w:2.1%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Blueprints</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">0.9%</span></button></li>
           </ul>
+          <p class="cs-chart__detail" aria-live="polite">Hover, tap, or arrow through the bars for details.</p>
+          <p class="cs-chart__caption" aria-live="polite">Robots and Drones bring in about 70% of sales while making up only about 20% of units.</p>
         </div>
       </div>
     </section>
@@ -253,14 +260,43 @@
       </div>
     </section>
 
-    <section id="dashboard" aria-labelledby="dashboard-heading">
+    <section id="takeaways" aria-labelledby="takeaways-heading">
       <div class="section-heading reveal">
         <span class="section-eyebrow" aria-hidden="true">05</span>
+        <h2 id="takeaways-heading" class="section-title">Challenges &amp; takeaways</h2>
+      </div>
+      <div class="cs-body">
+        <ol class="cs-lessons">
+        <li class="card cs-lesson reveal"><span class="cs-lesson__num" aria-hidden="true">01</span>
+          <h3 class="cs-lesson__title">Prices that were 100 times too large</h3>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">Challenge</p><p>The CSV uses a decimal comma (9,99). Read automatically, prices come out 100 times too large.</p></div>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">What I did</p><p>Loaded the products table as text and converted the price in SQL with REPLACE and CAST.</p></div>
+          <div class="cs-lesson__col cs-lesson__col--take"><p class="cs-lesson__label">Takeaway</p><p>Check a few values after loading, and watch for locale formats such as decimal commas.</p></div>
+        </li>
+        <li class="card cs-lesson reveal"><span class="cs-lesson__num" aria-hidden="true">02</span>
+          <h3 class="cs-lesson__title">Emails with extra text attached</h3>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">Challenge</p><p>Raw emails look like abc@x.com#mailto:abc@x.com#.</p></div>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">What I did</p><p>Kept only the part before the first # using SPLIT.</p></div>
+          <div class="cs-lesson__col cs-lesson__col--take"><p class="cs-lesson__label">Takeaway</p><p>Look at real values, not only column names, before trusting a field.</p></div>
+        </li>
+        <li class="card cs-lesson reveal"><span class="cs-lesson__num" aria-hidden="true">03</span>
+          <h3 class="cs-lesson__title">Keys that had to match before joining</h3>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">Challenge</p><p>The category column arrives as text but has to match an integer ID in the category table.</p></div>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">What I did</p><p>Cast it to an integer, checked every key for uniqueness and missing values, and ran an orphan-key check on all three links (none found).</p></div>
+          <div class="cs-lesson__col cs-lesson__col--take"><p class="cs-lesson__label">Takeaway</p><p>Validate keys and relationships before building the master table.</p></div>
+        </li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="dashboard" aria-labelledby="dashboard-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">06</span>
         <h2 id="dashboard-heading" class="section-title">The dashboard</h2>
       </div>
       <div class="cs-body">
-        <div class="cs-figure reveal">
-          <figure class="project__media">
+        <div class="cs-gallery">
+          <figure class="project__media cs-gallery__item reveal">
             <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Bank Muamalat dashboard, page 1 (overview)">
               <img
                 src="../assets/images/projects/bmi-dashboard-overview.webp"
@@ -269,9 +305,7 @@
             </button>
             <figcaption>Page 1 · Overview: scorecards, sales and quantity by category, top 5s, cities, monthly trend</figcaption>
           </figure>
-        </div>
-        <div class="cs-figure reveal">
-          <figure class="project__media">
+        <figure class="project__media cs-gallery__item reveal">
             <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Bank Muamalat dashboard, page 2 (detail)">
               <img
                 src="../assets/images/projects/bmi-dashboard-detail.webp"
@@ -287,7 +321,7 @@
 
     <section id="recommendations" aria-labelledby="recommendations-heading">
       <div class="section-heading reveal">
-        <span class="section-eyebrow" aria-hidden="true">06</span>
+        <span class="section-eyebrow" aria-hidden="true">07</span>
         <h2 id="recommendations-heading" class="section-title">Recommendations</h2>
       </div>
       <div class="cs-body">
@@ -304,7 +338,7 @@
 
     <section id="data-check" aria-labelledby="data-check-heading">
       <div class="section-heading reveal">
-        <span class="section-eyebrow" aria-hidden="true">07</span>
+        <span class="section-eyebrow" aria-hidden="true">08</span>
         <h2 id="data-check-heading" class="section-title">Data check &amp; corrections</h2>
       </div>
       <div class="cs-body">
@@ -400,6 +434,10 @@
   <script defer src="../assets/js/reveal.js"></script>
   <script defer src="../assets/js/modal.js"></script>
   <script defer src="../assets/js/command-palette.js"></script>
+  <script defer src="../assets/js/scroll-progress.js"></script>
+  <script defer src="../assets/js/motion.js"></script>
+  <script defer src="../assets/js/expressive.js"></script>
+  <script defer src="../assets/js/case-study.js"></script>
   <script defer src="../assets/js/main.js"></script>
 
   <script data-goatcounter="https://refadfnda.goatcounter.com/count"

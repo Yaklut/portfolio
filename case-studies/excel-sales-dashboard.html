@@ -15,6 +15,10 @@
   <link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/fonts/public-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/motion.css">
+  <link rel="stylesheet" href="../assets/css/expressive.css">
+  <link rel="stylesheet" href="../assets/css/case-study.css">
+  <link rel="stylesheet" href="../assets/css/transitions.css">
 </head>
 <body>
 
@@ -48,6 +52,7 @@
         <a class="nav-cta btn btn--primary" href="../index.html#resume">Resume</a>
       </div>
     </nav>
+    <div class="scroll-progress" aria-hidden="true"></div>
   </header>
 
   <main id="main-content">
@@ -158,17 +163,56 @@ Net Profit      (2013)  =Operating Profit - Tax</code></pre>
           <div class="stat"><dt class="stat-label">Orders</dt><dd class="stat-value">700</dd></div>
         </dl>
         <p class="cs-note reveal">Figures match the dashboard (revenue $135,188,198; gross profit $37,846,424; net profit $16,653,606) and were rechecked against the workbook's order data. Overall gross margin is 28.0%.</p>
-        <div class="card cs-chart reveal">
-          <h3>Revenue by product</h3>
-          <p class="cs-chart__sub">Revenue · share of total revenue · gross margin</p>
-          <ul class="cs-bars">
-            <li class="cs-bars__row"><span class="cs-bars__label">Amarilla</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:100.0%"></span></span><span class="cs-bars__value cs-bars__value--wide">$49.98M · 37.0% · margin 37.9%</span></span></li>
-            <li class="cs-bars__row"><span class="cs-bars__label">VTT</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:93.9%"></span></span><span class="cs-bars__value cs-bars__value--wide">$46.93M · 34.7% · margin 10.1%</span></span></li>
-            <li class="cs-bars__row"><span class="cs-bars__label">Velo</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:54.3%"></span></span><span class="cs-bars__value cs-bars__value--wide">$27.12M · 20.1% · margin 28.1%</span></span></li>
-            <li class="cs-bars__row"><span class="cs-bars__label">Paseo</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:12.6%"></span></span><span class="cs-bars__value cs-bars__value--wide">$6.28M · 4.6% · margin 46.2%</span></span></li>
-            <li class="cs-bars__row"><span class="cs-bars__label">Carretera</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:5.4%"></span></span><span class="cs-bars__value cs-bars__value--wide">$2.72M · 2.0% · margin 83.8%</span></span></li>
-            <li class="cs-bars__row"><span class="cs-bars__label">Montana</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:4.3%"></span></span><span class="cs-bars__value cs-bars__value--wide">$2.15M · 1.6% · margin 64.2%</span></span></li>
+        <div class="card cs-chart cs-line reveal" data-cs-line>
+          <h3>Monthly revenue and gross profit</h3>
+          <p class="cs-chart__sub">$ millions · Sep 2013–Dec 2014 · 2013 covers four months only</p>
+          <div class="cs-line__legend" role="group" aria-label="Show or hide a line">
+            <button type="button" class="cs-legend-btn cs-legend-btn--0" data-series-btn="revenue" aria-pressed="true"><i></i>Revenue</button>
+            <button type="button" class="cs-legend-btn cs-legend-btn--1" data-series-btn="gp" aria-pressed="true"><i></i>Gross profit</button>
+          </div>
+          <div class="cs-line__stage"></div>
+          <p class="cs-line__readout" aria-live="polite">Hover the chart, or focus it and use the arrow keys, to read each month.</p>
+          <details class="cs-datatable"><summary>View the data as a table</summary><div class="cs-datatable__scroll"><table><thead><tr><th scope="col">Month</th><th scope="col">Revenue</th><th scope="col">Gross profit</th></tr></thead><tbody><tr><td>Sep 2013</td><td>$6.12M</td><td>$1.68M</td></tr><tr><td>Oct 2013</td><td>$11.19M</td><td>$3.39M</td></tr><tr><td>Nov 2013</td><td>$7.63M</td><td>$1.68M</td></tr><tr><td>Dec 2013</td><td>$6.50M</td><td>$1.72M</td></tr><tr><td>Jan 2014</td><td>$8.24M</td><td>$2.25M</td></tr><tr><td>Feb 2014</td><td>$7.84M</td><td>$2.20M</td></tr><tr><td>Mar 2014</td><td>$6.13M</td><td>$1.67M</td></tr><tr><td>Apr 2014</td><td>$9.13M</td><td>$2.93M</td></tr><tr><td>May 2014</td><td>$6.48M</td><td>$1.88M</td></tr><tr><td>Jun 2014</td><td>$13.30M</td><td>$3.69M</td></tr><tr><td>Jul 2014</td><td>$7.90M</td><td>$2.35M</td></tr><tr><td>Aug 2014</td><td>$7.78M</td><td>$2.18M</td></tr><tr><td>Sep 2014</td><td>$6.91M</td><td>$2.09M</td></tr><tr><td>Oct 2014</td><td>$12.61M</td><td>$3.26M</td></tr><tr><td>Nov 2014</td><td>$6.08M</td><td>$1.69M</td></tr><tr><td>Dec 2014</td><td>$11.36M</td><td>$3.20M</td></tr></tbody></table></div></details>
+          <script type="application/json">{"labels": ["Sep 2013", "Oct 2013", "Nov 2013", "Dec 2013", "Jan 2014", "Feb 2014", "Mar 2014", "Apr 2014", "May 2014", "Jun 2014", "Jul 2014", "Aug 2014", "Sep 2014", "Oct 2014", "Nov 2014", "Dec 2014"], "series": [{"id": "revenue", "name": "Revenue", "values": [6.1172, 11.1888, 7.63, 6.4974, 8.2361, 7.8373, 6.132, 9.1267, 6.4832, 13.3026, 7.8998, 7.7795, 6.9079, 12.6116, 6.0782, 11.3599]}, {"id": "gp", "name": "Gross profit", "values": [1.6814, 3.3855, 1.6808, 1.7175, 2.2499, 2.1968, 1.6676, 2.931, 1.8835, 3.6893, 2.3486, 2.1764, 2.0867, 3.2584, 1.6932, 3.2]}], "format": {"p": "$", "s": "M", "d": 2}, "yMax": 14, "partialTo": 3, "partialLabel": "2013: Sep–Dec only", "partialLabelShort": "2013: 4 months", "ariaLabel": "Line chart of monthly revenue and gross profit from September 2013 to December 2014, in millions of dollars.", "prompt": "Hover the chart, or focus it and use the arrow keys, to read each month."}</script>
+        </div>
+
+        <div class="card cs-chart reveal" data-cs-chart data-autocaption data-formats='{"revenue": {"p": "$", "s": "M", "d": 2}, "gp": {"p": "$", "s": "M", "d": 2}, "margin": {"s": "%", "d": 1}}'>
+          <h3>Explore the sales data</h3>
+          <p class="cs-chart__sub">Choose a breakdown and a measure. Hover, focus or tap a row for the details; click to pin it.</p>
+          <div class="cs-chart__controls">
+            <div class="cs-ctl"><span class="cs-ctl__label" id="lbl-dim">Breakdown</span><div class="cs-seg" role="group" aria-labelledby="lbl-dim"><button type="button" data-dim-btn="product" aria-pressed="true">Product</button><button type="button" data-dim-btn="segment" aria-pressed="false">Buyer segment</button><button type="button" data-dim-btn="country" aria-pressed="false">Country</button><button type="button" data-dim-btn="tier" aria-pressed="false">Discount tier</button></div></div>
+            <div class="cs-ctl"><span class="cs-ctl__label" id="lbl-met">Measure</span><div class="cs-seg" role="group" aria-labelledby="lbl-met"><button type="button" data-metric-btn="revenue" aria-pressed="true">Revenue</button><button type="button" data-metric-btn="gp" aria-pressed="false">Gross profit</button><button type="button" data-metric-btn="margin" aria-pressed="false">Gross margin</button></div></div>
+          </div>
+          <ul class="cs-ichart" data-dim="product" aria-label="Product">
+            <li class="cs-irow" data-label="Amarilla" data-idx="0" data-revenue="49.9848" data-gp="18.9224" data-margin="37.8563" data-detail="Amarilla: $49.98M revenue (37.0% of total), $18.92M gross profit, 37.9% gross margin, 94 orders." style="--w:100.0%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Amarilla</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">$49.98M</span></button></li>
+            <li class="cs-irow" data-label="VTT" data-idx="1" data-revenue="46.9275" data-gp="4.7328" data-margin="10.0853" data-detail="VTT: $46.93M revenue (34.7% of total), $4.73M gross profit, 10.1% gross margin, 109 orders." style="--w:93.9%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">VTT</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">$46.93M</span></button></li>
+            <li class="cs-irow" data-label="Velo" data-idx="2" data-revenue="27.1185" data-gp="7.6277" data-margin="28.1273" data-detail="Velo: $27.12M revenue (20.1% of total), $7.63M gross profit, 28.1% gross margin, 109 orders." style="--w:54.3%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Velo</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">$27.12M</span></button></li>
+            <li class="cs-irow" data-label="Paseo" data-idx="3" data-revenue="6.2825" data-gp="2.9002" data-margin="46.1632" data-detail="Paseo: $6.28M revenue (4.6% of total), $2.90M gross profit, 46.2% gross margin, 202 orders." style="--w:12.6%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Paseo</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">$6.28M</span></button></li>
+            <li class="cs-irow" data-label="Carretera" data-idx="4" data-revenue="2.7211" data-gp="2.2806" data-margin="83.8117" data-detail="Carretera: $2.72M revenue (2.0% of total), $2.28M gross profit, 83.8% gross margin, 93 orders." style="--w:5.4%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Carretera</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">$2.72M</span></button></li>
+            <li class="cs-irow" data-label="Montana" data-idx="5" data-revenue="2.1537" data-gp="1.3827" data-margin="64.2011" data-detail="Montana: $2.15M revenue (1.6% of total), $1.38M gross profit, 64.2% gross margin, 93 orders." style="--w:4.3%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Montana</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">$2.15M</span></button></li>
           </ul>
+          <ul class="cs-ichart" data-dim="segment" hidden aria-label="Buyer segment">
+            <li class="cs-irow" data-label="Government" data-idx="0" data-revenue="56.8524" data-gp="16.6040" data-margin="29.2055" data-detail="Government: $56.85M revenue (42.1% of total), $16.60M gross profit, 29.2% gross margin, 300 orders." style="--w:100.0%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Government</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">$56.85M</span></button></li>
+            <li class="cs-irow" data-label="Channel Partners" data-idx="1" data-revenue="21.0849" data-gp="5.9464" data-margin="28.2022" data-detail="Channel Partners: $21.08M revenue (15.6% of total), $5.95M gross profit, 28.2% gross margin, 100 orders." style="--w:37.1%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Channel Partners</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">$21.08M</span></button></li>
+            <li class="cs-irow" data-label="Small Business" data-idx="2" data-revenue="19.9071" data-gp="4.7573" data-margin="23.8975" data-detail="Small Business: $19.91M revenue (14.7% of total), $4.76M gross profit, 23.9% gross margin, 100 orders." style="--w:35.0%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Small Business</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">$19.91M</span></button></li>
+            <li class="cs-irow" data-label="Enterprise" data-idx="3" data-revenue="19.7490" data-gp="5.8779" data-margin="29.7630" data-detail="Enterprise: $19.75M revenue (14.6% of total), $5.88M gross profit, 29.8% gross margin, 100 orders." style="--w:34.7%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Enterprise</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">$19.75M</span></button></li>
+            <li class="cs-irow" data-label="Midmarket" data-idx="4" data-revenue="17.5949" data-gp="4.6607" data-margin="26.4889" data-detail="Midmarket: $17.59M revenue (13.0% of total), $4.66M gross profit, 26.5% gross margin, 100 orders." style="--w:30.9%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Midmarket</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">$17.59M</span></button></li>
+          </ul>
+          <ul class="cs-ichart" data-dim="country" hidden aria-label="Country">
+            <li class="cs-irow" data-label="United States of America" data-idx="0" data-revenue="28.9269" data-gp="7.9869" data-margin="27.6106" data-detail="United States of America: $28.93M revenue (21.4% of total), $7.99M gross profit, 27.6% gross margin, 140 orders." style="--w:100.0%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">United States of America</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">$28.93M</span></button></li>
+            <li class="cs-irow" data-label="Canada" data-idx="1" data-revenue="28.7104" data-gp="7.6132" data-margin="26.5172" data-detail="Canada: $28.71M revenue (21.2% of total), $7.61M gross profit, 26.5% gross margin, 140 orders." style="--w:99.3%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Canada</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">$28.71M</span></button></li>
+            <li class="cs-irow" data-label="France" data-idx="2" data-revenue="28.6127" data-gp="7.9814" data-margin="27.8946" data-detail="France: $28.61M revenue (21.2% of total), $7.98M gross profit, 27.9% gross margin, 140 orders." style="--w:98.9%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">France</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">$28.61M</span></button></li>
+            <li class="cs-irow" data-label="Germany" data-idx="3" data-revenue="26.0426" data-gp="7.6389" data-margin="29.3323" data-detail="Germany: $26.04M revenue (19.3% of total), $7.64M gross profit, 29.3% gross margin, 140 orders." style="--w:90.0%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Germany</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">$26.04M</span></button></li>
+            <li class="cs-irow" data-label="Mexico" data-idx="4" data-revenue="22.8956" data-gp="6.6261" data-margin="28.9405" data-detail="Mexico: $22.90M revenue (16.9% of total), $6.63M gross profit, 28.9% gross margin, 140 orders." style="--w:79.1%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Mexico</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">$22.90M</span></button></li>
+          </ul>
+          <ul class="cs-ichart" data-dim="tier" hidden data-sort="off" aria-label="Discount tier">
+            <li class="cs-irow" data-label="No Discount" data-idx="0" data-revenue="12.5968" data-gp="4.3231" data-margin="34.3190" data-detail="No Discount: $12.60M revenue (9.3% of total), $4.32M gross profit, 34.3% gross margin, 53 orders." style="--w:25.6%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">No Discount</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">$12.60M</span></button></li>
+            <li class="cs-irow" data-label="Low" data-idx="1" data-revenue="26.8212" data-gp="8.2404" data-margin="30.7235" data-detail="Low: $26.82M revenue (19.8% of total), $8.24M gross profit, 30.7% gross margin, 160 orders." style="--w:54.4%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Low</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">$26.82M</span></button></li>
+            <li class="cs-irow" data-label="Medium" data-idx="2" data-revenue="46.4785" data-gp="12.8033" data-margin="27.5467" data-detail="Medium: $46.48M revenue (34.4% of total), $12.80M gross profit, 27.5% gross margin, 242 orders." style="--w:94.3%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Medium</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">$46.48M</span></button></li>
+            <li class="cs-irow" data-label="High" data-idx="3" data-revenue="49.2917" data-gp="12.4796" data-margin="25.3179" data-detail="High: $49.29M revenue (36.5% of total), $12.48M gross profit, 25.3% gross margin, 245 orders." style="--w:100.0%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">High</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">$49.29M</span></button></li>
+          </ul>
+          <p class="cs-chart__detail" aria-live="polite">Hover, tap, or arrow through the bars for details.</p>
+          <p class="cs-chart__caption" aria-live="polite"></p>
         </div>
       </div>
     </section>
@@ -188,24 +232,76 @@ Net Profit      (2013)  =Operating Profit - Tax</code></pre>
       </div>
     </section>
 
-    <section id="dashboard" aria-labelledby="dashboard-heading">
+    <section id="takeaways" aria-labelledby="takeaways-heading">
       <div class="section-heading reveal">
         <span class="section-eyebrow" aria-hidden="true">05</span>
+        <h2 id="takeaways-heading" class="section-title">Challenges &amp; takeaways</h2>
+      </div>
+      <div class="cs-body">
+        <ol class="cs-lessons">
+        <li class="card cs-lesson reveal"><span class="cs-lesson__num" aria-hidden="true">01</span>
+          <h3 class="cs-lesson__title">The dates were buried in text</h3>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">Challenge</p><p>Order details came as one text field. It looks like JSON but is not valid JSON, so a JSON parser could not read it.</p></div>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">What I did</p><p>Used TEXTAFTER and TEXTBEFORE to cut out the day, month and year, then rebuilt them with DATE so every order has a real date.</p></div>
+          <div class="cs-lesson__col cs-lesson__col--take"><p class="cs-lesson__label">Takeaway</p><p>Look at how the text is actually structured before choosing a tool for it.</p></div>
+        </li>
+        <li class="card cs-lesson reveal"><span class="cs-lesson__num" aria-hidden="true">02</span>
+          <h3 class="cs-lesson__title">Discounts that looked exact but were not</h3>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">Challenge</p><p>Discount values carry tiny decimal noise (for example 0.0100013), so comparing them straight against the tier limits is unreliable.</p></div>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">What I did</p><p>Rounded discount × 100 to a whole percent before assigning the Low, Medium or High tier.</p></div>
+          <div class="cs-lesson__col cs-lesson__col--take"><p class="cs-lesson__label">Takeaway</p><p>Round before comparing a value with a threshold.</p></div>
+        </li>
+        <li class="card cs-lesson reveal"><span class="cs-lesson__num" aria-hidden="true">03</span>
+          <h3 class="cs-lesson__title">A year that is only a third of a year</h3>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">Challenge</p><p>2013 has only September to December, so a plain 2013 versus 2014 comparison would make 2014 look like dramatic growth.</p></div>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">What I did</p><p>Flagged the partial year in the product-growth chart subtitle and on this page, and made no year-over-year growth claim.</p></div>
+          <div class="cs-lesson__col cs-lesson__col--take"><p class="cs-lesson__label">Takeaway</p><p>Check how much of each period the data covers before comparing periods.</p></div>
+        </li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="dashboard" aria-labelledby="dashboard-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">06</span>
         <h2 id="dashboard-heading" class="section-title">The dashboard</h2>
       </div>
       <div class="cs-body">
-        <div class="cs-figure reveal">
-          <figure class="project__media">
+        <div class="cs-gallery">
+          <figure class="project__media cs-gallery__item cs-gallery__item--wide reveal">
             <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Excel sales performance dashboard">
-              <img
-                src="../assets/images/projects/excel-sales-dashboard.webp"
-                alt="Excel dashboard on a dark background: four KPI cards (total revenue, gross profit, estimated net profit, total orders), a monthly revenue and gross profit line chart, revenue growth by product, revenue by country, profitability breakdown by year, revenue by discount tier, slicers for order year, buyer segment and country, and Top Product and Top Segment rankings"
-                width="1700" height="1224" loading="lazy">
+              <img src="../assets/images/projects/excel-sales-dashboard.webp" alt="Excel dashboard on a dark background: four KPI cards (total revenue, gross profit, estimated net profit, total orders), a monthly revenue and gross profit line chart, revenue growth by product, revenue by country, profitability breakdown by year, revenue by discount tier, slicers for order year, buyer segment and country, and Top Product and Top Segment rankings" width="1700" height="1224" loading="lazy">
             </button>
-            <figcaption>Excel dashboard: KPI cards, monthly trend, product, country, yearly profitability and discount-tier charts, with Top Product and Top Segment rankings</figcaption>
+            <figcaption>The full dashboard: KPI cards, monthly trend, product, country, yearly profitability and discount-tier charts, with Top Product and Top Segment rankings</figcaption>
           </figure>
+          <div class="cs-gallery__sub">
+            <figure class="project__media cs-gallery__item reveal">
+              <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size: Zoom · KPI cards">
+                <img src="../assets/images/projects/excel-dashboard-kpis-slicers.webp" alt="Close-up of the dashboard title and four KPI cards: total revenue $135,188,198, gross profit $37,846,424, estimated net profit $16,653,606 and 700 orders" width="1500" height="249" loading="lazy">
+              </button>
+              <figcaption>Zoom · KPI cards</figcaption>
+            </figure>
+            <figure class="project__media cs-gallery__item reveal">
+              <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size: Zoom · Revenue and gross profit trend">
+                <img src="../assets/images/projects/excel-dashboard-trend.webp" alt="Close-up of the line chart of monthly revenue and gross profit from September 2013 to December 2014" width="1500" height="380" loading="lazy">
+              </button>
+              <figcaption>Zoom · Revenue and gross profit trend</figcaption>
+            </figure>
+            <figure class="project__media cs-gallery__item reveal">
+              <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size: Zoom · Revenue growth by product and revenue by country">
+                <img src="../assets/images/projects/excel-dashboard-product-country.webp" alt="Close-up of two bar charts: revenue growth by product for 2013 and 2014, and revenue and gross profit by country" width="1500" height="326" loading="lazy">
+              </button>
+              <figcaption>Zoom · Revenue growth by product and revenue by country</figcaption>
+            </figure>
+            <figure class="project__media cs-gallery__item reveal">
+              <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size: Zoom · Profitability by year and discount tier">
+                <img src="../assets/images/projects/excel-dashboard-profit-discount.webp" alt="Close-up of two bar charts: the profitability breakdown by year and revenue and gross profit by discount tier" width="1500" height="292" loading="lazy">
+              </button>
+              <figcaption>Zoom · Profitability by year and discount tier</figcaption>
+            </figure>
+          </div>
         </div>
-        <p class="cs-note reveal">This is a static export. In the workbook, the Order Year, Buyer segment and Country origin slicers filter every chart on the dashboard; use Excel on a computer to try them.</p>
+        <p class="cs-note reveal">These are static exports. In the workbook, the Order Year, Buyer segment and Country origin slicers filter the PivotTables that feed the charts; use Excel on a computer to try them.</p>
       </div>
     </section>
 
@@ -290,6 +386,10 @@ Net Profit      (2013)  =Operating Profit - Tax</code></pre>
   <script defer src="../assets/js/reveal.js"></script>
   <script defer src="../assets/js/modal.js"></script>
   <script defer src="../assets/js/command-palette.js"></script>
+  <script defer src="../assets/js/scroll-progress.js"></script>
+  <script defer src="../assets/js/motion.js"></script>
+  <script defer src="../assets/js/expressive.js"></script>
+  <script defer src="../assets/js/case-study.js"></script>
   <script defer src="../assets/js/main.js"></script>
 
   <script data-goatcounter="https://refadfnda.goatcounter.com/count"

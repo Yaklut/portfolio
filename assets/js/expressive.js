@@ -58,6 +58,7 @@
     ['.skill-group .chip', 45], ['.expertise__tags li', 60], ['.edu-tile__chips li', 120],
     ['.contact__tags .chip', 80], ['.contact__row', 120], ['.resume__meta > div', 100],
     ['.pub-snapshot__bar i', 220], ['.author-dots i', 45],
+    ['.cs-gallery__item', 110],
   ];
   function staggerIn() {
     const targets = [];
@@ -98,7 +99,7 @@
     return p.prefix + s + p.suffix;
   }
   function countUps() {
-    const els = $$('.project__stats .stat-value, .cert-summary__num, .pub-snapshot__num, .skill-group__count')
+    const els = $$('.project__stats .stat-value, .cert-summary__num, .pub-snapshot__num, .skill-group__count, .cs-kpis .stat-value')
       .filter((el) => el.childElementCount === 0);
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
@@ -119,7 +120,7 @@
 
   /* ---- 4. Tilt cards toward the cursor (uses the `rotate` property; perspective sits on the parent) ---- */
   function tilt() {
-    const SEL = '.card--expertise, .skill-group, .snap, .cert-summary li, .pub-snapshot li, .card--certification, .edu-tile, .hero__photo-frame';
+    const SEL = '.card--expertise, .skill-group, .snap, .cert-summary li, .pub-snapshot li, .card--certification, .edu-tile, .hero__photo-frame, .cs-gallery__item';
     const states = new Map();
     let raf = 0;
     function loop() {

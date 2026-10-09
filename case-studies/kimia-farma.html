@@ -15,6 +15,10 @@
   <link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/fonts/public-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/motion.css">
+  <link rel="stylesheet" href="../assets/css/expressive.css">
+  <link rel="stylesheet" href="../assets/css/case-study.css">
+  <link rel="stylesheet" href="../assets/css/transitions.css">
 </head>
 <body>
 
@@ -48,6 +52,7 @@
         <a class="nav-cta btn btn--primary" href="../index.html#resume">Resume</a>
       </div>
     </nav>
+    <div class="scroll-progress" aria-hidden="true"></div>
   </header>
 
   <main id="main-content">
@@ -211,21 +216,24 @@
           <div class="stat"><dt class="stat-label">Distinct customer names</dt><dd class="stat-value">264,601</dd></div>
         </dl>
         <p class="cs-note reveal">Recomputed directly from the raw CSV files in September 2026, with nett sales = price × (1 − discount). The original dashboard used a formula that overstated nett sales and nett profit by 8.03% — see “Data check &amp; corrections” below.</p>
-        <div class="card cs-chart reveal">
+        <div class="card cs-chart reveal" data-cs-chart data-metric="value" data-formats='{"value":{"p":"Rp","s":" bn","d":2}}'>
           <h3>Top 10 provinces by nett sales</h3>
-          <p class="cs-chart__sub">Rp billion · share of total nett sales · 31 provinces in the data</p>
-          <ul class="cs-bars">
-            <li class="cs-bars__row"><span class="cs-bars__label">Jawa Barat</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:100.0%"></span></span><span class="cs-bars__value">94.87 · 29.5%</span></span></li>
-            <li class="cs-bars__row"><span class="cs-bars__label">Sumatera Utara</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:24.2%"></span></span><span class="cs-bars__value">22.95 · 7.1%</span></span></li>
-            <li class="cs-bars__row"><span class="cs-bars__label">Jawa Tengah</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:23.5%"></span></span><span class="cs-bars__value">22.25 · 6.9%</span></span></li>
-            <li class="cs-bars__row"><span class="cs-bars__label">Jawa Timur</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:17.5%"></span></span><span class="cs-bars__value">16.63 · 5.2%</span></span></li>
-            <li class="cs-bars__row"><span class="cs-bars__label">Sulawesi Utara</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:16.8%"></span></span><span class="cs-bars__value">15.90 · 5.0%</span></span></li>
-            <li class="cs-bars__row"><span class="cs-bars__label">Sumatera Barat</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:16.1%"></span></span><span class="cs-bars__value">15.31 · 4.8%</span></span></li>
-            <li class="cs-bars__row"><span class="cs-bars__label">Aceh</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:11.0%"></span></span><span class="cs-bars__value">10.47 · 3.3%</span></span></li>
-            <li class="cs-bars__row"><span class="cs-bars__label">Nusa Tenggara Barat</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:10.6%"></span></span><span class="cs-bars__value">10.04 · 3.1%</span></span></li>
-            <li class="cs-bars__row"><span class="cs-bars__label">Kalimantan Timur</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:10.2%"></span></span><span class="cs-bars__value">9.71 · 3.0%</span></span></li>
-            <li class="cs-bars__row"><span class="cs-bars__label">Riau</span><span class="cs-bars__body"><span class="cs-bars__track" aria-hidden="true"><span class="cs-bar" style="--w:9.9%"></span></span><span class="cs-bars__value">9.35 · 2.9%</span></span></li>
+          <p class="cs-chart__sub">Rp billion · share of total nett sales · 31 provinces in the data. Hover, focus or tap a row for the details.</p>
+          <div class="cs-chart__controls"><div class="cs-ctl"><span class="cs-ctl__label" id="lbl-top">Highlight</span><div class="cs-seg" role="group" aria-labelledby="lbl-top"><button type="button" data-top="1" data-insight="Jawa Barat alone contributes 29.5% of nett sales and 198,723 transactions." aria-pressed="false">Top 1</button><button type="button" data-top="3" data-insight="The top three provinces contribute 43.6% of nett sales." aria-pressed="false">Top 3</button><button type="button" data-top="10" data-insight="The top 10 provinces make up 70.8% of nett sales, out of 31 provinces in the data." aria-pressed="true">Top 10</button></div></div></div>
+          <ul class="cs-ichart" data-dim="main" data-sort="off" aria-label="Top 10 provinces by nett sales">
+            <li class="cs-irow" data-label="Jawa Barat" data-idx="0" data-value="94.87" data-detail="Jawa Barat: Rp94.87 billion nett sales, 29.5% of the total, rank 1 of 31 provinces." style="--w:100.0%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Jawa Barat</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">Rp94.87 bn</span></button></li>
+            <li class="cs-irow" data-label="Sumatera Utara" data-idx="1" data-value="22.95" data-detail="Sumatera Utara: Rp22.95 billion nett sales, 7.1% of the total, rank 2 of 31 provinces." style="--w:24.2%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Sumatera Utara</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">Rp22.95 bn</span></button></li>
+            <li class="cs-irow" data-label="Jawa Tengah" data-idx="2" data-value="22.25" data-detail="Jawa Tengah: Rp22.25 billion nett sales, 6.9% of the total, rank 3 of 31 provinces." style="--w:23.5%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Jawa Tengah</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">Rp22.25 bn</span></button></li>
+            <li class="cs-irow" data-label="Jawa Timur" data-idx="3" data-value="16.63" data-detail="Jawa Timur: Rp16.63 billion nett sales, 5.2% of the total, rank 4 of 31 provinces." style="--w:17.5%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Jawa Timur</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">Rp16.63 bn</span></button></li>
+            <li class="cs-irow" data-label="Sulawesi Utara" data-idx="4" data-value="15.9" data-detail="Sulawesi Utara: Rp15.90 billion nett sales, 5.0% of the total, rank 5 of 31 provinces." style="--w:16.8%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Sulawesi Utara</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">Rp15.90 bn</span></button></li>
+            <li class="cs-irow" data-label="Sumatera Barat" data-idx="5" data-value="15.31" data-detail="Sumatera Barat: Rp15.31 billion nett sales, 4.8% of the total, rank 6 of 31 provinces." style="--w:16.1%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Sumatera Barat</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">Rp15.31 bn</span></button></li>
+            <li class="cs-irow" data-label="Aceh" data-idx="6" data-value="10.47" data-detail="Aceh: Rp10.47 billion nett sales, 3.3% of the total, rank 7 of 31 provinces." style="--w:11.0%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Aceh</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">Rp10.47 bn</span></button></li>
+            <li class="cs-irow" data-label="Nusa Tenggara Barat" data-idx="7" data-value="10.04" data-detail="Nusa Tenggara Barat: Rp10.04 billion nett sales, 3.1% of the total, rank 8 of 31 provinces." style="--w:10.6%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Nusa Tenggara Barat</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">Rp10.04 bn</span></button></li>
+            <li class="cs-irow" data-label="Kalimantan Timur" data-idx="8" data-value="9.71" data-detail="Kalimantan Timur: Rp9.71 billion nett sales, 3.0% of the total, rank 9 of 31 provinces." style="--w:10.2%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Kalimantan Timur</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">Rp9.71 bn</span></button></li>
+            <li class="cs-irow" data-label="Riau" data-idx="9" data-value="9.35" data-detail="Riau: Rp9.35 billion nett sales, 2.9% of the total, rank 10 of 31 provinces." style="--w:9.9%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Riau</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">Rp9.35 bn</span></button></li>
           </ul>
+          <p class="cs-chart__detail" aria-live="polite">Hover, tap, or arrow through the bars for details.</p>
+          <p class="cs-chart__caption" aria-live="polite">The top 10 provinces make up 70.8% of nett sales, out of 31 provinces in the data.</p>
         </div>
       </div>
     </section>
@@ -245,14 +253,49 @@
       </div>
     </section>
 
-    <section id="dashboard" aria-labelledby="dashboard-heading">
+    <section id="takeaways" aria-labelledby="takeaways-heading">
       <div class="section-heading reveal">
         <span class="section-eyebrow" aria-hidden="true">05</span>
+        <h2 id="takeaways-heading" class="section-title">Challenges &amp; takeaways</h2>
+      </div>
+      <div class="cs-body">
+        <ol class="cs-lessons">
+        <li class="card cs-lesson reveal"><span class="cs-lesson__num" aria-hidden="true">01</span>
+          <h3 class="cs-lesson__title">Joins that quietly inflate sales</h3>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">Challenge</p><p>Inventory repeats the same (branch, product) pairs, so joining it to the transactions would duplicate sales rows and inflate nett sales.</p></div>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">What I did</p><p>Kept inventory out of the main join and summarised it in its own table.</p></div>
+          <div class="cs-lesson__col cs-lesson__col--take"><p class="cs-lesson__label">Takeaway</p><p>Check what one row means in each table before joining, and compare totals before and after.</p></div>
+        </li>
+        <li class="card cs-lesson reveal"><span class="cs-lesson__num" aria-hidden="true">02</span>
+          <h3 class="cs-lesson__title">Dates stored as text</h3>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">Challenge</p><p>Transaction dates arrive as M/D/YYYY text.</p></div>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">What I did</p><p>Loaded them as strings, parsed them with PARSE_DATE in the SQL step, and added a check that counts any date that fails to parse.</p></div>
+          <div class="cs-lesson__col cs-lesson__col--take"><p class="cs-lesson__label">Takeaway</p><p>Load the raw data first, transform it in SQL, and check for failures instead of trusting a conversion.</p></div>
+        </li>
+        <li class="card cs-lesson reveal"><span class="cs-lesson__num" aria-hidden="true">03</span>
+          <h3 class="cs-lesson__title">A map that needs the right codes</h3>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">Challenge</p><p>The Looker Studio geo map needs standard codes to place each province correctly.</p></div>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">What I did</p><p>Mapped every province to its ISO 3166-2 code inside the SQL table.</p></div>
+          <div class="cs-lesson__col cs-lesson__col--take"><p class="cs-lesson__label">Takeaway</p><p>Prepare what the dashboard needs, such as map codes, in the data model.</p></div>
+        </li>
+        <li class="card cs-lesson reveal"><span class="cs-lesson__num" aria-hidden="true">04</span>
+          <h3 class="cs-lesson__title">Numbers that did not reconcile</h3>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">Challenge</p><p>Re-checking the finished project against the raw CSV files showed the original dashboard formula overstated nett sales and nett profit by 8.03%.</p></div>
+          <div class="cs-lesson__col"><p class="cs-lesson__label">What I did</p><p>Recomputed everything from the raw files and documented the correction on this page (see “Data check &amp; corrections”).</p></div>
+          <div class="cs-lesson__col cs-lesson__col--take"><p class="cs-lesson__label">Takeaway</p><p>Reconcile dashboard totals with the source before publishing, and say plainly when a number was corrected.</p></div>
+        </li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="dashboard" aria-labelledby="dashboard-heading">
+      <div class="section-heading reveal">
+        <span class="section-eyebrow" aria-hidden="true">06</span>
         <h2 id="dashboard-heading" class="section-title">The dashboard</h2>
       </div>
       <div class="cs-body">
-        <div class="cs-figure reveal">
-          <figure class="project__media">
+        <div class="cs-gallery">
+          <figure class="project__media cs-gallery__item reveal">
             <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Kimia Farma dashboard, page 1 (overview)">
               <img
                 src="../assets/images/projects/kimia-farma-dashboard-overview.webp"
@@ -261,9 +304,7 @@
             </button>
             <figcaption>Page 1 · Overview: headline takeaway, yearly nett sales vs nett profit, province profit map, KPI tiles, branch categories, top-10 provinces</figcaption>
           </figure>
-        </div>
-        <div class="cs-figure reveal">
-          <figure class="project__media">
+        <figure class="project__media cs-gallery__item reveal">
             <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Kimia Farma dashboard, page 2 (detail)">
               <img
                 src="../assets/images/projects/kimia-farma-dashboard-detail.webp"
@@ -279,7 +320,7 @@
 
     <section id="recommendations" aria-labelledby="recommendations-heading">
       <div class="section-heading reveal">
-        <span class="section-eyebrow" aria-hidden="true">06</span>
+        <span class="section-eyebrow" aria-hidden="true">07</span>
         <h2 id="recommendations-heading" class="section-title">Recommendations</h2>
       </div>
       <div class="cs-body">
@@ -291,7 +332,7 @@
 
     <section id="data-check" aria-labelledby="data-check-heading">
       <div class="section-heading reveal">
-        <span class="section-eyebrow" aria-hidden="true">07</span>
+        <span class="section-eyebrow" aria-hidden="true">08</span>
         <h2 id="data-check-heading" class="section-title">Data check &amp; corrections</h2>
       </div>
       <div class="cs-body">
@@ -388,6 +429,10 @@
   <script defer src="../assets/js/reveal.js"></script>
   <script defer src="../assets/js/modal.js"></script>
   <script defer src="../assets/js/command-palette.js"></script>
+  <script defer src="../assets/js/scroll-progress.js"></script>
+  <script defer src="../assets/js/motion.js"></script>
+  <script defer src="../assets/js/expressive.js"></script>
+  <script defer src="../assets/js/case-study.js"></script>
   <script defer src="../assets/js/main.js"></script>
 
   <script data-goatcounter="https://refadfnda.goatcounter.com/count"
