@@ -121,3 +121,187 @@
   .cs-back__icon, .cs-ico, .cs-page .cs-list > li { transition: none; }
   .cs-page .cs-hero a.cs-back:hover .cs-back__icon, .cs-page .cs-list > li:hover { translate: none; }
 }
+
+/* ==========================================================================
+   4. Lesson labels, notes, KPI icons
+   ========================================================================== */
+.cs-lesson__label { display: flex; align-items: center; gap: var(--space-2); }
+.cs-lesson__ico { display: inline-grid; place-items: center; }
+.cs-lesson__ico svg { width: 15px; height: 15px; }
+
+.cs-page .cs-note {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  max-width: 70ch;
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  background: var(--color-primary-tint);
+  color: var(--color-ink-soft);
+}
+.cs-note__ico { display: inline-grid; place-items: center; flex: none; margin-top: 1px; color: var(--color-primary); }
+.cs-note__ico svg { width: 18px; height: 18px; }
+.cs-page #results .cs-note {
+  border-color: rgba(255, 255, 255, 0.25);
+  border-left-color: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.1);
+}
+.cs-page #results .cs-note .cs-note__ico { color: #fff; }
+
+.cs-kpis .stat-label { display: flex; align-items: center; gap: var(--space-2); }
+.stat-ico { display: inline-grid; place-items: center; flex: none; color: var(--color-primary); }
+.stat-ico svg { width: 16px; height: 16px; }
+
+/* ==========================================================================
+   5. "At a glance" panel (Context section)
+   ========================================================================== */
+.cs-glance {
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: linear-gradient(160deg, #0f2557 0%, var(--color-primary) 100%);
+  box-shadow: var(--shadow-md);
+  color: #fff;
+}
+.cs-glance__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-4);
+  font: 600 1.0625rem/1.3 var(--font-display);
+  color: #fff;
+}
+.cs-glance__title svg { width: 18px; height: 18px; color: #fff; }
+.cs-glance__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); margin: 0; }
+.cs-glance__item { padding: var(--space-3); border-radius: var(--radius-sm); background: rgba(255, 255, 255, 0.1); }
+.cs-glance__item dt { display: flex; align-items: center; gap: var(--space-2); margin: 0 0 var(--space-2); font-size: 0.75rem; line-height: 1.3; color: rgba(255, 255, 255, 0.82); }
+.cs-glance__item .cs-ico { width: 24px; height: 24px; border-radius: 8px; background: rgba(255, 255, 255, 0.18); color: #fff; }
+.cs-glance__item .cs-ico svg { width: 14px; height: 14px; }
+.cs-glance__item dd { margin: 0; font: 600 1.375rem/1.1 var(--font-display); font-variant-numeric: tabular-nums; color: #fff; }
+.cs-glance a.cs-glance__link {
+  display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px; margin-top: var(--space-3);
+  font-size: 0.875rem; font-weight: 600; color: #fff; text-decoration: none;
+}
+.cs-glance__link svg { width: 16px; height: 16px; transition: translate var(--duration-base) var(--ease-out); }
+.cs-page .cs-glance a.cs-glance__link:hover { text-decoration: underline; text-underline-offset: 4px; }
+.cs-glance a.cs-glance__link:hover svg { translate: 0 3px; }
+.cs-glance a.cs-glance__link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; border-radius: 4px; }
+
+.cs-page #context .cs-body > .cs-glance { margin-top: var(--space-6); max-width: 62rem; }
+@media (min-width: 1100px) {
+  .cs-page #context .cs-body { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: var(--space-8); align-items: start; }
+  .cs-page #context .cs-body > .cs-glance { margin-top: 0; max-width: none; position: sticky; top: 96px; }
+}
+
+/* ==========================================================================
+   6. Pager cards (previous / next project)
+   ========================================================================== */
+.cs-page .cs-pager__link {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: var(--space-4);
+  align-items: center;
+  min-height: 112px;
+  padding: var(--space-5);
+  overflow: hidden;
+}
+.cs-pager__kicker { grid-column: 1; grid-row: 1; margin-bottom: var(--space-2); }
+.cs-pager__link strong { grid-column: 1; grid-row: 2; }
+.cs-pager__arrow {
+  grid-column: 2; grid-row: 1 / span 2;
+  display: grid; place-items: center;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--color-primary-tint); color: var(--color-primary);
+  transition: translate var(--duration-base) var(--ease-out), background-color var(--duration-base) var(--ease-out), color var(--duration-base) var(--ease-out);
+}
+.cs-pager__arrow svg { width: 20px; height: 20px; }
+.cs-pager__link--prev { grid-template-columns: auto minmax(0, 1fr); }
+.cs-pager__link--prev .cs-pager__kicker, .cs-pager__link--prev strong { grid-column: 2; }
+.cs-pager__link--prev .cs-pager__arrow { grid-column: 1; }
+
+.cs-page .cs-pager .cs-pager__link--next {
+  border-color: transparent;
+  background: linear-gradient(135deg, #0f2557 0%, var(--color-primary) 100%);
+  box-shadow: var(--shadow-md);
+}
+.cs-page .cs-pager .cs-pager__link--next .cs-pager__kicker { color: rgba(255, 255, 255, 0.78); }
+.cs-page .cs-pager .cs-pager__link--next strong,
+.cs-page .cs-pager .cs-pager__link--next:hover strong { color: #fff; }
+.cs-pager__link--next .cs-pager__arrow { background: #fff; color: var(--color-primary); }
+
+.cs-page .cs-pager .cs-pager__link:hover strong,
+.cs-page .cs-pager .cs-pager__link:first-child:hover strong { translate: none; }
+.cs-page .cs-pager .cs-pager__link--prev:hover strong { color: var(--color-primary); }
+@media (hover: hover) {
+  .cs-pager__link--next:hover .cs-pager__arrow { translate: 5px 0; }
+  .cs-pager__link--prev:hover .cs-pager__arrow { translate: -5px 0; background: var(--color-primary); color: #fff; }
+}
+.cs-pager__link:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; }
+
+/* ==========================================================================
+   7. Micro-animation: Approach steps are linked by a line that draws itself
+   (single-row layouts only, i.e. 1024px and up; cs-motion.js adds .is-drawn)
+   ========================================================================== */
+@media (min-width: 1024px) {
+  .cs-steps--3 > li:not(:last-child)::after,
+  .cs-steps--4 > li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 35px;
+    left: 100%;
+    width: var(--space-5);
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-tint));
+    transform-origin: left center;
+    transition: transform 500ms var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 220ms + 300ms);
+  }
+  .cs-steps > li:nth-child(1) { --i: 0; }
+  .cs-steps > li:nth-child(2) { --i: 1; }
+  .cs-steps > li:nth-child(3) { --i: 2; }
+  .js .cs-steps:not(.is-drawn) > li::after { transform: scaleX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-pager__arrow, .cs-glance__link svg { transition: none; }
+  .cs-steps > li::after { transition: none; }
+  .cs-pager__link--next:hover .cs-pager__arrow, .cs-pager__link--prev:hover .cs-pager__arrow, .cs-glance a.cs-glance__link:hover svg { translate: none; }
+}
+
+/* Pager cards: no link underline on the card text (the whole card is the link) */
+.cs-page main a.cs-pager__link,
+.cs-page main a.cs-pager__link:hover { text-decoration: none; border-bottom: 0; }
+
+/* ==========================================================================
+   8. Fixes
+   ========================================================================== */
+/* Data tables sit inside white cards, but #results is a blue band that sets
+   white text; give table cells their own readable colour. */
+.cs-datatable td { color: var(--color-ink); }
+.cs-datatable tbody tr:hover td { background: var(--color-primary-tint); }
+
+/* Pager: one consistent layout for every card. The previous rule lost on
+   specificity, which flipped the grid columns on "previous" cards. */
+.cs-page .cs-pager .cs-pager__link {
+  grid-template-columns: 44px minmax(0, 1fr);
+  column-gap: var(--space-5);
+  row-gap: 4px;
+  align-content: center;
+  align-items: center;
+  min-height: 120px;
+  padding: var(--space-5) var(--space-6);
+}
+.cs-page .cs-pager .cs-pager__link .cs-pager__kicker { grid-column: 2; grid-row: 1; margin: 0; align-self: end; }
+.cs-page .cs-pager .cs-pager__link strong { grid-column: 2; grid-row: 2; align-self: start; line-height: 1.35; }
+.cs-page .cs-pager .cs-pager__link .cs-pager__arrow { grid-column: 1; grid-row: 1 / span 2; }
+/* Next cards keep the arrow on the right */
+.cs-page .cs-pager .cs-pager__link--next { grid-template-columns: minmax(0, 1fr) 44px; }
+.cs-page .cs-pager .cs-pager__link--next .cs-pager__kicker,
+.cs-page .cs-pager .cs-pager__link--next strong { grid-column: 1; }
+.cs-page .cs-pager .cs-pager__link--next .cs-pager__arrow { grid-column: 2; }
+@media (max-width: 480px) {
+  .cs-page .cs-pager .cs-pager__link { padding: var(--space-5); column-gap: var(--space-4); }
+}
