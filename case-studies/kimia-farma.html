@@ -19,8 +19,9 @@
   <link rel="stylesheet" href="../assets/css/expressive.css">
   <link rel="stylesheet" href="../assets/css/case-study.css">
   <link rel="stylesheet" href="../assets/css/transitions.css">
+  <link rel="stylesheet" href="../assets/css/bands.css">
 </head>
-<body>
+<body class="cs-page">
 
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
@@ -219,7 +220,7 @@
         <div class="card cs-chart reveal" data-cs-chart data-metric="value" data-formats='{"value":{"p":"Rp","s":" bn","d":2}}'>
           <h3>Top 10 provinces by nett sales</h3>
           <p class="cs-chart__sub">Rp billion · share of total nett sales · 31 provinces in the data. Hover, focus or tap a row for the details.</p>
-          <div class="cs-chart__controls"><div class="cs-ctl"><span class="cs-ctl__label" id="lbl-top">Highlight</span><div class="cs-seg" role="group" aria-labelledby="lbl-top"><button type="button" data-top="1" data-insight="Jawa Barat alone contributes 29.5% of nett sales and 198,723 transactions." aria-pressed="false">Top 1</button><button type="button" data-top="3" data-insight="The top three provinces contribute 43.6% of nett sales." aria-pressed="false">Top 3</button><button type="button" data-top="10" data-insight="The top 10 provinces make up 70.8% of nett sales, out of 31 provinces in the data." aria-pressed="true">Top 10</button></div></div></div>
+          <div class="cs-chart__controls"><div class="cs-ctl"><span class="cs-ctl__label" id="lbl-top">Highlight</span><div class="cs-seg" role="group" aria-labelledby="lbl-top"><button type="button" data-top="1" data-insight="Jawa Barat alone contributes <mark>29.5% of nett sales</mark> and 198,723 transactions." aria-pressed="false">Top 1</button><button type="button" data-top="3" data-insight="The top three provinces contribute 43.6% of nett sales." aria-pressed="false">Top 3</button><button type="button" data-top="10" data-insight="The top 10 provinces make up 70.8% of nett sales, out of 31 provinces in the data." aria-pressed="true">Top 10</button></div></div></div>
           <ul class="cs-ichart" data-dim="main" data-sort="off" aria-label="Top 10 provinces by nett sales">
             <li class="cs-irow" data-label="Jawa Barat" data-idx="0" data-value="94.87" data-detail="Jawa Barat: Rp94.87 billion nett sales, 29.5% of the total, rank 1 of 31 provinces." style="--w:100.0%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Jawa Barat</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">Rp94.87 bn</span></button></li>
             <li class="cs-irow" data-label="Sumatera Utara" data-idx="1" data-value="22.95" data-detail="Sumatera Utara: Rp22.95 billion nett sales, 7.1% of the total, rank 2 of 31 provinces." style="--w:24.2%"><button type="button" class="cs-irow__btn" aria-pressed="false"><span class="cs-irow__label">Sumatera Utara</span><span class="cs-irow__track" aria-hidden="true"><span class="cs-irow__bar"></span></span><span class="cs-irow__value">Rp22.95 bn</span></button></li>
@@ -245,10 +246,10 @@
       </div>
       <div class="cs-body">
         <ul class="cs-cards">
-          <li class="card reveal"><span class="cs-tag">Trend</span><h3>Sales are flat, not growing</h3><p>Nett sales were Rp80.4, 80.0, 80.6 and 80.1 billion in 2020–2023, on roughly 168,000 transactions every year. A dip recurs each February.</p><p class="cs-evidence">−0.5% · +0.7% · −0.6% year over year</p></li>
+          <li class="card reveal"><span class="cs-tag">Trend</span><h3>Sales are flat, not growing</h3><p><mark>Nett sales were Rp80.4, 80.0, 80.6 and 80.1 billion in 2020–2023</mark>, on roughly 168,000 transactions every year. A dip recurs each February.</p><p class="cs-evidence">−0.5% · +0.7% · −0.6% year over year</p></li>
           <li class="card reveal"><span class="cs-tag">Concentration</span><h3>One province carries the network</h3><p>Jawa Barat alone contributes 29.5% of nett sales and 198,723 transactions; the top three provinces contribute 43.6%.</p><p class="cs-evidence">Top 10 provinces = 70.8% of nett sales</p></li>
-          <li class="card reveal"><span class="cs-tag">Product mix</span><h3>High-priced products drive the business</h3><p>Products priced above Rp500,000 are about half of all transactions but bring in 76% of nett sales and 80% of nett profit.</p><p class="cs-evidence">&gt; Rp500k: 52% of transactions · 76% of nett sales · 80% of nett profit</p></li>
-          <li class="card reveal"><span class="cs-tag">Service quality</span><h3>Branch rating does not predict transaction rating</h3><p>The 96 branches rated 5.0 average a transaction rating of 3.997, against 4.000 for all other branches. The five “lowest” 5-star branches are what picking the minimum of 96 branches produces by chance.</p><p class="cs-evidence">Correlation between the two ratings ≈ 0.02</p></li>
+          <li class="card reveal"><span class="cs-tag">Product mix</span><h3>High-priced products drive the business</h3><p>Products priced above Rp500,000 are about half of all transactions but bring in <mark>76% of nett sales and 80% of nett profit</mark>.</p><p class="cs-evidence">&gt; Rp500k: 52% of transactions · 76% of nett sales · 80% of nett profit</p></li>
+          <li class="card reveal"><span class="cs-tag">Service quality</span><h3>Branch rating does not predict transaction rating</h3><p>The 96 branches rated 5.0 average a transaction rating of <mark>3.997, against 4.000 for all other branches</mark>. The five “lowest” 5-star branches are what picking the minimum of 96 branches produces by chance.</p><p class="cs-evidence">Correlation between the two ratings ≈ 0.02</p></li>
         </ul>
       </div>
     </section>
