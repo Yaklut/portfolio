@@ -1,0 +1,123 @@
+/* ==========================================================================
+   cs-polish.css — visual polish for the case-study pages.
+   Loaded last (after bands.css) so it can refine earlier rules.
+   1. "Back to projects" pill   2. Icon system   3. Data list as icon cards
+   ========================================================================== */
+
+/* ---- 1. Back pill ------------------------------------------------------ */
+.cs-hero a.cs-back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 44px;
+  margin-bottom: var(--space-5);
+  padding: 5px var(--space-5) 5px 5px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  font: 600 0.9375rem/1 var(--font-body);
+  text-decoration: none;
+  transition: background-color var(--duration-base) var(--ease-out),
+              border-color var(--duration-base) var(--ease-out),
+              box-shadow var(--duration-base) var(--ease-out);
+}
+.cs-back__icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--band-navy-b, #0d2a5c);
+  transition: translate var(--duration-base) var(--ease-out);
+}
+.cs-back__icon svg { width: 16px; height: 16px; }
+.cs-page .cs-hero a.cs-back:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 6px 18px rgba(6, 22, 60, 0.35);
+  color: #fff;
+  text-decoration: none;
+}
+.cs-page .cs-hero a.cs-back:hover .cs-back__icon { translate: -3px 0; }
+.cs-hero a.cs-back:active { transform: scale(0.98); }
+.cs-hero a.cs-back:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+/* ---- 2. Icon system ---------------------------------------------------- */
+/* Hero meta labels: small inline icon before the label */
+.cs-ico-inline { display: inline-block; margin-right: var(--space-2); vertical-align: -3px; }
+.cs-ico-inline svg { width: 14px; height: 14px; }
+
+/* Icon tile: used on steps, data list and tags */
+.cs-ico {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--color-primary-tint);
+  color: var(--color-primary);
+  transition: background-color var(--duration-base) var(--ease-out),
+              color var(--duration-base) var(--ease-out),
+              transform var(--duration-base) var(--ease-out);
+}
+.cs-ico svg { width: 20px; height: 20px; }
+
+/* Approach step cards: tile sits top-right, opposite the 01/02 number */
+.cs-steps > li { position: relative; }
+.cs-steps > li > .cs-ico { position: absolute; top: var(--space-4); right: var(--space-4); }
+
+/* Tags on insight / decision / recommendation cards */
+.cs-cards .cs-tag { display: flex; align-items: center; gap: var(--space-3); }
+.cs-cards .cs-tag .cs-ico { width: 32px; height: 32px; border-radius: 10px; }
+.cs-cards .cs-tag .cs-ico svg { width: 17px; height: 17px; }
+
+@media (hover: hover) {
+  .cs-steps > li:hover > .cs-ico,
+  .cs-cards > li:hover .cs-tag .cs-ico,
+  .cs-list > li:hover > .cs-ico { background: var(--color-primary); color: #fff; transform: scale(1.06); }
+}
+
+/* ---- 3. "Data provided" as icon cards ---------------------------------- */
+.cs-page #context .cs-prose { max-width: none; }
+.cs-page #context .cs-prose > p { max-width: 65ch; }
+.cs-page .cs-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3);
+  max-width: 62rem;
+  margin: 0 0 var(--space-4);
+  padding: 0;
+  list-style: none;
+}
+.cs-page .cs-list > li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  margin: 0;
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  line-height: 1.55;
+  transition: translate var(--duration-base) var(--ease-out),
+              box-shadow var(--duration-base) var(--ease-out),
+              border-color var(--duration-base) var(--ease-out);
+}
+.cs-page .cs-list > li strong { display: block; margin-bottom: 2px; }
+@media (hover: hover) {
+  .cs-page .cs-list > li:hover { translate: 0 -3px; box-shadow: var(--shadow-md); border-color: var(--color-border-interactive); }
+}
+@media (min-width: 720px) {
+  .cs-page .cs-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-back__icon, .cs-ico, .cs-page .cs-list > li { transition: none; }
+  .cs-page .cs-hero a.cs-back:hover .cs-back__icon, .cs-page .cs-list > li:hover { translate: none; }
+}
