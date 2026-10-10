@@ -62,7 +62,7 @@
 
 :root {
   /* Color — neutral */
-  --color-bg: #F6F7F9;
+  --color-bg: #F6F6F6;
   --color-surface: #FFFFFF;
   --color-surface-alt: #EEF1F5;
   --color-surface-translucent: rgba(255, 255, 255, 0.75); /* navbar glass on scroll — same white as --color-surface, just letting content bleed through */
@@ -75,10 +75,10 @@
   --color-ink-faint: #666C80;
 
   /* Color — primary (Signal Blue) */
-  --color-primary: #2A46C0;
-  --color-primary-hover: #22379C;
-  --color-primary-tint: #E7ECFB;
-  --color-primary-on-dark: #5B7CF0;
+  --color-primary: #1E56A0;
+  --color-primary-hover: #163172;
+  --color-primary-tint: #E3EDF6;
+  --color-primary-on-dark: #9CC0F0;
 
   /* Color — secondary (Credential Gold) */
   --color-gold: #B07C2C;
@@ -87,8 +87,8 @@
   --color-gold-on-dark: #D4A544;
 
   /* Color — dark section (footer only) */
-  --color-dark-bg: #0D111A;
-  --color-dark-surface: #161B26;
+  --color-dark-bg: #0A1630;
+  --color-dark-surface: #12234A;
   --color-dark-text: #E7E9EE;
   --color-dark-text-soft: #9AA1B4;
 
@@ -2643,7 +2643,7 @@ body.modal-open {
   width: 0;
   border-radius: var(--radius-full);
   background: var(--color-primary);
-  box-shadow: 0 4px 12px rgba(42, 70, 192, 0.32);
+  box-shadow: 0 4px 12px rgba(30, 86, 160, 0.32);
   opacity: 0;
   transform: translateX(var(--thumb-x, 0px));
 }

@@ -131,7 +131,7 @@
 .cs-line__tip.is-left { translate: calc(-100% - 14px) 6px; }
 .cs-line__tip.is-on { opacity: 1; }
 .cs-line__tip strong { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; }
-.cs-line__tip .sw { display: inline-block; width: 10px; height: 10px; margin-right: 8px; border-radius: 50%; background: #8fa4ff; }
+.cs-line__tip .sw { display: inline-block; width: 10px; height: 10px; margin-right: 8px; border-radius: 50%; background: #9CC0F0; }
 .cs-line__tip .sw--1 { background: #4fd1c5; }
 .cs-line__readout { margin: var(--space-3) 0 0; min-height: 3.2em; padding: var(--space-3) var(--space-4); border: 1px dashed var(--color-border-interactive); border-radius: var(--radius-sm); font-size: 0.9375rem; color: var(--color-ink-soft); font-variant-numeric: tabular-nums; }
 

@@ -2,39 +2,41 @@
    bands.css — section background bands + highlighted text ("marks")
 
    Loaded last on every page. Instead of one grey/white page, sections sit on
-   a small set of surfaces so the eye can tell where one part ends:
+   a small set of surfaces so the eye can tell where one part ends.
 
-     band-light   the base page colour
+   Palette (Color Hunt, "sea"):  #F6F6F6  #D6E4F0  #1E56A0  #163172
+     band-light   the base page colour            #F6F6F6
      band-white   white
-     band-tint    soft blue wash
-     band-navy    STRONG  deep navy      (white text)
-     band-signal  STRONG  Signal Blue    (white text)
-     band-bright  STRONG  bright blue    (navy text)
+     band-tint    soft blue wash                  #D6E4F0 (lightened)
+     band-navy    STRONG  deep navy               #163172  (white text)
+     band-blue    STRONG  sea blue                #1E56A0  (white text)
 
    Rules of thumb: strong bands are never next to each other (a light band
    always sits between them), gold stays reserved for credentials, and cards
    stay white on every band so their own text colours keep working.
 
-   All text/background pairs below were checked for WCAG AA contrast.
+   All text/background pairs below were checked for WCAG AA contrast
+   (white on #1E56A0 7.3:1, white on #163172 12.2:1, #9CC0F0 on #163172 6.5:1,
+   #D6E4F0 on #1E56A0 5.6:1, ink on highlight 12:1).
    ========================================================================== */
 
 :root {
   --band-light: var(--color-bg);
   --band-white: #FFFFFF;
-  --band-tint-a: #EBF0FE;
-  --band-tint-b: #DCE5FF;
+  --band-tint-a: #E8F0F8;
+  --band-tint-b: #D6E4F0;
 
-  --band-navy-a: #0B1640;
-  --band-navy-b: #13226B;
-  --band-signal-a: #2A46C0;
-  --band-signal-b: #1E3596;
-  --band-bright-a: #7C99FF;
-  --band-bright-b: #8FA9FF;
+  --band-navy-a: #163172;
+  --band-navy-b: #0F2459;
+  --band-blue-a: #1E56A0;
+  --band-blue-b: #164582;
 
-  --band-navy-ink: #0B1640;       /* text colour on the bright band (6.5:1) */
-  --band-navy-ink-soft: #1C2A66;  /* secondary text on the bright band (5.0:1) */
+  --band-on-dark-eyebrow: #9CC0F0;   /* small label on navy (6.5:1) */
+  --band-on-dark-soft: #CFDDF0;      /* intro text on navy */
+  --band-on-blue-eyebrow: #D6E4F0;   /* small label on blue (5.6:1) */
+  --band-on-blue-soft: #E4EDF7;      /* intro text on blue */
 
-  --hl-bg: #D5E0FF;               /* highlight on light surfaces */
+  --hl-bg: #C7DBEF;                  /* highlight on light surfaces */
   --hl-ink: var(--color-ink);
 }
 
@@ -46,71 +48,63 @@ main > section.band-tint  { background: linear-gradient(180deg, var(--band-tint-
 /* Hero: base colour with a soft blue glow behind the photo side */
 main > section.band-hero {
   background:
-    radial-gradient(900px 520px at 92% 18%, rgba(91, 124, 240, 0.20), transparent 62%),
-    radial-gradient(620px 420px at 0% 100%, rgba(42, 70, 192, 0.08), transparent 70%),
+    radial-gradient(900px 520px at 92% 18%, rgba(30, 86, 160, 0.16), transparent 62%),
+    radial-gradient(620px 420px at 0% 100%, rgba(30, 86, 160, 0.07), transparent 70%),
     var(--band-light);
 }
 
 /* Strong bands */
 main > section.band-navy {
   background:
-    radial-gradient(900px 440px at 88% -8%, rgba(91, 124, 240, 0.32), transparent 62%),
-    radial-gradient(720px 380px at 4% 108%, rgba(42, 70, 192, 0.34), transparent 64%),
+    radial-gradient(900px 440px at 88% -8%, rgba(70, 130, 210, 0.34), transparent 62%),
+    radial-gradient(720px 380px at 4% 108%, rgba(30, 86, 160, 0.42), transparent 64%),
     linear-gradient(160deg, var(--band-navy-a), var(--band-navy-b));
   color: #fff;
 }
-main > section.band-signal {
+main > section.band-blue {
   background:
-    radial-gradient(820px 420px at 100% 0%, rgba(255, 255, 255, 0.14), transparent 62%),
-    linear-gradient(150deg, var(--band-signal-a), var(--band-signal-b));
+    radial-gradient(820px 420px at 100% 0%, rgba(255, 255, 255, 0.16), transparent 62%),
+    linear-gradient(150deg, var(--band-blue-a), var(--band-blue-b));
   color: #fff;
-}
-main > section.band-bright {
-  background:
-    radial-gradient(760px 420px at 0% 0%, rgba(255, 255, 255, 0.34), transparent 60%),
-    linear-gradient(150deg, var(--band-bright-a), var(--band-bright-b));
-  color: var(--band-navy-ink);
 }
 
 /* ---- Headings on strong bands ---- */
-.band-navy .section-title, .band-signal .section-title { color: #fff; }
-.band-navy .section-eyebrow { color: #9FB3FF; }
-.band-signal .section-eyebrow { color: #C9D5FF; }
-.band-bright .section-title { color: var(--band-navy-ink); }
-.band-bright .section-eyebrow { color: var(--band-navy-ink-soft); }
-
-.band-navy .projects__lead { color: #C5CEF0; }
+.band-navy .section-title, .band-blue .section-title { color: #fff; }
+.band-navy .section-eyebrow { color: var(--band-on-dark-eyebrow); }
+.band-blue .section-eyebrow { color: var(--band-on-blue-eyebrow); }
+.band-navy .projects__lead { color: var(--band-on-dark-soft); }
 
 /* ---- Navy band: project cards float above the dark surface ---- */
 .band-navy .card--project {
   border-color: rgba(255, 255, 255, 0.10);
-  box-shadow: 0 30px 70px rgba(2, 6, 25, 0.55), 0 8px 20px rgba(2, 6, 25, 0.35);
+  box-shadow: 0 30px 70px rgba(2, 8, 30, 0.55), 0 8px 20px rgba(2, 8, 30, 0.35);
 }
 
-/* ---- Signal band (Research) ---- */
-.band-signal .pub-snapshot > li { box-shadow: 0 14px 34px rgba(8, 18, 70, 0.28); }
-.band-signal .pub-filter { background: #fff; border-color: rgba(255, 255, 255, 0.7); }
-.band-signal .pub-filter__status, .band-signal .pub-filter__empty { color: #E1E8FF; }
-.band-signal .card--publication { box-shadow: 0 14px 34px rgba(8, 18, 70, 0.22); border-color: rgba(255, 255, 255, 0.35); }
-.band-signal .research > .btn, .band-signal > .btn {
+/* ---- Blue band: Research ---- */
+.band-blue .pub-snapshot > li { box-shadow: 0 14px 34px rgba(6, 22, 60, 0.28); }
+.band-blue .pub-filter { background: #fff; border-color: rgba(255, 255, 255, 0.7); }
+.band-blue .pub-filter__status, .band-blue .pub-filter__empty { color: var(--band-on-blue-soft); }
+.band-blue .card--publication { box-shadow: 0 14px 34px rgba(6, 22, 60, 0.24); border-color: rgba(255, 255, 255, 0.35); }
+.band-blue .research > .btn, .band-blue > .btn {
   background: transparent; color: #fff; border-color: rgba(255, 255, 255, 0.85);
 }
-.band-signal > .btn:hover { background: rgba(255, 255, 255, 0.14); color: #fff; }
+.band-blue > .btn:hover { background: rgba(255, 255, 255, 0.14); color: #fff; }
 
-/* ---- Bright band (Contact) ---- */
-.band-bright .contact__lead p { color: var(--band-navy-ink); }
-.band-bright .contact__tags-label { color: var(--band-navy-ink-soft); }
-.band-bright .contact__row { box-shadow: 0 12px 30px rgba(11, 22, 64, 0.18); border-top-color: transparent; border-right-color: transparent; border-bottom-color: transparent; }
-.band-bright .contact__tags .chip { border-color: rgba(11, 22, 64, 0.14); }
-.band-bright .contact__platforms .btn--primary { background: var(--band-navy-ink); color: #fff; border-color: var(--band-navy-ink); }
-.band-bright .contact__platforms .btn--primary:hover { background: #060D2C; }
-.band-bright .contact__platforms .btn--secondary { background: #fff; color: var(--band-navy-ink); border-color: #fff; }
-.band-bright .contact__platforms .btn--secondary:hover { background: var(--color-primary-tint); border-color: var(--color-primary-tint); color: var(--band-navy-ink); }
+/* ---- Blue band: Contact ---- */
+.band-blue .contact__lead p { color: #fff; }
+.band-blue .contact__tags-label { color: var(--band-on-blue-eyebrow); }
+.band-blue .contact__row { box-shadow: 0 12px 30px rgba(6, 22, 60, 0.28); }
+.band-blue .contact__tags .chip { border-color: transparent; }
+.band-blue .contact__platforms .btn--primary { background: var(--band-navy-a); color: #fff; border: 2px solid #fff; }
+.band-blue .contact__platforms .btn--primary:hover { background: var(--band-navy-b); }
+.band-blue .contact__platforms .btn--secondary { background: #fff; color: var(--band-navy-a); border-color: #fff; }
+.band-blue .contact__platforms .btn--secondary:hover { background: var(--band-tint-b); border-color: var(--band-tint-b); color: var(--band-navy-a); }
 
 /* ---- Highlighted text ---------------------------------------------------
    <mark> marks the one phrase that carries the point of a paragraph. Use it
    sparingly (one or two per card or paragraph). Light surfaces get a blue
-   marker; on dark bands (headings and intro lines, not cards) it flips. */
+   marker; on dark bands (intro lines and the case-page hero, not cards) it
+   flips to a translucent light marker. */
 mark {
   padding: 0.04em 0.32em;
   margin-inline: -0.04em;
@@ -121,38 +115,37 @@ mark {
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
-.band-navy .projects__lead mark, .cs-hero mark { background: rgba(159, 179, 255, 0.26); color: #fff; }
-.band-signal > .cs-note mark { background: rgba(255, 255, 255, 0.22); color: #fff; }
+.band-navy .projects__lead mark, .cs-hero mark { background: rgba(156, 192, 240, 0.28); color: #fff; }
 
 /* ---- Case-study pages --------------------------------------------------- */
-/* Hero is navy, the results section is Signal Blue, the rest alternate. */
+/* Hero is navy, the results section is blue, the rest alternate. */
 .cs-page main > section:nth-of-type(even) { background: var(--band-white); }
 .cs-page main > section:nth-of-type(odd)  { background: linear-gradient(180deg, var(--band-tint-a), var(--band-tint-b)); }
 .cs-page main > section.cs-hero {
   background:
-    radial-gradient(900px 440px at 88% -8%, rgba(91, 124, 240, 0.32), transparent 62%),
-    radial-gradient(720px 380px at 4% 108%, rgba(42, 70, 192, 0.34), transparent 64%),
+    radial-gradient(900px 440px at 88% -8%, rgba(70, 130, 210, 0.34), transparent 62%),
+    radial-gradient(720px 380px at 4% 108%, rgba(30, 86, 160, 0.42), transparent 64%),
     linear-gradient(160deg, var(--band-navy-a), var(--band-navy-b));
   color: #fff;
 }
 .cs-page main > section#results {
   background:
-    radial-gradient(820px 420px at 100% 0%, rgba(255, 255, 255, 0.14), transparent 62%),
-    linear-gradient(150deg, var(--band-signal-a), var(--band-signal-b));
+    radial-gradient(820px 420px at 100% 0%, rgba(255, 255, 255, 0.16), transparent 62%),
+    linear-gradient(150deg, var(--band-blue-a), var(--band-blue-b));
   color: #fff;
 }
 .cs-page #results .section-title { color: #fff; }
-.cs-page #results .section-eyebrow { color: #C9D5FF; }
-.cs-page #results .cs-note { color: #E1E8FF; border-left-color: rgba(255, 255, 255, 0.55); }
+.cs-page #results .section-eyebrow { color: var(--band-on-blue-eyebrow); }
+.cs-page #results .cs-note { color: var(--band-on-blue-soft); border-left-color: rgba(255, 255, 255, 0.55); }
 .cs-page #results .cs-note mark { background: rgba(255, 255, 255, 0.22); color: #fff; }
-.cs-page #results .card { box-shadow: 0 16px 40px rgba(8, 18, 70, 0.28); border-color: rgba(255, 255, 255, 0.3); }
-.cs-page #results .cs-kpis .stat { box-shadow: 0 14px 34px rgba(8, 18, 70, 0.28); }
+.cs-page #results .card { box-shadow: 0 16px 40px rgba(6, 22, 60, 0.30); border-color: rgba(255, 255, 255, 0.3); }
+.cs-page #results .cs-kpis .stat { box-shadow: 0 14px 34px rgba(6, 22, 60, 0.30); }
 
 /* Case hero text on navy */
 .cs-hero .cs-title { color: #fff; }
-.cs-hero .cs-summary { color: #D3DAF5; }
-.cs-hero .project__sector { display: inline-block; width: fit-content; justify-self: start; padding: 5px 12px; border-radius: var(--radius-full); background: var(--color-primary-on-dark); color: #0B1640; }
-.cs-hero .cs-meta dt { color: #9FB3FF; }
+.cs-hero .cs-summary { color: var(--band-on-dark-soft); }
+.cs-hero .project__sector { display: inline-block; width: fit-content; justify-self: start; padding: 5px 12px; border-radius: var(--radius-full); background: var(--color-primary-on-dark); color: var(--band-navy-b); }
+.cs-hero .cs-meta dt { color: var(--band-on-dark-eyebrow); }
 .cs-hero .cs-meta dd { color: #fff; }
 .cs-hero .cs-back { color: #fff; border-color: rgba(255, 255, 255, 0.55); }
 .cs-hero .cs-back:hover { background: rgba(255, 255, 255, 0.14); color: #fff; }
