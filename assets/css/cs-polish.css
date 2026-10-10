@@ -305,3 +305,156 @@
 @media (max-width: 480px) {
   .cs-page .cs-pager .cs-pager__link { padding: var(--space-5); column-gap: var(--space-4); }
 }
+
+/* ==========================================================================
+   9. Code windows (SQL / Excel formulas) with file name + Copy button
+   ========================================================================== */
+.cs-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.cs-codewin {
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--color-dark-bg);
+  box-shadow: var(--shadow-md);
+}
+.cs-codewin .sql-code { border-radius: 0; box-shadow: none; }
+.cs-codewin__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 44px;
+  padding: 4px var(--space-3) 4px var(--space-4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--color-dark-surface);
+}
+.cs-codewin__dots { display: flex; gap: 6px; flex: none; }
+.cs-codewin__dots i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, 0.2); }
+.cs-codewin__file {
+  display: inline-flex; align-items: center; gap: var(--space-2); min-width: 0;
+  font: 500 0.75rem/1.2 var(--font-mono); color: var(--color-dark-text);
+}
+.cs-codewin__file svg { width: 15px; height: 15px; flex: none; color: var(--color-primary-on-dark); }
+.cs-codewin__file span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cs-codewin__lang {
+  margin-left: auto; padding: 3px 8px; border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.08); color: var(--color-dark-text-soft);
+  font: 500 0.6875rem/1.2 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;
+}
+.cs-copy {
+  display: inline-flex; align-items: center; gap: var(--space-2); flex: none; min-height: 34px; padding: 0 var(--space-3);
+  border: 1px solid rgba(255, 255, 255, 0.2); border-radius: var(--radius-full); background: rgba(255, 255, 255, 0.06);
+  color: var(--color-dark-text); font: 600 0.75rem/1 var(--font-body); cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+}
+.cs-copy svg { width: 14px; height: 14px; }
+.cs-copy:hover { background: rgba(255, 255, 255, 0.16); border-color: rgba(255, 255, 255, 0.4); }
+.cs-copy:focus-visible { outline: 2px solid var(--color-primary-on-dark); outline-offset: 2px; }
+.cs-copy.is-copied { background: var(--color-primary-on-dark); border-color: var(--color-primary-on-dark); color: var(--color-dark-bg); }
+@media (max-width: 480px) { .cs-codewin__dots, .cs-codewin__lang { display: none; } .cs-codewin__file { flex: 1; } }
+
+/* ==========================================================================
+   10. Data check & corrections as a vertical timeline
+   ========================================================================== */
+.cs-page .cs-timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding-left: 56px;
+}
+.cs-timeline::before {
+  content: "";
+  position: absolute;
+  left: 19px; top: 24px; bottom: 24px;
+  width: 2px; border-radius: 2px;
+  background: linear-gradient(var(--color-primary), var(--color-border-interactive));
+  transform-origin: top;
+  transition: transform 1200ms var(--ease-out);
+}
+.js .cs-timeline:not(.is-drawn)::before { transform: scaleY(0); }
+.cs-timeline > li { position: relative; }
+.cs-tl__dot {
+  position: absolute; left: -56px; top: 14px; z-index: 1;
+  display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
+  border: 2px solid var(--color-primary); background: var(--color-surface); color: var(--color-primary);
+}
+.cs-tl__dot svg { width: 19px; height: 19px; }
+.cs-tl__dot--fixed { background: var(--color-primary); color: #fff; }
+.cs-tl__dot--limit { border-color: var(--color-border-interactive); border-style: dashed; background: var(--color-surface-alt); color: var(--color-ink-soft); }
+.cs-timeline .cs-tag .cs-ico { display: none; }
+@media (max-width: 640px) {
+  .cs-page .cs-timeline { padding-left: 44px; }
+  .cs-timeline::before { left: 15px; }
+  .cs-tl__dot { left: -44px; width: 32px; height: 32px; top: 12px; }
+  .cs-tl__dot svg { width: 16px; height: 16px; }
+}
+
+/* ==========================================================================
+   11. Browser frame on dashboard screenshots
+   ========================================================================== */
+.cs-chrome {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: 9px var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+  text-align: left;
+}
+.cs-chrome__dots { display: flex; gap: 6px; flex: none; }
+.cs-chrome__dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--color-border-interactive); opacity: 0.5; }
+.cs-chrome__title {
+  flex: 1; min-width: 0; padding: 3px var(--space-3); overflow: hidden; border-radius: var(--radius-full);
+  background: var(--color-surface-alt); color: var(--color-ink-soft);
+  font: 500 0.75rem/1.5 var(--font-mono); white-space: nowrap; text-overflow: ellipsis;
+}
+
+/* ==========================================================================
+   12. Hero illustration (decorative, wide screens only)
+   ========================================================================== */
+.cs-hero__inner { position: relative; }
+.cs-hero__art { display: none; }
+@media (min-width: 1180px) {
+  .cs-hero__art {
+    display: block; position: absolute; top: var(--space-4);
+    right: calc((100% - min(100% - 2 * var(--container-pad), var(--container-max))) / 2);
+    width: min(360px, 28vw); height: auto; pointer-events: none; opacity: 0.95;
+  }
+}
+.art-rise, .art-pop { transform-box: fill-box; transform-origin: center bottom; animation: artRise 700ms var(--ease-out) both; animation-delay: var(--d, 0ms); }
+.art-pop { transform-origin: center; animation-name: artPop; }
+.art-draw { stroke-dasharray: 1; stroke-dashoffset: 0; animation: artDraw 1300ms var(--ease-out) both; animation-delay: var(--d, 500ms); }
+@keyframes artRise { from { opacity: 0; transform: translateY(14px) scaleY(0.6); } to { opacity: 1; transform: none; } }
+@keyframes artPop  { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: none; } }
+@keyframes artDraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) { .art-rise, .art-pop, .art-draw { animation: none; } }
+
+/* ==========================================================================
+   13. Section progress rail (built by cs-enhance.js, wide screens only)
+   ========================================================================== */
+html { scroll-padding-top: 76px; }
+.cs-rail {
+  position: fixed; right: 14px; top: 50%; z-index: 40; translate: 0 -50%;
+  opacity: 0; pointer-events: none; transition: opacity var(--duration-base) var(--ease-out);
+}
+.cs-rail.is-on { opacity: 1; pointer-events: auto; }
+.cs-rail ol {
+  display: flex; flex-direction: column; gap: 2px; margin: 0; padding: 10px 6px; list-style: none;
+  border: 1px solid var(--color-border); border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.9); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-md);
+}
+.cs-rail a { position: relative; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; text-decoration: none; }
+.cs-rail a::before {
+  content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--color-border-interactive);
+  transition: width var(--duration-base) var(--ease-out), height var(--duration-base) var(--ease-out), background-color var(--duration-base) var(--ease-out), box-shadow var(--duration-base) var(--ease-out);
+}
+.cs-rail a[aria-current="true"]::before { width: 11px; height: 11px; background: var(--color-primary); box-shadow: 0 0 0 4px var(--color-primary-tint); }
+.cs-rail a::after {
+  content: attr(data-label); position: absolute; right: calc(100% + 10px); top: 50%; translate: 6px -50%;
+  padding: 7px 10px; border-radius: var(--radius-sm); background: var(--color-ink); color: #fff;
+  font: 600 0.75rem/1 var(--font-body); white-space: nowrap; opacity: 0; pointer-events: none;
+  transition: opacity var(--duration-fast) var(--ease-out), translate var(--duration-fast) var(--ease-out);
+}
+.cs-rail a:hover::after, .cs-rail a:focus-visible::after { opacity: 1; translate: 0 -50%; }
+.cs-rail a:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 1px; }
+@media (max-width: 1179px) { .cs-rail { display: none; } }
+@media (prefers-reduced-motion: reduce) { .cs-rail, .cs-rail a::before, .cs-rail a::after { transition: none; } }

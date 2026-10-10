@@ -61,6 +61,16 @@
 
     <section class="cs-hero" aria-labelledby="cs-title">
       <div class="cs-hero__inner">
+        <svg class="cs-hero__art cs-hero__art--sheet" viewBox="0 0 360 240" fill="none" aria-hidden="true" focusable="false">
+  <g class="art-rise" style="--d:100ms"><rect x="14" y="14" width="332" height="30" rx="8" fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.26)"/><text x="30" y="34" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="600" fill="#9CC0F0">fx</text><path d="M58 29h150" stroke="rgba(255,255,255,.4)" stroke-width="3" stroke-linecap="round"/></g>
+  <g class="art-rise" style="--d:250ms"><rect x="14" y="56" width="332" height="170" rx="8" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.26)"/>
+    <rect x="14" y="56" width="332" height="24" rx="8" fill="rgba(255,255,255,.22)"/>
+    <g stroke="rgba(255,255,255,.16)"><path d="M14 104h332M14 128h332M14 152h332M14 176h332M14 200h332"/><path d="M80 56v170M146 56v170M212 56v170M278 56v170"/></g>
+    <path d="M28 68h30M94 68h30M160 68h30M226 68h30M292 68h30" stroke="rgba(255,255,255,.55)" stroke-width="3" stroke-linecap="round"/>
+    <rect x="146" y="128" width="66" height="24" fill="rgba(91,124,240,.45)" stroke="#9CC0F0" stroke-width="2"/>
+  </g>
+  <path class="art-draw" style="--d:900ms" pathLength="1" d="M26 214 L70 190 L112 198 L156 172 L200 180 L244 150 L290 160 L334 132" stroke="#9CC0F0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
         <div><a class="cs-back" href="../index.html#projects"><span class="cs-back__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 19-7-7 7-7" /> <path d="M19 12H5" /></svg></span><span class="cs-back__label">Back to projects</span></a></div>
         <p class="project__sector">Sales &amp; financial performance</p>
         <h1 id="cs-title" class="cs-title">Sales Performance Dashboard in Excel</h1>
@@ -126,32 +136,32 @@
         </div>
         <div class="cs-sql reveal">
           <p class="cs-sql__label">Order code</p>
-          <pre class="sql-code" tabindex="0" aria-label="Order code formula"><code>="ORD-"&amp;XLOOKUP(C2,Guide!$B$22:$B$26,Guide!$C$22:$C$26)
+          <div class="cs-codewin"><div class="cs-codewin__bar"><span class="cs-codewin__dots"><i></i><i></i><i></i></span><span class="cs-codewin__file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M8 13h2" /> <path d="M14 13h2" /> <path d="M8 17h2" /> <path d="M14 17h2" /></svg><span>Excel formula</span></span><span class="cs-codewin__lang">Excel formula</span><button type="button" class="cs-copy" data-copy><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg><span class="cs-copy__label">Copy</span></button><span class="cs-sr" role="status" aria-live="polite"></span></div><pre class="sql-code" tabindex="0" aria-label="Order code formula"><code>="ORD-"&amp;XLOOKUP(C2,Guide!$B$22:$B$26,Guide!$C$22:$C$26)
  &amp;"-"&amp;XLOOKUP(D2,Guide!$B$29:$B$33,Guide!$C$29:$C$33)
- &amp;"-"&amp;TEXT(H2,"yyyymmdd")          // e.g. ORD-GER-GOV-20141201</code></pre>
+ &amp;"-"&amp;TEXT(H2,"yyyymmdd")          // e.g. ORD-GER-GOV-20141201</code></pre></div>
         </div>
         <div class="cs-sql reveal">
           <p class="cs-sql__label">Extract the order date from the details text</p>
-          <pre class="sql-code" tabindex="0" aria-label="Order date extraction formula"><code>// Order details is plain text, not valid JSON, so day/month/year are cut out of it
+          <div class="cs-codewin"><div class="cs-codewin__bar"><span class="cs-codewin__dots"><i></i><i></i><i></i></span><span class="cs-codewin__file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M8 13h2" /> <path d="M14 13h2" /> <path d="M8 17h2" /> <path d="M14 17h2" /></svg><span>Excel formula</span></span><span class="cs-codewin__lang">Excel formula</span><button type="button" class="cs-copy" data-copy><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg><span class="cs-copy__label">Copy</span></button><span class="cs-sr" role="status" aria-live="polite"></span></div><pre class="sql-code" tabindex="0" aria-label="Order date extraction formula"><code>// Order details is plain text, not valid JSON, so day/month/year are cut out of it
 =DATE( VALUE(TEXTBEFORE(TEXTAFTER(B2,"""year"": """),"""")),
        VALUE(TEXTBEFORE(TEXTAFTER(B2,"""month"": """),"""")),
-       VALUE(TEXTBEFORE(TEXTAFTER(B2,"""date"": """),"""")) )</code></pre>
+       VALUE(TEXTBEFORE(TEXTAFTER(B2,"""date"": """),"""")) )</code></pre></div>
         </div>
         <div class="cs-sql reveal">
           <p class="cs-sql__label">Price, revenue, gross profit and discount tier</p>
-          <pre class="sql-code" tabindex="0" aria-label="Revenue, gross profit and discount tier formulas"><code>Selling Price  =XLOOKUP(E2,Product!$A$2:$A$7,Product!$C$2:$C$7)
+          <div class="cs-codewin"><div class="cs-codewin__bar"><span class="cs-codewin__dots"><i></i><i></i><i></i></span><span class="cs-codewin__file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M8 13h2" /> <path d="M14 13h2" /> <path d="M8 17h2" /> <path d="M14 17h2" /></svg><span>Excel formula</span></span><span class="cs-codewin__lang">Excel formula</span><button type="button" class="cs-copy" data-copy><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg><span class="cs-copy__label">Copy</span></button><span class="cs-sr" role="status" aria-live="polite"></span></div><pre class="sql-code" tabindex="0" aria-label="Revenue, gross profit and discount tier formulas"><code>Selling Price  =XLOOKUP(E2,Product!$A$2:$A$7,Product!$C$2:$C$7)
 Total Price    =I2*F2
 Revenue        =J2*(1-IF(G2="-",0,G2))
 Gross Profit   =K2-(XLOOKUP(E2,Product!$A$2:$A$7,Product!$B$2:$B$7)*F2)
 Discount Tier  =IFS(G2=0,"No Discount", ROUND(G2*100,0)&lt;=4,"Low",
-                    ROUND(G2*100,0)&lt;=9,"Medium", ROUND(G2*100,0)&lt;=15,"High")</code></pre>
+                    ROUND(G2*100,0)&lt;=9,"Medium", ROUND(G2*100,0)&lt;=15,"High")</code></pre></div>
           <p class="cs-sql__caption">Revenue = total price − discount; gross profit = revenue − manufacturing cost × quantity.</p>
         </div>
         <div class="cs-sql reveal">
           <p class="cs-sql__label">Operating and net profit by year</p>
-          <pre class="sql-code" tabindex="0" aria-label="Operating and net profit formulas"><code>// Other financials: yearly operating cost and net profit
+          <div class="cs-codewin"><div class="cs-codewin__bar"><span class="cs-codewin__dots"><i></i><i></i><i></i></span><span class="cs-codewin__file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M8 13h2" /> <path d="M14 13h2" /> <path d="M8 17h2" /> <path d="M14 17h2" /></svg><span>Excel formula</span></span><span class="cs-codewin__lang">Excel formula</span><button type="button" class="cs-copy" data-copy><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg><span class="cs-copy__label">Copy</span></button><span class="cs-sr" role="status" aria-live="polite"></span></div><pre class="sql-code" tabindex="0" aria-label="Operating and net profit formulas"><code>// Other financials: yearly operating cost and net profit
 Operating Profit (2013) =SUMPRODUCT((YEAR('Order raw'!H2:H701)=2013)*'Order raw'!L2:L701) - G&amp;A - Handling
-Net Profit      (2013)  =Operating Profit - Tax</code></pre>
+Net Profit      (2013)  =Operating Profit - Tax</code></pre></div>
           <p class="cs-sql__caption">Operating profit = gross profit − G&amp;A − handling cost; net profit = operating profit − tax.</p>
         </div>
       </div>
@@ -276,32 +286,32 @@ Net Profit      (2013)  =Operating Profit - Tax</code></pre>
       <div class="cs-body">
         <div class="cs-gallery">
           <figure class="project__media cs-gallery__item cs-gallery__item--wide reveal">
-            <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Excel sales performance dashboard">
+            <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Excel sales performance dashboard"><span class="cs-chrome" aria-hidden="true"><span class="cs-chrome__dots"><i></i><i></i><i></i></span><span class="cs-chrome__title">Excel · Full dashboard</span></span>
               <img src="../assets/images/projects/excel-sales-dashboard.webp" alt="Excel dashboard on a dark background: four KPI cards (total revenue, gross profit, estimated net profit, total orders), a monthly revenue and gross profit line chart, revenue growth by product, revenue by country, profitability breakdown by year, revenue by discount tier, slicers for order year, buyer segment and country, and Top Product and Top Segment rankings" width="1700" height="1224" loading="lazy">
             </button>
             <figcaption>The full dashboard: KPI cards, monthly trend, product, country, yearly profitability and discount-tier charts, with Top Product and Top Segment rankings</figcaption>
           </figure>
           <div class="cs-gallery__sub">
             <figure class="project__media cs-gallery__item reveal">
-              <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size: Zoom · KPI cards">
+              <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size: Zoom · KPI cards"><span class="cs-chrome" aria-hidden="true"><span class="cs-chrome__dots"><i></i><i></i><i></i></span><span class="cs-chrome__title">Excel · KPI cards</span></span>
                 <img src="../assets/images/projects/excel-dashboard-kpis-slicers.webp" alt="Close-up of the dashboard title and four KPI cards: total revenue $135,188,198, gross profit $37,846,424, estimated net profit $16,653,606 and 700 orders" width="1500" height="249" loading="lazy">
               </button>
               <figcaption>Zoom · KPI cards</figcaption>
             </figure>
             <figure class="project__media cs-gallery__item reveal">
-              <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size: Zoom · Revenue and gross profit trend">
+              <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size: Zoom · Revenue and gross profit trend"><span class="cs-chrome" aria-hidden="true"><span class="cs-chrome__dots"><i></i><i></i><i></i></span><span class="cs-chrome__title">Excel · Revenue and gross profit trend</span></span>
                 <img src="../assets/images/projects/excel-dashboard-trend.webp" alt="Close-up of the line chart of monthly revenue and gross profit from September 2013 to December 2014" width="1500" height="380" loading="lazy">
               </button>
               <figcaption>Zoom · Revenue and gross profit trend</figcaption>
             </figure>
             <figure class="project__media cs-gallery__item reveal">
-              <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size: Zoom · Revenue growth by product and revenue by country">
+              <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size: Zoom · Revenue growth by product and revenue by country"><span class="cs-chrome" aria-hidden="true"><span class="cs-chrome__dots"><i></i><i></i><i></i></span><span class="cs-chrome__title">Excel · Revenue growth by product and revenue by country</span></span>
                 <img src="../assets/images/projects/excel-dashboard-product-country.webp" alt="Close-up of two bar charts: revenue growth by product for 2013 and 2014, and revenue and gross profit by country" width="1500" height="326" loading="lazy">
               </button>
               <figcaption>Zoom · Revenue growth by product and revenue by country</figcaption>
             </figure>
             <figure class="project__media cs-gallery__item reveal">
-              <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size: Zoom · Profitability by year and discount tier">
+              <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size: Zoom · Profitability by year and discount tier"><span class="cs-chrome" aria-hidden="true"><span class="cs-chrome__dots"><i></i><i></i><i></i></span><span class="cs-chrome__title">Excel · Profitability by year and discount tier</span></span>
                 <img src="../assets/images/projects/excel-dashboard-profit-discount.webp" alt="Close-up of two bar charts: the profitability breakdown by year and revenue and gross profit by discount tier" width="1500" height="292" loading="lazy">
               </button>
               <figcaption>Zoom · Profitability by year and discount tier</figcaption>
@@ -398,6 +408,7 @@ Net Profit      (2013)  =Operating Profit - Tax</code></pre>
   <script defer src="../assets/js/expressive.js"></script>
   <script defer src="../assets/js/case-study.js"></script>
   <script defer src="../assets/js/cs-motion.js"></script>
+  <script defer src="../assets/js/cs-enhance.js"></script>
   <script defer src="../assets/js/main.js"></script>
 
   <script data-goatcounter="https://refadfnda.goatcounter.com/count"

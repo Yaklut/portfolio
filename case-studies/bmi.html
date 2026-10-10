@@ -61,6 +61,22 @@
 
     <section class="cs-hero" aria-labelledby="cs-title">
       <div class="cs-hero__inner">
+        <svg class="cs-hero__art cs-hero__art--tables" viewBox="0 0 360 240" fill="none" aria-hidden="true" focusable="false">
+  <g class="art-tbls">
+    <g class="art-rise" style="--d:100ms"><rect x="14" y="14" width="96" height="52" rx="8" fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.28)"/><rect x="14" y="14" width="96" height="14" rx="7" fill="rgba(255,255,255,.28)"/><path d="M24 40h50M24 52h72" stroke="rgba(255,255,255,.3)" stroke-width="3" stroke-linecap="round"/></g>
+    <g class="art-rise" style="--d:200ms"><rect x="14" y="80" width="96" height="52" rx="8" fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.28)"/><rect x="14" y="80" width="96" height="14" rx="7" fill="rgba(255,255,255,.28)"/><path d="M24 106h60M24 118h40" stroke="rgba(255,255,255,.3)" stroke-width="3" stroke-linecap="round"/></g>
+    <g class="art-rise" style="--d:300ms"><rect x="14" y="146" width="96" height="52" rx="8" fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.28)"/><rect x="14" y="146" width="96" height="14" rx="7" fill="rgba(255,255,255,.28)"/><path d="M24 172h44M24 184h66" stroke="rgba(255,255,255,.3)" stroke-width="3" stroke-linecap="round"/></g>
+    <g class="art-rise" style="--d:400ms"><rect x="14" y="204" width="96" height="30" rx="8" fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.28)"/><rect x="14" y="204" width="96" height="14" rx="7" fill="rgba(255,255,255,.28)"/><path d="M24 227h36" stroke="rgba(255,255,255,.3)" stroke-width="3" stroke-linecap="round"/></g>
+  </g>
+  <g stroke="#9CC0F0" stroke-width="2" stroke-linecap="round">
+    <path class="art-draw" style="--d:700ms" pathLength="1" d="M112 40 C170 40 170 100 226 100"/>
+    <path class="art-draw" style="--d:800ms" pathLength="1" d="M112 106 C160 106 180 112 226 112"/>
+    <path class="art-draw" style="--d:900ms" pathLength="1" d="M112 172 C170 172 170 124 226 124"/>
+    <path class="art-draw" style="--d:1000ms" pathLength="1" d="M112 219 C180 219 180 136 226 136"/>
+  </g>
+  <g class="art-rise" style="--d:1100ms"><rect x="228" y="64" width="120" height="112" rx="10" fill="rgba(91,124,240,.35)" stroke="#9CC0F0" stroke-width="1.5"/><rect x="228" y="64" width="120" height="20" rx="10" fill="rgba(156,192,240,.85)"/>
+    <path d="M242 100h92M242 116h92M242 132h92M242 148h60" stroke="rgba(255,255,255,.55)" stroke-width="3" stroke-linecap="round"/></g>
+</svg>
         <div><a class="cs-back" href="../index.html#projects"><span class="cs-back__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 19-7-7 7-7" /> <path d="M19 12H5" /></svg></span><span class="cs-back__label">Back to projects</span></a></div>
         <p class="project__sector">Islamic banking</p>
         <h1 id="cs-title" class="cs-title">Bank Muamalat (BMI) Sales Performance Dashboard</h1>
@@ -127,7 +143,7 @@
         </div>
           <div class="cs-sql reveal">
             <p class="cs-sql__label">Validate keys and relationships</p>
-            <pre class="sql-code" tabindex="0" aria-label="Validate keys and relationships"><code><span class="sql-c">-- A. Primary key validation</span>
+            <div class="cs-codewin"><div class="cs-codewin__bar"><span class="cs-codewin__dots"><i></i><i></i><i></i></span><span class="cs-codewin__file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 12.5 8 15l2 2.5" /> <path d="m14 12.5 2 2.5-2 2.5" /></svg><span>SQLQuery.sql</span></span><span class="cs-codewin__lang">SQL</span><button type="button" class="cs-copy" data-copy><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg><span class="cs-copy__label">Copy</span></button><span class="cs-sr" role="status" aria-live="polite"></span></div><pre class="sql-code" tabindex="0" aria-label="Validate keys and relationships"><code><span class="sql-c">-- A. Primary key validation</span>
 <span class="sql-c">-- Expected: total_rows = distinct_keys and null_keys = 0</span>
 
 <span class="sql-k">SELECT</span> 'customers' <span class="sql-k">AS</span> table_name, 'CustomerID' <span class="sql-k">AS</span> pk,
@@ -160,12 +176,12 @@
     <span class="sql-k">WHERE</span> p.ProdNumber <span class="sql-k">IS NULL</span>) <span class="sql-k">AS</span> orders_without_product,
   (<span class="sql-k">SELECT</span> <span class="sql-k">COUNT</span>(*) <span class="sql-k">FROM</span> `project_id.dataset.products` p
     <span class="sql-k">LEFT JOIN</span> `project_id.dataset.product_category` pc <span class="sql-k">ON</span> CAST(p.Category <span class="sql-k">AS</span> INT64) = pc.CategoryID
-    <span class="sql-k">WHERE</span> pc.CategoryID <span class="sql-k">IS NULL</span>) <span class="sql-k">AS</span> products_without_category;</code></pre>
+    <span class="sql-k">WHERE</span> pc.CategoryID <span class="sql-k">IS NULL</span>) <span class="sql-k">AS</span> products_without_category;</code></pre></div>
             <p class="cs-sql__caption">Sections A and B of <span class="cs-code">SQLQuery.sql</span>. The expected values are the ones the script checks against.</p>
           </div>
           <div class="cs-sql reveal">
             <p class="cs-sql__label">Build the master table</p>
-            <pre class="sql-code" tabindex="0" aria-label="Build the master table"><code><span class="sql-c">-- MASTER TABLE</span>
+            <div class="cs-codewin"><div class="cs-codewin__bar"><span class="cs-codewin__dots"><i></i><i></i><i></i></span><span class="cs-codewin__file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 12.5 8 15l2 2.5" /> <path d="m14 12.5 2 2.5-2 2.5" /></svg><span>SQLQuery.sql</span></span><span class="cs-codewin__lang">SQL</span><button type="button" class="cs-copy" data-copy><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg><span class="cs-copy__label">Copy</span></button><span class="cs-sr" role="status" aria-live="polite"></span></div><pre class="sql-code" tabindex="0" aria-label="Build the master table"><code><span class="sql-c">-- MASTER TABLE</span>
 <span class="sql-c">-- Notes:</span>
 <span class="sql-c">--  * CustomerEmail in the raw data looks like 'abc@x.com#mailto:abc@x.com#',</span>
 <span class="sql-c">--    so it is cleaned with SPLIT(CustomerEmail, '#')[OFFSET(0)].</span>
@@ -198,12 +214,12 @@
        <span class="sql-k">SUM</span>(order_qty)   <span class="sql-k">AS</span> total_qty,
        MIN(order_date)  <span class="sql-k">AS</span> start_date,
        MAX(order_date)  <span class="sql-k">AS</span> end_date
-<span class="sql-k">FROM</span> `project_id.dataset.master_table`;</code></pre>
+<span class="sql-k">FROM</span> `project_id.dataset.master_table`;</code></pre></div>
             <p class="cs-sql__caption">The master table query and its validation, from <span class="cs-code">SQLQuery.sql</span>.</p>
           </div>
           <div class="cs-sql reveal">
             <p class="cs-sql__label">Growth by category, 2020 vs 2021</p>
-            <pre class="sql-code" tabindex="0" aria-label="Growth by category, 2020 vs 2021"><code><span class="sql-c">-- E1. Sales and quantity growth by category, 2020 vs 2021</span>
+            <div class="cs-codewin"><div class="cs-codewin__bar"><span class="cs-codewin__dots"><i></i><i></i><i></i></span><span class="cs-codewin__file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 12.5 8 15l2 2.5" /> <path d="m14 12.5 2 2.5-2 2.5" /></svg><span>SQL</span></span><span class="cs-codewin__lang">SQL</span><button type="button" class="cs-copy" data-copy><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg><span class="cs-copy__label">Copy</span></button><span class="cs-sr" role="status" aria-live="polite"></span></div><pre class="sql-code" tabindex="0" aria-label="Growth by category, 2020 vs 2021"><code><span class="sql-c">-- E1. Sales and quantity growth by category, 2020 vs 2021</span>
 <span class="sql-k">SELECT</span> category_name,
        <span class="sql-k">SUM</span>(<span class="sql-k">IF</span>(EXTRACT(YEAR <span class="sql-k">FROM</span> order_date) = 2020, total_sales, 0)) <span class="sql-k">AS</span> sales_2020,
        <span class="sql-k">SUM</span>(<span class="sql-k">IF</span>(EXTRACT(YEAR <span class="sql-k">FROM</span> order_date) = 2021, total_sales, 0)) <span class="sql-k">AS</span> sales_2021,
@@ -213,7 +229,7 @@
        <span class="sql-k">SUM</span>(<span class="sql-k">IF</span>(EXTRACT(YEAR <span class="sql-k">FROM</span> order_date) = 2021, order_qty, 0)) <span class="sql-k">AS</span> qty_2021
 <span class="sql-k">FROM</span> `project_id.dataset.master_table`
 <span class="sql-k">GROUP BY</span> category_name
-<span class="sql-k">ORDER BY</span> sales_2020 DESC;</code></pre>
+<span class="sql-k">ORDER BY</span> sales_2020 DESC;</code></pre></div>
             <p class="cs-sql__caption">Query E1, one of the queries behind the recommendations.</p>
           </div>
       </div>
@@ -310,7 +326,7 @@
       <div class="cs-body">
         <div class="cs-gallery">
           <figure class="project__media cs-gallery__item reveal">
-            <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Bank Muamalat dashboard, page 1 (overview)">
+            <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Bank Muamalat dashboard, page 1 (overview)"><span class="cs-chrome" aria-hidden="true"><span class="cs-chrome__dots"><i></i><i></i><i></i></span><span class="cs-chrome__title">Looker Studio · Page 1 · Overview</span></span>
               <img
                 src="../assets/images/projects/bmi-dashboard-overview.webp"
                 alt="Looker Studio dashboard, page 1: total sales, total orders and order quantity tiles, total sales and quantity by product category, top 5 categories by sales and by quantity, total sales by city, and a monthly sales trend for 2020 to 2021"
@@ -319,7 +335,7 @@
             <figcaption>Page 1 · Overview: scorecards, sales and quantity by category, top 5s, cities, monthly trend</figcaption>
           </figure>
         <figure class="project__media cs-gallery__item reveal">
-            <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Bank Muamalat dashboard, page 2 (detail)">
+            <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Bank Muamalat dashboard, page 2 (detail)"><span class="cs-chrome" aria-hidden="true"><span class="cs-chrome__dots"><i></i><i></i><i></i></span><span class="cs-chrome__title">Looker Studio · Page 2 · Detail</span></span>
               <img
                 src="../assets/images/projects/bmi-dashboard-detail.webp"
                 alt="Looker Studio dashboard, page 2: sales by category and quantity by category bar charts that drill down to products, and a table of the top 10 products by sales with category, quantity and order count"
@@ -359,9 +375,9 @@
           <p>Every figure on this page was recomputed from the raw workbook in September 2026. Doing so turned up three issues in the original course submission. They are listed here rather than left out.</p>
         </div>
         <ul class="cs-cards cs-cards--3">
-          <li class="card reveal"><span class="cs-tag"><span class="cs-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m8 11 2 2 4-4" /> <circle cx="11" cy="11" r="8" /> <path d="m21 21-4.3-4.3" /></svg></span>Found · Fixed in v2</span><h3>Orders versus units</h3><p>The dashboard's “Total Order” tile (11,654) sums the quantity column. There are 3,339 distinct orders; 11,654 is units sold.</p></li>
-          <li class="card reveal"><span class="cs-tag"><span class="cs-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m8 11 2 2 4-4" /> <circle cx="11" cy="11" r="8" /> <path d="m21 21-4.3-4.3" /></svg></span>Found · Fixed in v2</span><h3>No currency in the data</h3><p>The dataset has no currency field. The “Rp” prefix came from Looker's locale, and the customer addresses are American, so values are most likely dollars. The rebuilt dashboard shows dollars.</p></li>
-          <li class="card reveal"><span class="cs-tag"><span class="cs-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m8 11 2 2 4-4" /> <circle cx="11" cy="11" r="8" /> <path d="m21 21-4.3-4.3" /></svg></span>Found · Reworded</span><h3>“Stable” was too strong</h3><p>The original deck described revenue as stable. Monthly sales swing between 52.3k and 95.4k, and 2021 ended 7.8% below 2020.</p></li>
+          <li class="card reveal" data-status="fixed"><span class="cs-tl__dot cs-tl__dot--fixed" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5" /></svg></span><span class="cs-tag"><span class="cs-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m8 11 2 2 4-4" /> <circle cx="11" cy="11" r="8" /> <path d="m21 21-4.3-4.3" /></svg></span>Found · Fixed in v2</span><h3>Orders versus units</h3><p>The dashboard's “Total Order” tile (11,654) sums the quantity column. There are 3,339 distinct orders; 11,654 is units sold.</p></li>
+          <li class="card reveal" data-status="fixed"><span class="cs-tl__dot cs-tl__dot--fixed" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5" /></svg></span><span class="cs-tag"><span class="cs-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m8 11 2 2 4-4" /> <circle cx="11" cy="11" r="8" /> <path d="m21 21-4.3-4.3" /></svg></span>Found · Fixed in v2</span><h3>No currency in the data</h3><p>The dataset has no currency field. The “Rp” prefix came from Looker's locale, and the customer addresses are American, so values are most likely dollars. The rebuilt dashboard shows dollars.</p></li>
+          <li class="card reveal" data-status="revised"><span class="cs-tl__dot cs-tl__dot--revised" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /></svg></span><span class="cs-tag"><span class="cs-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m8 11 2 2 4-4" /> <circle cx="11" cy="11" r="8" /> <path d="m21 21-4.3-4.3" /></svg></span>Found · Reworded</span><h3>“Stable” was too strong</h3><p>The original deck described revenue as stable. Monthly sales swing between 52.3k and 95.4k, and 2021 ended 7.8% below 2020.</p></li>
         </ul>
       </div>
     </section>
@@ -452,6 +468,7 @@
   <script defer src="../assets/js/expressive.js"></script>
   <script defer src="../assets/js/case-study.js"></script>
   <script defer src="../assets/js/cs-motion.js"></script>
+  <script defer src="../assets/js/cs-enhance.js"></script>
   <script defer src="../assets/js/main.js"></script>
 
   <script data-goatcounter="https://refadfnda.goatcounter.com/count"

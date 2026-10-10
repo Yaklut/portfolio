@@ -61,6 +61,20 @@
 
     <section class="cs-hero" aria-labelledby="cs-title">
       <div class="cs-hero__inner">
+        <svg class="cs-hero__art cs-hero__art--bars" viewBox="0 0 360 240" fill="none" aria-hidden="true" focusable="false">
+  <g stroke="rgba(255,255,255,.14)" stroke-width="1"><path d="M20 40h320M20 100h320M20 160h320M20 210h320"/></g>
+  <g class="art-bars">
+    <rect class="art-rise" style="--d:100ms" x="36" y="150" width="30" height="60" rx="5" fill="rgba(255,255,255,.16)"/>
+    <rect class="art-rise" style="--d:180ms" x="82" y="128" width="30" height="82" rx="5" fill="rgba(255,255,255,.16)"/>
+    <rect class="art-rise" style="--d:260ms" x="128" y="110" width="30" height="100" rx="5" fill="rgba(255,255,255,.16)"/>
+    <rect class="art-rise" style="--d:340ms" x="174" y="120" width="30" height="90" rx="5" fill="rgba(255,255,255,.16)"/>
+    <rect class="art-rise" style="--d:420ms" x="220" y="86" width="30" height="124" rx="5" fill="rgba(91,124,240,.75)"/>
+    <rect class="art-rise" style="--d:500ms" x="266" y="64" width="30" height="146" rx="5" fill="rgba(91,124,240,.75)"/>
+    <rect class="art-rise" style="--d:580ms" x="312" y="44" width="28" height="166" rx="5" fill="rgba(156,192,240,.85)"/>
+  </g>
+  <path class="art-draw" pathLength="1" d="M51 118 L97 98 L143 84 L189 92 L235 62 L281 44 L326 26" stroke="#9CC0F0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle class="art-pop" style="--d:1500ms" cx="326" cy="26" r="6" fill="#fff"/>
+</svg>
         <div><a class="cs-back" href="../index.html#projects"><span class="cs-back__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 19-7-7 7-7" /> <path d="M19 12H5" /></svg></span><span class="cs-back__label">Back to projects</span></a></div>
         <p class="project__sector">Pharmaceutical retail</p>
         <h1 id="cs-title" class="cs-title">Kimia Farma Performance Analytics (2020–2023)</h1>
@@ -126,7 +140,7 @@
         </div>
           <div class="cs-sql reveal">
             <p class="cs-sql__label">Build the analysis table</p>
-            <pre class="sql-code" tabindex="0" aria-label="Build the analysis table"><code><span class="sql-c">-- tabel_analisa: one row per transaction, joined to branch and product data</span>
+            <div class="cs-codewin"><div class="cs-codewin__bar"><span class="cs-codewin__dots"><i></i><i></i><i></i></span><span class="cs-codewin__file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 12.5 8 15l2 2.5" /> <path d="m14 12.5 2 2.5-2 2.5" /></svg><span>02_create_tabel_analisa.sql</span></span><span class="cs-codewin__lang">SQL</span><button type="button" class="cs-copy" data-copy><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg><span class="cs-copy__label">Copy</span></button><span class="cs-sr" role="status" aria-live="polite"></span></div><pre class="sql-code" tabindex="0" aria-label="Build the analysis table"><code><span class="sql-c">-- tabel_analisa: one row per transaction, joined to branch and product data</span>
 <span class="sql-k">CREATE OR REPLACE TABLE</span> `project_id.kimia_farma.tabel_analisa` <span class="sql-k">AS</span>
 <span class="sql-k">WITH</span> base <span class="sql-k">AS</span> (
   <span class="sql-k">SELECT</span>
@@ -171,12 +185,12 @@
     <span class="sql-c">-- ... one WHEN per province</span>
     <span class="sql-k">ELSE</span> NULL
   <span class="sql-k">END</span> <span class="sql-k">AS</span> provinsi_iso
-<span class="sql-k">FROM</span> base;</code></pre>
+<span class="sql-k">FROM</span> base;</code></pre></div>
             <p class="cs-sql__caption">Core of <span class="cs-code">02_create_tabel_analisa.sql</span>. The province mapping is shortened here.</p>
           </div>
           <div class="cs-sql reveal">
             <p class="cs-sql__label">Summarise inventory separately</p>
-            <pre class="sql-code" tabindex="0" aria-label="Summarise inventory separately"><code><span class="sql-c">-- Inventory is summarised on its own, never joined to transactions:</span>
+            <div class="cs-codewin"><div class="cs-codewin__bar"><span class="cs-codewin__dots"><i></i><i></i><i></i></span><span class="cs-codewin__file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 12.5 8 15l2 2.5" /> <path d="m14 12.5 2 2.5-2 2.5" /></svg><span>SQL</span></span><span class="cs-codewin__lang">SQL</span><button type="button" class="cs-copy" data-copy><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg><span class="cs-copy__label">Copy</span></button><span class="cs-sr" role="status" aria-live="polite"></span></div><pre class="sql-code" tabindex="0" aria-label="Summarise inventory separately"><code><span class="sql-c">-- Inventory is summarised on its own, never joined to transactions:</span>
 <span class="sql-c">-- its (branch, product) pairs repeat, so a join would duplicate sales rows.</span>
 <span class="sql-k">CREATE OR REPLACE TABLE</span> `project_id.kimia_farma.tabel_stok_cabang` <span class="sql-k">AS</span>
 <span class="sql-k">SELECT</span>
@@ -185,12 +199,12 @@
   <span class="sql-k">SUM</span>(i.opname_stock)          <span class="sql-k">AS</span> total_stok
 <span class="sql-k">FROM</span> `project_id.kimia_farma.kf_inventory` <span class="sql-k">AS</span> i
 <span class="sql-k">LEFT JOIN</span> `project_id.kimia_farma.kf_kantor_cabang` <span class="sql-k">AS</span> b <span class="sql-k">ON</span> i.branch_id = b.branch_id
-<span class="sql-k">GROUP BY</span> 1, 2, 3, 4;</code></pre>
+<span class="sql-k">GROUP BY</span> 1, 2, 3, 4;</code></pre></div>
             <p class="cs-sql__caption">The optional stock table, used for the stock-by-province chart on page 2.</p>
           </div>
           <div class="cs-sql reveal">
             <p class="cs-sql__label">Validation checks</p>
-            <pre class="sql-code" tabindex="0" aria-label="Validation checks"><code><span class="sql-c">-- A. Row count and unparsed dates.   Expected: 672,458 rows, 0 NULL dates</span>
+            <div class="cs-codewin"><div class="cs-codewin__bar"><span class="cs-codewin__dots"><i></i><i></i><i></i></span><span class="cs-codewin__file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 12.5 8 15l2 2.5" /> <path d="m14 12.5 2 2.5-2 2.5" /></svg><span>03_validation_and_insights.sql</span></span><span class="cs-codewin__lang">SQL</span><button type="button" class="cs-copy" data-copy><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg><span class="cs-copy__label">Copy</span></button><span class="cs-sr" role="status" aria-live="polite"></span></div><pre class="sql-code" tabindex="0" aria-label="Validation checks"><code><span class="sql-c">-- A. Row count and unparsed dates.   Expected: 672,458 rows, 0 NULL dates</span>
 <span class="sql-k">SELECT</span> <span class="sql-k">COUNT</span>(*) <span class="sql-k">AS</span> total_baris,
        <span class="sql-k">COUNTIF</span>(date <span class="sql-k">IS NULL</span>) <span class="sql-k">AS</span> tanggal_null,
        <span class="sql-k">COUNT</span>(<span class="sql-k">DISTINCT</span> transaction_id) <span class="sql-k">AS</span> trx_unik,
@@ -204,7 +218,7 @@
 
 <span class="sql-c">-- C. Grand totals.   Expected: nett sales ~ Rp321.17 billion, nett profit ~ Rp91.21 billion</span>
 <span class="sql-k">SELECT</span> <span class="sql-k">SUM</span>(nett_sales) <span class="sql-k">AS</span> total_nett_sales, <span class="sql-k">SUM</span>(nett_profit) <span class="sql-k">AS</span> total_nett_profit
-<span class="sql-k">FROM</span> `project_id.kimia_farma.tabel_analisa`;</code></pre>
+<span class="sql-k">FROM</span> `project_id.kimia_farma.tabel_analisa`;</code></pre></div>
             <p class="cs-sql__caption">From <span class="cs-code">03_validation_and_insights.sql</span>. The expected values are the figures computed from the raw CSVs.</p>
           </div>
       </div>
@@ -309,7 +323,7 @@
       <div class="cs-body">
         <div class="cs-gallery">
           <figure class="project__media cs-gallery__item reveal">
-            <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Kimia Farma dashboard, page 1 (overview)">
+            <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Kimia Farma dashboard, page 1 (overview)"><span class="cs-chrome" aria-hidden="true"><span class="cs-chrome__dots"><i></i><i></i><i></i></span><span class="cs-chrome__title">Looker Studio · Page 1 · Overview</span></span>
               <img
                 src="../assets/images/projects/kimia-farma-dashboard-overview.webp"
                 alt="Looker Studio dashboard, page 1: headline insight, yearly nett sales versus nett profit, profit by province map, KPI tiles for total nett profit, nett sales, transactions and average rating, nett sales by branch category, and top 10 provinces by transactions and nett sales"
@@ -318,7 +332,7 @@
             <figcaption>Page 1 · Overview: headline takeaway, yearly nett sales vs nett profit, province profit map, KPI tiles, branch categories, top-10 provinces</figcaption>
           </figure>
         <figure class="project__media cs-gallery__item reveal">
-            <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Kimia Farma dashboard, page 2 (detail)">
+            <button type="button" class="project__media-trigger" data-modal="project" aria-label="View full-size Kimia Farma dashboard, page 2 (detail)"><span class="cs-chrome" aria-hidden="true"><span class="cs-chrome__dots"><i></i><i></i><i></i></span><span class="cs-chrome__title">Looker Studio · Page 2 · Detail</span></span>
               <img
                 src="../assets/images/projects/kimia-farma-dashboard-detail.webp"
                 alt="Looker Studio dashboard, page 2: top 5 branches table, latest transactions snapshot, nett sales by product category, monthly nett sales trend, and top 10 provinces by total stock"
@@ -352,12 +366,12 @@
         <div class="cs-prose reveal">
           <p>Every figure on this page was recomputed from the four raw CSV files in September 2026. Doing so turned up several issues in the original course submission. They are listed here rather than left out.</p>
         </div>
-        <ul class="cs-cards">
-          <li class="card reveal"><span class="cs-tag"><span class="cs-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m8 11 2 2 4-4" /> <circle cx="11" cy="11" r="8" /> <path d="m21 21-4.3-4.3" /></svg></span>Found · Fixed</span><h3>Discount formula</h3><p>The original SQL divided <span class="cs-code">discount_percentage</span> by 100, but the raw values are fractions (0.00–0.15), so every discount was 100× too small. Nett sales and nett profit were overstated by 8.03% (Rp346.96 → Rp321.17 billion; Rp98.54 → Rp91.21 billion). The province ranking is unchanged.</p></li>
-          <li class="card reveal"><span class="cs-tag"><span class="cs-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m8 11 2 2 4-4" /> <circle cx="11" cy="11" r="8" /> <path d="m21 21-4.3-4.3" /></svg></span>Found · Relabeled</span><h3>Reading Looker's “M”</h3><p>In Indonesian-locale Looker, “M” abbreviates billions (<em>miliar</em>). “Rp346,96 M” on the dashboard means 346.96 billion, not million.</p></li>
-          <li class="card reveal"><span class="cs-tag"><span class="cs-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m8 11 2 2 4-4" /> <circle cx="11" cy="11" r="8" /> <path d="m21 21-4.3-4.3" /></svg></span>Found · Relabeled</span><h3>Customers are names, not IDs</h3><p>The dataset has no customer ID. The 264,601 figure counts distinct customer names, so it approximates unique customers.</p></li>
-          <li class="card reveal"><span class="cs-tag"><span class="cs-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m8 11 2 2 4-4" /> <circle cx="11" cy="11" r="8" /> <path d="m21 21-4.3-4.3" /></svg></span>Found · Reworded</span><h3>Rating gap is a selection effect</h3><p>The original dashboard highlighted five 5-star branches with the lowest transaction ratings and read it as a service-quality gap. Across all branches the two ratings are essentially unrelated, so the gap does not hold up.</p></li>
-          <li class="card reveal"><span class="cs-tag"><span class="cs-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg></span>Limit</span><h3>Fixed margins, not costs</h3><p>Nett profit applies the brief's gross-profit percentage for each price tier (10–30%), so profit patterns follow the price mix, not measured costs.</p></li>
+        <ul class="cs-cards cs-timeline">
+          <li class="card reveal" data-status="fixed"><span class="cs-tl__dot cs-tl__dot--fixed" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5" /></svg></span><span class="cs-tag"><span class="cs-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m8 11 2 2 4-4" /> <circle cx="11" cy="11" r="8" /> <path d="m21 21-4.3-4.3" /></svg></span>Found · Fixed</span><h3>Discount formula</h3><p>The original SQL divided <span class="cs-code">discount_percentage</span> by 100, but the raw values are fractions (0.00–0.15), so every discount was 100× too small. Nett sales and nett profit were overstated by 8.03% (Rp346.96 → Rp321.17 billion; Rp98.54 → Rp91.21 billion). The province ranking is unchanged.</p></li>
+          <li class="card reveal" data-status="revised"><span class="cs-tl__dot cs-tl__dot--revised" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /></svg></span><span class="cs-tag"><span class="cs-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m8 11 2 2 4-4" /> <circle cx="11" cy="11" r="8" /> <path d="m21 21-4.3-4.3" /></svg></span>Found · Relabeled</span><h3>Reading Looker's “M”</h3><p>In Indonesian-locale Looker, “M” abbreviates billions (<em>miliar</em>). “Rp346,96 M” on the dashboard means 346.96 billion, not million.</p></li>
+          <li class="card reveal" data-status="revised"><span class="cs-tl__dot cs-tl__dot--revised" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /></svg></span><span class="cs-tag"><span class="cs-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m8 11 2 2 4-4" /> <circle cx="11" cy="11" r="8" /> <path d="m21 21-4.3-4.3" /></svg></span>Found · Relabeled</span><h3>Customers are names, not IDs</h3><p>The dataset has no customer ID. The 264,601 figure counts distinct customer names, so it approximates unique customers.</p></li>
+          <li class="card reveal" data-status="revised"><span class="cs-tl__dot cs-tl__dot--revised" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /></svg></span><span class="cs-tag"><span class="cs-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m8 11 2 2 4-4" /> <circle cx="11" cy="11" r="8" /> <path d="m21 21-4.3-4.3" /></svg></span>Found · Reworded</span><h3>Rating gap is a selection effect</h3><p>The original dashboard highlighted five 5-star branches with the lowest transaction ratings and read it as a service-quality gap. Across all branches the two ratings are essentially unrelated, so the gap does not hold up.</p></li>
+          <li class="card reveal" data-status="limit"><span class="cs-tl__dot cs-tl__dot--limit" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg></span><span class="cs-tag"><span class="cs-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg></span>Limit</span><h3>Fixed margins, not costs</h3><p>Nett profit applies the brief's gross-profit percentage for each price tier (10–30%), so profit patterns follow the price mix, not measured costs.</p></li>
         </ul>
       </div>
     </section>
@@ -447,6 +461,7 @@
   <script defer src="../assets/js/expressive.js"></script>
   <script defer src="../assets/js/case-study.js"></script>
   <script defer src="../assets/js/cs-motion.js"></script>
+  <script defer src="../assets/js/cs-enhance.js"></script>
   <script defer src="../assets/js/main.js"></script>
 
   <script data-goatcounter="https://refadfnda.goatcounter.com/count"
