@@ -1,0 +1,116 @@
+/* ==========================================================================
+   extras.css — extra polish (loaded last). Pairs with assets/js/extras.js.
+   1. Hero role rotator        4. Self-drawing underline on section titles
+   2. Hero dot-grid background 5. Certificate carousel
+   3. Soft glow on cards       6. Timeline spine on small screens
+   Everything that hides or moves content is skipped under reduced motion.
+   ========================================================================== */
+
+/* ---- 1. Hero role rotator ---- */
+.hero__role {
+  margin: 0; font-family: var(--font-display); font-size: clamp(1.0625rem, 0.98rem + 0.45vw, 1.3125rem);
+  color: var(--color-ink-soft); line-height: 1.4;
+  animation: heroReveal var(--duration-entrance) var(--ease-out) both; animation-delay: 220ms;
+}
+/* Default (no JS / reduced motion): a plain inline list */
+.role-rotator__item { font-weight: 600; color: var(--color-primary); }
+.role-rotator__item + .role-rotator__item::before { content: " · "; color: var(--color-ink-faint); font-weight: 400; }
+/* Rotating mode: the words stack in one grid cell, so the box is as wide as the longest word */
+.role-rotator.is-rotating { display: inline-grid; vertical-align: bottom; overflow: hidden; padding-bottom: 0.12em; margin-bottom: -0.12em; }
+.role-rotator.is-rotating .role-rotator__item {
+  grid-area: 1 / 1; text-align: inherit;
+  opacity: 0; transform: translateY(105%);
+  transition: transform 520ms var(--ease-out), opacity 380ms var(--ease-out);
+}
+.role-rotator.is-rotating .role-rotator__item::before { content: none; }
+.role-rotator.is-rotating .role-rotator__item.is-active { opacity: 1; transform: none; }
+.role-rotator.is-rotating .role-rotator__item.is-leaving { opacity: 0; transform: translateY(-105%); }
+
+/* ---- 2. Hero background: slow dot grid + a few drawn data lines ---- */
+.hero { isolation: isolate; }
+.hero > .hero__bg { position: absolute; inset: 0; z-index: -1; max-width: none; width: auto; margin: 0; padding: 0; overflow: hidden; pointer-events: none; }
+.hero__bg-dots {
+  position: absolute; inset: -28px;
+  background-image: radial-gradient(circle, rgba(30, 86, 160, 0.30) 1.2px, transparent 1.7px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 80% at 85% 20%, #000 0%, transparent 72%);
+          mask-image: radial-gradient(ellipse 70% 80% at 85% 20%, #000 0%, transparent 72%);
+  animation: heroDots 24s linear infinite;
+}
+@keyframes heroDots { to { transform: translate(28px, 28px); } }
+.hero__bg-lines { position: absolute; left: 0; bottom: 0; width: 100%; height: 55%; opacity: 0.9; }
+.hero__bg-lines path { fill: none; stroke: rgba(30, 86, 160, 0.20); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: heroLine 3.2s var(--ease-in-out) 0.6s forwards; }
+.hero__bg-lines path:nth-child(2) { stroke: rgba(14, 143, 126, 0.20); animation-delay: 1s; }
+.hero__bg-lines path:nth-child(3) { stroke: rgba(30, 86, 160, 0.12); animation-delay: 1.4s; }
+@keyframes heroLine { to { stroke-dashoffset: 0; } }
+@media (max-width: 767px) { .hero__bg-lines { height: 35%; } }
+
+/* ---- 3. Soft glow that follows the cursor inside cards (mouse only) ---- */
+.card-glow {
+  position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(42, 70, 192, 0.10), transparent 70%);
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .has-glow:hover > .card-glow { opacity: 1; } }
+
+/* ---- 4. Section titles: an accent line draws itself when the heading appears ---- */
+.section-heading::after {
+  content: ""; display: block; width: 56px; height: 4px; margin-top: 2px; border-radius: 4px;
+  background: linear-gradient(90deg, var(--color-primary), var(--viz-teal));
+  transform-origin: left; transition: transform 700ms var(--ease-out) 450ms;
+}
+.xp .section-heading:not(.is-visible)::after { transform: scaleX(0); }
+main > section.band-navy .section-heading::after,
+main > section.band-blue .section-heading::after,
+.cs-page #results .section-heading::after { background: rgba(255, 255, 255, 0.85); }
+
+/* ---- 5. Certificate carousel (groups with more than 3 certificates) ---- */
+.certs-carousel .certs-grid {
+  display: flex; gap: var(--space-4); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 6px;
+  overscroll-behavior-x: contain; scrollbar-width: none;
+  padding: 14px 6px 22px; margin: -14px -6px -22px; /* room for the hover lift and shadow */
+}
+.certs-carousel .certs-grid::-webkit-scrollbar { display: none; }
+.certs-carousel .certs-grid > .card { flex: 0 0 min(84%, 340px); scroll-snap-align: start; }
+@media (min-width: 768px)  { .certs-carousel .certs-grid > .card { flex-basis: calc((100% - var(--space-4)) / 2); } }
+@media (min-width: 1024px) { .certs-carousel .certs-grid > .card { flex-basis: calc((100% - 2 * var(--space-4)) / 3); } }
+
+.certs-carousel__bar { display: flex; align-items: center; gap: var(--space-4); margin-top: var(--space-5); }
+.certs-carousel__count { flex: none; min-width: 6.5em; font: 600 0.875rem var(--font-body); color: var(--color-ink-soft); font-variant-numeric: tabular-nums; }
+.certs-carousel__track { flex: 1; height: 4px; border-radius: 4px; background: var(--color-border); overflow: hidden; }
+.certs-carousel__track i { display: block; height: 100%; width: 100%; border-radius: inherit; background: var(--accent, var(--color-primary)); transform-origin: left; transform: scaleX(var(--w, 0.3)); transition: transform 300ms var(--ease-out); }
+.certs-carousel__btns { display: flex; gap: var(--space-2); flex: none; }
+.certs-carousel__btn {
+  display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; cursor: pointer;
+  color: var(--color-ink); background: var(--color-surface); border: 1px solid var(--color-border-interactive);
+  transition: background var(--duration-fast), color var(--duration-fast), border-color var(--duration-fast), transform var(--duration-fast), opacity var(--duration-fast);
+}
+.certs-carousel__btn svg { width: 18px; height: 18px; }
+.certs-carousel__btn:hover:not(:disabled) { background: var(--color-primary-tint); color: var(--color-primary); border-color: var(--color-primary); }
+.certs-carousel__btn:active:not(:disabled) { transform: scale(0.94); }
+.certs-carousel__btn:disabled { opacity: 0.35; cursor: default; }
+
+/* Toast: a thin light edge so it stays visible on dark code windows */
+.toast { border: 1px solid rgba(255, 255, 255, 0.22); }
+
+/* ---- 6. Timeline spine on small screens (wide screens already have one in expressive.css) ---- */
+@media (max-width: 999px) {
+  .timeline__track { padding-left: calc(var(--container-pad) + 30px); }
+  .timeline__spine { display: block; position: absolute; left: calc(var(--container-pad) + 7px); top: 8px; bottom: 8px; width: 2px; border-radius: 2px; background: var(--color-border); }
+  .timeline__spine i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(var(--color-primary), var(--viz-teal)); transform-origin: top; transform: scaleY(var(--p, 0)); transition: transform 120ms linear; }
+  .timeline__year-card { position: relative; }
+  .timeline__dot {
+    display: block; position: absolute; left: -30px; top: 20px; width: 16px; height: 16px; border-radius: 50%; z-index: 1;
+    background: var(--color-surface); border: 3px solid var(--color-border-interactive);
+    transition: background 350ms var(--ease-out), border-color 350ms var(--ease-out), box-shadow 350ms var(--ease-out), scale 350ms var(--ease-out);
+  }
+  .timeline__dot.is-passed { background: var(--color-primary); border-color: var(--color-primary); box-shadow: 0 0 0 5px var(--color-primary-tint); scale: 1.15; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__role { animation: none; }
+  .hero__bg-dots { animation: none; }
+  .hero__bg-lines path { animation: none; stroke-dashoffset: 0; }
+  .section-heading::after { transition: none; }
+  .certs-carousel__track i, .card-glow { transition: none; }
+}

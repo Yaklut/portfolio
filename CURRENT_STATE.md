@@ -649,3 +649,16 @@ Refa's choices: all sections, all four animation types, intensity "expressive bu
 - **Removed:** the "Explore the data →" button on the three home project cards (it went to the same page as "Read case study"). The charts remain in the Results section of each case page.
 - **Other small edits:** hard-coded old blues in `motion.css` (hero glow), `case-study.css` (tooltip swatch) and a box-shadow in `styles.css` now use the new blue. The project doc DESIGN.md (outside the site) still lists Signal Blue and should be updated by hand.
 - **Tested (Playwright, 1440 and 390):** no page errors; every home section and the Excel case page checked. Not yet looked at on a real phone.
+
+
+## Extras round (Oct 11, 2026)
+Refa picked these from a multiple-choice list; built in two new files linked last on every page: `assets/css/extras.css` and `assets/js/extras.js` (each feature is wrapped separately, so one failing does not stop the others).
+- **Hero role rotator** — new `<p class="hero__role">` in `index.html` ("Looking for internships in" + Data Analytics / Business Analysis / Research). Under reduced motion or without JS it is a static inline list.
+- **Hero background** — slow dot grid + three data lines that draw once (div added by JS, `aria-hidden`).
+- **Cursor glow** — soft light inside expertise/skills/education/publication cards (homepage) and lesson/at-a-glance/evidence cards (case studies); mouse only. Project and certificate cards keep the older spotlight in motion.js.
+- **Section title line** — a short accent line draws under each section heading (case studies too).
+- **Certificate carousel** — only the group with more than 3 certificates (Data Analytics & Programming, 10) becomes a swipeable scroll-snap carousel with arrows, counter and progress bar; the other groups stay grids.
+- **Timeline spine on small screens** — the scroll-drawn spine and dots already existed from 1000px up; extras.css adds them below 1000px.
+- **Toasts** — the toast already existed (copy email/phone). Added: "Resume download started" / "Download started" on download links and "Code copied to clipboard" on case-study code windows.
+- **Not built:** dark mode (not picked).
+- **Known, pre-existing (not touched):** the hero band stops at the 1240px section width, so its soft blue glow has a visible edge on wide screens; at 1440px the third hero stat ("13") wraps onto its own row.
