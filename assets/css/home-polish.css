@@ -44,11 +44,11 @@
 
 @media (prefers-reduced-motion: reduce) { .cert-mix__seg { transition: none; } }
 
-/* ---- Mobile menu: hide the panel with clip-path instead of translateX(100%).
+/* ---- Menu panel (hamburger layout, below 1280px): hide it with clip-path instead of translateX(100%).
    A fixed element parked off-screen made mobile Chrome widen the layout
    viewport (innerWidth 390 -> 780) once the page was scrolled. ---------- */
-@media (max-width: 767px) {
+@media (max-width: 1279px) {
   .nav-panel { transform: none; clip-path: inset(0 0 0 100%); transition: clip-path var(--duration-base) var(--ease-in-out), visibility 0s linear var(--duration-base); }
   .nav-toggle[aria-expanded="true"] ~ .nav-panel { transform: none; clip-path: inset(0); transition: clip-path var(--duration-base) var(--ease-in-out); }
 }
-@media (max-width: 767px) and (prefers-reduced-motion: reduce) { .nav-panel { transition: none; } }
+@media (max-width: 1279px) and (prefers-reduced-motion: reduce) { .nav-panel { transition: none; } }

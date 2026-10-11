@@ -174,12 +174,22 @@
   color: #fff;
 }
 .cs-glance__title svg { width: 18px; height: 18px; color: #fff; }
-.cs-glance__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); margin: 0; }
-.cs-glance__item { padding: var(--space-3); border-radius: var(--radius-sm); background: rgba(255, 255, 255, 0.1); }
-.cs-glance__item dt { display: flex; align-items: center; gap: var(--space-2); margin: 0 0 var(--space-2); font-size: 0.75rem; line-height: 1.3; color: rgba(255, 255, 255, 0.82); }
-.cs-glance__item .cs-ico { width: 24px; height: 24px; border-radius: 8px; background: rgba(255, 255, 255, 0.18); color: #fff; }
-.cs-glance__item .cs-ico svg { width: 14px; height: 14px; }
-.cs-glance__item dd { margin: 0; font: 600 1.375rem/1.1 var(--font-display); font-variant-numeric: tabular-nums; color: #fff; }
+/* Rows: icon + label on the left, figure on the right. Layout no longer depends
+   on how long a label is or how wide a figure is (e.g. "$135.19M"). */
+.cs-glance__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-2); margin: 0; }
+.cs-glance__item {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
+  min-height: 60px; padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm); background: rgba(255, 255, 255, 0.1);
+}
+.cs-glance__item dt { display: flex; align-items: center; flex: 1 1 auto; gap: var(--space-3); min-width: 0; margin: 0; font-size: 0.8125rem; line-height: 1.3; color: rgba(255, 255, 255, 0.85); }
+.cs-glance__item .cs-ico { width: 28px; height: 28px; border-radius: 8px; background: rgba(255, 255, 255, 0.18); color: #fff; }
+.cs-glance__item .cs-ico svg { width: 15px; height: 15px; }
+.cs-glance__item dd { flex: none; margin: 0; font: 600 1.1875rem/1 var(--font-mono); font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; color: #fff; }
+@media (min-width: 700px) and (max-width: 1099px) {
+  .cs-glance__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+}
+
 .cs-glance a.cs-glance__link {
   display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px; margin-top: var(--space-3);
   font-size: 0.875rem; font-weight: 600; color: #fff; text-decoration: none;
@@ -191,7 +201,7 @@
 
 .cs-page #context .cs-body > .cs-glance { margin-top: var(--space-6); max-width: 62rem; }
 @media (min-width: 1100px) {
-  .cs-page #context .cs-body { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: var(--space-8); align-items: start; }
+  .cs-page #context .cs-body { display: grid; grid-template-columns: minmax(0, 1fr) 344px; gap: var(--space-8); align-items: start; }
   .cs-page #context .cs-body > .cs-glance { margin-top: 0; max-width: none; position: sticky; top: 96px; }
 }
 
@@ -459,11 +469,11 @@ html { scroll-padding-top: 76px; }
 @media (max-width: 1179px) { .cs-rail { display: none; } }
 @media (prefers-reduced-motion: reduce) { .cs-rail, .cs-rail a::before, .cs-rail a::after { transition: none; } }
 
-/* ---- Mobile menu: hide the panel with clip-path instead of translateX(100%).
+/* ---- Menu panel (hamburger layout, below 1280px): hide it with clip-path instead of translateX(100%).
    A fixed element parked off-screen made mobile Chrome widen the layout
    viewport (innerWidth 390 -> 780) once the page was scrolled. ---------- */
-@media (max-width: 767px) {
+@media (max-width: 1279px) {
   .nav-panel { transform: none; clip-path: inset(0 0 0 100%); transition: clip-path var(--duration-base) var(--ease-in-out), visibility 0s linear var(--duration-base); }
   .nav-toggle[aria-expanded="true"] ~ .nav-panel { transform: none; clip-path: inset(0); transition: clip-path var(--duration-base) var(--ease-in-out); }
 }
-@media (max-width: 767px) and (prefers-reduced-motion: reduce) { .nav-panel { transition: none; } }
+@media (max-width: 1279px) and (prefers-reduced-motion: reduce) { .nav-panel { transition: none; } }
