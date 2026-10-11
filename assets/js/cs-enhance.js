@@ -120,6 +120,19 @@
   const hero = document.querySelector('.cs-hero');
   if (sections.length < 3 || !('IntersectionObserver' in window)) return;
 
+  /* One simple icon per section (Lucide paths); a section without an entry gets a small circle. */
+  const RAIL_ICONS = {
+    'context': '<path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" />',
+    'approach': '<rect width="8" height="8" x="3" y="3" rx="2" /> <path d="M7 11v4a2 2 0 0 0 2 2h4" /> <rect width="8" height="8" x="13" y="13" rx="2" />',
+    'results': '<path d="M3 3v16a2 2 0 0 0 2 2h16" /> <path d="M18 17V9" /> <path d="M13 17V5" /> <path d="M8 17v-3" />',
+    'insights': '<path d="m21 21-4.34-4.34" /> <circle cx="11" cy="11" r="8" />',
+    'takeaways': '<path d="M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528" />',
+    'dashboard': '<rect width="7" height="9" x="3" y="3" rx="1" /> <rect width="7" height="5" x="14" y="3" rx="1" /> <rect width="7" height="9" x="14" y="12" rx="1" /> <rect width="7" height="5" x="3" y="16" rx="1" />',
+    'recommendations': '<path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" /> <path d="M9 18h6" /> <path d="M10 22h4" />',
+    'data-check': '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /> <path d="m9 12 2 2 4-4" />',
+  };
+  const RAIL_FALLBACK = '<circle cx="12" cy="12" r="10" />';
+
   const nav = document.createElement('nav');
   nav.className = 'cs-rail';
   nav.setAttribute('aria-label', 'Sections on this page');
@@ -130,6 +143,8 @@
     const a = document.createElement('a');
     const text = s.querySelector('.section-title').textContent.trim();
     a.href = '#' + s.id; a.setAttribute('data-label', text); a.setAttribute('aria-label', text);
+    a.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'
+      + (RAIL_ICONS[s.id] || RAIL_FALLBACK) + '</svg>';
     li.appendChild(a); ol.appendChild(li); links.set(s, a);
   });
   nav.appendChild(ol);

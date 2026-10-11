@@ -447,17 +447,21 @@ html { scroll-padding-top: 76px; }
 }
 .cs-rail.is-on { opacity: 1; pointer-events: auto; }
 .cs-rail ol {
-  display: flex; flex-direction: column; gap: 2px; margin: 0; padding: 10px 6px; list-style: none;
+  display: flex; flex-direction: column; gap: 4px; margin: 0; padding: 8px 6px; list-style: none;
   border: 1px solid var(--color-border); border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.9); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.92); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
   box-shadow: var(--shadow-md);
 }
-.cs-rail a { position: relative; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; text-decoration: none; }
-.cs-rail a::before {
-  content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--color-border-interactive);
-  transition: width var(--duration-base) var(--ease-out), height var(--duration-base) var(--ease-out), background-color var(--duration-base) var(--ease-out), box-shadow var(--duration-base) var(--ease-out);
+/* One simple icon per section; the current one is a filled blue circle */
+.cs-rail a {
+  position: relative; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+  color: var(--color-ink-faint); text-decoration: none;
+  transition: background-color var(--duration-base) var(--ease-out), color var(--duration-base) var(--ease-out), scale var(--duration-fast) var(--ease-out);
 }
-.cs-rail a[aria-current="true"]::before { width: 11px; height: 11px; background: var(--color-primary); box-shadow: 0 0 0 4px var(--color-primary-tint); }
+.cs-rail a svg { width: 17px; height: 17px; }
+.cs-rail a:hover { background: var(--color-primary-tint); color: var(--color-primary); }
+.cs-rail a:active { scale: 0.92; }
+.cs-rail a[aria-current="true"], .cs-rail a[aria-current="true"]:hover { background: var(--color-primary); color: #fff; }
 .cs-rail a::after {
   content: attr(data-label); position: absolute; right: calc(100% + 10px); top: 50%; translate: 6px -50%;
   padding: 7px 10px; border-radius: var(--radius-sm); background: var(--color-ink); color: #fff;
@@ -467,7 +471,7 @@ html { scroll-padding-top: 76px; }
 .cs-rail a:hover::after, .cs-rail a:focus-visible::after { opacity: 1; translate: 0 -50%; }
 .cs-rail a:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 1px; }
 @media (max-width: 1279px) { .cs-rail { display: none; } }
-@media (prefers-reduced-motion: reduce) { .cs-rail, .cs-rail a::before, .cs-rail a::after { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .cs-rail, .cs-rail a, .cs-rail a::after { transition: none; } .cs-rail a:active { scale: none; } }
 
 /* ---- Menu panel (hamburger layout, below 1280px): hide it with clip-path instead of translateX(100%).
    A fixed element parked off-screen made mobile Chrome widen the layout
