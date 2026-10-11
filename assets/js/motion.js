@@ -206,7 +206,8 @@ window.Portfolio.initMotion = function initMotion() {
   toTop.type = 'button';
   toTop.className = 'to-top';
   toTop.setAttribute('aria-label', 'Back to top');
-  toTop.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>';
+  toTop.innerHTML = '<svg class="to-top__ring" viewBox="0 0 46 46" fill="none" aria-hidden="true"><circle class="to-top__track" cx="23" cy="23" r="21"/><circle class="to-top__bar" cx="23" cy="23" r="21" pathLength="100"/></svg>' +
+    '<svg class="to-top__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>';
   toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }));
   document.body.appendChild(toTop);
 
@@ -223,6 +224,8 @@ window.Portfolio.initMotion = function initMotion() {
     ticking = false;
     const y = window.scrollY;
     toTop.classList.toggle('is-visible', y > 700);
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    toTop.style.setProperty('--p', max > 0 ? Math.min(1, y / max).toFixed(3) : 0); /* scroll progress ring */
     const pastHero = hero ? y > hero.offsetHeight - 80 : y > 600;
     const cr = contact ? contact.getBoundingClientRect() : null;
     const atContact = cr && cr.top < window.innerHeight * 0.6;

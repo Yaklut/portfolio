@@ -458,3 +458,12 @@ html { scroll-padding-top: 76px; }
 .cs-rail a:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 1px; }
 @media (max-width: 1179px) { .cs-rail { display: none; } }
 @media (prefers-reduced-motion: reduce) { .cs-rail, .cs-rail a::before, .cs-rail a::after { transition: none; } }
+
+/* ---- Mobile menu: hide the panel with clip-path instead of translateX(100%).
+   A fixed element parked off-screen made mobile Chrome widen the layout
+   viewport (innerWidth 390 -> 780) once the page was scrolled. ---------- */
+@media (max-width: 767px) {
+  .nav-panel { transform: none; clip-path: inset(0 0 0 100%); transition: clip-path var(--duration-base) var(--ease-in-out), visibility 0s linear var(--duration-base); }
+  .nav-toggle[aria-expanded="true"] ~ .nav-panel { transform: none; clip-path: inset(0); transition: clip-path var(--duration-base) var(--ease-in-out); }
+}
+@media (max-width: 767px) and (prefers-reduced-motion: reduce) { .nav-panel { transition: none; } }
