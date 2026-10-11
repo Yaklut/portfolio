@@ -487,3 +487,26 @@ html { scroll-padding-top: 76px; }
 .cs-actions .btn { gap: var(--space-3); }
 .cs-actions .brand, .btn__ico svg { width: 18px; height: 18px; flex: none; }
 .btn__ico { display: inline-grid; place-items: center; flex: none; }
+
+/* ==========================================================================
+   15. Pills (.cs-seg): a sliding highlight and a press effect
+   The highlight is a separate element (added by cs-enhance.js) that glides to the
+   selected pill. Without JavaScript the old per-button background still applies.
+   ========================================================================== */
+.cs-seg { position: relative; }
+.cs-seg button { position: relative; z-index: 1; transition: background var(--duration-base) var(--ease-out), color var(--duration-base) var(--ease-out), box-shadow var(--duration-base) var(--ease-out), scale var(--duration-fast) var(--ease-out); }
+.cs-seg button:active { scale: 0.95; }
+.cs-seg__thumb {
+  position: absolute; left: 0; top: 0; z-index: 0; pointer-events: none;
+  width: var(--w, 0); height: var(--h, 0); border-radius: var(--radius-full);
+  background: var(--color-primary); box-shadow: var(--shadow-sm);
+  transform: translate(var(--x, 0), var(--y, 0));
+  transition: transform 420ms var(--ease-out), width 420ms var(--ease-out), height 420ms var(--ease-out);
+}
+.cs-seg__thumb.is-instant { transition: none; }
+.cs-seg--thumb button[aria-pressed="true"],
+.cs-seg--thumb button[aria-pressed="true"]:hover { background: transparent; box-shadow: none; color: #fff; }
+@media (prefers-reduced-motion: reduce) {
+  .cs-seg__thumb { transition: none; }
+  .cs-seg button:active { scale: none; }
+}

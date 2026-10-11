@@ -70,17 +70,85 @@ window.Portfolio.initMotion = function initMotion() {
     updateHint();
 
     image.draggable = false;
+
+    /* Smooth zoom: the picture grows toward the spot that was clicked, and shrinks back on
+       the next click. The width is driven frame by frame (instead of a CSS transition) so the
+       scroll position can follow the clicked point the whole way. */
+    let zooming = false;
+    const ZOOM_MS = 480;
+    const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2); // soft start, soft stop
+
+    function animateZoom(zoomIn, e) {
+      zooming = true;
+      const box = dialog.getBoundingClientRect();
+      const img = image.getBoundingClientRect();
+      const W0 = img.width;
+      const aspect = img.height / img.width;
+      // Where the picture starts inside the scrollable area (it does not change while zooming).
+      const offX = img.left - box.left - dialog.clientLeft + dialog.scrollLeft;
+      const offY = img.top - box.top - dialog.clientTop + dialog.scrollTop;
+      let W1, fx, fy, startX, startY, endX, endY;
+
+      if (zoomIn) {
+        fx = (e.clientX - img.left) / img.width;
+        fy = (e.clientY - img.top) / img.height;
+        startX = e.clientX - box.left - dialog.clientLeft;   // the clicked point, in the dialog...
+        startY = e.clientY - box.top - dialog.clientTop;
+        dialog.classList.add('is-zoomed', 'is-zooming');
+        W1 = image.getBoundingClientRect().width;            // size the stylesheet gives the zoomed picture
+        image.style.width = W0 + 'px';                       // ...but start from the current size
+        hint.textContent = 'Drag to move around · click to zoom out';
+      } else {
+        const sl = dialog.scrollLeft, st = dialog.scrollTop;
+        startX = dialog.clientWidth / 2;                     // keep the middle of the view in place
+        startY = dialog.clientHeight / 2;
+        fx = (sl + startX - offX) / W0;
+        fy = (st + startY - offY) / (W0 * aspect);
+        dialog.classList.remove('is-zoomed');
+        W1 = image.getBoundingClientRect().width;            // the normal, fitted size
+        dialog.classList.add('is-zoomed', 'is-zooming');
+        dialog.scrollLeft = sl; dialog.scrollTop = st;
+        hint.textContent = 'Click the image to zoom in';
+      }
+      endX = zoomIn ? dialog.clientWidth / 2 : offX + fx * W1;   // zoom in: aim at the middle
+      endY = zoomIn ? dialog.clientHeight / 2 : offY + fy * W1 * aspect; // zoom out: end un-scrolled
+
+      const t0 = performance.now();
+      const finish = () => {
+        image.style.width = '';
+        dialog.classList.remove('is-zooming');
+        if (!zoomIn) { dialog.classList.remove('is-zoomed'); dialog.scrollTo({ left: 0, top: 0, behavior: 'instant' }); }
+        zooming = false;
+        updateHint();
+      };
+      const step = (now) => {
+        if (!modal.classList.contains('is-open') || !dialog.classList.contains('is-zoomed')) { finish(); return; }
+        const t = Math.min(1, (now - t0) / ZOOM_MS);
+        const k = easeInOut(t);
+        const w = W0 + (W1 - W0) * k;
+        image.style.width = w + 'px';
+        const px = startX + (endX - startX) * k;
+        const py = startY + (endY - startY) * k;
+        dialog.scrollLeft = Math.max(0, offX + fx * w - px);
+        dialog.scrollTop = Math.max(0, offY + fy * w * aspect - py);
+        if (t < 1) requestAnimationFrame(step); else finish();
+      };
+      requestAnimationFrame(step);
+    }
+
     image.addEventListener('click', (e) => {
       if (moved) { moved = false; return; } // that was a drag, not a click
-      // Where on the picture was clicked (0–1), measured before the zoom changes its size.
+      if (zooming) return;
+      const zoomedNow = dialog.classList.contains('is-zoomed');
+      if (!reduce) { animateZoom(!zoomedNow, e); return; }
+
+      // Reduced motion: switch instantly (the original behaviour).
       const before = image.getBoundingClientRect();
       const fx = (e.clientX - before.left) / before.width;
       const fy = (e.clientY - before.top) / before.height;
       const zoomed = dialog.classList.toggle('is-zoomed');
       updateHint();
       if (!zoomed) return;
-      // The zoomed size applies immediately (no width animation), so the scroll position
-      // can be set right now. Aim the clicked point at the middle of the dialog.
       const img = image.getBoundingClientRect();
       const box = dialog.getBoundingClientRect();
       dialog.scrollTo({
@@ -92,7 +160,7 @@ window.Portfolio.initMotion = function initMotion() {
 
     // Drag to pan (touch keeps its native swipe scrolling).
     image.addEventListener('pointerdown', (e) => {
-      if (e.pointerType === 'touch' || e.button !== 0 || !dialog.classList.contains('is-zoomed')) return;
+      if (e.pointerType === 'touch' || e.button !== 0 || zooming || !dialog.classList.contains('is-zoomed')) return;
       drag = { x: e.clientX, y: e.clientY, left: dialog.scrollLeft, top: dialog.scrollTop };
       moved = false;
       image.setPointerCapture(e.pointerId);
@@ -113,7 +181,7 @@ window.Portfolio.initMotion = function initMotion() {
 
     // Arrow keys move the zoomed picture.
     document.addEventListener('keydown', (e) => {
-      if (!dialog.classList.contains('is-zoomed') || !modal.classList.contains('is-open')) return;
+      if (zooming || !dialog.classList.contains('is-zoomed') || !modal.classList.contains('is-open')) return;
       const step = { ArrowLeft: [-80, 0], ArrowRight: [80, 0], ArrowUp: [0, -80], ArrowDown: [0, 80] }[e.key];
       if (!step) return;
       e.preventDefault();
@@ -121,7 +189,7 @@ window.Portfolio.initMotion = function initMotion() {
     });
 
     new MutationObserver(() => {
-      if (!modal.classList.contains('is-open')) { dialog.classList.remove('is-zoomed', 'is-dragging'); moved = false; updateHint(); }
+      if (!modal.classList.contains('is-open')) { dialog.classList.remove('is-zoomed', 'is-zooming', 'is-dragging'); image.style.width = ''; zooming = false; moved = false; updateHint(); }
     }).observe(modal, { attributes: true, attributeFilter: ['class'] });
   }
 

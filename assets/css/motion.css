@@ -47,6 +47,8 @@
 .modal__dialog.is-zoomed { overflow: auto; }
 .modal__dialog.is-zoomed .modal__image { width: 240%; max-width: none; cursor: grab; }
 .modal__dialog.is-dragging .modal__image { cursor: grabbing; }
+/* While the zoom animates, the script drives the scrolling, so hide the scrollbars (no flicker) */
+.modal__dialog.is-zoomed.is-zooming { overflow: hidden; }
 .modal__stage { position: relative; overflow-x: clip; touch-action: pan-y; }
 .modal__dialog.is-zoomed .modal__stage { overflow: visible; touch-action: auto; }
 .modal__image--ghost { position: absolute; top: 0; left: 0; width: 100%; height: auto; pointer-events: none; }
