@@ -466,7 +466,7 @@ html { scroll-padding-top: 76px; }
 }
 .cs-rail a:hover::after, .cs-rail a:focus-visible::after { opacity: 1; translate: 0 -50%; }
 .cs-rail a:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 1px; }
-@media (max-width: 1179px) { .cs-rail { display: none; } }
+@media (max-width: 1279px) { .cs-rail { display: none; } }
 @media (prefers-reduced-motion: reduce) { .cs-rail, .cs-rail a::before, .cs-rail a::after { transition: none; } }
 
 /* ---- Menu panel (hamburger layout, below 1280px): hide it with clip-path instead of translateX(100%).
@@ -477,3 +477,13 @@ html { scroll-padding-top: 76px; }
   .nav-toggle[aria-expanded="true"] ~ .nav-panel { transform: none; clip-path: inset(0); transition: clip-path var(--duration-base) var(--ease-in-out); }
 }
 @media (max-width: 1279px) and (prefers-reduced-motion: reduce) { .nav-panel { transition: none; } }
+
+/* ==========================================================================
+   14. Spacing and button icons
+   ========================================================================== */
+/* Button row before the prev/next cards, and notes after cards/galleries, had no breathing room */
+.cs-page .cs-actions { margin-bottom: var(--space-7); }
+.cs-page .cs-note { margin-top: var(--space-6); }
+.cs-actions .btn { gap: var(--space-3); }
+.cs-actions .brand, .btn__ico svg { width: 18px; height: 18px; flex: none; }
+.btn__ico { display: inline-grid; place-items: center; flex: none; }
