@@ -689,4 +689,8 @@ New files, linked after extras.* on every page: `assets/css/interactions.css` an
 ## Hero status line (Oct 12, 2026)
 - The hero role line no longer says "Looking for internships in" (Refa is interning now, and wants wording that survives a future job search). It now reads **"Focused on"** + the rotating words (Data Analytics / Business Analysis / Research).
 - **Availability badge "Open to opportunities"** (`<p class="hero__status" hidden>` in index.html, styled in extras.css). It is OFF by default. To turn it on, delete the word `hidden` from that line; add it back to turn it off.
-- **Still says "internships" (not changed):** the Contact intro (index.html, `.contact__lead`: "Open to Data Analyst, Business Analyst, and research or digital internships…").
+- **Contact intro** no longer says "internships": it now reads "Data analytics, business analysis and research are where my work sits. If it fits something you're building, I'd like to hear about it."
+
+## Contact section rebuild (Oct 12, 2026)
+- The right column was a few buttons with empty space beneath. It is now three profile cards in the same style as the left column (LinkedIn `in/refa-defanda`, GitHub `Yaklut`, Google Scholar), each with a corner arrow that moves on hover, plus an "Email me" and a "Download CV" button. Both columns stretch to the same height (`.contact__grid { align-items: stretch }` in extras.css, section 10).
+- The old LinkedIn/WhatsApp buttons were removed from this column; WhatsApp is still the phone row on the left and in the footer icons.

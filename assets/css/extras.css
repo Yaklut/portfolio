@@ -168,3 +168,31 @@ main > section.band-blue .section-heading::after,
 .hero__status[hidden] { display: none; }
 .hero__status svg { width: 16px; height: 16px; flex: none; }
 @media (prefers-reduced-motion: reduce) { .hero__status { animation: none; } }
+
+/* ---- 10. Contact, right column: profile links as cards that match the left column, plus Email / CV buttons.
+         The columns stretch to the same height so there is no empty block under the buttons. ---- */
+.contact__grid { align-items: stretch; }
+.contact__platforms { align-items: stretch; gap: var(--space-3); }
+.contact__links { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.contact__row--link, .contact__row--link:hover { text-decoration: none !important; } /* a global link rule underlines the label otherwise */
+.contact__row--link {
+  flex: 1; cursor: pointer; padding: 12px var(--space-4) !important; color: inherit;
+  transition: transform var(--duration-base) var(--ease-out), box-shadow var(--duration-base) var(--ease-out);
+}
+.contact__row--link .contact__icon { width: 40px; height: 40px; }
+.contact__row--link .contact__icon svg { width: 20px; height: 20px; }
+.contact__row--link .contact__value { color: var(--color-ink); }
+.contact__go {
+  display: grid; place-items: center; flex: none; width: 32px; height: 32px; margin-left: auto; border-radius: 50%;
+  border: 1px solid var(--color-border-interactive); color: var(--color-ink-faint);
+  transition: background var(--duration-base) var(--ease-out), color var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out);
+}
+.contact__go svg { width: 16px; height: 16px; }
+.contact__row--link:hover { transform: translateY(-3px); box-shadow: 0 16px 36px rgba(6, 22, 60, 0.34); }
+.contact__row--link:hover .contact__go { background: var(--accent-tint); border-color: var(--accent); color: var(--accent-deep); transform: translate(2px, -2px); }
+.contact__row--link:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.contact__buttons--duo { flex-wrap: nowrap; align-self: stretch; width: 100%; }
+.contact__buttons--duo .btn { flex: 1 1 0; min-width: 0; }
+.contact__buttons--duo .btn svg { width: 18px; height: 18px; flex: none; }
+@media (max-width: 420px) { .contact__buttons--duo { flex-wrap: wrap; } .contact__buttons--duo .btn { flex-basis: 100%; } }
+@media (prefers-reduced-motion: reduce) { .contact__row--link:hover, .contact__row--link:hover .contact__go { transform: none; } }
