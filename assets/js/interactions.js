@@ -237,7 +237,7 @@
   function navIcons() {
     const MAP = { about: 'user', expertise: 'lightbulb', skills: 'wrench', projects: 'layout-dashboard', education: 'graduation-cap', research: 'book-open-text', certifications: 'award', contact: 'mail', timeline: 'milestone', resume: 'file-text' };
     $$('.nav-link').forEach((a) => {
-      const key = (a.getAttribute('href') || '').replace('#', '');
+      const key = (a.getAttribute('href') || '').split('#')[1] || ''; // case-study pages link to ../index.html#section
       if (!MAP[key]) return;
       a.insertAdjacentHTML('afterbegin', SVG(ICONS[MAP[key]]).replace('<svg ', '<svg class="nav-ico" '));
       $$('.nav-ico path, .nav-ico circle, .nav-ico rect, .nav-ico line, .nav-ico polyline', a).forEach((s) => s.setAttribute('pathLength', '1'));

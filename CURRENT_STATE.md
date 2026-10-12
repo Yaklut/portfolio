@@ -683,3 +683,10 @@ New files, linked after extras.* on every page: `assets/css/interactions.css` an
 ## Fixes (Oct 12, 2026)
 - **KPI tiles (case studies):** values were `<dd>` elements with the browser's default 40px left indent, so short numbers looked centred and long ones flush-left. `.cs-kpis .stat-value { margin: 0; text-align: left }` in extras.css puts every value on the same left edge as the icon.
 - **Hero background full-bleed:** see above; `main { overflow-x: clip }` was added so the 100vw layers never cause a horizontal scrollbar.
+- **Navbar icons on case-study pages:** the icon lookup assumed `href="#skills"`, but case-study links are `../index.html#skills`, so no icon was found. interactions.js now reads the part after `#`.
+- **Google Scholar button (Research):** now an icon badge + title + "Full publication list · opens in a new tab" + a corner arrow that moves on hover (`.scholar-cta` in extras.css; markup in index.html). Still one `<a>` that opens in a new tab.
+
+## Hero status line (Oct 12, 2026)
+- The hero role line no longer says "Looking for internships in" (Refa is interning now, and wants wording that survives a future job search). It now reads **"Focused on"** + the rotating words (Data Analytics / Business Analysis / Research).
+- **Availability badge "Open to opportunities"** (`<p class="hero__status" hidden>` in index.html, styled in extras.css). It is OFF by default. To turn it on, delete the word `hidden` from that line; add it back to turn it off.
+- **Still says "internships" (not changed):** the Contact intro (index.html, `.contact__lead`: "Open to Data Analyst, Business Analyst, and research or digital internships…").

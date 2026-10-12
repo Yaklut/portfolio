@@ -141,13 +141,20 @@
         <h1 class="hero__name">Refa Defanda Witanto</h1>
 
         <p class="hero__role">
-          <span class="sr-only">Looking for internships in data analytics, business analysis and research.</span>
-          <span class="hero__role-label" aria-hidden="true">Looking for internships in</span>
+          <span class="sr-only">Focused on data analytics, business analysis and research.</span>
+          <span class="hero__role-label" aria-hidden="true">Focused on</span>
           <span class="role-rotator" aria-hidden="true">
             <span class="role-rotator__item">Data Analytics</span>
             <span class="role-rotator__item">Business Analysis</span>
             <span class="role-rotator__item">Research</span>
           </span>
+        </p>
+
+        <!-- AVAILABILITY BADGE. Currently OFF (I'm interning). To show it, delete the word "hidden" below.
+             To hide it again, add the word "hidden" back. Nothing else needs to change. -->
+        <p class="hero__status" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg>
+          Open to opportunities
         </p>
 
         <p class="hero__tagline">
@@ -885,8 +892,13 @@
 
       </div>
 
-      <a class="btn btn--ghost" href="https://scholar.google.com/citations?user=X9B00VQAAAAJ&amp;hl=id&amp;oi=ao" target="_blank" rel="noopener noreferrer">
-        View all on Google Scholar →
+      <a class="btn btn--ghost scholar-cta" href="https://scholar.google.com/citations?user=X9B00VQAAAAJ&amp;hl=id&amp;oi=ao" target="_blank" rel="noopener noreferrer">
+        <span class="scholar-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" /> <path d="M22 10v6" /> <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /></svg></span>
+        <span class="scholar-cta__text">
+          <span class="scholar-cta__title">View all on Google Scholar</span>
+          <span class="scholar-cta__sub">Full publication list · opens in a new tab</span>
+        </span>
+        <span class="scholar-cta__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
       </a>
     </section>
 
