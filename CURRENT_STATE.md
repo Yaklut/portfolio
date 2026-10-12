@@ -662,3 +662,19 @@ Refa picked these from a multiple-choice list; built in two new files linked las
 - **Toasts** — the toast already existed (copy email/phone). Added: "Resume download started" / "Download started" on download links and "Code copied to clipboard" on case-study code windows.
 - **Not built:** dark mode (not picked).
 - **Known, pre-existing (not touched):** the hero band stops at the 1240px section width, so its soft blue glow has a visible edge on wide screens; at 1440px the third hero stat ("13") wraps onto its own row.
+
+
+## Second extras round (Oct 12, 2026)
+New files, linked after extras.* on every page: `assets/css/interactions.css` and `assets/js/interactions.js` (again one wrapper per feature). `extras.js` was edited so the certificate carousel counts only visible (non-hidden) cards.
+- **Marker sweep** — every `<mark>` paints across its phrase when it scrolls into view (hero marks after ~1s). Reduced motion keeps the plain highlight.
+- **Icon draw** — icon badges (expertise/skills/cert groups/snapshots/case-study lessons) draw their strokes once when visible.
+- **Press/ripple** — filter pills, copy buttons, carousel arrows, search button, footer icons now get the same ripple as `.btn`; small press-scale on pills/copy/search.
+- **Filters** — projects by tool (BigQuery / Looker Studio / SQL / Excel) and certificates by platform (DQLab, MySkill, Rakamin, Dibimbing, DSAREA, RevoU). Same look as the publications filter (`.pub-filter*` classes reused). Cert filter hides empty groups, updates group counts and resets the carousel.
+- **"#" copy-link** on every section title (homepage and case studies); copies `page#section-id`, shows a toast.
+- **Homepage rail** — fixed icon rail on the right (≥1280px), appears after the hero, highlights the current section. Case-study pages keep their own rail.
+- **Navbar icons** — icon draws in beside a link on hover (≥1280px); always shown inside the mobile menu.
+- **Footer** — social links are now icon buttons (LinkedIn, GitHub, Google Scholar, WhatsApp, Email) on the homepage and all 3 case studies; "Last updated" badge reads the latest commit date from the GitHub API (cached for the session), falling back to the page's own modified date.
+- **Term tooltips** — first mention per page of KPI, CTE, PivotTable, slicer, SINTA, ANOVA, master table, LEFT JOIN, CASE WHEN, XLOOKUP gets a dotted underline and a short definition (hover, focus or tap). Definitions live in `GLOSSARY` in interactions.js.
+- **Removed** the "Currently open to" tags from Contact (the Contact right column is now shorter than the left).
+- **Not built:** blur-up for dashboard images; dark mode.
+- **Known:** the GitHub API allows 60 requests/hour per visitor IP; past that the badge silently uses the fallback date (the browser console shows a 403, nothing visible).

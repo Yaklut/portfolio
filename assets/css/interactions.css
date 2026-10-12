@@ -1,0 +1,138 @@
+/* ==========================================================================
+   interactions.css — second polish round (loaded after extras.css). Pairs with
+   assets/js/interactions.js.
+   1 Marker sweep   2 Icon draw   3 Press/ripple on small controls
+   4 Filters (projects, certificates)   5 "#" copy-link on titles
+   6 Homepage section rail   7 Navbar icons   8 Footer: social icons + badge
+   9 Term tooltips
+   ========================================================================== */
+
+[hidden].card, .cert-group[hidden] { display: none !important; }
+
+/* ---- 1. Marker sweep: the highlight paints across the phrase (JS adds .mk) ---- */
+mark.mk {
+  background-color: transparent !important;
+  background-image: linear-gradient(var(--mk-c), var(--mk-c)) !important;
+  background-repeat: no-repeat !important; background-position: 0 0 !important;
+  background-size: 0% 100% !important;
+  transition: background-size 900ms var(--ease-out) var(--mk-delay, 0ms);
+}
+mark.mk.is-swept { background-size: 100% 100% !important; }
+
+/* ---- 2. Icons draw themselves once when their card appears (JS adds .ico-draw) ---- */
+.ico-draw svg :is(path, circle, rect, line, polyline, polygon, ellipse) {
+  stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0;
+}
+.ico-draw.is-drawn svg :is(path, circle, rect, line, polyline, polygon, ellipse) {
+  stroke-dashoffset: 0; opacity: 1;
+  transition: stroke-dashoffset 900ms var(--ease-out) var(--dd, 0ms), opacity 1ms linear var(--dd, 0ms);
+}
+
+/* ---- 3. Soft press + ripple on small controls (.btn already has them) ---- */
+.pub-filter__btn, .cs-seg button, .copy-btn, .certs-carousel__btn, .nav-search-btn, .social-btn { position: relative; overflow: hidden; }
+.pub-filter__btn:active, .cs-seg button:active, .copy-btn:active, .nav-search-btn:active { scale: 0.96; }
+.pub-filter__btn, .cs-seg button, .copy-btn, .nav-search-btn { transition: scale var(--duration-fast) var(--ease-out); }
+
+/* ---- 4. Filters reuse the publication filter look; here only the small extras ---- */
+.filter-wrap { margin-bottom: var(--space-6); }
+.filter-wrap .pub-filter__btn { flex: none; white-space: nowrap; } /* keep pills whole; the bar scrolls sideways on phones */
+.band-navy .pub-filter__status, .band-navy .pub-filter__empty { color: var(--band-on-blue-soft, #E4EDF7); }
+.band-navy .pub-filter { background: rgba(255, 255, 255, 0.92); border-color: rgba(255, 255, 255, 0.7); }
+.certs-filter-wrap { margin-top: var(--space-5); }
+
+/* ---- 5. "#" button that copies a link to its section ---- */
+.anchor-copy {
+  display: inline-grid; place-items: center; width: 32px; height: 32px; margin-left: 0.3em; vertical-align: middle;
+  padding: 0; border: 0; border-radius: var(--radius-sm); background: transparent; cursor: pointer;
+  color: var(--color-ink-faint); opacity: 0.5;
+  transition: opacity var(--duration-fast), background var(--duration-fast), color var(--duration-fast);
+}
+.anchor-copy svg { width: 18px; height: 18px; }
+@media (hover: hover) and (pointer: fine) {
+  .anchor-copy { opacity: 0; }
+  .section-heading:hover .anchor-copy, .anchor-copy:focus-visible { opacity: 1; }
+}
+.anchor-copy:hover { background: var(--color-primary-tint); color: var(--color-primary); opacity: 1; }
+main > section.band-navy .anchor-copy, main > section.band-blue .anchor-copy, .cs-page #results .anchor-copy { color: rgba(255, 255, 255, 0.85); }
+main > section.band-navy .anchor-copy:hover, main > section.band-blue .anchor-copy:hover, .cs-page #results .anchor-copy:hover { background: rgba(255, 255, 255, 0.18); color: #fff; }
+
+/* ---- 6. Homepage rail: one icon per section, on the right (wide screens) ---- */
+.home-rail {
+  position: fixed; right: 12px; top: 50%; z-index: 35; display: none; transform: translateY(-50%);
+  opacity: 0; pointer-events: none; transition: opacity var(--duration-base) var(--ease-out);
+}
+.home-rail.is-on { opacity: 1; pointer-events: auto; }
+@media (min-width: 1280px) { .home-rail { display: block; } }
+.home-rail ol {
+  list-style: none; margin: 0; padding: 6px; display: flex; flex-direction: column; gap: 2px;
+  background: rgba(255, 255, 255, 0.88); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  border: 1px solid var(--color-border); border-radius: var(--radius-full); box-shadow: var(--shadow-md);
+}
+.home-rail a {
+  position: relative; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+  color: var(--color-ink-faint); transition: background var(--duration-fast), color var(--duration-fast);
+}
+.home-rail a svg { width: 17px; height: 17px; }
+.home-rail a:hover { background: var(--color-primary-tint); color: var(--color-primary); }
+.home-rail a[aria-current="true"] { background: var(--color-primary); color: #fff; }
+.home-rail a::after {
+  content: attr(data-label); position: absolute; right: calc(100% + 12px); top: 50%; transform: translate(6px, -50%);
+  padding: 5px 10px; border-radius: var(--radius-sm); white-space: nowrap; pointer-events: none; opacity: 0;
+  font: 600 0.8125rem var(--font-body); color: var(--color-dark-text); background: var(--color-dark-bg);
+  transition: opacity var(--duration-fast), transform var(--duration-fast) var(--ease-out);
+}
+.home-rail a:hover::after, .home-rail a:focus-visible::after { opacity: 1; transform: translate(0, -50%); }
+
+/* ---- 7. Navbar icons: a small icon draws in beside the link on hover (wide screens);
+         inside the full-screen mobile menu they are always shown ---- */
+.nav-link .nav-ico { width: 15px; height: 15px; flex: none; color: var(--color-primary); }
+@media (min-width: 1280px) {
+  .nav-link .nav-ico { position: absolute; left: -19px; top: 50%; margin-top: -7px; opacity: 0; transform: translateX(6px) scale(0.8); transition: opacity var(--duration-fast), transform var(--duration-base) var(--ease-out); pointer-events: none; }
+  .nav-link:hover .nav-ico, .nav-link:focus-visible .nav-ico { opacity: 1; transform: none; }
+  .nav-link:hover .nav-ico :is(path, circle, rect, line, polyline), .nav-link:focus-visible .nav-ico :is(path, circle, rect, line, polyline) {
+    stroke-dasharray: 1; animation: navIcoDraw 650ms var(--ease-out) both;
+  }
+}
+@keyframes navIcoDraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@media (max-width: 1279px) { .nav-link { display: inline-flex; align-items: center; gap: 10px; } }
+
+/* ---- 8. Footer: social icon buttons + "last updated" badge ---- */
+.footer__social { gap: var(--space-3); }
+.footer__social a.social-btn {
+  position: relative; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+  color: var(--color-dark-text); background: var(--color-dark-surface); border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: transform var(--duration-base) var(--ease-out), background var(--duration-base), color var(--duration-base), border-color var(--duration-base);
+}
+.footer__social a.social-btn:hover { text-decoration: none; transform: translateY(-3px); background: var(--color-primary); border-color: var(--color-primary-on-dark); color: #fff; }
+.social-btn svg { width: 20px; height: 20px; }
+.social-btn__label {
+  position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translate(-50%, 4px); padding: 4px 9px; border-radius: var(--radius-sm);
+  white-space: nowrap; pointer-events: none; opacity: 0; font: 600 0.75rem var(--font-body); color: var(--color-dark-bg); background: var(--color-dark-text);
+  transition: opacity var(--duration-fast), transform var(--duration-fast) var(--ease-out);
+}
+.social-btn:hover .social-btn__label, .social-btn:focus-visible .social-btn__label { opacity: 1; transform: translate(-50%, 0); }
+.footer__social a.social-btn { overflow: visible; }
+.footer__copyright { display: flex; flex-wrap: wrap; align-items: center; column-gap: var(--space-5); row-gap: var(--space-2); }
+.footer__updated { display: inline-flex; align-items: center; gap: 8px; }
+.footer__updated svg { width: 14px; height: 14px; color: var(--color-gold-on-dark); }
+
+/* ---- 9. Term tooltips: a dotted underline, one shared bubble ---- */
+.term {
+  font: inherit; color: inherit; background: none; border: 0; padding: 0; margin: 0; cursor: help;
+  border-bottom: 1px dotted currentColor; border-radius: 0;
+}
+.term:hover, .term[aria-expanded="true"] { color: var(--color-primary); }
+.term-tip {
+  position: fixed; z-index: 90; max-width: 280px; padding: 10px 12px; border-radius: var(--radius-sm); pointer-events: none;
+  font: 400 0.8125rem/1.45 var(--font-body); color: var(--color-dark-text); background: var(--color-dark-bg); box-shadow: var(--shadow-lg);
+  opacity: 0; transform: translateY(4px); transition: opacity var(--duration-fast), transform var(--duration-fast) var(--ease-out);
+}
+.term-tip.is-on { opacity: 1; transform: none; }
+.term-tip b { display: block; margin-bottom: 2px; font-weight: 600; color: var(--color-primary-on-dark); }
+
+@media print { .home-rail, .anchor-copy, .term-tip, .footer__updated { display: none !important; } }
+@media (prefers-reduced-motion: reduce) {
+  mark.mk { transition: none; }
+  .ico-draw.is-drawn svg :is(path, circle, rect, line, polyline, polygon, ellipse) { transition: none; }
+  .nav-link:hover .nav-ico :is(path, circle, rect, line, polyline) { animation: none; }
+}

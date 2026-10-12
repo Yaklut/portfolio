@@ -101,26 +101,30 @@
       const [prev, next] = $$('.certs-carousel__btn', bar);
       const accent = Array.from((grid.closest('.cert-group') || grid).classList).find((c) => c.startsWith('accent-'));
       if (accent) wrap.classList.add(accent);
-      const total = cards.length;
-
+      const vis = () => cards.filter((c) => !c.hidden);
       const step = () => {
-        const a = cards[0], b = cards[1];
-        return b ? b.offsetLeft - a.offsetLeft : a.offsetWidth;
+        const v = vis(), a = v[0], b = v[1];
+        if (!a) return 1;
+        return b ? b.offsetLeft - a.offsetLeft : a.offsetWidth + 16;
       };
       let queued = false;
       function update() {
         queued = false;
-        const s = step(), max = grid.scrollWidth - grid.clientWidth;
-        const first = Math.min(total - 1, Math.round(grid.scrollLeft / s));
-        const last = Math.min(total, first + Math.max(1, Math.round(grid.clientWidth / s)));
+        const total = vis().length, s = step(), max = grid.scrollWidth - grid.clientWidth;
+        const perView = Math.max(1, Math.round(grid.clientWidth / s));
+        bar.hidden = total <= perView;           // nothing to scroll through
+        const first = Math.min(Math.max(total - 1, 0), Math.round(grid.scrollLeft / s));
+        const last = Math.min(total, first + perView);
         count.textContent = (last > first + 1 ? (first + 1) + '–' + last : String(first + 1)) + ' of ' + total;
-        fill.style.setProperty('--w', ((grid.scrollLeft + grid.clientWidth) / grid.scrollWidth).toFixed(3));
+        fill.style.setProperty('--w', ((grid.scrollLeft + grid.clientWidth) / Math.max(grid.scrollWidth, 1)).toFixed(3));
         prev.disabled = grid.scrollLeft <= 2;
         next.disabled = grid.scrollLeft >= max - 2;
       }
       const queue = () => { if (!queued) { queued = true; requestAnimationFrame(update); } };
       grid.addEventListener('scroll', queue, { passive: true });
       window.addEventListener('resize', queue);
+      // interactions.js fires this after a filter changes which cards are hidden
+      grid.addEventListener('carousel:refresh', () => { grid.scrollLeft = 0; queue(); });
       bar.addEventListener('click', (e) => {
         const btn = e.target.closest('.certs-carousel__btn');
         if (!btn || btn.disabled) return;
@@ -139,6 +143,8 @@
     clearTimeout(toast.t);
     toast.t = setTimeout(() => el.classList.remove('is-visible'), 2200);
   }
+  window.Portfolio = window.Portfolio || {};
+  window.Portfolio.toast = toast;
   function toasts() {
     // Any download link (resume buttons, Excel workbook)
     document.addEventListener('click', (e) => {
