@@ -661,7 +661,8 @@ Refa picked these from a multiple-choice list; built in two new files linked las
 - **Timeline spine on small screens** — the scroll-drawn spine and dots already existed from 1000px up; extras.css adds them below 1000px.
 - **Toasts** — the toast already existed (copy email/phone). Added: "Resume download started" / "Download started" on download links and "Code copied to clipboard" on case-study code windows.
 - **Not built:** dark mode (not picked).
-- **Known, pre-existing (not touched):** the hero band stops at the 1240px section width, so its soft blue glow has a visible edge on wide screens; at 1440px the third hero stat ("13") wraps onto its own row.
+- **Fixed (Oct 12):** the hero background (soft glow, dots, data lines) now runs edge to edge via full-width layers in extras.css; content keeps its 1240px container.
+- **Known, pre-existing (not touched):** at 1440px the third hero stat ("13") wraps onto its own row.
 
 
 ## Second extras round (Oct 12, 2026)
@@ -678,3 +679,7 @@ New files, linked after extras.* on every page: `assets/css/interactions.css` an
 - **Removed** the "Currently open to" tags from Contact (the Contact right column is now shorter than the left).
 - **Not built:** blur-up for dashboard images; dark mode.
 - **Known:** the GitHub API allows 60 requests/hour per visitor IP; past that the badge silently uses the fallback date (the browser console shows a 403, nothing visible).
+
+## Fixes (Oct 12, 2026)
+- **KPI tiles (case studies):** values were `<dd>` elements with the browser's default 40px left indent, so short numbers looked centred and long ones flush-left. `.cs-kpis .stat-value { margin: 0; text-align: left }` in extras.css puts every value on the same left edge as the icon.
+- **Hero background full-bleed:** see above; `main { overflow-x: clip }` was added so the 100vw layers never cause a horizontal scrollbar.

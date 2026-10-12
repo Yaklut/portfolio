@@ -27,14 +27,27 @@
 .role-rotator.is-rotating .role-rotator__item.is-leaving { opacity: 0; transform: translateY(-105%); }
 
 /* ---- 2. Hero background: slow dot grid + a few drawn data lines ---- */
+/* The hero's own box is capped at 1240px, so its background used to stop there and left a visible edge on wide
+   screens. The glow and the dots now live on layers that are exactly one viewport wide and centred on the hero,
+   while the hero (and its content) keeps its normal container width. 50% + 521px / 50% - 620px reproduce where
+   the glows sat before. `main` clips sideways so 100vw (which counts the scrollbar) can never add a scrollbar. */
+main { overflow-x: clip; }
+main > section.band-hero { background: var(--band-light); position: relative; }
+main > section.band-hero::before {
+  content: ""; position: absolute; z-index: -1; pointer-events: none;
+  top: 0; bottom: 0; left: 50%; width: 100vw; margin-left: -50vw;
+  background:
+    radial-gradient(900px 520px at min(92%, calc(50% + 521px)) 18%, rgba(30, 86, 160, 0.16), transparent 62%),
+    radial-gradient(620px 420px at max(0%, calc(50% - 620px)) 100%, rgba(30, 86, 160, 0.07), transparent 70%);
+}
 .hero { isolation: isolate; }
-.hero > .hero__bg { position: absolute; inset: 0; z-index: -1; max-width: none; width: auto; margin: 0; padding: 0; overflow: hidden; pointer-events: none; }
+.hero > .hero__bg { position: absolute; inset: 0 auto 0 50%; z-index: -1; max-width: none; width: 100vw; margin: 0 0 0 -50vw; padding: 0; overflow: hidden; pointer-events: none; }
 .hero__bg-dots {
   position: absolute; inset: -28px;
   background-image: radial-gradient(circle, rgba(30, 86, 160, 0.30) 1.2px, transparent 1.7px);
   background-size: 28px 28px;
-  -webkit-mask-image: radial-gradient(ellipse 70% 80% at 85% 20%, #000 0%, transparent 72%);
-          mask-image: radial-gradient(ellipse 70% 80% at 85% 20%, #000 0%, transparent 72%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 80% at min(85%, calc(50% + 434px)) 20%, #000 0%, transparent 72%);
+          mask-image: radial-gradient(ellipse 70% 80% at min(85%, calc(50% + 434px)) 20%, #000 0%, transparent 72%);
   animation: heroDots 24s linear infinite;
 }
 @keyframes heroDots { to { transform: translate(28px, 28px); } }
@@ -114,3 +127,8 @@ main > section.band-blue .section-heading::after,
   .section-heading::after { transition: none; }
   .certs-carousel__track i, .card-glow { transition: none; }
 }
+
+/* ---- 7. KPI tiles on case-study pages: the value is a <dd>, which browsers indent by 40px by default.
+        That pushed short numbers away from the label and made long ones look flush-left. Both now start
+        at the same left edge as the icon and label. ---- */
+.cs-kpis .stat-value { margin: 0; text-align: left; }
