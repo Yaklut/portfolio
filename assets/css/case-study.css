@@ -67,6 +67,8 @@
   .cs-irow__btn:hover .cs-irow__bar { background: var(--color-primary-hover); }
 }
 .cs-irow__btn[aria-pressed="true"] { background: var(--color-primary-tint); border-color: var(--color-primary); }
+.cs-irow.is-neg .cs-irow__bar { background: var(--viz-red, #C5221F); }
+.cs-irow.is-neg .cs-irow__value { color: var(--viz-red-deep, #A31B19); }
 
 /* grow-in on first view */
 .cs-chart.is-armed .cs-irow__bar { width: 0; }

@@ -653,3 +653,6 @@ html:not(.js) .timeline__item { animation: none; opacity: 1; }
 .note-card p { margin: 0; font-size: 0.9375rem; line-height: 1.6; color: var(--color-ink-soft); }
 .note-card code { padding: 1px 5px; border-radius: 4px; background: var(--color-surface-alt); font-family: var(--font-code); font-size: 0.85em; color: var(--color-ink); overflow-wrap: anywhere; }
 .note-card .note-card__lesson { padding: var(--space-3) var(--space-4); border-radius: var(--radius-sm); background: var(--accent-tint); color: var(--color-ink); }
+/* SINTA 5 tier (community service paper, JAMSI) */
+.pub--t5 { --accent: var(--viz-violet); --accent-deep: var(--viz-violet-deep); --accent-tint: var(--viz-violet-tint); }
+.pub-snapshot__bar i:nth-child(3) { flex: 0.34; background: var(--viz-violet); }

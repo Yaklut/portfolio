@@ -694,3 +694,99 @@ New files, linked after extras.* on every page: `assets/css/interactions.css` an
 ## Contact section rebuild (Oct 12, 2026)
 - The right column was a few buttons with empty space beneath. It is now three profile cards in the same style as the left column (LinkedIn `in/refa-defanda`, GitHub `Yaklut`, Google Scholar), each with a corner arrow that moves on hover, plus an "Email me" and a "Download CV" button. Both columns stretch to the same height (`.contact__grid { align-items: stretch }` in extras.css, section 10).
 - The old LinkedIn/WhatsApp buttons were removed from this column; WhatsApp is still the phone row on the left and in the footer icons.
+
+## Nov 15, 2026 — Fourth project (MySkill Data Analysis) and two certificates
+- **New case study `case-studies/myskill-data-analysis.html`** ("E-commerce Analytics with SQL, Python & Looker Studio"), same structure as the Excel page: hero (program, period, team of 11, tools) → 01 Context (the 11 stakeholder requests) → 02 Approach (4 steps, 3 design decisions, the year-over-year SQL and the weekend pandas cell exactly as submitted) → 03 Results (4 KPIs, channel bar explorer: revenue 2024 / change vs 2023 / revenue per order; AOV line chart 2022 with and without the two 1,000-unit orders) → 04 What the data shows (6 cards) → 05 Challenges & takeaways (4: BETWEEN dropping 31 Dec, MoM brief that is YoY, one order picking the prize, months only 8–9 days long) → 06 Dashboard (2 Looker exports + 3 individual-task cards: Superstore discount story, Halojek cost framework, DataLemur SQL) → buttons to both live Looker dashboards → pager (Excel → this page → back to projects). The Excel page's "next" link now points here.
+- **Team credit:** the page and card say "team of 11; I worked on all three tracks" (Refa confirmed). No sole-author claims.
+- **Every figure was recomputed from the raw files** in the team Drive (order/transaction/customer/funnel xlsx, the joined `df.xlsx`, the Superstore CSV) and matches the decks. Two checks worth knowing: the funnel `BETWEEN` version really gives 28,976 / 27,676 / 26,128 events vs 29,062 / 27,717 / 26,165 with `EXTRACT(YEAR)`; deck slide 12 (old version) was wrong about Aug–Sep and Refa replaced it.
+- **Home page:** project card `#project-myskill-da` (accent coral, Looker page-1 thumbnail: one large chart reads better at card size than the dense page-2 table, stats 11 requests / 22,812 orders / 2.2% conversion / score 91, "Open dashboard" button). Hero stats 3→4 projects, 13→15 certifications; projects lead "four projects"; cert summary 15; Data Analytics & Programming group 12. Current focus card: Data Analysis "Completed", Distinction (score 91); "Updated November 2026". Timeline: `9 Oct – 6 Nov · PROJECT` and `11 Nov · CERT` (26 items). Skills: Data & BI "Applied in" and Programming "Learned through" link the new card.
+- **Certificates 14 and 15:** "Data Analysis: Fullstack Intensive Bootcamp" (Batch 30, issued 11 Nov 2026, ID MS-11/11/2026-imjAGogYZKyJYnqSAdZk, 2 pages) and "Final Project Mentoring: Data Analysis" (9 Oct–6 Nov 2026, ID 352160/DTA/LM/11/2026, Distinction score 91, 3 pages incl. scores). Images rendered from Refa's PDFs.
+- **Code:** `case-study.js` bar chart now handles negative values (bar length uses the absolute value, row gets `is-neg`, red via `--viz-red` fallback in `case-study.css`) and drops "by" from the auto caption when there is no breakdown toggle. `interactions.js` project filter adds "Python". `sitemap.xml`, README (four projects, fifteen certificates) updated.
+- **Verified (Playwright, 1440/768/430/390/375):** no page errors, no 404s, no horizontal overflow, no broken images on home, the new page and the Excel page; metric toggles, negative bar, row details, line chart keyboard readout, gallery lightbox, certificate pager to page 3, project filter "Python", in-page anchors. New page is 11,849 px at 1440 (Excel 10,359).
+- **Not verified:** a real phone. One automated visual review of the new home card ran (the image tool worked once this session); its only real finding was that the page-2 thumbnail was too dense, now swapped for page 1.
+- **Open / for Refa:** read the Takeaway lines and the three "Individual work" cards (Claude's wording); the CV PDF still lists the old projects and certificates (Refa will edit it himself). Working files (context, plan, design notes, build scripts, raw data) live in gitignored `AGENTS.md`, `DESIGN.md`, `docs/`, `.source/`. Nothing is committed.
+
+## Nov 18, 2026 — UI polish (Refa picked 1, 2, 4, 6 from the audit; 3, 5, 7 left as is)
+
+- **Hero stats:** always one row of three with thin dividers (`home-polish.css` §5). It used to wrap 2 + 1 at 1440/1024 and 1 + 2 at 390. The row sits on the left at 1024 and above, centred below that. At 480 and below it uses three equal columns.
+- **Project snapshots:** at 1100 and above the thumbnail is cropped to 16:10 from the top (`object-fit: cover`), so the image and the stats column are close in height. At 1440 the image/side heights are now 461/406, 460/335, 479/358 and 460/394 px; the image column used to be 543–705 px. Full screenshots stay in the case pages.
+- **Google Scholar button:** solid white with navy text at rest (`extras.css` §8). The translucent version read as disabled.
+- **Share meta on the four case pages:** canonical, Open Graph and Twitter `summary_large_image` tags, plus `assets/images/social/og-<slug>.jpg` (1200x630, the top of each dashboard). They are added by `.source/scripts/og.py`, and `build.py` calls it for the generated MySkill page. The Excel page's meta description was a copy of the Kimia Farma one; it now describes the Excel project.
+- **Verified:** Playwright at 1440/1280/1100/1024/768/430/390/375 shows the stats in one row, no overflow, and the new Scholar colours. `qa.py` reports 0 errors, 0 404s and 0 broken images across 15 page/width combinations.
+- **Not verified:** how links preview on LinkedIn/WhatsApp (needs a deploy).
+
+## Nov 18, 2026 — Seventh publication (JAMSI, SINTA 5)
+
+- **Paper:** "Sosialisasi Edukatif-Partisipatif tentang Ekonomi Digital ASEAN bagi Siswa SMA Negeri 8 Kota Malang", Jurnal Abdi Masyarakat Indonesia (JAMSI) Vol. 6 No. 6, November 2026, pp. 6787–6798. Refa is the 3rd of 8 authors. Source: Refa's PDF and https://jamsi.jurnal-id.com/index.php/jamsi/article/view/3534. Tier SINTA 5 comes from the journal's SINTA profile (id 12004).
+- **DOI:** 10.54082/jamsi.3534 is printed on the PDF but not active yet, so the site does not link it. Other cards have no links either.
+- **Home:** new publication card (`pub--t5`, violet accent added in `redesign.css`), "SINTA 5" filter button (counts come from the card), timeline entry "Nov · PUB". Counts changed 6 → 7 in the hero stat, the About sentence, the skill-evidence link, the snapshot ("3 + 3 + 1, SINTA 2 + 4 + 5", three-part bar) and README. Authors per paper is now 2–8.
+- **My role (from Refa):** he wrote the whole manuscript. Authors 1–2 are the lecturers who led the community service project, and authors 3 onward are the student research team. The card is not marked first author, because the author order is unchanged.
+- **Verified:** Playwright at 1440/768/390. The filter shows "SINTA 5 1", clicking it shows only the new card ("Showing 1 of 7 publications"), with no overflow and no page errors.
+
+## Nov 18, 2026 — Timeline: bootcamp periods
+
+- The two MySkill bootcamp entries now show the course period instead of only the issue date: Excel "29 Aug – 1 Oct", Batch 36 (certificate issued 7 Oct), and Data Analysis "25 Sep – 6 Nov", Batch 30 (certificate issued 11 Nov). Dates come from the certificates (see the Oct 8 entry and `docs/MYSKILL_DA_CONTEXT.md`). Entry order is unchanged (sorted by end date).
+
+## Nov 18, 2026 — UI enrichment round 2 (Refa picked 1B, 2A, 3B, 4A, 5B, 6A)
+- 1B: brand logos on the tool chips in Skills (BigQuery, Looker Studio, Excel, Sheets, Python) and on the matching Expertise tags. SVGs reused from the tools marquee (Excel gradient ids made unique). Project-card chips untouched.
+- 2A: platform logos (16 px) before the issuer on all 15 certificate cards and in the platform filter buttons (`interactions.js` certFilter). Files: `assets/images/logos/platform/{dqlab,dibimbing,dsarea,revou,rakamin,myskill}.png`, 48x48, taken from each platform's own favicon/app icon (dqlab.id, dibimbing.id, dsarea.id, revou.co, rakamin.com) and the existing MySkill logo.
+- 3B: calendar icon on the 14 dated certificates; "Credential ID" label + ID in a code pill (IBM Plex Mono). No copy button.
+- 4A: Dibimbing "[Date not shown on certificate]" replaced by an "Undated" chip (title attribute explains it).
+- 5B: Expertise cards left as is.
+- 6A: book icon before the journal line on the 7 publication cards.
+- CSS: `assets/css/interactions.css` §10. Script: `.source/scripts/ui2.py` (one-shot, already applied; do not rerun).
+- Verified (Playwright, 1440/768/430/390/375): logos and icons render, filter "Dibimbing" shows 1 of 15, no overflow, no console errors; `qa.py` clean.
+- Open: MySkill and RevoU marks read only as coloured dots at 16 px (their logos contain text). The issuer pill for Rakamin × Kimia Farma / Bank Muamalat shows only the Rakamin mark.
+
+## Nov 18, 2026 — Timeline hierarchy + "Interning now" (Refa picked 1A, 2A, 3B)
+- Bug fixed: About snapshot "Published" still said "6 SINTA-indexed papers" → 7.
+- 1A Timeline (`interactions.css` §11): ROLE, PROJECT and the first-author PUB take the full row with a larger icon, tint and shadow; CERT entries are compact rows (no card surface, smaller icon). `interactions.js` `timelineFill()` makes a certificate that would sit alone in its row span the full width (no empty cell). Content and order unchanged.
+- 2A About "Current focus": `now-item--live` on the Study First card: filled accent tint, white status pill, green pulsing dot (off under reduced motion).
+- 3B: no stat strip added.
+- Verified (Playwright 1440/768/390): no overflow, no page errors. Timeline height at 1440: 2178 → 2598 px (featured cards are taller).
+- Audit of case-study pages + animation done; proposals given to Refa, nothing applied yet.
+
+## Nov 18, 2026 — Case-study pages round (Refa picked 4A, 5A, 6A, 7B, 8A)
+- 4A `cs-enhance.js` §1b: consecutive `.cs-sql` blocks are grouped into one `.cs-sqltabs` block with a `.cs-seg` pill per query (label = existing `cs-sql__label`). No JS = all queries stacked as before. Approach height at 1440: BMI 3096 → 2153 px; Kimia Farma 1896, Excel 1410, MySkill 1699.
+- 5A `cs-polish.css` §20: odd last step in a 2-column `.cs-steps` spans both columns (BMI "Recommend").
+- 6A BMI "Data cleaning decisions": each card gets a Before → After strip (`.cs-fix`), values taken from the card text and SQLQuery.sql (9,99 → 9.99; email → part before first #; Category → CAST(Category AS INT64)). Strips pinned to card bottom.
+- 8A pager: next-project card shows that project's dashboard thumbnail on hover (≥900px, hover devices only); MySkill's "All projects" card has none.
+- 7B gallery reveal: skipped.
+- Verified (Playwright 4 pages × 1440/768/390): no overflow, no page/console errors; pill selection matches visible query.
+- Open: Kimia Farma has a `.cs-cards` group with a single card in a 2-col grid (not touched).
+
+## Nov 18, 2026 — Logos, icons and small details round (Refa picked 1A–8A)
+
+What changed:
+1. RD monogram (`.wordmark__mark`, same blue square + white "RD" as the favicon) before the name in the navbar and footer on all 5 pages. Plain HTML + CSS, no image file.
+2. Google Scholar links (Research CTA, Contact row, footer social button, case-page footers) now use the official Scholar mark (Simple Icons path, `currentColor`) instead of the Lucide graduation cap. The cap stays for Education.
+3. Every `→` character in buttons replaced by a Lucide SVG arrow (`.btn__arrow`, slides 3px on hover/focus; external links get the up-right arrow). "Download workbook" got a spreadsheet icon, "Open dashboard"/"Open the live dashboard"/"Open the Superstore dashboard" got an external-link icon. Also in `.source/build/s7_dash.py` so a MySkill rebuild keeps them (rebuild verified byte-identical).
+4. Case-study hero "Tools" chips reuse the same brand SVGs as the Skills chips (BigQuery, Looker Studio, Excel, Python). SQL, XLOOKUP, PivotTables, Slicers, Google Colab stay text. Also in `.source/build/s1_hero.py`.
+5. Contact > Location shows "Local time HH:MM (UTC+7)" (Intl, Asia/Jakarta, updates every 30s; `interactions.js` §11). Hidden without JS.
+6. 404 page: RD monogram link + quick links to Projects, Research, Contact (absolute `/portfolio/` paths like the rest of the file).
+7. `rakamin-academy.png` 520×180 → 196×68 (36.7 KB → 10.8 KB), `myskill.webp` 512 → 88 px (27.3 KB → 3.1 KB); width/height attributes updated. Originals kept in `.source/backup-logos/`.
+8. Credential IDs are now buttons: click copies the ID, toast "Credential ID copied" (`interactions.js` §12). Without JS they stay plain `<code>`.
+
+Figures used: none new. Script: `.source/scripts/ui5.py`. QA: `.source/qa/r5.py`, `r5v.py`.
+
+Verified: 6 pages × 1440/768/430/390/375, no horizontal overflow, no JS errors (only the blocked GoatCounter request in the test); 0 text arrows left in buttons; clipboard copy returns the right ID; 404 checked through a `/portfolio/` route mapping (local http.server does not serve 404.html for missing paths). Bug found and fixed in QA: the 404 monogram was blue on blue because `main a:not(.btn)` overrides its colour.
+
+Still open: the real 404 routing and Scholar logo look can only be checked after deploy; CV PDF untouched (Refa edits it).
+
+### Follow-up (same day, Refa's screenshot)
+- Desktop navbar scrollbar: `.nav-panel` kept the mobile `overflow-y:auto` at ≥1280px; with the RD mark the panel overflowed by 1px (929/928) and Chrome drew a scrollbar. Fix: `@media (min-width:1280px){.nav-panel{overflow:visible}}` (`interactions.css` §13). Checked at 1280/1440/1536/1920.
+- Google Scholar mark is now a file, `assets/images/logos/google-scholar.svg` (official multicolour logo, Wikimedia Commons, 363 bytes), used as `<img class="brand-img">` on all 5 pages (7 places).
+- Timeline CERT rows are now small cards: white surface, border, 3px gold left edge, gold "CERT" pill, platform logo (existing `logos/platform/*.png`) in a white circle instead of the generic award icon. 12 rows, mapped from the issuer text. Single certs still span the row (timelineFill, chosen earlier).
+
+## Nov 18, 2026 — MySkill DA GitHub repo
+- New public repo https://github.com/Yaklut/MySkill-Ecommerce-Data-Analysis (local copy `D:\Dev\Project\MySkill-Ecommerce-Data-Analysis`). Refa created it with a 1-line README; my commit 86ef2d7 sits on top of it. Topics: sql, bigquery, python, pandas, looker-studio, data-analytics.
+- Contents: README (figures from docs/MYSKILL_DA_CONTEXT.md, "Team C1 (11 members)"), `sql/final_project.sql`, `python/final_project_python.ipynb` + `output/` (promo CSV 820 rows, 2 charts pulled from notebook outputs), `dashboard/` (2 PNGs from the site webp). Raw data and team decks left out.
+- Portfolio: "View on GitHub" added to the MySkill home card (index.html) and the case-study `cs-actions` (via `.source/build/s7_dash.py`, rebuilt; only that line differs). No overflow or JS errors at 1440/375.
+- Open: README's case-study link 404s until the portfolio is committed and deployed.
+
+## Nov 18, 2026 — Ideas from the two reference sites (IDEA.md), Claude's pick
+- Compared faustin-1.github.io and farihmuwaffaq.my.id with the current site. Most of their sections already exist here (stats, expertise, cert groups, CV preview, case studies). Picked the two gaps that have a source:
+  1. **Hero "worked with" logo row** (Farih's "Professional Orbit", lighter): label "Virtual internships and bootcamps with" + Kimia Farma, Bank Muamalat, Rakamin Academy, MySkill in white tiles, reusing the existing logo files. `interactions.css` §14. 2×2 grid under 480px.
+  2. **Study First in Experience** (above Veritas, teal accent, Lucide monitor-smartphone icon). Role, dates and both bullets copied from Refa's CV PDF (Experience section).
+- QA: 1440/1024/768/390/375, no overflow, no JS errors.
+- Skipped, needs Refa: languages row (Faustin shows them; still no levels from Refa); a "Currently open to" list (removed earlier on Refa's request).

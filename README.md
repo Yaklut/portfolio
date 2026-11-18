@@ -13,13 +13,13 @@ The site is a single-page, hand-written HTML/CSS/JavaScript project. There is no
 | Hero | Name, academic status, value proposition, and the main calls to action (projects, resume, contact) |
 | About | The International Relations → data/research story, a "Current focus" strip (internship and ongoing courses), and an Experience entry (Research Fellow, Veritas Institute of Politics) |
 | Expertise & Skills | What I do, and the tools and methods behind it |
-| Featured Projects | Three compact project snapshots (Kimia Farma, Bank Muamalat, Excel sales dashboard): summary, dashboard thumbnail, key figures, one key insight and buttons to the full case study, the data explorer and the code or workbook. The whole card is clickable. |
+| Featured Projects | Four compact project snapshots (Kimia Farma, Bank Muamalat, Excel sales dashboard, e-commerce analytics with SQL, Python and Looker Studio): summary, dashboard thumbnail, key figures, one key insight and buttons to the full case study and the code, workbook or live dashboard. The whole card is clickable. |
 | Education | Degree, semester progress, GPA, academic honors, and a viewable academic transcript (student ID and signatory ID hidden) |
-| Research & Publications | Six SINTA-indexed papers, with tier, author position, and my role on each, filterable by tier and first authorship |
-| Certifications | Thirteen certificates grouped by domain, each viewable in an in-page lightbox |
+| Research & Publications | Seven SINTA-indexed papers, with tier, author position, and my role on each, filterable by tier and first authorship |
+| Certifications | Fifteen certificates grouped by domain, each viewable in an in-page lightbox |
 | Timeline, Resume, Contact | Key dates, a downloadable CV, and direct contact links |
 
-Two longer project write-ups live in [`case-studies/`](case-studies/).
+Four longer project write-ups live in [`case-studies/`](case-studies/).
 
 ## Features
 
@@ -48,7 +48,7 @@ portfolio/
 ├── sitemap.xml                 Sitemap for search engines
 ├── favicon.ico
 ├── CURRENT_STATE.md            Running log of completed work, decisions, and next steps
-├── case-studies/               Longer write-ups of the two dashboard projects
+├── case-studies/               Longer write-ups of the four projects
 └── assets/
     ├── css/
     │   ├── styles.css          Design tokens, base styles, components, @font-face

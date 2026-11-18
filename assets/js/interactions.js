@@ -4,6 +4,7 @@
    1 Marker sweep   2 Icon draw   3 Ripple on small controls
    4 Project + certificate filters   5 "#" copy-link on titles
    6 Homepage rail   7 Navbar icons   8 "Last updated" badge   9 Term tooltips
+   10 Timeline fill   11 Local time   12 Copy credential ID
    ========================================================================== */
 (function () {
   'use strict';
@@ -144,7 +145,7 @@
   function projectFilter() {
     const cards = $$('.card--project');
     if (cards.length < 2) return;
-    const TOOLS = ['BigQuery', 'Looker Studio', 'SQL', 'Excel'];
+    const TOOLS = ['BigQuery', 'Looker Studio', 'SQL', 'Python', 'Excel'];
     const chipsOf = (c) => $$('.tool-chips .chip', c).map((x) => x.textContent.toLowerCase());
     const match = (c, key) => chipsOf(c).some((t) => t.includes(key.toLowerCase()));
     const options = TOOLS.filter((t) => cards.some((c) => match(c, t))).map((t) => ({ key: t, label: t }));
@@ -166,7 +167,9 @@
     };
     const counts = {};
     cards.forEach((c) => { const p = platformOf(c); counts[p] = (counts[p] || 0) + 1; });
-    const options = Object.keys(counts).sort((a, b) => counts[b] - counts[a] || a.localeCompare(b)).map((k) => ({ key: k, label: k }));
+    const LOGO = { DQLab: 'dqlab', MySkill: 'myskill', Rakamin: 'rakamin', RevoU: 'revou', Dibimbing: 'dibimbing', DSAREA: 'dsarea' };
+    const label = (k) => (LOGO[k] ? '<img class="pub-filter__logo" src="assets/images/logos/platform/' + LOGO[k] + '.png" alt="" width="16" height="16">' : '') + k;
+    const options = Object.keys(counts).sort((a, b) => counts[b] - counts[a] || a.localeCompare(b)).map((k) => ({ key: k, label: label(k) }));
     const groups = $$('.cert-group');
     const counters = groups.map((g) => $('.cert-group__count', g));
     const original = counters.map((c) => (c ? c.textContent : ''));
@@ -348,7 +351,49 @@
     window.addEventListener('resize', hide);
   }
 
+  /* ---- 10. Timeline: a certificate left alone in its row takes the full width (no empty cell) ---- */
+  function timelineFill() {
+    const wide = (li) => li.matches('[data-cat="ROLE"], [data-cat="PROJECT"], .timeline__item--lead');
+    $$('.timeline__list').forEach((ol) => {
+      let col = 0;
+      const items = $$(':scope > .timeline__item', ol);
+      items.forEach((li, i) => {
+        if (wide(li)) { col = 0; return; }
+        const next = items[i + 1];
+        if (col === 0 && (!next || wide(next))) li.classList.add('timeline__item--fill');
+        col = col ? 0 : 1;
+      });
+    });
+  }
+
   function run(fn) { try { const r = fn(); if (r && r.catch) r.catch((e) => console.error('[interactions]', fn.name, e)); } catch (err) { console.error('[interactions]', fn.name, err); } }
-  function init() { [markerSweep, iconDraw, ripples, projectFilter, certFilter, anchorCopy, homeRail, navIcons, termTips, lastUpdated].forEach(run); }
+  /* ---- 11. Local time next to the location (Asia/Jakarta, UTC+7) ---- */
+  function localTime() {
+    const el = $('[data-local-time]');
+    if (!el || !window.Intl) return;
+    const fmt = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit', hour12: false });
+    const tick = () => { el.textContent = 'Local time ' + fmt.format(new Date()) + ' (UTC+7)'; };
+    tick(); el.hidden = false;
+    setInterval(tick, 30000);
+  }
+
+  /* ---- 12. Click a credential ID to copy it ---- */
+  function certIdCopy() {
+    $$('code.cert-id').forEach((code) => {
+      const id = code.textContent.trim();
+      const btn = document.createElement('button');
+      btn.type = 'button'; btn.className = 'cert-id'; btn.textContent = id;
+      btn.title = 'Copy credential ID';
+      btn.setAttribute('aria-label', 'Copy credential ID ' + id);
+      code.replaceWith(btn);
+      btn.addEventListener('click', async () => {
+        try { await navigator.clipboard.writeText(id); } catch (e) { return toast('Copy failed, select the ID instead'); }
+        btn.classList.add('is-copied'); toast('Credential ID copied');
+        setTimeout(() => btn.classList.remove('is-copied'), 1400);
+      });
+    });
+  }
+
+  function init() { [markerSweep, iconDraw, ripples, projectFilter, certFilter, anchorCopy, homeRail, navIcons, termTips, lastUpdated, timelineFill, localTime, certIdCopy].forEach(run); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

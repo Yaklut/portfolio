@@ -54,11 +54,25 @@
       margin-bottom: var(--space-6);
       line-height: 1.6;
     }
+    main a.error-page__mark, main a.error-page__mark:hover {
+      display: inline-grid; place-items: center;
+      width: 56px; height: 56px; margin-bottom: var(--space-5);
+      border-radius: var(--radius-md);
+      background: var(--color-primary); color: var(--color-surface);
+      font: 700 1.25rem/1 var(--font-display); text-decoration: none !important;
+    }
+    .error-page__links {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-2) var(--space-5);
+      margin-top: var(--space-6); padding: 0; list-style: none;
+      font-family: var(--font-body); font-size: 0.9375rem;
+    }
+    .error-page__links a { color: var(--color-primary); font-weight: 600; }
   </style>
 </head>
 <body>
   <main class="error-page">
     <div class="error-page__content">
+      <a class="error-page__mark" href="/portfolio/" aria-label="Refa Defanda Witanto, homepage">RD</a>
       <p class="error-page__code">404 — NOT FOUND</p>
       <h1 class="error-page__title">This page doesn't exist</h1>
       <p class="error-page__body">
@@ -66,6 +80,11 @@
         Let's get you back to the portfolio.
       </p>
       <a class="btn btn--primary" href="/portfolio/">Back to homepage</a>
+      <ul class="error-page__links" aria-label="Quick links">
+        <li><a href="/portfolio/#projects">Projects</a></li>
+        <li><a href="/portfolio/#research">Research</a></li>
+        <li><a href="/portfolio/#contact">Contact</a></li>
+      </ul>
     </div>
   </main>
 </body>

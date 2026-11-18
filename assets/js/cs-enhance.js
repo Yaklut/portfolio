@@ -41,6 +41,43 @@
     });
   });
 
+  /* ---- 1b. Consecutive code windows become one block with a pill per query.
+     Without JavaScript every query stays visible, one under the other. ---- */
+  document.querySelectorAll('.cs-sql').forEach((first) => {
+    if (first.closest('.cs-sqltabs') || (first.previousElementSibling && first.previousElementSibling.matches('.cs-sql'))) return;
+    const group = [first];
+    let n = first.nextElementSibling;
+    while (n && n.matches('.cs-sql')) { group.push(n); n = n.nextElementSibling; }
+    if (group.length < 2) return;
+
+    const wrap = document.createElement('div');
+    wrap.className = 'cs-sqltabs reveal is-visible';
+    const seg = document.createElement('div');
+    seg.className = 'cs-seg cs-sqltabs__seg';
+    seg.setAttribute('role', 'group');
+    seg.setAttribute('aria-label', 'Choose a query');
+    first.before(wrap);
+    wrap.append(seg);
+
+    const btns = [];
+    const show = (i) => group.forEach((panel, j) => {
+      panel.hidden = i !== j;
+      btns[j].setAttribute('aria-pressed', String(i === j));
+    });
+    group.forEach((panel, i) => {
+      const label = panel.querySelector('.cs-sql__label');
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = label ? label.textContent.trim() : 'Query ' + (i + 1);
+      btn.addEventListener('click', () => show(i));
+      btns.push(btn);
+      seg.append(btn);
+      panel.classList.add('is-visible');
+      wrap.append(panel);
+    });
+    show(0);
+  });
+
   /* ---- 2. Pills (.cs-seg): a highlight that glides to the selected pill ---- */
   document.querySelectorAll('.cs-seg').forEach((seg) => {
     const thumb = document.createElement('span');

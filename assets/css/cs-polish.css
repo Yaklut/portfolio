@@ -514,3 +514,51 @@ html { scroll-padding-top: 76px; }
   .cs-seg__thumb { transition: none; }
   .cs-seg button:active { scale: none; }
 }
+
+/* ==========================================================================
+   20. Nov 2026: SQL tabs, odd last step, before/after fixes, pager preview
+   ========================================================================== */
+/* Consecutive code windows grouped behind pills (built by cs-enhance.js) */
+.cs-sqltabs { max-width: 62rem; margin: 0 0 var(--space-6); }
+.cs-sqltabs__seg { margin-bottom: var(--space-4); }
+.cs-sqltabs .cs-sql { margin: 0; }
+.cs-sqltabs .cs-sql__label { display: none; }
+.cs-sqltabs .cs-sql:not([hidden]) { animation: sqlIn 320ms var(--ease-out); }
+@keyframes sqlIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (max-width: 600px) {
+  .cs-sqltabs__seg { display: flex; flex-wrap: nowrap; overflow-x: auto; max-width: 100%; scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, black calc(100% - 40px), transparent); mask-image: linear-gradient(90deg, black calc(100% - 40px), transparent); }
+  .cs-sqltabs__seg button { flex: none; }
+}
+
+/* An odd last step in a 2-column grid spans both columns */
+@media (min-width: 768px) {
+  .cs-steps:not(.cs-steps--3) > li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+@media (min-width: 1024px) {
+  .cs-steps--4 > li:last-child:nth-child(odd) { grid-column: auto; }
+}
+
+/* Before -> after strip inside a decision card */
+.cs-cards > li:has(.cs-fix) { display: flex; flex-direction: column; }
+.cs-fix { display: flex; align-items: stretch; gap: var(--space-2); margin: auto 0 0; padding-top: var(--space-4); }
+.cs-fix__side { flex: 1 1 0; min-width: 0; display: grid; gap: 2px; padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); background: var(--color-surface-alt); border: 1px solid var(--color-border); }
+.cs-fix__side--after { background: var(--color-primary-tint); border-color: color-mix(in srgb, var(--color-primary) 25%, transparent); }
+.cs-fix__k { font: 600 0.6875rem/1.4 var(--font-code); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-faint); }
+.cs-fix__side--after .cs-fix__k { color: var(--color-primary); }
+.cs-cards > li > p.cs-fix { margin-top: auto; }
+.cs-fix code { font: 500 0.8125rem/1.4 var(--font-code); color: var(--color-ink); overflow-wrap: break-word; }
+.cs-fix small { font-size: 0.75rem; color: var(--color-ink-soft); }
+.cs-fix__arrow { align-self: center; flex: none; width: 16px; height: 16px; color: var(--color-primary); }
+
+/* Pager: the next-project card previews that project's dashboard on hover */
+.cs-page .cs-pager .cs-pager__link { position: relative; }
+.cs-pager__peek { display: none; }
+@media (hover: hover) and (min-width: 900px) {
+  .cs-page .cs-pager .cs-pager__link--next:has(.cs-pager__peek) strong { padding-right: 140px; }
+  .cs-pager__peek { display: block; position: absolute; right: 76px; top: 50%; width: 120px; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border-radius: var(--radius-sm); border: 2px solid rgba(255, 255, 255, 0.85); box-shadow: var(--shadow-md); opacity: 0; translate: 16px -50%; rotate: 4deg; transition: opacity var(--duration-base) var(--ease-out), translate var(--duration-base) var(--ease-out), rotate var(--duration-base) var(--ease-out); pointer-events: none; }
+  .cs-pager__link--next:hover .cs-pager__peek, .cs-pager__link--next:focus-visible .cs-pager__peek { opacity: 1; translate: 0 -50%; rotate: 0deg; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cs-sqltabs .cs-sql:not([hidden]) { animation: none; }
+  .cs-pager__peek { transition: opacity 1ms; translate: 0 -50%; rotate: 0deg; }
+}

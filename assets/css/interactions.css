@@ -136,3 +136,116 @@ main > section.band-navy .anchor-copy:hover, main > section.band-blue .anchor-co
   .ico-draw.is-drawn svg :is(path, circle, rect, line, polyline, polygon, ellipse) { transition: none; }
   .nav-link:hover .nav-ico :is(path, circle, rect, line, polyline) { animation: none; }
 }
+
+/* ---- 10. UI enrichment round 2 (Nov 2026): tool logos, platform logos, cert meta, journal icon ---- */
+/* Tool logos in Skills chips and Expertise tags (same SVGs as the marquee) */
+.skill-group .chip--logo::before { content: none; }
+.skill-group .chip--logo { gap: 7px; padding-left: 10px; }
+.tool-logo { width: 16px; height: 16px; flex: none; }
+.expertise__tags .tag--logo { display: inline-flex; align-items: center; gap: 6px; padding-left: 7px; }
+.expertise__tags .tool-logo { width: 14px; height: 14px; }
+
+/* Platform logo before the issuer and inside the certificate filter */
+.cert-body .cert-issuer { display: inline-flex; align-items: center; gap: 6px; padding-left: 4px; }
+.cert-issuer__logo { width: 16px; height: 16px; flex: none; border-radius: 4px; background: var(--color-surface); }
+.pub-filter__logo { width: 16px; height: 16px; flex: none; border-radius: 4px; }
+
+/* Date with a calendar icon; credential ID as a mono pill */
+.cert-date { display: flex; align-items: flex-start; gap: 6px; }
+.cert-ico { width: 14px; height: 14px; flex: none; margin-top: 2px; color: var(--accent-deep, var(--color-primary)); }
+.cert-credential { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; }
+.cert-credential__label { font-family: var(--font-body); font-size: 0.75rem; color: var(--color-ink-faint); }
+.cert-id { font-family: var(--font-code); font-size: 0.75rem; padding: 1px 6px; border-radius: var(--radius-sm); background: var(--color-surface-alt); color: var(--color-ink-soft); word-break: break-all; }
+.cert-undated { display: inline-block; padding: 1px 8px; border-radius: var(--radius-full); border: 1px solid var(--color-border); font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-ink-faint); font-style: normal; }
+
+/* Book icon before the journal name */
+.publication__meta { display: flex; align-items: flex-start; gap: 6px; }
+.publication__ico { width: 14px; height: 14px; flex: none; margin-top: 2px; color: var(--accent-deep, var(--color-primary)); }
+
+/* ---- 11. Timeline hierarchy + "Interning now" (Nov 2026) ---- */
+/* Milestones (role, project, first-author paper) take the full row; certificates shrink to compact rows. */
+@media (min-width: 700px) {
+  .timeline__item:is([data-cat="ROLE"], [data-cat="PROJECT"], .timeline__item--lead) { grid-column: 1 / -1; }
+}
+.timeline__item:is([data-cat="ROLE"], [data-cat="PROJECT"], .timeline__item--lead) { padding: var(--space-5); box-shadow: var(--shadow-md); background-image: linear-gradient(120deg, var(--accent-tint), transparent 60%); }
+.timeline__item:is([data-cat="ROLE"], [data-cat="PROJECT"], .timeline__item--lead) .timeline__icon { width: 44px; height: 44px; }
+.timeline__item:is([data-cat="ROLE"], [data-cat="PROJECT"], .timeline__item--lead) .timeline__icon svg { width: 20px; height: 20px; }
+.timeline__item:is([data-cat="ROLE"], [data-cat="PROJECT"], .timeline__item--lead) .timeline__label { font-size: 1rem; }
+.timeline__item:is([data-cat="ROLE"], [data-cat="PROJECT"], .timeline__item--lead) .timeline__label strong { font-weight: 600; }
+.timeline__item[data-cat="CERT"] { padding: var(--space-2) var(--space-3); background: transparent; box-shadow: none; border-color: transparent; border-left-width: 2px; }
+.timeline__item[data-cat="CERT"] .timeline__icon { width: 26px; height: 26px; }
+.timeline__item[data-cat="CERT"] .timeline__icon svg { width: 13px; height: 13px; }
+.timeline__item[data-cat="CERT"] .timeline__label { font-size: 0.875rem; }
+
+/* "Interning now": filled card + live dot */
+.now-item--live { background: var(--accent-tint); border-color: color-mix(in srgb, var(--accent) 30%, transparent); box-shadow: var(--shadow-md); }
+.now-item--live .now-item__status { background: var(--color-surface); }
+.now-item--live .now-item__status { display: inline-flex; align-items: center; gap: 7px; }
+.now-item--live .now-item__status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--viz-green); box-shadow: 0 0 0 0 var(--viz-green); animation: liveDot 1.8s ease-out infinite; }
+@keyframes liveDot { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--viz-green) 55%, transparent); } 100% { box-shadow: 0 0 0 8px transparent; } }
+@media (prefers-reduced-motion: reduce) { .now-item--live .now-item__status::before { animation: none; } }
+@media (min-width: 700px) { .timeline__item--fill { grid-column: 1 / -1; } }
+
+/* ==========================================================================
+   12. Nov 2026 round 5: RD monogram, SVG button arrows, tool logos in the
+       case-study hero, local time, copyable credential IDs
+   ========================================================================== */
+.navbar__wordmark, .footer__wordmark { display: inline-flex; align-items: center; gap: 10px; }
+.wordmark__mark {
+  display: inline-grid; place-items: center; flex: none;
+  width: 30px; height: 30px; border-radius: var(--radius-sm);
+  background: var(--color-primary); color: var(--color-surface);
+  font: 700 0.8125rem/1 var(--font-display); letter-spacing: 0.02em;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+.footer__wordmark .wordmark__mark { width: 34px; height: 34px; font-size: 0.875rem; }
+@media (hover: hover) { .navbar__wordmark:hover .wordmark__mark { transform: rotate(-6deg); } }
+
+.btn__arrow { width: 16px; height: 16px; flex: none; transition: transform var(--duration-fast) var(--ease-out); }
+.btn:hover .btn__arrow, .btn:focus-visible .btn__arrow { transform: translateX(3px); }
+.btn:hover .btn__arrow--out, .btn:focus-visible .btn__arrow--out { transform: translate(2px, -2px); }
+.cert-link > span[aria-hidden="true"] { display: inline-flex; align-items: center; gap: 6px; }
+.btn .ico { width: 18px; height: 18px; }
+
+.cs-hero .tool-chips .chip--logo { display: inline-flex; align-items: center; gap: 7px; }
+.cs-hero .tool-chips .tool-logo { width: 15px; height: 15px; }
+
+.contact__time { display: block; flex-basis: 100%; margin-top: 0; font: 500 0.8125rem/1.4 var(--font-code); color: var(--color-ink-faint); }
+
+button.cert-id { border: 0; cursor: copy; text-align: left; transition: background var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out); }
+button.cert-id:hover, button.cert-id:focus-visible { background: var(--color-primary-tint); color: var(--color-primary); }
+button.cert-id:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+button.cert-id.is-copied { background: var(--color-primary); color: var(--color-surface); }
+
+@media (prefers-reduced-motion: reduce) {
+  .wordmark__mark, .btn__arrow, button.cert-id { transition: none; }
+  .navbar__wordmark:hover .wordmark__mark, .btn:hover .btn__arrow, .btn:focus-visible .btn__arrow { transform: none; }
+}
+
+/* ---- 13. Nav scrollbar fix, Scholar logo file, certificate rows in the timeline ---- */
+/* .nav-panel keeps the mobile overflow-y:auto on desktop, which turns a 1px rounding overflow into a scrollbar. */
+@media (min-width: 1280px) { .nav-panel { overflow: visible; } }
+.brand-img { width: 20px; height: 20px; flex: none; display: block; }
+.timeline__item[data-cat="CERT"] {
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-gold); box-shadow: var(--shadow-sm);
+}
+.timeline__item[data-cat="CERT"] .timeline__category { padding: 1px 7px; border-radius: var(--radius-full); background: var(--color-gold-tint); color: var(--color-gold-deep); }
+.timeline__item .timeline__icon--logo { background: var(--color-surface); border: 1px solid var(--color-gold-tint); }
+.timeline__item[data-cat="CERT"] .timeline__icon--logo { width: 32px; height: 32px; }
+.timeline__icon--logo img { width: 22px; height: 22px; border-radius: 3px; display: block; }
+@media (min-width: 700px) { .timeline__item[data-cat="CERT"] + .timeline__item { margin-top: 0; } }
+
+/* ---- 14. Hero "worked with" logo row (idea from the reference sites' org strip) ---- */
+.hero__orgs { margin-top: var(--space-5); }
+.hero__orgs-label { margin: 0 0 var(--space-2); font-size: .8125rem; font-weight: 600; letter-spacing: .02em; color: var(--color-ink-soft); }
+.hero__orgs-list { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin: 0; padding: 0; }
+.hero__orgs-list li { display: grid; place-items: center; height: 44px; padding: 6px 12px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); }
+.hero__orgs-list img { display: block; height: 26px; width: auto; }
+.hero__orgs-list img[src$="myskill.webp"] { height: 32px; }
+.hero__orgs-list img[src$=".png"] { height: 24px; }
+@media (max-width: 1023px) { .hero__orgs { text-align: center; } .hero__orgs-list { justify-content: center; } }
+@media (min-width: 1024px) { .hero__orgs-list { justify-content: flex-start; } }
+@media (max-width: 479px) { .hero__orgs-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); } }
+.about__experience .card--experience + .card--experience { margin-top: var(--space-4); }

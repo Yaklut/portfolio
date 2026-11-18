@@ -91,7 +91,7 @@
       const lo = ordered.reduce((a, b) => (val(b) < val(a) ? b : a));
       const dimName = dimBtns.length ? pressed(dimBtns).textContent.trim().toLowerCase() : '';
       const metName = mb ? mb.textContent.trim().toLowerCase() : '';
-      caption.textContent = `Highest ${metName} by ${dimName}: ${hi.dataset.label} (${fmt(f, val(hi))}). `
+      caption.textContent = `Highest ${metName}${dimName ? ` by ${dimName}` : ''}: ${hi.dataset.label} (${fmt(f, val(hi))}). `
         + `Lowest: ${lo.dataset.label} (${fmt(f, val(lo))}).`;
     }
 
@@ -109,9 +109,10 @@
       sorted.forEach((r) => p.appendChild(r));
 
       const f = formats[metric];
-      const max = Math.max.apply(null, sorted.map(val).concat(0.0001));
+      const max = Math.max.apply(null, sorted.map((r) => Math.abs(val(r))).concat(0.0001));
       sorted.forEach((r, i) => {
-        r.style.setProperty('--w', ((val(r) / max) * 100).toFixed(1) + '%');
+        r.style.setProperty('--w', ((Math.abs(val(r)) / max) * 100).toFixed(1) + '%');
+        r.classList.toggle('is-neg', val(r) < 0);
         r.style.setProperty('--i', i);
         r.querySelector('.cs-irow__value').textContent = fmt(f, val(r));
         r.classList.toggle('is-dim', topN > 0 && i >= topN);
